@@ -65,9 +65,13 @@ vers `0.1.0-alpha.3` est suivie dans la
    refontes. Le travail sur la suite logique a révélé l’anomalie
    [nº 54](https://github.com/orthotypography/orthotypography/issues/54) : les règles d’espace après `?`, `!`, `:` et `;` imposent une
    espace justifiante devant un signe fermant, au détriment de l’espace
-   insécable du guillemet ; sa correction est proposée dans la PR
-   [nº 58](https://github.com/orthotypography/orthotypography/pull/58) : ces règles laissent
-   désormais l’espace devant `»`, `)`, `]` et `”` au signe fermant.
+   insécable du guillemet ; sa correction est apportée par la PR
+   [nº 58](https://github.com/orthotypography/orthotypography/pull/58), fusionnée : ces règles laissent
+   désormais l’espace devant `»`, `)`, `]` et `”` au signe fermant. Le cas
+   voisin de la virgule et du point
+   ([nº 59](https://github.com/orthotypography/orthotypography/issues/59)) fait
+   l’objet d’une correction proposée ; une ponctuation haute suivie de points de suspension,
+   combinaison que la source ne décrit pas, est seulement signalée.
 2. **Cohérence documentaire et linguistique.** Auditer les textes hors de
    `docs/`, traduire leur prose en anglais et actualiser les instructions
    devenues obsolètes. `CONTRIBUTING.md` et `RELEASING.md` sont traités dans

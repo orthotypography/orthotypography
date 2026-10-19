@@ -122,6 +122,8 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       "end of text",
       "closing sign",
+      "comma or period",
+      "suspension points (reported, not corrected)",
       "adjacent punctuation",
       "technical syntax",
       "protected content",
@@ -162,6 +164,8 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       "end of text",
       "closing sign",
+      "comma or period",
+      "suspension points (reported, not corrected)",
       "adjacent punctuation",
       "technical syntax",
       "protected content",
@@ -208,6 +212,8 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       "end of text",
       "closing sign",
+      "comma or period",
+      "suspension points (reported, not corrected)",
       "expressive sequence",
       "technical syntax",
       "protected content",
@@ -254,6 +260,8 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       "end of text",
       "closing sign",
+      "comma or period",
+      "suspension points (reported, not corrected)",
       "expressive sequence",
       "technical syntax",
       "protected content",
