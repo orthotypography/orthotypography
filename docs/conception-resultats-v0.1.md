@@ -186,7 +186,10 @@ borne par borne :
 
 - une borne située dans une pièce inchangée garde sa position source exacte ;
 - une borne `start` située dans une pièce modifiée prend le début source de
-  cette pièce, une borne `end` sa fin source.
+  cette pièce, une borne `end` sa fin source ;
+- un emplacement vide situé au bord d’une pièce inchangée se projette par cette
+  pièce, la précédente d’abord : la position qui suit un `?` garde sa position
+  exacte même si l’espace suivante a été supprimée.
 
 La plage obtenue contient toujours l’objet du diagnostic, élargie au plus petit
 changement qui l’englobe : dans `vaut 1 200 €`, le diagnostic de groupement de
