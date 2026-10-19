@@ -22,7 +22,9 @@ jobs:
   publish:
     if: vars.PUBLISH_ENABLED == 'true'
     environment: release
-    runs-on: ubuntu-latest
+    # Pinned so that a runner image change cannot alter a release; CI runs on
+    # ubuntu-latest and reveals such changes first.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
         with:
@@ -30,10 +32,11 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           registry-url: https://registry.npmjs.org
+          package-manager-cache: false
       - name: Resolve release metadata
         id: release
         run: >-

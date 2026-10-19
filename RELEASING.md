@@ -81,6 +81,11 @@ npm dist-tag rm @orthotypography/core alpha
 
 ## CI
 
+The Publish workflow runs on a pinned runner image (`ubuntu-24.04`), while CI
+uses `ubuntu-latest`, so that an image change shows up in CI before it can
+affect a release. Move the Publish workflow to a newer image only after CI has
+passed on it.
+
 The CI workflow runs the Deno checks on every pull request and push to `main`.
 JSR and npm package checks run for changes to `src/`, `deno.json`, `scripts/`,
 or the CI and Publish workflows, and on a manual CI dispatch. Documentation-only
