@@ -27,6 +27,16 @@ trusted publishing until the package's trusted publisher is updated on npm.
 Transferring or renaming the repository has the same effect on npm and also
 requires updating the linked repository in the JSR package settings.
 
+Since 2 October 2026, npm expires a trusted publisher configuration 48 hours
+after its creation unless a successful publication has validated it; a
+validated configuration does not expire. A configuration created for a renamed
+or transferred repository therefore starts unvalidated. Before a release, check
+in the npm package settings that the trusted publisher is active and matches
+this repository, workflow, and environment; if it has expired, recreate it and
+publish within 48 hours. This is what blocked the npm publication of
+`0.2.0-alpha.0` after the repository moved to the `orthotypography`
+organization.
+
 ## Preparing a release
 
 1. Open a pull request that sets the version in `deno.json`, updates the
@@ -82,6 +92,10 @@ The workflow resolves the exact version independently on JSR and npm before
 publishing. A version already present is skipped; only a missing registry is
 published. The final step waits for both registries to expose the version and
 fails if the release remains incomplete.
+
+A JSR publication can stall in `deno publish` without failing. For
+`0.2.0-alpha.0`, cancelling the run, waiting a few minutes, and rerunning it
+published to JSR; the rerun skips any registry that already has the version.
 
 To resume a partial publication, rerun the failed workflow. If the original run
 is no longer available, dispatch `Publish` manually with the existing release
