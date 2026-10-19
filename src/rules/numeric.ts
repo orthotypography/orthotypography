@@ -4,7 +4,6 @@ import type {
   Annotation,
   LogicalRun,
   NumericConstructKind,
-  RuleMode,
   RuleResult,
   RunDiagnostic,
   RunEdit,
@@ -68,7 +67,6 @@ function spacingRule(
   parse: (annotation: Annotation, text: string) => SpacedConstruct | null,
 ): RuntimeRule {
   return catalogueRule(id, (run) => {
-    const edits: RunEdit[] = [];
     const diagnostics: RunDiagnostic[] = [];
     let stretches: RunStretches | undefined;
     for (const annotation of targets(run, kind)) {
@@ -89,11 +87,11 @@ function spacingRule(
           end: construct.end,
           replacement: construct.replacement,
         };
-        edits.push(edit);
-        diagnostics.push({ ...edit, message });
+        diagnostics.push({ ...edit, message, edits: [edit] });
         continue;
       }
       const { spacing, insertion } = construct;
+      const edits: RunEdit[] = [];
       if (
         spacing.end > spacing.start && insertion.at === spacing.end &&
         stretches.indexAt(spacing.start) === stretches.indexAt(insertion.at)
@@ -113,21 +111,14 @@ function spacingRule(
           bias: insertion.bias,
         });
       }
-      diagnostics.push({ ...primary, message, related });
+      diagnostics.push({ ...primary, message, related, edits });
     }
-    return result(run.mode, edits, diagnostics);
+    return result(diagnostics);
   });
 }
 
-function result(
-  mode: RuleMode,
-  edits: readonly RunEdit[],
-  diagnostics: readonly RunDiagnostic[],
-): RuleResult {
-  return {
-    ...(mode === "fix" && edits.length > 0 ? { edits } : {}),
-    ...(diagnostics.length > 0 ? { diagnostics } : {}),
-  };
+function result(diagnostics: readonly RunDiagnostic[]): RuleResult {
+  return diagnostics.length > 0 ? { diagnostics } : {};
 }
 
 const spacedSymbol = (symbolSource: string) =>
@@ -296,6 +287,6 @@ export const DIGIT_GROUPING_RULE: RuntimeRule = catalogueRule(
         ...(related.length > 0 ? { related } : {}),
       });
     }
-    return result(run.mode, [], diagnostics);
+    return result(diagnostics);
   },
 );

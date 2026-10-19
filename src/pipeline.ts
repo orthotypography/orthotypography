@@ -17,6 +17,7 @@ import {
   RULE_PHASES,
   type RuleDiagnostic,
   type RuleMode,
+  type RunEdit,
   type RuntimeRule,
   type TextChange,
   type TextSegment,
@@ -554,16 +555,19 @@ function planRule(
   const id = rule.id;
   const layout = buildRun(segments, locale, mode, stored);
   const result = rule.apply(layout.run);
-  const edits = result.edits ?? [];
-  const annotations = result.annotations ?? [];
-  if (edits.length > 0 && mode !== "fix") {
-    throw new Error(`Rule ${id} cannot transform text in ${mode} mode`);
+  // Edits belong to the diagnostics they correct. They are validated in every
+  // mode, so that a proposal is checked whether or not it is applied, and
+  // applied only in fix mode.
+  const proposed: RunEdit[] = [];
+  for (const diagnostic of result.diagnostics ?? []) {
+    for (const edit of diagnostic.edits ?? []) proposed.push(edit);
   }
+  const annotations = result.annotations ?? [];
   if (annotations.length > 0) {
     if (rule.phase !== "classify") {
       throw new Error(`Rule ${id} annotates outside the classify phase`);
     }
-    if (edits.length > 0) {
+    if (proposed.length > 0) {
       throw new Error(`Rule ${id} cannot transform and protect in one pass`);
     }
     for (const annotation of annotations) {
@@ -583,7 +587,8 @@ function planRule(
       }
     }
   }
-  const edited = projectRunEdits(id, segments, layout, edits);
+  const projected = projectRunEdits(id, segments, layout, proposed);
+  const edited = mode === "fix" ? projected : new Map<number, FragmentEdit[]>();
   const protections = projectProtections(layout, segments, annotations);
   for (const [segmentIndex, segment] of segments.entries()) {
     plans.push(

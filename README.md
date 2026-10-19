@@ -56,9 +56,10 @@ console.log(applyTextChanges("Bonjour , monde : 25%.", result.changes));
 
 A rule is called once per pass with a read-only view of the whole logical run:
 the concatenated text of every input segment, its protected ranges, node
-boundaries, and annotations from classify rules. It returns edits and
-diagnostics in run coordinates; the pipeline validates them and projects them
-onto the input segments. Rules of other packages use IDs prefixed with `x-`.
+boundaries, and annotations from classify rules. It returns diagnostics in run
+coordinates, each carrying the edits that correct it; the pipeline validates
+those edits in every mode, applies them in `fix` mode, and projects them onto
+the input segments. Rules of other packages use IDs prefixed with `x-`.
 
 ```ts
 import { runPipeline, type RuntimeRule } from "@orthotypography/core";
@@ -69,7 +70,7 @@ const noDoubleSpace: RuntimeRule = {
   locales: ["fr-FR"],
   defaultMode: "lint",
   apply(run) {
-    const edits = [...run.text.matchAll(/ {2,}/g)]
+    const diagnostics = [...run.text.matchAll(/ {2,}/g)]
       .map((match) => ({
         start: match.index,
         end: match.index + match[0].length,
@@ -79,11 +80,9 @@ const noDoubleSpace: RuntimeRule = {
         !run.protectedRanges.some((range) =>
           range.start < end && start < range.end
         )
-      );
-    return {
-      diagnostics: edits.map((edit) => ({ ...edit, message: "Double space" })),
-      ...(run.mode === "fix" ? { edits } : {}),
-    };
+      )
+      .map((edit) => ({ ...edit, message: "Double space", edits: [edit] }));
+    return { diagnostics };
   },
 };
 
