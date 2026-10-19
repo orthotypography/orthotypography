@@ -163,8 +163,8 @@ Deno.test("atomic high-punctuation changes retain source IDs and UTF-16 coordina
 
   assert.deepEqual(fixed.segments.map(({ value }) => value), [
     "🚀 Mot",
-    "\u00a0: ",
-    "suite",
+    "\u00a0:",
+    " suite",
   ]);
   assert.deepEqual(
     fixed.changes.map(({ segmentId, start, end, ruleIds }) => ({
@@ -185,18 +185,6 @@ Deno.test("atomic high-punctuation changes retain source IDs and UTF-16 coordina
         start: 0,
         end: 0,
         ruleIds: ["punctuation.colon.nbsp-before"],
-      },
-      {
-        segmentId: "mark",
-        start: 1,
-        end: 1,
-        ruleIds: ["punctuation.colon.space-after"],
-      },
-      {
-        segmentId: "tail",
-        start: 0,
-        end: 1,
-        ruleIds: ["punctuation.colon.space-after"],
       },
     ],
   );
@@ -224,13 +212,6 @@ Deno.test("atomic high-punctuation changes retain source IDs and UTF-16 coordina
         start: 0,
         end: 0,
         related: [{ segmentId: "lead", start: 6, end: 7 }],
-      },
-      {
-        ruleId: "punctuation.colon.space-after",
-        segmentId: "mark",
-        start: 1,
-        end: 1,
-        related: [{ segmentId: "tail", start: 0, end: 1 }],
       },
     ],
   );

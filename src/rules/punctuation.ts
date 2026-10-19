@@ -21,7 +21,8 @@ import { RunStretches, spacingCharacters } from "./run-text.ts";
  * next to a mark is read within the mark's stretch, and neighboring stretches
  * are only visited to find the adjacent character or the spacing to remove at
  * a node boundary. Edits stay in the node that reported them, and text
- * inserted next to a mark stays in the mark's node.
+ * inserted next to a mark stays in the mark's node. A space that is already
+ * correct is left in its node, even a neighboring one (issue #63).
  */
 
 /** Character adjacent to a boundary, or a protected stretch in the way. */
@@ -235,6 +236,13 @@ class PunctuationScan {
     removals: readonly RunRange[] = [],
   ): void {
     this.#proposals.push({ stretch, diagnostic, own, removals });
+  }
+
+  /** Text of spacing ranges in neighboring stretches, in text order. */
+  spacingText(ranges: readonly RunRange[]): string {
+    if (ranges.length === 0) return "";
+    return [...ranges].sort((left, right) => left.start - right.start)
+      .map(({ start, end }) => this.text.slice(start, end)).join("");
   }
 
   /** Reports a diagnostic without edits, in mark order with the proposals. */
@@ -522,9 +530,11 @@ function highPunctuationBeforeRule(
       }
 
       const { removals } = inspected.preceding;
+      // A correct space is left in its node, even when it lies in a node
+      // before the sign's node (issue #63).
       if (
-        scan.text.slice(inspected.start, index) === before &&
-        removals.length === 0
+        scan.spacingText(removals) + scan.text.slice(inspected.start, index) ===
+          before
       ) continue;
       // The space before the mark stays in the mark's node.
       const edit: RunEdit = {
@@ -610,9 +620,12 @@ function highPunctuationAfterRule(
 
       const replacement = inspected.next === undefined ? "" : " ";
       const { removals } = inspected.following;
+      // A correct space is left in its node, even when it lies in a node
+      // after the sign's node (issue #63).
       if (
-        scan.text.slice(index + 1, inspected.end) === replacement &&
-        removals.length === 0
+        scan.text.slice(index + 1, inspected.end) +
+            scan.spacingText(removals) ===
+          replacement
       ) continue;
       // The space after the mark stays in the mark's node.
       const edit: RunEdit = {

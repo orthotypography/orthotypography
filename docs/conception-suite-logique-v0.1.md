@@ -131,6 +131,13 @@ mesurés sur `0.1.0-alpha.3` :
 | `Bonjour ` · `;oui` | `Bonjour` · ` ; oui` |
 | `«` · `texte»` | `« ` · `texte »` |
 
+Un blanc déjà correct n’est pas déplacé, même s’il se trouve dans un nœud
+voisin de celui du signe : `Bonjour` · ` ` · `; oui`, avec une espace fine
+insécable, ne produit aucune modification
+([nº 63](https://github.com/orthotypography/orthotypography/issues/63)). Les
+hôtes découpent eux-mêmes les nœuds, et un déplacement sans effet sur le texte
+serait proposé à chaque passe.
+
 Le blanc normalisé se limite au nœud du signe et à la portion non protégée qui
 le contient, comme dans l’implémentation par fragment : `« ` · ` texte»` donne
 `« ` · ` texte »`, l’espace ordinaire du second nœud étant conservé. Lever

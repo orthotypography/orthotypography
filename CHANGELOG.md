@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Leave a correct space next to high punctuation in its node (#63). The
+  space rules before and after `:`, `;`, `?`, and `!` moved a correct space
+  from a neighboring node into the sign's node, a change with no effect on the
+  text that hosts received again on every pass, since they split nodes on
+  their own (found in a live Google Docs run). They now propose nothing when
+  the spacing around the sign, across nodes, is already the expected one.
+  Wrong spacing split across nodes is still corrected in the sign's node.
 - Compile presets from the catalogue and match locales canonically (#23, #24;
   `docs/conception-presets-locales-v0.1.md`). `compilePreset(presetId,
   { modes })` returns the executable rules of a catalogue preset, each with the
