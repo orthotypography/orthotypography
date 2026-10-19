@@ -32,6 +32,7 @@ Deno.test("initial spacing fixes only a certain structural beginning", () => {
   assert.deepEqual(result.changes, []);
   const offset = runPipeline("  …Suite", rules, fix);
   assert.deepEqual(offset.changes, [{
+    id: "c0",
     segmentIndex: 0,
     start: 3,
     end: 3,
@@ -87,6 +88,7 @@ Deno.test("initial spacing keeps source segments and guarded UTF-16 offsets", ()
     { id: "word", value: "Suite 🚀" },
   ]);
   assert.deepEqual(result.changes, [{
+    id: "c0",
     segmentIndex: 0,
     segmentId: "ellipsis",
     start: 3,

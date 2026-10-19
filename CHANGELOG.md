@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Link diagnostics to the changes they produce (#26, third step of
+  `docs/conception-resultats-v0.1.md`). `TextChange.id` identifies each change
+  in a result. In `fix` mode, the diagnostic of an applied proposal carries
+  `changeIds`, the changes that contain its edits, and `groupId`. The new
+  `PipelineResult.groups` and `TextNodePipelineResult.groups` list the
+  proposal groups: proposals whose edits or locations overlap or touch text
+  produced by another, or whose edits the ledger merges, are accepted
+  together, and every change belongs to exactly one group. `applyTextChanges`
+  accepts changes without `id`. `ProposalGroup` is exported. Outputs are
+  otherwise unchanged; `TextChange.id` is required, which is breaking only for
+  code that builds `TextChange` objects typed as such.
 - Keep the change ledger linear when a rule makes many edits inside text
   changed by an earlier rule. Each such edit was widened to the whole changed
   piece and copied it, so N edits in one piece of length N took quadratic time

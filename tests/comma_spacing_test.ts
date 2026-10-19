@@ -98,6 +98,7 @@ Deno.test("comma spacing emits a guarded cross-segment insertion", () => {
     ["🚀 Bonjour, ", "", "monde"],
   );
   assert.deepEqual(result.changes, [{
+    id: "c0",
     segmentIndex: 0,
     segmentId: "left",
     start: 11,

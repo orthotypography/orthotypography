@@ -68,9 +68,15 @@ valeurs sans modifier les entrées.
 L’application de tous les changements à leurs valeurs sources reproduit
 exactement les `nodes` retournés par la même passe. `ruleIds` conserve, dans
 l’ordre, la provenance des règles ayant créé puis éventuellement affiné une
-même modification. Une règle tierce ancienne qui ne décrit pas ses éditions
-atomiques reste prise en charge, mais produit un remplacement conservateur du
-fragment entier.
+même modification.
+
+Chaque changement porte un identifiant `id`, propre au résultat ; les
+diagnostics des propositions appliquées y renvoient par `changeIds`, et
+`groups` réunit les propositions qui doivent être acceptées ensemble. Une
+intégration qui n’accepte qu’une partie d’une passe applique des groupes
+entiers, jamais des changements isolés, puis relance la passe sur le document
+mis à jour ; les adaptateurs qui appliquent tout ou rien peuvent ignorer ces
+champs.
 
 Une règle peut produire une transaction couvrant plusieurs segments de la
 même suite logique. Le pipeline évalue d’abord la règle contre un instantané

@@ -1,5 +1,6 @@
 import type {
   ChangeSet,
+  ProposalGroup,
   RuleDiagnostic,
   RuleMode,
   RuntimeRule,
@@ -30,6 +31,7 @@ export interface TextNodePipelineResult extends ChangeSet {
   readonly value: string;
   readonly nodes: readonly TextNodeOutput[];
   readonly changes: readonly TextChange[];
+  readonly groups: readonly ProposalGroup[];
   readonly diagnostics: readonly RuleDiagnostic[];
   readonly appliedRuleIds: readonly string[];
 }
@@ -72,6 +74,7 @@ export function runTextNodePipeline(
     value: result.value,
     nodes: output,
     changes: result.changes,
+    groups: result.groups,
     diagnostics: result.diagnostics,
     appliedRuleIds: result.appliedRuleIds,
   };

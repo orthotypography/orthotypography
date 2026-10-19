@@ -14,6 +14,7 @@ import {
   type Annotation,
   type DiagnosticLocation,
   type PipelineResult,
+  type ProposalGroup,
   RULE_PHASES,
   type RuleDiagnostic,
   type RuleMode,
@@ -38,6 +39,133 @@ interface LedgerPiece {
   readonly sourceStart: number;
   readonly sourceEnd: number;
   readonly ruleIds: readonly string[];
+  /**
+   * Provenance token of a changed piece (see `Provenance`), or -1 for an
+   * unchanged piece. Always present, so that every piece has the same shape.
+   */
+  readonly token: number;
+}
+
+/** Disjoint sets over dense integer keys, with path halving and union by size. */
+class DisjointSets {
+  readonly #parent: number[] = [];
+  readonly #size: number[] = [];
+
+  add(): number {
+    const key = this.#parent.length;
+    this.#parent.push(key);
+    this.#size.push(1);
+    return key;
+  }
+
+  find(key: number): number {
+    const parent = this.#parent;
+    while (parent[key] !== key) {
+      parent[key] = parent[parent[key]];
+      key = parent[key];
+    }
+    return key;
+  }
+
+  union(left: number, right: number): void {
+    let a = this.find(left);
+    let b = this.find(right);
+    if (a === b) return;
+    if (this.#size[a] < this.#size[b]) [a, b] = [b, a];
+    this.#parent[b] = a;
+    this.#size[a] += this.#size[b];
+  }
+}
+
+/**
+ * Links between applied proposals, changed ledger pieces, and diagnostics.
+ *
+ * Each changed piece carries a token. Changed pieces are never split, only
+ * merged, so the token sets of `pieces` map one to one to the changed pieces of
+ * the final ledger. `proposals` holds the proposal groups. Both structures
+ * grow with each applied edit and merge in near-constant time, so tracking
+ * provenance keeps the pass linear.
+ */
+class Provenance {
+  readonly pieces = new DisjointSets();
+  readonly proposals = new DisjointSets();
+  /** Proposal that created each token. */
+  readonly tokenProposal: number[] = [];
+  /** Index of each proposal's diagnostic in the result. */
+  readonly proposalDiagnostic: number[] = [];
+  /**
+   * Tokens created by the edits of each proposal, as linked lists in flat
+   * arrays: the head entry of each proposal, then each entry's token and next
+   * entry (-1 ends a list). Most proposals have one token, so this avoids one
+   * array per proposal.
+   */
+  readonly #head: number[] = [];
+  readonly #entryToken: number[] = [];
+  readonly #entryNext: number[] = [];
+
+  addProposal(diagnosticIndex: number): number {
+    const key = this.proposals.add();
+    this.proposalDiagnostic.push(diagnosticIndex);
+    this.#head.push(-1);
+    return key;
+  }
+
+  /** Token of a piece produced by one edit of one or two proposals. */
+  addToken(proposal: number, mergedProposal: number): number {
+    if (proposal < 0) throw new Error("Edit without a proposal");
+    const token = this.pieces.add();
+    this.tokenProposal.push(proposal);
+    this.#addEntry(proposal, token);
+    if (mergedProposal >= 0) {
+      this.#addEntry(mergedProposal, token);
+      this.proposals.union(proposal, mergedProposal);
+    }
+    return token;
+  }
+
+  /** Records that the edit of a proposal also produced a piece. */
+  attach(token: number, proposal: number, mergedProposal: number): void {
+    for (const key of [proposal, mergedProposal]) {
+      if (key < 0) continue;
+      this.#addEntry(key, token);
+      this.proposals.union(key, this.tokenProposal[token]);
+    }
+  }
+
+  #addEntry(proposal: number, token: number): void {
+    this.#entryToken.push(token);
+    this.#entryNext.push(this.#head[proposal]);
+    this.#head[proposal] = this.#entryToken.length - 1;
+  }
+
+  /** Calls `visit` with each token created by a proposal. */
+  forEachToken(proposal: number, visit: (token: number) => void): void {
+    for (
+      let entry = this.#head[proposal];
+      entry >= 0;
+      entry = this.#entryNext[entry]
+    ) visit(this.#entryToken[entry]);
+  }
+
+  /** Records that two changed pieces became one. */
+  merge(left: number, right: number): void {
+    this.pieces.union(left, right);
+    this.proposals.union(this.tokenProposal[left], this.tokenProposal[right]);
+  }
+
+  /** Records that a proposal touches a changed piece. */
+  link(proposal: number, token: number): void {
+    this.proposals.union(proposal, this.tokenProposal[token]);
+  }
+}
+
+/** Edit applied to a source ledger, in ledger coordinates. */
+interface LedgerEdit extends FragmentEdit {
+  /**
+   * For an edit combining several edits of one rule: the edits after the
+   * first, whose proposals the combined edit also carries.
+   */
+  readonly parts?: readonly FragmentEdit[];
 }
 
 interface ChangeLedger {
@@ -69,7 +197,10 @@ function mergeRuleIds(pieces: readonly LedgerPiece[]): readonly string[] {
   return [...ids];
 }
 
-function coalesceLedgerPieces(pieces: readonly LedgerPiece[]): LedgerPiece[] {
+function coalesceLedgerPieces(
+  pieces: readonly LedgerPiece[],
+  provenance: Provenance,
+): LedgerPiece[] {
   const result: LedgerPiece[] = [];
   for (const piece of pieces) {
     const previous = result.at(-1);
@@ -81,11 +212,13 @@ function coalesceLedgerPieces(pieces: readonly LedgerPiece[]): LedgerPiece[] {
       previous !== undefined && previous.sourceEnd === piece.sourceStart &&
       (bothUnchanged || bothChanged)
     ) {
+      if (bothChanged) provenance.merge(previous.token, piece.token);
       result[result.length - 1] = {
         value: previous.value + piece.value,
         sourceStart: previous.sourceStart,
         sourceEnd: piece.sourceEnd,
         ruleIds: bothChanged ? mergeRuleIds([previous, piece]) : [],
+        token: bothChanged ? previous.token : -1,
       };
     } else {
       result.push(piece);
@@ -94,10 +227,13 @@ function coalesceLedgerPieces(pieces: readonly LedgerPiece[]): LedgerPiece[] {
   return result;
 }
 
+/** Replacement of a range, without provenance. */
+type RangeEdit = Omit<FragmentEdit, "proposal" | "mergedProposal">;
+
 function expandChangedBoundaries(
   pieces: readonly LedgerPiece[],
-  edit: FragmentEdit,
-): FragmentEdit {
+  edit: RangeEdit,
+): RangeEdit {
   let offset = 0;
   let start = edit.start;
   let end = edit.end;
@@ -142,11 +278,13 @@ function splitUnchangedPieceAt(
         sourceStart: piece.sourceStart,
         sourceEnd: sourceMiddle,
         ruleIds: [],
+        token: -1,
       }, {
         value: piece.value.slice(local),
         sourceStart: sourceMiddle,
         sourceEnd: piece.sourceEnd,
         ruleIds: [],
+        token: -1,
       });
       return;
     }
@@ -199,7 +337,7 @@ function combineEditsInChangedPieces(
   pieces: readonly LedgerPiece[],
   offsets: readonly number[],
   edits: readonly FragmentEdit[],
-): FragmentEdit[] {
+): LedgerEdit[] {
   const ordered = [...edits].sort((a, b) => a.start - b.start || a.end - b.end);
   // Index of the piece that contains a position strictly, or -1.
   const containing = (position: number): number => {
@@ -225,7 +363,7 @@ function combineEditsInChangedPieces(
       : position;
   };
 
-  const combined: FragmentEdit[] = [];
+  const combined: LedgerEdit[] = [];
   let text: string | undefined;
   let index = 0;
   while (index < ordered.length) {
@@ -252,6 +390,9 @@ function combineEditsInChangedPieces(
         start: ordered[index].start,
         end: ordered[last].end,
         replacement: parts.join(""),
+        proposal: ordered[index].proposal,
+        mergedProposal: ordered[index].mergedProposal,
+        parts: ordered.slice(index + 1, last + 1),
       });
     }
     index = last + 1;
@@ -271,8 +412,9 @@ function combineEditsInChangedPieces(
  */
 function applyLedgerEdits(
   ledger: ChangeLedger,
-  edits: readonly FragmentEdit[],
+  edits: readonly LedgerEdit[],
   ruleId: string,
+  provenance: Provenance,
 ): void {
   if (edits.length === 0) return;
   const left = ledger.pieces;
@@ -340,15 +482,23 @@ function applyLedgerEdits(
         sourceEnd = Math.max(sourceEnd, piece.sourceEnd);
       }
     }
+    const token = provenance.addToken(edit.proposal, edit.mergedProposal);
+    for (const part of edit.parts ?? []) {
+      provenance.attach(token, part.proposal, part.mergedProposal);
+    }
+    for (const piece of removed) {
+      if (piece.token >= 0) provenance.merge(token, piece.token);
+    }
     window.splice(startIndex, endIndex - startIndex, {
       value: local.replacement,
       sourceStart,
       sourceEnd,
       ruleIds: addRuleIds(removed, ruleId),
+      token,
     });
     length += local.replacement.length - (local.end - local.start);
 
-    const merged = coalesceLedgerPieces(window);
+    const merged = coalesceLedgerPieces(window, provenance);
     for (let index = merged.length - 1; index >= 0; index--) {
       right.push(merged[index]);
     }
@@ -383,11 +533,16 @@ function applyEdits(
   return parts.join("");
 }
 
-function ledgerChanges(ledgers: readonly ChangeLedger[]): TextChange[] {
+/** Final source changes, each with the provenance token of its piece. */
+function ledgerChanges(
+  ledgers: readonly ChangeLedger[],
+): { readonly changes: TextChange[]; readonly tokens: number[] } {
   const changes: TextChange[] = [];
+  const tokens: number[] = [];
   for (let segmentIndex = 0; segmentIndex < ledgers.length; segmentIndex++) {
     const ledger = ledgers[segmentIndex];
     const segmentChanges: TextChange[] = [];
+    const segmentTokens: number[] = [];
     for (const piece of ledger.pieces) {
       if (piece.ruleIds.length === 0) continue;
       const expected = ledger.source.value.slice(
@@ -395,7 +550,12 @@ function ledgerChanges(ledgers: readonly ChangeLedger[]): TextChange[] {
         piece.sourceEnd,
       );
       if (expected === piece.value) continue;
+      if (piece.token < 0) {
+        throw new Error(`Changed piece without provenance in ${segmentIndex}`);
+      }
+      segmentTokens.push(piece.token);
       segmentChanges.push({
+        id: `c${changes.length + segmentChanges.length}`,
         segmentIndex,
         ...(ledger.source.id === undefined
           ? {}
@@ -433,8 +593,114 @@ function ledgerChanges(ledgers: readonly ChangeLedger[]): TextChange[] {
       throw new Error(`Source changes diverged for segment ${segmentIndex}`);
     }
     for (const change of segmentChanges) changes.push(change);
+    for (const token of segmentTokens) tokens.push(token);
   }
-  return changes;
+  return { changes, tokens };
+}
+
+/**
+ * Proposal groups of a pass, and the group and changes of each applied
+ * proposal's diagnostic.
+ *
+ * Groups are numbered in the order of their first proposal, which is the order
+ * of their first diagnostic. Every change belongs to the group of the proposals
+ * that produced its piece, so iterating changes in order lists each group's
+ * changes in result order without deduplication.
+ */
+function proposalGroups(
+  provenance: Provenance,
+  changes: readonly TextChange[],
+  tokens: readonly number[],
+  diagnostics: RuleDiagnostic[],
+): ProposalGroup[] {
+  const proposalCount = provenance.proposalDiagnostic.length;
+  const groupOfRoot = new Int32Array(proposalCount).fill(-1);
+  const groupOf = new Int32Array(proposalCount);
+  const groupDiagnostics: number[][] = [];
+  for (let proposal = 0; proposal < proposalCount; proposal++) {
+    const root = provenance.proposals.find(proposal);
+    let group = groupOfRoot[root];
+    if (group < 0) {
+      group = groupDiagnostics.length;
+      groupOfRoot[root] = group;
+      groupDiagnostics.push([]);
+    }
+    groupOf[proposal] = group;
+    groupDiagnostics[group].push(provenance.proposalDiagnostic[proposal]);
+  }
+
+  const groupChanges: string[][] = groupDiagnostics.map(() => []);
+  const changeOfPiece = new Int32Array(provenance.tokenProposal.length).fill(
+    -1,
+  );
+  for (let index = 0; index < tokens.length; index++) {
+    const token = tokens[index];
+    changeOfPiece[provenance.pieces.find(token)] = index;
+    groupChanges[groupOf[provenance.tokenProposal[token]]].push(
+      changes[index].id,
+    );
+  }
+
+  // A proposal whose edit crosses many segments has one change per segment;
+  // the last proposal that listed each change keeps the collection linear.
+  const own: number[] = [];
+  const listedBy = new Int32Array(changes.length).fill(-1);
+  let current = -1;
+  const collect = (token: number): void => {
+    const change = changeOfPiece[provenance.pieces.find(token)];
+    if (change >= 0 && listedBy[change] !== current) {
+      listedBy[change] = current;
+      own.push(change);
+    }
+  };
+  for (let proposal = 0; proposal < proposalCount; proposal++) {
+    own.length = 0;
+    current = proposal;
+    provenance.forEachToken(proposal, collect);
+    if (own.length > 1) own.sort((left, right) => left - right);
+    const index = provenance.proposalDiagnostic[proposal];
+    const diagnostic = diagnostics[index] as {
+      -readonly [Key in keyof RuleDiagnostic]: RuleDiagnostic[Key];
+    };
+    diagnostic.groupId = `g${groupOf[proposal]}`;
+    diagnostic.changeIds = own.map((change) => changes[change].id);
+  }
+
+  return groupDiagnostics.map((members, group) => ({
+    id: `g${group}`,
+    changeIds: groupChanges[group],
+    diagnostics: members,
+  }));
+}
+
+/**
+ * Links a proposal to every changed piece that overlaps or touches a ledger
+ * range, before its rule's edits are applied.
+ */
+function linkTouchingPieces(
+  pieces: readonly LedgerPiece[],
+  start: number,
+  end: number,
+  proposal: number,
+  provenance: Provenance,
+): void {
+  const offsets = pieceOffsets(pieces);
+  // First piece that ends at or after the range start.
+  let low = 0;
+  let high = pieces.length;
+  while (low < high) {
+    const middle = (low + high) >>> 1;
+    if (offsets[middle + 1] >= start) high = middle;
+    else low = middle + 1;
+  }
+  for (
+    let index = low;
+    index < pieces.length && offsets[index] <= end;
+    index++
+  ) {
+    const token = pieces[index].token;
+    if (token >= 0) provenance.link(proposal, token);
+  }
 }
 
 function phaseIndex(rule: RuntimeRule): number {
@@ -649,6 +915,8 @@ interface FragmentPlan {
 /** Diagnostic located on runtime fragments, before source projection. */
 interface LocatedDiagnostic {
   readonly location: FragmentLocation;
+  /** Provenance key of an applied proposal, or -1. */
+  readonly proposal: number;
   readonly message: string;
   readonly replacement?: string;
   readonly related?: readonly FragmentLocation[];
@@ -663,16 +931,28 @@ function planRule(
   stored: readonly Annotation[],
   plans: (FragmentPlan | undefined)[],
   diagnostics: LocatedDiagnostic[],
+  provenance: Provenance,
+  diagnosticBase: number,
 ): readonly Annotation[] {
   const id = rule.id;
   const layout = buildRun(segments, locale, mode, stored);
   const result = rule.apply(layout.run);
   // Edits belong to the diagnostics they correct. They are validated in every
   // mode, so that a proposal is checked whether or not it is applied, and
-  // applied only in fix mode.
+  // applied only in fix mode, where each proposal receives a provenance key.
   const proposed: RunEdit[] = [];
-  for (const diagnostic of result.diagnostics ?? []) {
-    for (const edit of diagnostic.edits ?? []) proposed.push(edit);
+  const proposalOf: number[] = [];
+  const keys: (number | undefined)[] = [];
+  for (const [index, diagnostic] of (result.diagnostics ?? []).entries()) {
+    const edits = diagnostic.edits ?? [];
+    const key = mode === "fix" && edits.length > 0
+      ? provenance.addProposal(diagnosticBase + index)
+      : undefined;
+    keys.push(key);
+    for (const edit of edits) {
+      proposed.push(edit);
+      proposalOf.push(key ?? -1);
+    }
   }
   const annotations = result.annotations ?? [];
   if (annotations.length > 0) {
@@ -699,7 +979,13 @@ function planRule(
       }
     }
   }
-  const projected = projectRunEdits(id, segments, layout, proposed);
+  const projected = projectRunEdits(
+    id,
+    segments,
+    layout,
+    proposed,
+    proposalOf,
+  );
   const edited = mode === "fix" ? projected : new Map<number, FragmentEdit[]>();
   const protections = projectProtections(layout, segments, annotations);
   for (const [segmentIndex, segment] of segments.entries()) {
@@ -710,9 +996,11 @@ function planRule(
       },
     );
   }
-  for (const diagnostic of result.diagnostics ?? []) {
+  for (const [index, diagnostic] of (result.diagnostics ?? []).entries()) {
+    const key = keys[index];
     diagnostics.push({
       location: locateInFragment(id, segments, layout, diagnostic),
+      proposal: key ?? -1,
       message: diagnostic.message,
       ...(diagnostic.replacement === undefined
         ? {}
@@ -834,10 +1122,12 @@ export function runPipeline(
       sourceStart: 0,
       sourceEnd: source.value.length,
       ruleIds: [],
+      token: -1,
     }],
   }));
   const diagnostics: RuleDiagnostic[] = [];
   const appliedRuleIds: string[] = [];
+  const provenance = new Provenance();
   const orderedRules = compilePipeline(runtimeRules);
   // Annotations of classify rules, kept in current run coordinates.
   let annotations: Annotation[] = [];
@@ -860,11 +1150,13 @@ export function runPipeline(
       annotations,
       plans,
       ruleDiagnostics,
+      provenance,
+      diagnostics.length,
     );
 
     const nextSegments: PipelineSegment[] = [];
     const runtimeOffsets = fragmentOffsets(segments);
-    const ledgerEdits = new Map<number, FragmentEdit[]>();
+    const ledgerEdits = new Map<number, LedgerEdit[]>();
     const locate = (location: FragmentLocation) =>
       diagnosticLocation(
         location,
@@ -884,6 +1176,9 @@ export function runPipeline(
         ...(diagnostic.related === undefined ? {} : {
           related: diagnostic.related.map(locate),
         }),
+        // Filled in once the pass is complete; created here so that the
+        // object keeps its shape.
+        ...(diagnostic.proposal < 0 ? {} : { groupId: "", changeIds: [] }),
       });
     };
     const runChanges: RunChange[] = [];
@@ -919,6 +1214,8 @@ export function runPipeline(
             start: nodeOffset + edit.start,
             end: nodeOffset + edit.end,
             replacement: edit.replacement,
+            proposal: edit.proposal,
+            mergedProposal: edit.mergedProposal,
           });
         }
         ledgerEdits.set(segment.sourceIndex, sourceEdits);
@@ -929,8 +1226,34 @@ export function runPipeline(
       ) nextSegments.push(fragment);
     }
     for (const diagnostic of ruleDiagnostics) report(diagnostic);
+    // A proposal joins the group of every earlier change that its location or
+    // its edits overlap or touch.
+    for (const { location, proposal } of ruleDiagnostics) {
+      if (proposal < 0) continue;
+      const segment = segments[location.segmentIndex];
+      const offset = runtimeOffsets[location.segmentIndex];
+      linkTouchingPieces(
+        ledgers[segment.sourceIndex].pieces,
+        offset + location.start,
+        offset + location.end,
+        proposal,
+        provenance,
+      );
+    }
     for (const [sourceIndex, edits] of ledgerEdits) {
-      applyLedgerEdits(ledgers[sourceIndex], edits, rule.id);
+      // The proposals of one edit are already in one group.
+      for (const edit of edits) {
+        linkTouchingPieces(
+          ledgers[sourceIndex].pieces,
+          edit.start,
+          edit.end,
+          edit.proposal,
+          provenance,
+        );
+      }
+    }
+    for (const [sourceIndex, edits] of ledgerEdits) {
+      applyLedgerEdits(ledgers[sourceIndex], edits, rule.id, provenance);
     }
     const reconstructed = sourceSegments.map(() => [] as string[]);
     for (const segment of nextSegments) {
@@ -963,6 +1286,8 @@ export function runPipeline(
     }
   }
 
+  const { changes, tokens } = ledgerChanges(ledgers);
+  const groups = proposalGroups(provenance, changes, tokens, diagnostics);
   return {
     value: segments.map((segment) => segment.value).join(""),
     segments: segments.map(({ id, value, protected: isProtected }) => ({
@@ -970,7 +1295,8 @@ export function runPipeline(
       value,
       ...(isProtected === undefined ? {} : { protected: isProtected }),
     })),
-    changes: ledgerChanges(ledgers),
+    changes,
+    groups,
     diagnostics,
     appliedRuleIds,
   };

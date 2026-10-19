@@ -13,6 +13,11 @@
           ["punctuation.comma.no-space-before",0,39,41,","],
           ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "single/lint": {
@@ -34,6 +39,11 @@
           ["punctuation.comma.no-space-before",0,39,41,","],
           ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "segmented/default": {
@@ -47,6 +57,11 @@
           ["punctuation.comma.no-space-before",2,0,1,","],
           ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "segmented/lint": {
@@ -68,6 +83,11 @@
           ["punctuation.comma.no-space-before",2,0,1,","],
           ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       }
     },
@@ -83,6 +103,11 @@
           ["punctuation.comma.no-space-before",0,39,41,","],
           ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "single/lint": {
@@ -104,6 +129,11 @@
           ["punctuation.comma.no-space-before",0,39,41,","],
           ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "segmented/default": {
@@ -117,6 +147,11 @@
           ["punctuation.comma.no-space-before",2,0,1,","],
           ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "segmented/lint": {
@@ -138,6 +173,11 @@
           ["punctuation.comma.no-space-before",2,0,1,","],
           ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       }
     }
@@ -168,6 +208,16 @@
           ["punctuation.question.space-after",0,32,32," "],
           ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
           ["punctuation.exclamation.space-after",0,123,123," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7","c2"],
+          ["2","c5"],
+          ["3 9","c7"],
+          ["4","c3"],
+          ["5","c4"],
+          ["6","c1"],
+          ["8","c6"]
         ]
       },
       "single/lint": {
@@ -208,6 +258,16 @@
           ["punctuation.question.space-after",0,32,32," "],
           ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
           ["punctuation.exclamation.space-after",0,123,123," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7","c2"],
+          ["2","c5"],
+          ["3 9","c7"],
+          ["4","c3"],
+          ["5","c4"],
+          ["6","c1"],
+          ["8","c6"]
         ]
       },
       "segmented/default": {
@@ -233,6 +293,16 @@
           ["punctuation.question.space-after",1,19,19," "],
           ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
           ["punctuation.exclamation.space-after",5,14,14," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7","c2"],
+          ["2","c5"],
+          ["3 9","c7"],
+          ["4","c3"],
+          ["5","c4"],
+          ["6","c1"],
+          ["8","c6"]
         ]
       },
       "segmented/lint": {
@@ -273,6 +343,16 @@
           ["punctuation.question.space-after",1,19,19," "],
           ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
           ["punctuation.exclamation.space-after",5,14,14," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7","c2"],
+          ["2","c5"],
+          ["3 9","c7"],
+          ["4","c3"],
+          ["5","c4"],
+          ["6","c1"],
+          ["8","c6"]
         ]
       }
     },
@@ -301,6 +381,16 @@
           ["punctuation.question.space-after",0,32,32," "],
           ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
           ["punctuation.exclamation.space-after",0,123,123," "]
+        ],
+        "groups": [
+          ["1","c0"],
+          ["2 8","c2"],
+          ["3","c5"],
+          ["4 10","c7"],
+          ["5","c3"],
+          ["6","c4"],
+          ["7","c1"],
+          ["9","c6"]
         ]
       },
       "single/lint": {
@@ -344,6 +434,17 @@
           ["punctuation.question.space-after",0,32,32," "],
           ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
           ["punctuation.exclamation.space-after",0,123,123," "]
+        ],
+        "groups": [
+          ["0","c3"],
+          ["1","c0"],
+          ["2 8","c2"],
+          ["3","c6"],
+          ["4 10","c8"],
+          ["5","c4"],
+          ["6","c5"],
+          ["7","c1"],
+          ["9","c7"]
         ]
       },
       "segmented/default": {
@@ -370,6 +471,16 @@
           ["punctuation.question.space-after",1,19,19," "],
           ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
           ["punctuation.exclamation.space-after",5,14,14," "]
+        ],
+        "groups": [
+          ["1","c0"],
+          ["2 8","c2"],
+          ["3","c5"],
+          ["4 10","c7"],
+          ["5","c3"],
+          ["6","c4"],
+          ["7","c1"],
+          ["9","c6"]
         ]
       },
       "segmented/lint": {
@@ -413,6 +524,17 @@
           ["punctuation.question.space-after",1,19,19," "],
           ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
           ["punctuation.exclamation.space-after",5,14,14," "]
+        ],
+        "groups": [
+          ["0","c3"],
+          ["1","c0"],
+          ["2 8","c2"],
+          ["3","c6"],
+          ["4 10","c8"],
+          ["5","c4"],
+          ["6","c5"],
+          ["7","c1"],
+          ["9","c7"]
         ]
       }
     }
@@ -429,6 +551,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",0,52,52," "],
           ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "single/lint": {
@@ -447,6 +573,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",0,52,52," "],
           ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/default": {
@@ -458,6 +588,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",2,9,9," "],
           ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/lint": {
@@ -476,6 +610,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",2,9,9," "],
           ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       }
     },
@@ -489,6 +627,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",0,52,52," "],
           ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "single/lint": {
@@ -507,6 +649,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",0,52,52," "],
           ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/default": {
@@ -518,6 +664,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",2,9,9," "],
           ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/lint": {
@@ -536,6 +686,10 @@
         "diagnostics": [
           ["punctuation.comma.space-after",2,9,9," "],
           ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       }
     }
@@ -554,6 +708,11 @@
           ["punctuation.comma.no-space-before",0,78,80,","],
           ["punctuation.comma.no-space-before",0,96,98,","],
           ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"]
         ]
       },
       "single/lint": {
@@ -575,6 +734,11 @@
           ["punctuation.comma.no-space-before",0,78,80,","],
           ["punctuation.comma.no-space-before",0,96,98,","],
           ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"]
         ]
       },
       "segmented/default": {
@@ -588,6 +752,11 @@
           ["punctuation.comma.no-space-before",3,6,8,","],
           ["punctuation.comma.no-space-before",4,0,1,","],
           ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"]
         ]
       },
       "segmented/lint": {
@@ -609,6 +778,11 @@
           ["punctuation.comma.no-space-before",3,6,8,","],
           ["punctuation.comma.no-space-before",4,0,1,","],
           ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"]
         ]
       }
     },
@@ -625,6 +799,11 @@
           ["punctuation.comma.no-space-before",0,96,98,","],
           ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
           ["punctuation.ellipsis.initial.space-after",0,0,1]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"]
         ]
       },
       "single/lint": {
@@ -649,6 +828,12 @@
           ["punctuation.comma.no-space-before",0,96,98,","],
           ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
           ["punctuation.ellipsis.initial.space-after",0,0,1]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c3"],
+          ["2","c1"],
+          ["3","c0"]
         ]
       },
       "segmented/default": {
@@ -663,6 +848,11 @@
           ["punctuation.comma.no-space-before",4,0,1,","],
           ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
           ["punctuation.ellipsis.initial.space-after",0,0,1]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"]
         ]
       },
       "segmented/lint": {
@@ -687,6 +877,12 @@
           ["punctuation.comma.no-space-before",4,0,1,","],
           ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
           ["punctuation.ellipsis.initial.space-after",0,0,1]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c3"],
+          ["2","c1"],
+          ["3","c0"]
         ]
       }
     }
@@ -712,6 +908,14 @@
           ["punctuation.period.no-space-before",0,83,85,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       },
       "single/lint": {
@@ -744,6 +948,14 @@
           ["punctuation.period.no-space-before",0,83,85,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       },
       "segmented/default": {
@@ -764,6 +976,14 @@
           ["punctuation.period.no-space-before",4,10,12,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       },
       "segmented/lint": {
@@ -796,6 +1016,14 @@
           ["punctuation.period.no-space-before",4,10,12,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       }
     },
@@ -818,6 +1046,14 @@
           ["punctuation.period.no-space-before",0,83,85,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       },
       "single/lint": {
@@ -850,6 +1086,14 @@
           ["punctuation.period.no-space-before",0,83,85,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       },
       "segmented/default": {
@@ -870,6 +1114,14 @@
           ["punctuation.period.no-space-before",4,10,12,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       },
       "segmented/lint": {
@@ -902,6 +1154,14 @@
           ["punctuation.period.no-space-before",4,10,12,"."],
           ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
           ["punctuation.exclamation.space-after",0,15,16," "]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1 7",""],
+          ["2","c2"],
+          ["3 5","c4"],
+          ["4","c3"],
+          ["6","c1"]
         ]
       }
     }
@@ -927,6 +1187,14 @@
           ["punctuation.question.space-after",0,74,76," "],
           ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
           ["punctuation.exclamation.space-after",0,94,94," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1 6","c5"],
+          ["2","c0"],
+          ["3","c2"],
+          ["4","c3"],
+          ["5","c4"]
         ]
       },
       "single/lint": {
@@ -959,6 +1227,14 @@
           ["punctuation.question.space-after",0,74,76," "],
           ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
           ["punctuation.exclamation.space-after",0,94,94," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1 6","c5"],
+          ["2","c0"],
+          ["3","c2"],
+          ["4","c3"],
+          ["5","c4"]
         ]
       },
       "segmented/default": {
@@ -979,6 +1255,14 @@
           ["punctuation.question.space-after",3,10,12," "],
           ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
           ["punctuation.exclamation.space-after",4,12,12," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1 6","c5"],
+          ["2","c0"],
+          ["3","c2"],
+          ["4","c3"],
+          ["5","c4"]
         ]
       },
       "segmented/lint": {
@@ -1011,6 +1295,14 @@
           ["punctuation.question.space-after",3,10,12," "],
           ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
           ["punctuation.exclamation.space-after",4,12,12," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1 6","c5"],
+          ["2","c0"],
+          ["3","c2"],
+          ["4","c3"],
+          ["5","c4"]
         ]
       }
     },
@@ -1034,6 +1326,14 @@
           ["punctuation.question.space-after",0,74,76," "],
           ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
           ["punctuation.exclamation.space-after",0,94,94," "]
+        ],
+        "groups": [
+          ["1","c1"],
+          ["2 7","c5"],
+          ["3","c0"],
+          ["4","c2"],
+          ["5","c3"],
+          ["6","c4"]
         ]
       },
       "single/lint": {
@@ -1069,6 +1369,15 @@
           ["punctuation.question.space-after",0,74,76," "],
           ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
           ["punctuation.exclamation.space-after",0,94,94," "]
+        ],
+        "groups": [
+          ["0","c6"],
+          ["1","c1"],
+          ["2 7","c5"],
+          ["3","c0"],
+          ["4","c2"],
+          ["5","c3"],
+          ["6","c4"]
         ]
       },
       "segmented/default": {
@@ -1090,6 +1399,14 @@
           ["punctuation.question.space-after",3,10,12," "],
           ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
           ["punctuation.exclamation.space-after",4,12,12," "]
+        ],
+        "groups": [
+          ["1","c1"],
+          ["2 7","c5"],
+          ["3","c0"],
+          ["4","c2"],
+          ["5","c3"],
+          ["6","c4"]
         ]
       },
       "segmented/lint": {
@@ -1125,6 +1442,15 @@
           ["punctuation.question.space-after",3,10,12," "],
           ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
           ["punctuation.exclamation.space-after",4,12,12," "]
+        ],
+        "groups": [
+          ["0","c6"],
+          ["1","c1"],
+          ["2 7","c5"],
+          ["3","c0"],
+          ["4","c2"],
+          ["5","c3"],
+          ["6","c4"]
         ]
       }
     }
@@ -1139,6 +1465,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1154,6 +1483,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/default": {
@@ -1163,6 +1495,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1178,6 +1513,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       }
     },
@@ -1189,6 +1527,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1204,6 +1545,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/default": {
@@ -1213,6 +1557,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1228,6 +1575,9 @@
         ],
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       }
     }
@@ -1242,6 +1592,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1257,6 +1610,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/default": {
@@ -1266,6 +1622,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1281,6 +1640,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       }
     },
@@ -1292,6 +1654,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1307,6 +1672,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/default": {
@@ -1316,6 +1684,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1331,6 +1702,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       }
     }
@@ -1347,6 +1721,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "single/lint": {
@@ -1365,6 +1743,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/default": {
@@ -1376,6 +1758,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/lint": {
@@ -1394,6 +1780,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       }
     },
@@ -1407,6 +1797,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "single/lint": {
@@ -1425,6 +1819,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/default": {
@@ -1436,6 +1834,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       },
       "segmented/lint": {
@@ -1454,6 +1856,10 @@
         "diagnostics": [
           ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
           ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"]
         ]
       }
     }
@@ -1468,6 +1874,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1483,6 +1892,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/default": {
@@ -1492,6 +1904,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1507,6 +1922,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       }
     },
@@ -1518,6 +1936,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1533,6 +1954,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/default": {
@@ -1542,6 +1966,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1557,6 +1984,9 @@
         ],
         "diagnostics": [
           ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       }
     }
@@ -1644,6 +2074,14 @@
           ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
           ["punctuation.exclamation.space-after",0,71,71," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       },
       "single/lint": {
@@ -1674,6 +2112,14 @@
           ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
           ["punctuation.exclamation.space-after",0,71,71," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       },
       "segmented/default": {
@@ -1693,6 +2139,14 @@
           ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
           ["punctuation.exclamation.space-after",2,16,16," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       },
       "segmented/lint": {
@@ -1723,6 +2177,14 @@
           ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
           ["punctuation.exclamation.space-after",2,16,16," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       }
     },
@@ -1744,6 +2206,14 @@
           ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
           ["punctuation.exclamation.space-after",0,71,71," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       },
       "single/lint": {
@@ -1774,6 +2244,14 @@
           ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
           ["punctuation.exclamation.space-after",0,71,71," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       },
       "segmented/default": {
@@ -1793,6 +2271,14 @@
           ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
           ["punctuation.exclamation.space-after",2,16,16," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       },
       "segmented/lint": {
@@ -1823,6 +2309,14 @@
           ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
           ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
           ["punctuation.exclamation.space-after",2,16,16," "]
+        ],
+        "groups": [
+          ["0","c1"],
+          ["1","c2"],
+          ["2","c0"],
+          ["3","c3"],
+          ["4","c4"],
+          ["5","c5"]
         ]
       }
     }
@@ -1840,6 +2334,9 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
           ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1864,6 +2361,12 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
           ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c3"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c2"]
         ]
       },
       "segmented/default": {
@@ -1876,6 +2379,9 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",1,11,15],
           ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1901,6 +2407,12 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",1,11,15],
           ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c4"],
+          ["1","c0"],
+          ["2","c1 c2"],
+          ["3","c3"]
         ]
       }
     },
@@ -1915,6 +2427,9 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
           ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -1939,6 +2454,12 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
           ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c3"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c2"]
         ]
       },
       "segmented/default": {
@@ -1951,6 +2472,9 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",1,11,15],
           ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -1976,6 +2500,12 @@
           ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
           ["number.unit.nbsp-before",1,11,15],
           ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
+        ],
+        "groups": [
+          ["0","c4"],
+          ["1","c0"],
+          ["2","c1 c2"],
+          ["3","c3"]
         ]
       }
     }
@@ -1996,6 +2526,12 @@
           ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
           ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
           ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "single/lint": {
@@ -2020,6 +2556,12 @@
           ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
           ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
           ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "segmented/default": {
@@ -2037,6 +2579,12 @@
           ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
           ["number.percent.nbsp-before",1,10,14],
           ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c3 c4"],
+          ["1","c0"],
+          ["2","c1 c2"],
+          ["3","c5"]
         ]
       },
       "segmented/lint": {
@@ -2063,6 +2611,12 @@
           ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
           ["number.percent.nbsp-before",1,10,14],
           ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c3 c4"],
+          ["1","c0"],
+          ["2","c1 c2"],
+          ["3","c5"]
         ]
       }
     },
@@ -2080,6 +2634,12 @@
           ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
           ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
           ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "single/lint": {
@@ -2104,6 +2664,12 @@
           ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
           ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
           ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "segmented/default": {
@@ -2121,6 +2687,12 @@
           ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
           ["number.percent.nbsp-before",1,10,14],
           ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c3 c4"],
+          ["1","c0"],
+          ["2","c1 c2"],
+          ["3","c5"]
         ]
       },
       "segmented/lint": {
@@ -2147,6 +2719,12 @@
           ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
           ["number.percent.nbsp-before",1,10,14],
           ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
+        ],
+        "groups": [
+          ["0","c3 c4"],
+          ["1","c0"],
+          ["2","c1 c2"],
+          ["3","c5"]
         ]
       }
     }
@@ -2164,6 +2742,9 @@
           ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
           ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
           ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -2188,6 +2769,12 @@
           ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
           ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
           ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "segmented/default": {
@@ -2200,6 +2787,9 @@
           ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
           ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
           ["number.euro.nbsp-before",3,20,22]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -2224,6 +2814,12 @@
           ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
           ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
           ["number.euro.nbsp-before",3,20,22]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       }
     },
@@ -2239,6 +2835,9 @@
           ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
           ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"],
           ["number.digits.grouping",0,75,80]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -2265,6 +2864,12 @@
           ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
           ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"],
           ["number.digits.grouping",0,75,82]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "segmented/default": {
@@ -2278,6 +2883,9 @@
           ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
           ["number.euro.nbsp-before",3,20,22],
           ["number.digits.grouping",3,20,22]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -2304,6 +2912,12 @@
           ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
           ["number.euro.nbsp-before",3,20,22],
           ["number.digits.grouping",3,20,22]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       }
     }
@@ -2320,6 +2934,9 @@
           ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
           ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
           ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -2341,6 +2958,11 @@
           ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
           ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
           ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "segmented/default": {
@@ -2352,6 +2974,9 @@
           ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
           ["number.unit.nbsp-before",2,25,29],
           ["number.unit.nbsp-before",3,16,20]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -2375,6 +3000,11 @@
           ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
           ["number.unit.nbsp-before",2,25,29],
           ["number.unit.nbsp-before",3,16,20]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1 c2"],
+          ["2","c3 c4"]
         ]
       }
     },
@@ -2388,6 +3018,9 @@
           ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
           ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
           ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -2409,6 +3042,11 @@
           ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
           ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
           ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1"],
+          ["2","c2"]
         ]
       },
       "segmented/default": {
@@ -2420,6 +3058,9 @@
           ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
           ["number.unit.nbsp-before",2,25,29],
           ["number.unit.nbsp-before",3,16,20]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "segmented/lint": {
@@ -2443,6 +3084,11 @@
           ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
           ["number.unit.nbsp-before",2,25,29],
           ["number.unit.nbsp-before",3,16,20]
+        ],
+        "groups": [
+          ["0","c0"],
+          ["1","c1 c2"],
+          ["2","c3 c4"]
         ]
       }
     }
@@ -2460,6 +3106,9 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
           ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -2484,6 +3133,12 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
           ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "segmented/default": {
@@ -2497,6 +3152,9 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
           ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c0 c1"]
         ]
       },
       "segmented/lint": {
@@ -2522,6 +3180,12 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
           ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c2 c3"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c4"]
         ]
       }
     },
@@ -2536,6 +3200,9 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
           ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c0"]
         ]
       },
       "single/lint": {
@@ -2560,6 +3227,12 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
           ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c2"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c3"]
         ]
       },
       "segmented/default": {
@@ -2573,6 +3246,9 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
           ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c0 c1"]
         ]
       },
       "segmented/lint": {
@@ -2598,6 +3274,12 @@
           ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
           ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
           ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
+        ],
+        "groups": [
+          ["0","c2 c3"],
+          ["1","c0"],
+          ["2","c1"],
+          ["3","c4"]
         ]
       }
     }

@@ -39,6 +39,7 @@ Deno.test("text changes reconstruct multiple source segments", () => {
 
 Deno.test("text changes reject stale, mismatched, and protected sources", () => {
   const change: TextChange = {
+    id: "c0",
     segmentIndex: 0,
     segmentId: "node",
     start: 1,
@@ -71,6 +72,7 @@ Deno.test("text changes reject stale, mismatched, and protected sources", () => 
 
 Deno.test("text changes reject invalid ranges and overlaps", () => {
   const base = {
+    id: "c0",
     segmentIndex: 0,
     start: 0,
     end: 1,

@@ -1,8 +1,11 @@
 import type { TextChange, TextSegment } from "./model.ts";
 
+/** Change accepted by `applyTextChanges`; its identifier is not required. */
+type GuardedChange = Omit<TextChange, "id">;
+
 function validateChange(
   segments: readonly TextSegment[],
-  change: TextChange,
+  change: GuardedChange,
 ): void {
   if (!Number.isInteger(change.segmentIndex)) {
     throw new Error(`Invalid change segment index: ${change.segmentIndex}`);
@@ -33,7 +36,7 @@ function validateChange(
 
 function applySegmentChanges(
   value: string,
-  changes: readonly TextChange[],
+  changes: readonly GuardedChange[],
   segmentIndex: number,
 ): string {
   const ordered = [...changes].sort((left, right) =>
@@ -58,24 +61,24 @@ function applySegmentChanges(
 /** Applies guarded source-coordinate changes to one string. */
 export function applyTextChanges(
   source: string,
-  changes: readonly TextChange[],
+  changes: readonly GuardedChange[],
 ): string;
 
 /** Applies guarded source-coordinate changes to their source segments. */
 export function applyTextChanges(
   source: readonly TextSegment[],
-  changes: readonly TextChange[],
+  changes: readonly GuardedChange[],
 ): readonly TextSegment[];
 
 export function applyTextChanges(
   source: string | readonly TextSegment[],
-  changes: readonly TextChange[],
+  changes: readonly GuardedChange[],
 ): string | readonly TextSegment[] {
   const stringInput = typeof source === "string";
   const segments: readonly TextSegment[] = stringInput
     ? [{ value: source }]
     : source;
-  const bySegment = new Map<number, TextChange[]>();
+  const bySegment = new Map<number, GuardedChange[]>();
 
   for (const change of changes) {
     validateChange(segments, change);
