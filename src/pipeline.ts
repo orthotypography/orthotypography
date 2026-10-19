@@ -183,13 +183,91 @@ function sourcePositionAt(
 }
 
 /**
+ * Combines the edits of one rule that fall in the same changed piece.
+ *
+ * An edit with a bound strictly inside a changed piece is widened to the whole
+ * piece. Applied one by one, N edits inside one piece of length N would each
+ * copy the piece, at a quadratic cost. Edits whose widened ranges overlap are
+ * therefore combined first into one edit, from the start of the first to the
+ * end of the last, whose replacement keeps the ledger text between them. The
+ * combined edit is widened once and gives the same pieces as the sequence of
+ * edits, in time linear in the edits and the text they span.
+ *
+ * Edits use the ledger coordinates that precede the rule and do not overlap.
+ */
+function combineEditsInChangedPieces(
+  pieces: readonly LedgerPiece[],
+  offsets: readonly number[],
+  edits: readonly FragmentEdit[],
+): FragmentEdit[] {
+  const ordered = [...edits].sort((a, b) => a.start - b.start || a.end - b.end);
+  // Index of the piece that contains a position strictly, or -1.
+  const containing = (position: number): number => {
+    let low = 0;
+    let high = pieces.length - 1;
+    while (low < high) {
+      const middle = (low + high + 1) >>> 1;
+      if (offsets[middle] < position) low = middle;
+      else high = middle - 1;
+    }
+    return offsets[low] < position && position < offsets[low + 1] ? low : -1;
+  };
+  const widenedStart = (position: number): number => {
+    const index = containing(position);
+    return index >= 0 && pieces[index].ruleIds.length > 0
+      ? offsets[index]
+      : position;
+  };
+  const widenedEnd = (position: number): number => {
+    const index = containing(position);
+    return index >= 0 && pieces[index].ruleIds.length > 0
+      ? offsets[index + 1]
+      : position;
+  };
+
+  const combined: FragmentEdit[] = [];
+  let text: string | undefined;
+  let index = 0;
+  while (index < ordered.length) {
+    let last = index;
+    let reach = widenedEnd(ordered[index].end);
+    while (
+      last + 1 < ordered.length && widenedStart(ordered[last + 1].start) < reach
+    ) {
+      last++;
+      reach = Math.max(reach, widenedEnd(ordered[last].end));
+    }
+    if (last === index) {
+      combined.push(ordered[index]);
+    } else {
+      text ??= pieces.map(({ value }) => value).join("");
+      const parts: string[] = [ordered[index].replacement];
+      for (let next = index + 1; next <= last; next++) {
+        parts.push(
+          text.slice(ordered[next - 1].end, ordered[next].start),
+          ordered[next].replacement,
+        );
+      }
+      combined.push({
+        start: ordered[index].start,
+        end: ordered[last].end,
+        replacement: parts.join(""),
+      });
+    }
+    index = last + 1;
+  }
+  return combined;
+}
+
+/**
  * Applies one rule's edits to a source ledger.
  *
- * Edits use the ledger coordinates that precede the rule. They are applied from
- * right to left with the same expansion, splitting, and coalescing as single
- * edits, but each one only rewrites the window of pieces around it. Positions
- * left of the current edit are therefore never recomputed, and the cost stays
- * linear in the number of edits and pieces.
+ * Edits use the ledger coordinates that precede the rule. Edits in the same
+ * changed piece are combined first (see `combineEditsInChangedPieces`). They
+ * are then applied from right to left with the same expansion, splitting, and
+ * coalescing as single edits, but each one only rewrites the window of pieces
+ * around it. Positions left of the current edit are therefore never
+ * recomputed, and the cost stays linear in the number of edits and pieces.
  */
 function applyLedgerEdits(
   ledger: ChangeLedger,
@@ -208,8 +286,10 @@ function applyLedgerEdits(
   const right: LedgerPiece[] = [];
   let length = offsets[leftCount];
 
-  for (const edit of [...edits].sort((a, b) => b.start - a.start)) {
-    validateRange(edit.start, edit.end, length, "edit");
+  for (const edit of edits) validateRange(edit.start, edit.end, length, "edit");
+  const combined = combineEditsInChangedPieces(left, offsets, edits);
+  for (let editIndex = combined.length - 1; editIndex >= 0; editIndex--) {
+    const edit = combined[editIndex];
 
     // Pieces that contain or follow the edit start, then the left neighbour.
     const window: LedgerPiece[] = [];

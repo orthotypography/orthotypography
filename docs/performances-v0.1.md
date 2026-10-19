@@ -252,3 +252,28 @@ mesure ainsi toutes les règles exécutables :
 
 Toutes les lignes croissent d’un facteur 1,7 à 2,7 par doublement ; aucune règle
 livrée ne reste quadratique sur ces entrées.
+
+## Éditions dans une pièce déjà modifiée
+
+Une édition dont une borne tombe strictement à l’intérieur d’une pièce déjà
+modifiée du journal est élargie à toute la pièce. Appliquées une à une, N
+éditions d’une même règle dans une pièce de longueur N recopiaient chacune la
+pièce : le coût devenait quadratique. Aucune règle livrée ne produit ce cas sur
+les entrées de mesure, mais une règle externe qui affine le texte produit par
+une autre peut le faire. `applyLedgerEdits` réunit désormais d’abord les
+éditions dont les plages élargies se recouvrent en une seule édition, qui
+conserve le texte situé entre elles ; le résultat est identique (comparaison
+octet par octet avec la version précédente sur 4 574 128 exécutions, dont
+80 000 avec des règles aléatoires empilées).
+
+`deno task bench --scaling` mesure ce cas avec deux règles externes : la
+première réécrit chaque caractère, si bien que ses éditions forment une seule
+pièce modifiée ; la seconde réécrit à nouveau chaque caractère de cette pièce.
+
+| Entrée                                    | 31 250 |  62 500 |  125 000 |   250 000 |
+| ----------------------------------------- | -----: | ------: | -------: | --------: |
+| avant, éditions dans une pièce modifiée   | 149 ms |  446 ms | 1 201 ms | 10 826 ms |
+| après, éditions dans une pièce modifiée   | 137 ms |  158 ms |   393 ms |    837 ms |
+
+Les autres lignes de `--scaling` sont inchangées, à la variation de mesure près
+(facteur 1,3 à 2,6 par doublement).

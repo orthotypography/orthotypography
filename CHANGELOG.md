@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Keep the change ledger linear when a rule makes many edits inside text
+  changed by an earlier rule. Each such edit was widened to the whole changed
+  piece and copied it, so N edits in one piece of length N took quadratic time
+  (10.8 s instead of 0.8 s at 250,000 characters). Edits whose widened ranges
+  overlap are now combined into one edit first; outputs are unchanged.
+  `deno task bench --scaling` measures this case with two external rules.
 - **Breaking:** diagnostics are always located in the input segments (#26,
   second step of `docs/conception-resultats-v0.1.md`). `coordinateSpace` and
   `segmentRevision` are removed from `DiagnosticLocation`; `segmentIndex` always
