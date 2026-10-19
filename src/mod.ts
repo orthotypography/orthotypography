@@ -41,6 +41,7 @@ export type {
   NumericConstructDisposition,
   NumericConstructKind,
   PipelineResult,
+  ProposalGroup,
   RuleDiagnostic,
   RuleMode,
   RulePhase,

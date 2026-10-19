@@ -99,6 +99,7 @@ Deno.test("the etc. rule reports changes in original UTF-16 coordinates", () => 
   });
 
   assert.deepEqual(result.changes, [{
+    id: "c0",
     segmentIndex: 0,
     start: 7,
     end: 8,

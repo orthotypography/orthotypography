@@ -75,6 +75,7 @@ Deno.test("glyph fix retains all segment identities and emits guarded UTF-16 cha
   ]);
   assert.deepEqual(result.changes, [
     {
+      id: "c0",
       segmentIndex: 0,
       segmentId: "lead",
       start: 9,
@@ -84,6 +85,7 @@ Deno.test("glyph fix retains all segment identities and emits guarded UTF-16 cha
       ruleIds: ["punctuation.ellipsis.glyph"],
     },
     {
+      id: "c1",
       segmentIndex: 1,
       segmentId: "middle",
       start: 0,
@@ -93,6 +95,7 @@ Deno.test("glyph fix retains all segment identities and emits guarded UTF-16 cha
       ruleIds: ["punctuation.ellipsis.glyph"],
     },
     {
+      id: "c2",
       segmentIndex: 2,
       segmentId: "tail",
       start: 0,

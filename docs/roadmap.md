@@ -54,7 +54,7 @@ vers `0.1.0-alpha.3` est suivie dans la
    séparation des définitions ([nº 21](https://github.com/orthotypography/orthotypography/issues/21), [nº 22](https://github.com/orthotypography/orthotypography/issues/22),
    [nº 25](https://github.com/orthotypography/orthotypography/issues/25)), presets compilés et locales ([nº 23](https://github.com/orthotypography/orthotypography/issues/23),
    [nº 24](https://github.com/orthotypography/orthotypography/issues/24)), diagnostics porteurs de corrections, erreurs et messages
-   codés ([nº 26](https://github.com/orthotypography/orthotypography/issues/26), [nº 27](https://github.com/orthotypography/orthotypography/issues/27) ; la nº 26 fait l’objet d’une [conception](conception-resultats-v0.1.md) à valider), matrice générée ([nº 28](https://github.com/orthotypography/orthotypography/issues/28)).
+   codés ([nº 26](https://github.com/orthotypography/orthotypography/issues/26), [nº 27](https://github.com/orthotypography/orthotypography/issues/27) ; la nº 26 suit une [conception](conception-resultats-v0.1.md) en quatre étapes : modifications portées par les diagnostics et emplacements toujours sources, fusionnés (PR [nº 52](https://github.com/orthotypography/orthotypography/pull/52) et [nº 53](https://github.com/orthotypography/orthotypography/pull/53)) ; identifiants de changements et groupes de propositions, proposés ; mode `review` et propositions écartées, à venir), matrice générée ([nº 28](https://github.com/orthotypography/orthotypography/issues/28)).
    Les ruptures d’API sont à regrouper dans une ligne `0.2` coordonnée avec les
    intégrations ; la [conception de l’exécution sur la suite logique](conception-suite-logique-v0.1.md)
    fixe le contrat commun aux issues nº 21, 22 et 25 ; ses étapes 1 à 4 sont achevées (PR [nº 41](https://github.com/orthotypography/orthotypography/pull/41), [nº 43](https://github.com/orthotypography/orthotypography/pull/43), [nº 45](https://github.com/orthotypography/orthotypography/pull/45), [nº 47](https://github.com/orthotypography/orthotypography/pull/47), [nº 48](https://github.com/orthotypography/orthotypography/pull/48), [nº 49](https://github.com/orthotypography/orthotypography/pull/49) et [nº 50](https://github.com/orthotypography/orthotypography/pull/50)) ; l’interface publique des règles change en conséquence pour la ligne `0.2`, que les intégrations devront adopter, et `deno task bench --scaling` vérifie que la croissance reste linéaire ; la version `0.2.0` suivra les étapes 3 et 5 de la revue. Le
@@ -62,7 +62,10 @@ vers `0.1.0-alpha.3` est suivie dans la
    invariants sur entrées générées, instantanés d’un corpus et
    [mesures de référence](performances-v0.1.md). Il a révélé les anomalies
    [nº 30](https://github.com/orthotypography/orthotypography/issues/30), [nº 31](https://github.com/orthotypography/orthotypography/issues/31) et [nº 32](https://github.com/orthotypography/orthotypography/issues/32), à corriger avant les
-   refontes.
+   refontes. Le travail sur la suite logique a révélé l’anomalie
+   [nº 54](https://github.com/orthotypography/orthotypography/issues/54) : les règles d’espace après `?`, `!`, `:` et `;` imposent une
+   espace justifiante devant un signe fermant, au détriment de l’espace
+   insécable du guillemet.
 2. **Cohérence documentaire et linguistique.** Auditer les textes hors de
    `docs/`, traduire leur prose en anglais et actualiser les instructions
    devenues obsolètes. `CONTRIBUTING.md` et `RELEASING.md` sont traités dans

@@ -46,10 +46,16 @@ const result = runPipeline(
 console.log(result.value);
 // "Bonjour, monde\u00a0: 25\u00a0%."
 
-// In fix mode, source-coordinate changes can be applied individually by
-// editors while preserving stable rule provenance.
+// Changes are in source coordinates and keep their rule provenance. To accept
+// only part of a pass, apply whole proposal groups: every change belongs to
+// exactly one group.
 console.log(result.changes);
-console.log(applyTextChanges("Bonjour , monde : 25%.", result.changes));
+const accepted = new Set(result.groups[0].changeIds);
+console.log(applyTextChanges(
+  "Bonjour , monde : 25%.",
+  result.changes.filter(({ id }) => accepted.has(id)),
+));
+// "Bonjour, monde : 25%."
 ```
 
 ## Writing a rule

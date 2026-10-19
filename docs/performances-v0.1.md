@@ -277,3 +277,32 @@ pièce modifiée ; la seconde réécrit à nouveau chaque caractère de cette pi
 
 Les autres lignes de `--scaling` sont inchangées, à la variation de mesure près
 (facteur 1,3 à 2,6 par doublement).
+
+## Groupes de propositions
+
+L’étape 3 de la [conception des résultats](conception-resultats-v0.1.md) suit
+la provenance de chaque proposition appliquée : un jeton par pièce modifiée du
+journal et deux structures union-find, sur les pièces et sur les propositions.
+Les pièces modifiées ne se divisent jamais, elles fusionnent seulement ; chaque
+fusion coûte un temps quasi constant et la passe reste linéaire. Le surcoût
+tient surtout à la construction du résultat, plus riche : un identifiant par
+changement, un groupe, un tableau `changeIds` par proposition.
+
+Comparaison alternée en mode `fix` avec la version précédente (médianes de dix
+exécutions, environ 125 000 caractères) :
+
+| Entrée                                        | Avant  | Après  | Rapport |
+| --------------------------------------------- | -----: | -----: | ------: |
+| corpus, un segment                            |  42 ms |  42 ms |    1,00 |
+| corpus, un nœud par mot                       | 560 ms | 576 ms |    1,03 |
+| nombres denses                                | 329 ms | 356 ms |    1,08 |
+| virgules dans un seul jeton (62 500 propositions) | 311 ms | 435 ms |    1,40 |
+| ponctuation haute espacée (31 250 propositions)   | 159 ms | 225 ms |    1,42 |
+
+Sur un texte courant, le surcoût reste dans la variation de mesure ; il atteint
+environ 40 % quand une proposition est appliquée tous les deux à quatre
+caractères. Toutes les lignes de `deno task bench --scaling` restent entre 1,4
+et 2,8 par doublement. Deux cas extrêmes restent linéaires jusqu’à 400 000
+caractères : une proposition dont l’édition couvre autant de nœuds d’un
+caractère (un changement par nœud), et des propositions fusionnées en un seul
+changement par une seconde règle (facteur 1,9 à 2,4 par doublement).

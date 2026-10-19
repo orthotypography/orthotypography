@@ -240,7 +240,8 @@ remplace par une espace insécable l’espace ordinaire avant `»`, puis la règ
 d’espace après `!` la remet. Les deux propositions sont réunies par contiguïté ;
 il ne reste aucun changement, et le groupe a une liste `changeIds` vide. Le
 contrat l’admet : l’hôte peut présenter ces diagnostics comme contradictoires.
-Ce cas précis est un défaut des règles de ponctuation, à corriger séparément.
+Ce cas précis est un défaut des règles de ponctuation, à corriger séparément
+([issue nº 54](https://github.com/orthotypography/orthotypography/issues/54)).
 
 ## 8. Modes
 

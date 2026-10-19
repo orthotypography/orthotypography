@@ -98,6 +98,30 @@ export interface RuleDiagnostic extends DiagnosticLocation {
   readonly message: string;
   readonly replacement?: string;
   readonly related?: readonly DiagnosticLocation[];
+  /** For an applied proposal: the group that accepts it. */
+  readonly groupId?: string;
+  /**
+   * For an applied proposal: IDs of the result changes that contain its
+   * edits, in result order. Empty when later edits cancelled them.
+   */
+  readonly changeIds?: readonly string[];
+}
+
+/**
+ * Applied proposals that must be accepted together.
+ *
+ * Two proposals share a group when the edits or the location of one overlap or
+ * touch text produced by the other when its rule runs, or when the change
+ * ledger merges their edits into one change. Every change belongs to exactly
+ * one group, so any union of groups applies without conflict.
+ */
+export interface ProposalGroup {
+  /** Identifier, stable within one result. */
+  readonly id: string;
+  /** Changes to apply together; empty when the edits cancel each other. */
+  readonly changeIds: readonly string[];
+  /** Indexes of the group's diagnostics in `diagnostics`. */
+  readonly diagnostics: readonly number[];
 }
 
 /** Half-open range in logical-run coordinates (UTF-16 code units). */
@@ -195,6 +219,8 @@ export interface RuntimeRule {
 
 /** One non-overlapping replacement expressed against an input source segment. */
 export interface TextChange {
+  /** Identifier, stable within one result. */
+  readonly id: string;
   readonly segmentIndex: number;
   readonly segmentId?: string;
   readonly start: number;
@@ -216,6 +242,8 @@ export interface PipelineResult extends ChangeSet {
   readonly segments: readonly TextSegment[];
   /** Applied fixes projected back into stable source coordinates. */
   readonly changes: readonly TextChange[];
+  /** Groups of applied proposals, ordered by their first diagnostic. */
+  readonly groups: readonly ProposalGroup[];
   readonly diagnostics: readonly RuleDiagnostic[];
   readonly appliedRuleIds: readonly string[];
 }

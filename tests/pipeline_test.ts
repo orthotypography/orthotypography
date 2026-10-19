@@ -64,6 +64,7 @@ Deno.test("the pipeline preserves protected segments", () => {
   assert.equal(result.value, "Bonjour monde  code  ");
   assert.deepEqual(result.appliedRuleIds, ["x-test.cleanup"]);
   assert.deepEqual(result.changes, [{
+    id: "c0",
     segmentIndex: 0,
     start: 7,
     end: 9,
@@ -98,6 +99,7 @@ Deno.test("changes compose rule provenance in source coordinates", () => {
 
   assert.equal(result.value, "xz");
   assert.deepEqual(result.changes, [{
+    id: "c0",
     segmentIndex: 0,
     start: 0,
     end: 1,

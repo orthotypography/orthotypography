@@ -52,6 +52,13 @@ function compact(result: PipelineResult, mode: Mode): unknown {
       diagnostic.end,
       ...(diagnostic.replacement === undefined ? [] : [diagnostic.replacement]),
     ]),
+    // Each group as its diagnostic indexes and its change IDs.
+    ...(result.groups.length === 0 ? {} : {
+      groups: result.groups.map((group) => [
+        group.diagnostics.join(" "),
+        group.changeIds.join(" "),
+      ]),
+    }),
   };
 }
 

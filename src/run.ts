@@ -24,6 +24,14 @@ export interface FragmentRange {
 /** Edit local to one pipeline fragment. */
 export interface FragmentEdit extends FragmentRange {
   readonly replacement: string;
+  /** Pipeline key of the proposal of this edit, or -1. */
+  readonly proposal: number;
+  /**
+   * Key of a second proposal, or -1: an insertion followed by an edit at the
+   * same position of one fragment becomes one fragment edit, which therefore
+   * carries at most two proposals.
+   */
+  readonly mergedProposal: number;
 }
 
 /** Location local to one pipeline fragment. */
@@ -284,10 +292,12 @@ export function projectRunEdits(
   fragments: readonly RunFragment[],
   layout: RunLayout,
   edits: readonly RunEdit[],
+  /** Proposal key of each edit, by index; -1 or absent for none. */
+  proposalOf: readonly number[] = [],
 ): Map<number, FragmentEdit[]> {
   const { starts, run } = layout;
-  const ordered = [...edits].sort((left, right) =>
-    left.start - right.start || left.end - right.end
+  const order = edits.map((_, index) => index).sort((left, right) =>
+    edits[left].start - edits[right].start || edits[left].end - edits[right].end
   );
   const projected = new Map<number, FragmentEdit[]>();
   const add = (index: number, edit: FragmentEdit): void => {
@@ -303,6 +313,8 @@ export function projectRunEdits(
         start: edit.start,
         end: edit.end,
         replacement: last.replacement + edit.replacement,
+        proposal: last.proposal,
+        mergedProposal: edit.proposal,
       };
     } else {
       list.push(edit);
@@ -310,7 +322,9 @@ export function projectRunEdits(
     projected.set(index, list);
   };
 
-  for (const [position, edit] of ordered.entries()) {
+  for (let position = 0; position < order.length; position++) {
+    const edit = edits[order[position]];
+    const proposal = proposalOf[order[position]] ?? -1;
     if (
       !Number.isInteger(edit.start) || !Number.isInteger(edit.end) ||
       edit.start < 0 || edit.end < edit.start || edit.end > run.text.length
@@ -319,7 +333,7 @@ export function projectRunEdits(
         `Rule ${ruleId} returned an invalid edit range: ${edit.start}:${edit.end}`,
       );
     }
-    const previous = ordered[position - 1];
+    const previous = position > 0 ? edits[order[position - 1]] : undefined;
     if (
       previous !== undefined &&
       (edit.start < previous.end ||
@@ -344,7 +358,13 @@ export function projectRunEdits(
         throw new Error(`Rule ${ruleId} inserts next to protected text`);
       }
       const local = edit.start - starts[index];
-      add(index, { start: local, end: local, replacement: edit.replacement });
+      add(index, {
+        start: local,
+        end: local,
+        replacement: edit.replacement,
+        proposal,
+        mergedProposal: -1,
+      });
       continue;
     }
 
@@ -366,6 +386,8 @@ export function projectRunEdits(
         start,
         end,
         replacement: index === receiver ? edit.replacement : "",
+        proposal,
+        mergedProposal: -1,
       });
     }
   }

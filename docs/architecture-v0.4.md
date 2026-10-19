@@ -53,10 +53,21 @@ Les corrections suivent un contrat distinct. Une passe qui transforme le texte
 retourne des `TextChange` non chevauchants, toujours projetés sur les segments
 sources. Le pipeline compose les éditions atomiques successives dans un journal
 et conserve leurs `ruleIds`. `expected` permet à une intégration de refuser un
-changement si le document a évolué depuis son analyse. La
-[conception des diagnostics reliés à leurs changements](conception-resultats-v0.1.md)
-propose de supprimer l’espace `runtime` et de relier chaque diagnostic aux
-changements qui le corrigent.
+changement si le document a évolué depuis son analyse.
+
+Chaque changement porte un identifiant `id`, propre au résultat. Un diagnostic
+dont les modifications ont été appliquées (une proposition) désigne par
+`changeIds` les changements qui les contiennent, et par `groupId` son groupe de
+propositions (`groups`). Deux propositions partagent un groupe quand les
+modifications ou l’emplacement de l’une recoupent ou touchent un texte produit
+par l’autre au moment où sa règle s’exécute, ou quand le journal fusionne leurs
+modifications dans un même changement. Chaque changement appartient à un seul
+groupe, de sorte que toute réunion de groupes s’applique sans conflit. Le
+journal suit cette provenance par deux structures union-find, sur les pièces
+modifiées et sur les propositions, ce qui garde la passe linéaire
+([conception des diagnostics reliés à leurs changements](conception-resultats-v0.1.md),
+§ 7). En mode `lint`, et pour les propositions non appliquées d’une règle en
+mode `lint` dans le mode par défaut, il n’y a ni groupe ni changement.
 
 Les éditions d’une même règle forment une transaction sur l’instantané courant
 de la suite logique. Elles peuvent viser plusieurs segments non protégés ; le

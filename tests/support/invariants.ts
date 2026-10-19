@@ -17,7 +17,10 @@ import {
   UNIT_SPACING_RULE,
 } from "../../src/mod.ts";
 import type { RuntimeRule } from "../../src/model.ts";
-import type { TextNodeInput } from "../../src/integration.ts";
+import type {
+  TextNodeInput,
+  TextNodePipelineResult,
+} from "../../src/integration.ts";
 
 /** A named rule composition checked by the invariant harness. */
 export interface Composition {
@@ -112,6 +115,70 @@ function runOrReport(
 }
 
 /**
+ * Proposal-group invariants of one fix result (design of #26, § 5): every
+ * change belongs to exactly one group, groups and diagnostics agree, a group's
+ * changes are those of its proposals, and unions of groups apply.
+ */
+function groupViolations(
+  nodes: readonly TextNodeInput[],
+  result: TextNodePipelineResult,
+): string[] {
+  const violations: string[] = [];
+  const owner = new Map<string, string>();
+  for (const group of result.groups) {
+    for (const id of group.changeIds) {
+      if (owner.has(id)) violations.push(`change ${id} is in two groups`);
+      owner.set(id, group.id);
+    }
+    const fromProposals = new Set<string>();
+    for (const index of group.diagnostics) {
+      const diagnostic = result.diagnostics[index];
+      if (diagnostic?.groupId !== group.id) {
+        violations.push(`diagnostic ${index} is not marked as in ${group.id}`);
+      }
+      for (const id of diagnostic?.changeIds ?? []) fromProposals.add(id);
+    }
+    if (
+      JSON.stringify([...fromProposals].sort()) !==
+        JSON.stringify([...group.changeIds].sort())
+    ) {
+      violations.push(`group ${group.id} changes differ from its proposals`);
+    }
+  }
+  for (const change of result.changes) {
+    if (!owner.has(change.id)) {
+      violations.push(`change ${change.id} has no group`);
+    }
+  }
+  const listed = new Set(
+    result.groups.flatMap(({ diagnostics }) => diagnostics),
+  );
+  for (const [index, diagnostic] of result.diagnostics.entries()) {
+    if ((diagnostic.groupId !== undefined) !== listed.has(index)) {
+      violations.push(`diagnostic ${index} and the groups disagree`);
+    }
+  }
+  // Each group alone, and every other group, must apply on the source nodes.
+  const subsets = [
+    ...result.groups.map((group) => [group]),
+    result.groups.filter((_, index) => index % 2 === 0),
+  ];
+  for (const subset of subsets) {
+    const ids = new Set(subset.flatMap(({ changeIds }) => changeIds));
+    try {
+      applyTextChanges(nodes, result.changes.filter(({ id }) => ids.has(id)));
+    } catch (error) {
+      violations.push(
+        `groups ${subset.map(({ id }) => id).join("+")} do not apply: ${
+          error instanceof Error ? error.message : error
+        }`,
+      );
+    }
+  }
+  return violations;
+}
+
+/**
  * Checks the pipeline invariants of one composition on one logical text run.
  *
  * Returns human-readable violations instead of asserting, so that the harness
@@ -130,6 +197,14 @@ export function checkInvariants(
     const lint = runTextNodePipeline(nodes, rules, { locale, mode: "lint" });
     if (lint.value !== sourceText || lint.changes.length > 0) {
       violations.push(`lint mode changed the text of ${input}`);
+    }
+    if (
+      lint.groups.length > 0 ||
+      lint.diagnostics.some(({ groupId, changeIds }) =>
+        groupId !== undefined || changeIds !== undefined
+      )
+    ) {
+      violations.push(`lint mode reported proposal groups for ${input}`);
     }
     for (const diagnostic of lint.diagnostics) {
       const node = nodes[diagnostic.segmentIndex];
@@ -164,6 +239,9 @@ export function checkInvariants(
     }
     if (fix.value !== outputValues.join("")) {
       violations.push(`fixed value does not join the fixed nodes for ${input}`);
+    }
+    for (const violation of groupViolations(nodes, fix)) {
+      violations.push(`${violation} for ${input}`);
     }
 
     for (const [index, node] of nodes.entries()) {
