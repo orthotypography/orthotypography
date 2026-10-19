@@ -72,7 +72,8 @@ export function validateCatalogue(
       if (rule.phase !== "classify") {
         issues.push({
           path: `rules.${rule.id}.provides`,
-          message: `annotation kind ${kind} provided outside the classify phase`,
+          message:
+            `annotation kind ${kind} provided outside the classify phase`,
         });
       }
       const provider = providers.get(kind);
