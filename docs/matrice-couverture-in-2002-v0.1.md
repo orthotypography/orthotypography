@@ -77,7 +77,7 @@ supplémentaires propres au comportement.
 | `unit.symbol.period` | issue de source seulement | non | registre seulement | non | distinguer point fautif et ponctuation finale de phrase |
 | `unit.symbol.plural` | issue de source seulement | non | registre seulement | non | éviter qu’un `s` forme un autre symbole valide, par exemple `ms` |
 | `unit.symbol.case` | registre d’unités | validation exacte, sans réécriture | `unit_registry_test.ts` | non comme transformation | la casse est signifiante ; correction automatique potentiellement ambiguë |
-| `currency.euro.position` | résultat agrégé dans `number.euro.nbsp-before` | `EURO_SPACING_RULE` : `lint` par défaut, `fix` explicite | `euro_spacing_test.ts` | oui | euro seulement ; conventions citées et monnaies ambiguës exclues |
+| `currency.euro.position` | résultat agrégé dans `number.euro.nbsp-before` | `EURO_SPACING_RULE` : `lint` par défaut, `fix` explicite | `euro_spacing_test.ts` | oui | euro seulement ; conventions citées et monnaies ambiguës exclues ; symbole antéposé collé au texte qui précède signalé sans correction (nº 36) |
 | `space.numberEuro` | `number.euro.nbsp-before` | `EURO_SPACING_RULE` : `lint` par défaut, `fix` explicite | `euro_spacing_test.ts` | oui | montant classifié et symbole `€` non ambigu |
 | classification des constructions numériques et techniques | `classify.numeric-constructs` | `NUMERIC_PROTECTION_RULE` : classification et protection | `numeric_classifier_test.ts`, tests des règles dépendantes | oui, `manual-review` dans le catalogue | autorité documentaire sans objet direct ; statut `TO_VERIFY` maintenu |
 

@@ -92,3 +92,47 @@ Deno.test("euro spacing keeps a symbol with the amount it follows", () => {
     assert.deepEqual(again.changes, [], input);
   }
 });
+
+Deno.test("a euro sign attached to the preceding text is reported, not moved", () => {
+  // Issue #36: moving the sign would glue the preceding word to the amount.
+  const rules = [NUMERIC_PROTECTION_RULE, EURO_SPACING_RULE];
+  for (
+    const input of ["Prix€ 12", "le prix€12 est", "Prix:€12", "coût€ 1 200"]
+  ) {
+    for (const mode of ["lint", "fix"] as const) {
+      const result = runPipeline(input, rules, { locale: "fr-FR", mode });
+      assert.equal(result.value, input, `${mode} ${input}`);
+      assert.deepEqual(result.changes, [], `${mode} ${input}`);
+      assert.equal(result.diagnostics.length, 1, `${mode} ${input}`);
+      const [diagnostic] = result.diagnostics;
+      assert.equal(diagnostic.ruleId, "number.euro.nbsp-before");
+      assert.equal(diagnostic.replacement, undefined);
+      assert.match(diagnostic.message, /attached to the preceding text/);
+    }
+  }
+
+  // After a space, an opening sign, or at the start, the sign still moves.
+  for (
+    const [input, expected] of [
+      ["Prix €12", "Prix 12 €"],
+      ["(€12)", "(12 €)"],
+      ["«€12»", "«12 €»"],
+      ["€12", "12 €"],
+    ]
+  ) {
+    assert.equal(
+      runPipeline(input, rules, { locale: "fr-FR", mode: "fix" }).value,
+      expected,
+    );
+  }
+
+  // In the preset, the colon rule runs first and leaves a space before the
+  // sign, which can then move.
+  assert.equal(
+    runPipeline("Prix:€12", IMPRIMERIE_NATIONALE_RULES, {
+      locale: "fr-FR",
+      mode: "fix",
+    }).value,
+    "Prix : 12 €",
+  );
+});
