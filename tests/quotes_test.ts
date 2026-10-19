@@ -75,7 +75,6 @@ Deno.test("lint diagnostics keep source coordinates across text segments", () =>
 
   assert.deepEqual(
     result.diagnostics.map((diagnostic) => ({
-      coordinateSpace: diagnostic.coordinateSpace,
       segmentId: diagnostic.segmentId,
       segmentValue: diagnostic.segmentValue,
       start: diagnostic.start,
@@ -88,7 +87,6 @@ Deno.test("lint diagnostics keep source coordinates across text segments", () =>
     })),
     [
       {
-        coordinateSpace: "source",
         segmentId: "opening",
         segmentValue: "«Version ",
         start: 1,
@@ -96,7 +94,6 @@ Deno.test("lint diagnostics keep source coordinates across text segments", () =>
         related: [{ segmentId: "closing", start: 0, end: 1 }],
       },
       {
-        coordinateSpace: "source",
         segmentId: "closing",
         segmentValue: "»",
         start: 0,

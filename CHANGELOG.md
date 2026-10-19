@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- **Breaking:** diagnostics are always located in the input segments (#26,
+  second step of `docs/conception-resultats-v0.1.md`). `coordinateSpace` and
+  `segmentRevision` are removed from `DiagnosticLocation`; `segmentIndex` always
+  designates an input segment, even when protection splits it. In `fix` mode, a
+  location inside text produced by an earlier fix is widened to the source range
+  of that fix; locations in unchanged text are unchanged.
 - **Breaking:** edits belong to the diagnostics they correct (#26, first step of
   `docs/conception-resultats-v0.1.md`). `RuleResult.edits` is removed;
   `RunDiagnostic.edits` carries the edits of a diagnostic. The pipeline

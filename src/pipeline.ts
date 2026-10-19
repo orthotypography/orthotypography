@@ -31,7 +31,6 @@ export interface PipelineOptions {
 interface PipelineSegment extends TextSegment {
   readonly sourceIndex: number;
   readonly sourceStart: number;
-  readonly revision: number;
 }
 
 interface LedgerPiece {
@@ -453,28 +452,77 @@ function pieceOffsets(pieces: readonly LedgerPiece[]): number[] {
   return offsets;
 }
 
-/** First unchanged piece containing a range, as a linear scan would find it. */
-function unchangedPieceAt(
+/**
+ * Index of the non-empty piece that contains a ledger position or starts at
+ * it, or the piece count at the end of the text.
+ */
+function pieceStartingAt(offsets: readonly number[], position: number): number {
+  let low = 0;
+  let high = offsets.length - 1;
+  while (low < high) {
+    const middle = (low + high) >>> 1;
+    if (offsets[middle + 1] > position) high = middle;
+    else low = middle + 1;
+  }
+  return low;
+}
+
+/**
+ * Index of the non-empty piece that contains a ledger position or ends at it,
+ * or -1 at the start of the text.
+ */
+function pieceEndingAt(offsets: readonly number[], position: number): number {
+  let low = 0;
+  let high = offsets.length - 1;
+  while (low < high) {
+    const middle = (low + high) >>> 1;
+    if (offsets[middle] >= position) high = middle;
+    else low = middle + 1;
+  }
+  return low - 1;
+}
+
+/**
+ * Source range of a ledger range.
+ *
+ * In an unchanged piece a position maps exactly. In a piece produced by a
+ * rule, a start maps to the piece's source start and an end to its source end,
+ * so that a range always covers its subject in the source (design of #26,
+ * § 6). An empty range at the edge of an unchanged piece maps through that
+ * piece, the earlier one first, so that a position next to a change keeps its
+ * exact source position.
+ */
+function sourceRange(
   pieces: readonly LedgerPiece[],
   start: number,
   end: number,
-): { readonly piece: LedgerPiece; readonly offset: number } | undefined {
+): { readonly start: number; readonly end: number } {
   const offsets = pieceOffsets(pieces);
-  let low = 0;
-  let high = pieces.length;
-  while (low < high) {
-    const middle = (low + high) >>> 1;
-    if (offsets[middle + 1] < start) low = middle + 1;
-    else high = middle;
-  }
-  for (let index = low; index < pieces.length; index++) {
-    if (offsets[index] > start) break;
-    const piece = pieces[index];
-    if (piece.ruleIds.length === 0 && end <= offsets[index + 1]) {
-      return { piece, offset: offsets[index] };
+  const exact = (index: number, position: number): number =>
+    pieces[index].sourceStart + position - offsets[index];
+  const unchanged = (index: number): boolean =>
+    pieces[index] !== undefined && pieces[index].ruleIds.length === 0;
+  const first = pieceStartingAt(offsets, start);
+  const last = pieceEndingAt(offsets, end);
+  if (start === end) {
+    if (unchanged(last)) {
+      return { start: exact(last, start), end: exact(last, start) };
+    }
+    if (unchanged(first)) {
+      return { start: exact(first, start), end: exact(first, start) };
     }
   }
-  return undefined;
+  const sourceStart = first >= pieces.length
+    ? pieces.at(-1)?.sourceEnd ?? 0
+    : unchanged(first)
+    ? exact(first, start)
+    : pieces[first].sourceStart;
+  const sourceEnd = last < 0
+    ? pieces[0]?.sourceStart ?? 0
+    : unchanged(last)
+    ? exact(last, end)
+    : pieces[last].sourceEnd;
+  return { start: sourceStart, end: Math.max(sourceStart, sourceEnd) };
 }
 
 function diagnosticLocation(
@@ -482,7 +530,6 @@ function diagnosticLocation(
   segments: readonly PipelineSegment[],
   runtimeOffsets: readonly number[],
   sourceSegments: readonly TextSegment[],
-  sourceCoordinates: boolean,
   ledgers: readonly ChangeLedger[],
 ): DiagnosticLocation {
   const segment = segments[location.segmentIndex];
@@ -496,35 +543,20 @@ function diagnosticLocation(
     "diagnostic",
   );
 
-  const ledger = ledgers[segment.sourceIndex];
+  const { pieces } = ledgers[segment.sourceIndex];
   const runtimeOffset = runtimeOffsets[location.segmentIndex];
-  const absoluteStart = runtimeOffset + location.start;
-  const absoluteEnd = runtimeOffset + location.end;
-  const unchanged = unchangedPieceAt(ledger.pieces, absoluteStart, absoluteEnd);
-  if (sourceCoordinates || unchanged !== undefined) {
-    const source = sourceSegments[segment.sourceIndex];
-    const start = unchanged === undefined
-      ? segment.sourceStart + location.start
-      : unchanged.piece.sourceStart + absoluteStart - unchanged.offset;
-    return {
-      coordinateSpace: "source",
-      segmentIndex: segment.sourceIndex,
-      ...(source.id === undefined ? {} : { segmentId: source.id }),
-      segmentValue: source.value,
-      segmentRevision: 0,
-      start,
-      end: start + location.end - location.start,
-    };
-  }
-
+  const source = sourceSegments[segment.sourceIndex];
+  const { start, end } = sourceRange(
+    pieces,
+    runtimeOffset + location.start,
+    runtimeOffset + location.end,
+  );
   return {
-    coordinateSpace: "runtime",
-    segmentIndex: location.segmentIndex,
-    ...(segment.id === undefined ? {} : { segmentId: segment.id }),
-    segmentValue: segment.value,
-    segmentRevision: segment.revision,
-    start: location.start,
-    end: location.end,
+    segmentIndex: segment.sourceIndex,
+    ...(source.id === undefined ? {} : { segmentId: source.id }),
+    segmentValue: source.value,
+    start,
+    end,
   };
 }
 
@@ -714,7 +746,6 @@ export function runPipeline(
     ...segment,
     sourceIndex: index,
     sourceStart: 0,
-    revision: 0,
   }));
   const ledgers: ChangeLedger[] = sourceSegments.map((source) => ({
     source,
@@ -728,7 +759,6 @@ export function runPipeline(
   const diagnostics: RuleDiagnostic[] = [];
   const appliedRuleIds: string[] = [];
   const orderedRules = compilePipeline(runtimeRules);
-  const sourceCoordinates = options.mode === "lint";
   // Annotations of classify rules, kept in current run coordinates.
   let annotations: Annotation[] = [];
 
@@ -761,7 +791,6 @@ export function runPipeline(
         segments,
         runtimeOffsets,
         sourceSegments,
-        sourceCoordinates,
         diagnosticLedgers,
       );
     const report = (diagnostic: LocatedDiagnostic): void => {
@@ -814,13 +843,7 @@ export function runPipeline(
         }
         ledgerEdits.set(segment.sourceIndex, sourceEdits);
       }
-      const appliedSegment: PipelineSegment = {
-        ...segment,
-        value,
-        revision: value === segment.value
-          ? segment.revision
-          : segment.revision + 1,
-      };
+      const appliedSegment: PipelineSegment = { ...segment, value };
       for (
         const fragment of splitProtectedRanges(appliedSegment, plan.protections)
       ) nextSegments.push(fragment);

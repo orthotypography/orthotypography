@@ -134,7 +134,7 @@ export function checkInvariants(
     for (const diagnostic of lint.diagnostics) {
       const node = nodes[diagnostic.segmentIndex];
       if (
-        diagnostic.coordinateSpace !== "source" || node === undefined ||
+        node === undefined ||
         diagnostic.segmentValue !== node.value ||
         diagnostic.end > node.value.length
       ) {

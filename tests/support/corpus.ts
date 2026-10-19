@@ -47,7 +47,6 @@ function compact(result: PipelineResult, mode: Mode): unknown {
     ]),
     diagnostics: result.diagnostics.map((diagnostic) => [
       diagnostic.ruleId,
-      diagnostic.coordinateSpace,
       diagnostic.segmentIndex,
       diagnostic.start,
       diagnostic.end,

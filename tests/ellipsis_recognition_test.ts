@@ -96,33 +96,28 @@ Deno.test("recognition crosses unprotected segments with UTF-16 coordinates", ()
   assert.deepEqual(result.changes, []);
   assert.deepEqual(
     result.diagnostics.map((diagnostic) => ({
-      coordinateSpace: diagnostic.coordinateSpace,
       segmentId: diagnostic.segmentId,
       segmentValue: diagnostic.segmentValue,
       start: diagnostic.start,
       end: diagnostic.end,
       related: diagnostic.related?.map((location) => ({
-        coordinateSpace: location.coordinateSpace,
         segmentId: location.segmentId,
         start: location.start,
         end: location.end,
       })),
     })),
     [{
-      coordinateSpace: "source",
       segmentId: "lead",
       segmentValue: "🚀 hésite.",
       start: 9,
       end: 10,
       related: [
         {
-          coordinateSpace: "source",
           segmentId: "middle",
           start: 0,
           end: 1,
         },
         {
-          coordinateSpace: "source",
           segmentId: "tail",
           start: 0,
           end: 1,
