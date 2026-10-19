@@ -127,13 +127,13 @@ Deno.test("the Imprimerie nationale preset applies the etc. rule idempotently", 
 });
 
 Deno.test("the etc. rule is scoped to metropolitan French", () => {
-  const input = "Liste, etc... Suite.";
-  const result = runPipeline(input, [ETC_ELLIPSIS_RULE], {
-    locale: "fr-CA",
-  });
-
-  assert.equal(result.value, input);
-  assert.deepEqual(result.appliedRuleIds, []);
+  assert.throws(
+    () =>
+      runPipeline("Liste, etc... Suite.", [ETC_ELLIPSIS_RULE], {
+        locale: "fr-CA",
+      }),
+    /No rule supports locale fr-CA/,
+  );
 });
 
 function fixEllipsisNodes(values: readonly (string | TextSegment)[]): string[] {

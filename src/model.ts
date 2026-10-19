@@ -275,6 +275,8 @@ export interface PipelineResult extends ChangeSet {
   readonly groups: readonly ProposalGroup[];
   readonly diagnostics: readonly RuleDiagnostic[];
   readonly appliedRuleIds: readonly string[];
+  /** Rules left out because they do not support the locale. */
+  readonly skippedRuleIds: readonly string[];
 }
 
 /** Numeric contexts recognized before punctuation and spacing rules run. */

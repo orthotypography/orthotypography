@@ -58,6 +58,11 @@ interface SpacedConstruct {
     readonly text: string;
     readonly bias: "left" | "right";
   };
+  /**
+   * Reason to report the construct without a correction, appended to the
+   * rule's message.
+   */
+  readonly unfixable?: string;
 }
 
 function spacingRule(
@@ -81,6 +86,14 @@ function spacingRule(
         construct.start,
         construct.end,
       );
+      if (construct.unfixable !== undefined) {
+        diagnostics.push({
+          ...primary,
+          message: `${message}; ${construct.unfixable}`,
+          ...(related.length === 0 ? {} : { related }),
+        });
+        continue;
+      }
       if (related.length === 0) {
         const edit = {
           start: construct.start,
@@ -174,6 +187,12 @@ const leadingEuro = new RegExp(
   "u",
 );
 
+/**
+ * Characters after which a leading euro sign may move behind the amount: the
+ * amount then takes the sign's place without touching the preceding text.
+ */
+const leadingEuroBoundary = /[\s(\[«“‘]/u;
+
 /** Diagnoses French euro-symbol placement, or fixes it when requested. */
 export const EURO_SPACING_RULE: RuntimeRule = spacingRule(
   "number.euro.nbsp-before",
@@ -187,7 +206,14 @@ export const EURO_SPACING_RULE: RuntimeRule = spacingRule(
     const parts = leadingEuro.exec(construct);
     if (parts === null) return null;
     const amountStart = annotation.start + 1 + parts[1].length;
+    const before = text[annotation.start - 1];
     return {
+      // A sign attached to the preceding text would leave that text glued to
+      // the amount (issue #36); inserting a space is not prescribed.
+      ...(before === undefined || leadingEuroBoundary.test(before) ? {} : {
+        unfixable:
+          "not corrected because the symbol is attached to the preceding text",
+      }),
       start: annotation.start,
       end: annotation.end,
       replacement: `${parts[2]}\u00a0€`,

@@ -9,6 +9,15 @@ export interface CatalogueIssue {
   readonly message: string;
 }
 
+/** Whether a locale tag is valid and in canonical BCP 47 form. */
+function isCanonicalLocale(locale: string): boolean {
+  try {
+    return Intl.getCanonicalLocales(locale)[0] === locale;
+  } catch {
+    return false;
+  }
+}
+
 export function validateCatalogue(
   sources: readonly SourceDefinition[],
   rules: readonly RuleDefinition[],
@@ -55,7 +64,24 @@ export function validateCatalogue(
     }
   }
 
+  for (const rule of rules) {
+    for (const locale of rule.locales) {
+      if (!isCanonicalLocale(locale)) {
+        issues.push({
+          path: `rules.${rule.id}.locales`,
+          message: `non-canonical locale ${locale}`,
+        });
+      }
+    }
+  }
+
   for (const preset of presets) {
+    if (!isCanonicalLocale(preset.locale)) {
+      issues.push({
+        path: `presets.${preset.id}.locale`,
+        message: `non-canonical locale ${preset.locale}`,
+      });
+    }
     if (presetIds.has(preset.id)) {
       issues.push({
         path: `presets.${preset.id}`,
