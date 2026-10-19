@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- **Breaking:** edits belong to the diagnostics they correct (#26, first step of
+  `docs/conception-resultats-v0.1.md`). `RuleResult.edits` is removed;
+  `RunDiagnostic.edits` carries the edits of a diagnostic. The pipeline
+  validates proposed edits in every mode and applies them only in `fix` mode, so
+  a rule no longer needs to check `run.mode` and no longer fails when it returns
+  edits in `lint` or `manual-review` mode. Outputs of the built-in rules are
+  unchanged.
 - **Breaking:** replace the per-fragment rule interface (#21, #25).
   `RuntimeRule` now carries `id`, `phase`, `locales`, `defaultMode`, and
   optional `dependsOn`, and `apply(run: LogicalRun): RuleResult` is called once

@@ -298,9 +298,9 @@ Deno.test("source segment IDs must be unique and non-empty", () => {
   );
 });
 
-Deno.test("lint mode rejects transformations to preserve source coordinates", () => {
-  const invalid = testRule(
-    "x-test.invalid-lint",
+Deno.test("lint mode reports proposals without applying them", () => {
+  const upper = testRule(
+    "x-test.upper",
     (run) => ({
       edits: [{
         start: 0,
@@ -310,13 +310,11 @@ Deno.test("lint mode rejects transformations to preserve source coordinates", ()
     }),
   );
 
-  assert.throws(
-    () =>
-      runPipeline("texte", [invalid], {
-        locale: "fr-FR",
-        mode: "lint",
-      }),
-    Error,
-    "cannot transform text in lint mode",
-  );
+  const result = runPipeline("texte", [upper], {
+    locale: "fr-FR",
+    mode: "lint",
+  });
+  assert.equal(result.value, "texte");
+  assert.deepEqual(result.changes, []);
+  assert.equal(result.diagnostics.length, 1);
 });

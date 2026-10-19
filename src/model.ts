@@ -134,6 +134,12 @@ export interface RunDiagnostic extends RunLocation {
   readonly message: string;
   readonly replacement?: string;
   readonly related?: readonly RunLocation[];
+  /**
+   * Edits that correct this diagnostic. The pipeline validates them in every
+   * mode and applies them only in `fix` mode; a diagnostic with edits is a
+   * proposal.
+   */
+  readonly edits?: readonly RunEdit[];
 }
 
 /** Typed classification result attached to a range of the logical run. */
@@ -161,10 +167,9 @@ export interface LogicalRun {
   annotations(kind: string): readonly Annotation[];
 }
 
-/** Edits, diagnostics, and annotations returned by one rule call. */
+/** Diagnostics with their edits, and annotations, returned by one rule call. */
 export interface RuleResult {
-  /** Applied only in `fix` mode; a rule must return none in other modes. */
-  readonly edits?: readonly RunEdit[];
+  /** Diagnostics, each carrying the edits that correct it, if any. */
   readonly diagnostics?: readonly RunDiagnostic[];
   /** Reserved for rules of the `classify` phase. */
   readonly annotations?: readonly Annotation[];

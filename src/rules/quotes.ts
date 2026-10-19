@@ -57,7 +57,6 @@ function applyGuillemetSpacing(run: LogicalRun): RuleResult {
   // unprotected text), as the per-fragment implementation did, so that every
   // edit and diagnostic stays with the guillemet's node.
   const stretches = new RunStretches(run);
-  const edits: RunEdit[] = [];
   const diagnostics: RunDiagnostic[] = [];
 
   const positions = [...paired.keys()].sort((left, right) => left - right);
@@ -81,18 +80,15 @@ function applyGuillemetSpacing(run: LogicalRun): RuleResult {
       // An inserted space stays in the closing guillemet's node.
       edit = { start, end: position, replacement: " ", bias: "right" };
     }
-    edits.push(edit);
     diagnostics.push({
       ...edit,
       message,
       related: [{ start: partner, end: partner + 1 }],
+      edits: [edit],
     });
   }
 
-  return {
-    ...(run.mode === "fix" && edits.length > 0 ? { edits } : {}),
-    ...(diagnostics.length > 0 ? { diagnostics } : {}),
-  };
+  return diagnostics.length > 0 ? { diagnostics } : {};
 }
 
 /** Spaces paired French guillemets without converting ambiguous quote glyphs. */

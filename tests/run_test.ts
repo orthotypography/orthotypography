@@ -15,12 +15,12 @@ import type {
   TextSegment,
 } from "../src/model.ts";
 import { moveAnnotations } from "../src/run.ts";
-import { testRule } from "./support/rules.ts";
+import { testRule, type TestRuleResult } from "./support/rules.ts";
 import { seededRandom } from "./support/invariants.ts";
 
 function runRule(
   id: string,
-  apply: (run: LogicalRun) => RuleResult,
+  apply: (run: LogicalRun) => TestRuleResult,
   phase: RulePhase = "punctuation-spacing",
 ): RuntimeRule {
   return testRule(id, apply, { phase });
@@ -157,16 +157,37 @@ Deno.test("an insertion may share its start with a following edit", () => {
   );
 });
 
-Deno.test("run rules cannot transform text outside fix mode", () => {
+Deno.test("proposed edits are validated in every mode and applied in fix mode", () => {
   const rule = runRule("x-test.edit", () => ({
-    edits: [{ start: 0, end: 1, replacement: "" }],
+    diagnostics: [{
+      start: 0,
+      end: 1,
+      message: "x-test",
+      edits: [{ start: 0, end: 1, replacement: "" }],
+    }],
   }));
   for (const mode of ["lint", "manual-review"] as const) {
-    assert.throws(
-      () => runPipeline("abc", [rule], { locale: "fr-FR", mode }),
-      new RegExp(`cannot transform text in ${mode} mode`),
-    );
+    const result = runPipeline("abc", [rule], { locale: "fr-FR", mode });
+    assert.equal(result.value, "abc");
+    assert.deepEqual(result.changes, []);
+    assert.equal(result.diagnostics.length, 1);
   }
+  assert.equal(
+    runPipeline("abc", [rule], { locale: "fr-FR", mode: "fix" }).value,
+    "bc",
+  );
+  const invalid = runRule("x-test.invalid", () => ({
+    diagnostics: [{
+      start: 0,
+      end: 0,
+      message: "x-test",
+      edits: [{ start: 2, end: 9, replacement: "" }],
+    }],
+  }));
+  assert.throws(
+    () => runPipeline("abc", [invalid], { locale: "fr-FR", mode: "lint" }),
+    /invalid edit range/,
+  );
 });
 
 Deno.test("protected annotations protect later rules across nodes", () => {

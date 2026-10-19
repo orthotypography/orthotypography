@@ -1,23 +1,10 @@
 import { classifyEllipsisCandidates } from "../classify/ellipsis.ts";
-import type {
-  LogicalRun,
-  RuleResult,
-  RunDiagnostic,
-  RunEdit,
-  RuntimeRule,
-} from "../model.ts";
+import type { RuleResult, RunDiagnostic, RuntimeRule } from "../model.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
 import { RunStretches, stretchParts, unprotectedRegions } from "./run-text.ts";
 
-function result(
-  run: LogicalRun,
-  edits: readonly RunEdit[],
-  diagnostics: readonly RunDiagnostic[],
-): RuleResult {
-  return {
-    ...(run.mode === "fix" && edits.length > 0 ? { edits } : {}),
-    ...(diagnostics.length > 0 ? { diagnostics } : {}),
-  };
+function result(diagnostics: readonly RunDiagnostic[]): RuleResult {
+  return diagnostics.length > 0 ? { diagnostics } : {};
 }
 
 // The lookbehind of the original expression is checked separately, as the
@@ -44,7 +31,6 @@ export const ETC_ELLIPSIS_RULE: RuntimeRule = catalogueRule(
   "punctuation.ellipsis.after-etc.forbidden",
   (run) => {
     const stretches = new RunStretches(run);
-    const edits: RunEdit[] = [];
     const diagnostics: RunDiagnostic[] = [];
     for (const region of unprotectedRegions(stretches)) {
       const value = run.text.slice(region.start, region.end);
@@ -59,18 +45,16 @@ export const ETC_ELLIPSIS_RULE: RuntimeRule = catalogueRule(
         const end = start + match[0].length;
         const stretchEnd = stretches.ends[stretches.indexAt(start)];
         const removals = stretchParts(stretches, start + 4, end);
-        for (const removal of removals) {
-          edits.push({ ...removal, replacement: "" });
-        }
         diagnostics.push({
           start,
           end: Math.min(start + 4, stretchEnd),
           message: "Suspension points must not follow etc.",
           related: removals.filter(({ start }) => start >= stretchEnd),
+          edits: removals.map((removal) => ({ ...removal, replacement: "" })),
         });
       }
     }
-    return result(run, edits, diagnostics);
+    return result(diagnostics);
   },
 );
 
@@ -97,7 +81,6 @@ export const ELLIPSIS_GLYPH_RULE: RuntimeRule = catalogueRule(
   "punctuation.ellipsis.glyph",
   (run) => {
     const stretches = new RunStretches(run);
-    const edits: RunEdit[] = [];
     const diagnostics: RunDiagnostic[] = [];
     for (const candidate of regionCandidates(stretches)) {
       if (candidate.value !== "..." || !candidate.certain) continue;
@@ -108,19 +91,19 @@ export const ELLIPSIS_GLYPH_RULE: RuntimeRule = catalogueRule(
       );
       // The glyph replaces the first part, in the node where the ellipsis
       // starts; the other parts are removed from their nodes.
-      edits.push({
-        start: candidate.start,
-        end: candidate.end,
-        replacement: "…",
-        bias: "left",
-      });
       diagnostics.push({
         ...primary,
         message: `Use U+2026 for a recognized ${candidate.function} ellipsis`,
         ...(related.length === 0 ? {} : { related }),
+        edits: [{
+          start: candidate.start,
+          end: candidate.end,
+          replacement: "…",
+          bias: "left",
+        }],
       });
     }
-    return result(run, edits, diagnostics);
+    return result(diagnostics);
   },
 );
 
@@ -134,7 +117,6 @@ export const ELLIPSIS_INITIAL_SPACE_AFTER_RULE: RuntimeRule = catalogueRule(
   "punctuation.ellipsis.initial.space-after",
   (run) => {
     const stretches = new RunStretches(run);
-    const edits: RunEdit[] = [];
     const diagnostics: RunDiagnostic[] = [];
     for (const candidate of regionCandidates(stretches)) {
       if (
@@ -143,18 +125,18 @@ export const ELLIPSIS_INITIAL_SPACE_AFTER_RULE: RuntimeRule = catalogueRule(
         !letterOrMark.test(String.fromCodePoint(candidate.next))
       ) continue;
       // The space stays in the ellipsis's node.
-      edits.push({
-        start: candidate.end,
-        end: candidate.end,
-        replacement: " ",
-        bias: "left",
-      });
       diagnostics.push({
         start: candidate.start,
         end: candidate.end,
         message: "Insert a word space after a structurally initial ellipsis",
+        edits: [{
+          start: candidate.end,
+          end: candidate.end,
+          replacement: " ",
+          bias: "left",
+        }],
       });
     }
-    return result(run, edits, diagnostics);
+    return result(diagnostics);
   },
 );

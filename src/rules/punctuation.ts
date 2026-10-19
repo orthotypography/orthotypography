@@ -35,19 +35,19 @@ interface Boundary extends Adjacent {
   readonly removals: readonly RunRange[];
 }
 
-/** One edit proposed for a mark, owned by the mark's stretch. */
-interface OwnEdit {
+/** One diagnostic of a mark with its own edit and neighboring removals. */
+interface Proposal {
   readonly stretch: number;
-  readonly edit: RunEdit;
+  readonly diagnostic: RunDiagnostic;
+  readonly own: RunEdit;
+  readonly removals: readonly RunRange[];
 }
 
 /** Shared state of one rule call on one run. */
 class PunctuationScan {
   readonly text: string;
   readonly stretches: RunStretches;
-  readonly #own: OwnEdit[] = [];
-  readonly #removals: RunEdit[] = [];
-  readonly #diagnostics: RunDiagnostic[] = [];
+  readonly #proposals: Proposal[] = [];
   #tokenStarts?: Int32Array;
   #technicalStarts?: Int32Array;
 
@@ -217,45 +217,38 @@ class PunctuationScan {
     return technical[index] >= start;
   }
 
-  own(stretch: number, edit: RunEdit): void {
-    this.#own.push({ stretch, edit });
-  }
-
-  remove(ranges: readonly RunRange[]): void {
-    for (const range of ranges) {
-      this.#removals.push({ ...range, replacement: "" });
-    }
-  }
-
-  diagnose(diagnostic: RunDiagnostic): void {
-    this.#diagnostics.push(diagnostic);
+  /** Records a diagnostic, its edit in the mark's stretch, and removals. */
+  propose(
+    stretch: number,
+    diagnostic: RunDiagnostic,
+    own: RunEdit,
+    removals: readonly RunRange[] = [],
+  ): void {
+    this.#proposals.push({ stretch, diagnostic, own, removals });
   }
 
   /**
-   * Returns the collected edits and diagnostics. As with per-fragment
+   * Returns the diagnostics with their edits. As with per-fragment
    * application, a stretch keeps its own edits only when at least one of them
    * changes its text; removals in neighboring stretches are always kept.
    */
   result(): RuleResult {
-    const edits: RunEdit[] = [];
-    if (this.run.mode === "fix") {
-      const effective = new Set<number>();
-      for (const { stretch, edit } of this.#own) {
-        if (this.text.slice(edit.start, edit.end) !== edit.replacement) {
-          effective.add(stretch);
-        }
+    const effective = new Set<number>();
+    for (const { stretch, own } of this.#proposals) {
+      if (this.text.slice(own.start, own.end) !== own.replacement) {
+        effective.add(stretch);
       }
-      for (const { stretch, edit } of this.#own) {
-        if (effective.has(stretch)) edits.push(edit);
-      }
-      for (const removal of this.#removals) edits.push(removal);
     }
-    return {
-      ...(edits.length > 0 ? { edits } : {}),
-      ...(this.#diagnostics.length > 0
-        ? { diagnostics: this.#diagnostics }
-        : {}),
-    };
+    const diagnostics = this.#proposals.map(
+      ({ stretch, diagnostic, own, removals }): RunDiagnostic => {
+        const edits: RunEdit[] = effective.has(stretch) ? [own] : [];
+        for (const removal of removals) {
+          edits.push({ ...removal, replacement: "" });
+        }
+        return edits.length === 0 ? diagnostic : { ...diagnostic, edits };
+      },
+    );
+    return diagnostics.length > 0 ? { diagnostics } : {};
   }
 }
 
@@ -288,15 +281,18 @@ function noSpaceBeforeRule(id: string, mark: "," | "."): RuntimeRule {
       if (preceding.blocked) continue;
       const { removals } = preceding;
       if (start === index && removals.length === 0) continue;
-      scan.own(stretch, { start, end: index + 1, replacement: mark });
-      scan.remove(removals);
-      scan.diagnose({
-        start,
-        end: index + 1,
-        message,
-        replacement: mark,
-        ...(removals.length === 0 ? {} : { related: removals }),
-      });
+      scan.propose(
+        stretch,
+        {
+          start,
+          end: index + 1,
+          message,
+          replacement: mark,
+          ...(removals.length === 0 ? {} : { related: removals }),
+        },
+        { start, end: index + 1, replacement: mark },
+        removals,
+      );
     }
     return scan.result();
   });
@@ -347,8 +343,11 @@ export const SPACE_AFTER_COMMA_RULE: RuntimeRule = catalogueRule(
         replacement: " ",
         bias: "left",
       };
-      scan.own(stretch, edit);
-      scan.diagnose({ ...edit, message: "Missing whitespace after comma" });
+      scan.propose(
+        stretch,
+        { ...edit, message: "Missing whitespace after comma" },
+        edit,
+      );
     }
     return scan.result();
   },
@@ -514,13 +513,16 @@ function highPunctuationBeforeRule(
         replacement: before,
         bias: "right",
       };
-      scan.own(stretch, edit);
-      scan.remove(removals);
-      scan.diagnose({
-        ...edit,
-        message,
-        ...(removals.length === 0 ? {} : { related: removals }),
-      });
+      scan.propose(
+        stretch,
+        {
+          ...edit,
+          message,
+          ...(removals.length === 0 ? {} : { related: removals }),
+        },
+        edit,
+        removals,
+      );
     }
     return scan.result();
   });
@@ -562,13 +564,16 @@ function highPunctuationAfterRule(
         replacement,
         bias: "left",
       };
-      scan.own(stretch, edit);
-      scan.remove(removals);
-      scan.diagnose({
-        ...edit,
-        message,
-        ...(removals.length === 0 ? {} : { related: removals }),
-      });
+      scan.propose(
+        stretch,
+        {
+          ...edit,
+          message,
+          ...(removals.length === 0 ? {} : { related: removals }),
+        },
+        edit,
+        removals,
+      );
     }
     return scan.result();
   });

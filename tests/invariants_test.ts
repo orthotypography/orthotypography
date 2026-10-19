@@ -58,7 +58,7 @@ Deno.test("known invariant violations still reproduce until fixed", () => {
 
 function brokenRule(
   id: string,
-  apply: RuntimeRule["apply"],
+  apply: Parameters<typeof testRule>[1],
 ): RuntimeRule {
   return testRule(id, apply);
 }
