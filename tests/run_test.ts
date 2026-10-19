@@ -9,7 +9,6 @@ import type {
   Annotation,
   LogicalRun,
   RulePhase,
-  RuleResult,
   RunEdit,
   RuntimeRule,
   TextSegment,
