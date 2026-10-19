@@ -134,14 +134,19 @@ mesurés sur `0.1.0-alpha.3` :
 Un blanc déjà correct n’est pas déplacé, même s’il se trouve dans un nœud
 voisin de celui du signe : `Bonjour` · ` ` · `; oui`, avec une espace fine
 insécable, ne produit aucune modification
-([nº 63](https://github.com/orthotypography/orthotypography/issues/63)). Les
+([nº 63](https://github.com/orthotypography/orthotypography/issues/63)), pas
+plus que `«` · ` ` · `oui` · ` ` · `»` avec des espaces insécables
+([nº 66](https://github.com/orthotypography/orthotypography/issues/66)). Les
 hôtes découpent eux-mêmes les nœuds, et un déplacement sans effet sur le texte
 serait proposé à chaque passe.
 
-Le blanc normalisé se limite au nœud du signe et à la portion non protégée qui
-le contient, comme dans l’implémentation par fragment : `« ` · ` texte»` donne
-`« ` · ` texte »`, l’espace ordinaire du second nœud étant conservé. Lever
-cette limite changerait les sorties et relève d’une PR distincte.
+Le blanc d’un signe est lu dans son nœud et se prolonge dans les nœuds voisins
+non protégés. Un blanc incorrect est normalisé dans le nœud du signe, et sa
+partie située dans les nœuds voisins est supprimée : `« ` · ` texte»` donne
+`« ` · `texte »`, avec une espace insécable dans le premier nœud. Jusqu’au
+nº 66, la règle des guillemets ne lisait que le nœud du signe et doublait
+l’espace. Un blanc situé dans un texte protégé ne peut être corrigé : le signe
+est alors laissé tel quel.
 
 Les nœuds protégés vides n’apparaissent pas dans la vue : aucune règle ne les
 voit. Dans l’exécution par fragment, un tel nœud bloquait l’espace après la

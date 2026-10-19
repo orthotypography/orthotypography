@@ -13,7 +13,13 @@ import {
 } from "../classify/text-index.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
 import { diagnosticMessage } from "../messages.ts";
-import { RunStretches, spacingCharacters } from "./run-text.ts";
+import {
+  type Adjacent,
+  type Boundary,
+  RunStretches,
+  spacingCharacters,
+  spacingText,
+} from "./run-text.ts";
 
 /*
  * Punctuation rules executed on the logical run.
@@ -25,19 +31,6 @@ import { RunStretches, spacingCharacters } from "./run-text.ts";
  * inserted next to a mark stays in the mark's node. A space that is already
  * correct is left in its node, even a neighboring one (issue #63).
  */
-
-/** Character adjacent to a boundary, or a protected stretch in the way. */
-interface Adjacent {
-  readonly blocked: boolean;
-  readonly character?: string;
-  /** Run position of `character`, when known. */
-  readonly index?: number;
-}
-
-/** Spacing to remove in neighboring stretches, nearest first. */
-interface Boundary extends Adjacent {
-  readonly removals: readonly RunRange[];
-}
 
 /**
  * One diagnostic of a mark with its own edit and neighboring removals, or a
@@ -153,48 +146,12 @@ class PunctuationScan {
 
   /** Character before a stretch and the trailing spacing of earlier ones. */
   precedingBoundary(stretch: number): Boundary {
-    const removals: RunRange[] = [];
-    for (let index = stretch - 1; index >= 0; index--) {
-      const start = this.start(index);
-      const end = this.end(index);
-      const spacing = this.spacingStart(end, index);
-      if (spacing < end) {
-        if (this.stretches.protectedFlags[index]) {
-          return { blocked: true, removals };
-        }
-        removals.push({ start: spacing, end });
-      }
-      if (spacing > start) {
-        return { blocked: false, character: this.text[spacing - 1], removals };
-      }
-    }
-    return { blocked: false, removals };
+    return this.stretches.precedingBoundary(stretch);
   }
 
   /** Character after a stretch and the leading spacing of later ones. */
   followingBoundary(stretch: number): Boundary {
-    const removals: RunRange[] = [];
-    const count = this.stretches.starts.length;
-    for (let index = stretch + 1; index < count; index++) {
-      const start = this.start(index);
-      const end = this.end(index);
-      const spacing = this.spacingEnd(start, index);
-      if (spacing > start) {
-        if (this.stretches.protectedFlags[index]) {
-          return { blocked: true, removals };
-        }
-        removals.push({ start, end: spacing });
-      }
-      if (spacing < end) {
-        return {
-          blocked: false,
-          character: this.text[spacing],
-          index: spacing,
-          removals,
-        };
-      }
-    }
-    return { blocked: false, removals };
+    return this.stretches.followingBoundary(stretch);
   }
 
   /**
@@ -241,9 +198,7 @@ class PunctuationScan {
 
   /** Text of spacing ranges in neighboring stretches, in text order. */
   spacingText(ranges: readonly RunRange[]): string {
-    if (ranges.length === 0) return "";
-    return [...ranges].sort((left, right) => left.start - right.start)
-      .map(({ start, end }) => this.text.slice(start, end)).join("");
+    return spacingText(this.text, ranges);
   }
 
   /** Reports a diagnostic without edits, in mark order with the proposals. */
