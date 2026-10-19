@@ -151,8 +151,11 @@ interface ProposalGroup {
   readonly changeIds: readonly string[];
   /** Indices des diagnostics du groupe dans `diagnostics`. */
   readonly diagnostics: readonly number[];
-  /** Vrai si toutes ses propositions viennent de règles en mode `fix`. */
-  readonly suggested: boolean;
+  /**
+   * En mode `review` : vrai si toutes ses propositions viennent de règles en
+   * mode `fix`. Absent dans les autres modes, dont la sortie reste inchangée.
+   */
+  readonly suggested?: boolean;
 }
 
 interface PipelineResult {
@@ -175,8 +178,11 @@ interface PipelineResult {
   - chaque proposition non écartée appartient à un groupe ; un diagnostic sans
     modification n’appartient à aucun ;
   - relancer la passe en écartant les propositions d’un groupe donne un résultat
-    où elles sont rapportées `dismissed` et où aucun changement ne les contient
-    ; les propositions en amont dans la cascade sont inchangées.
+    où celles qui se présentent encore sont rapportées `dismissed`, sans groupe,
+    et où aucun changement ne les contient ; les propositions de la première
+    règle du groupe se présentent toujours, et les diagnostics des règles qui la
+    précèdent sont inchangés. Les propositions suivantes du groupe dépendaient
+    du texte écarté et peuvent disparaître.
 
 ## 6. Projection des emplacements sur la source
 
@@ -248,10 +254,12 @@ Ce cas précis est un défaut des règles de ponctuation, à corriger séparéme
 | Mode     | Cascade                                       | Résultat                                                                            |
 | -------- | --------------------------------------------- | ----------------------------------------------------------------------------------- |
 | `review` | toutes les propositions, sauf celles écartées | `value` avec tout appliqué ; groupes et indications `suggested`                     |
-| `fix`    | toutes les propositions, sauf celles écartées | comme `review` ; l’hôte applique tout                                               |
+| `fix`    | toutes les propositions, sauf celles écartées | comme `review`, sans indications ; l’hôte applique tout                             |
 | `lint`   | aucune modification, aucune cascade           | diagnostics sources, sans groupe ni changement                                      |
 | défaut   | propositions des règles en mode `fix`         | modes par règle, comme aujourd’hui ; propositions des autres règles sans changement |
 
+- Les règles s’exécutent en mode `review` comme en mode `fix` (`run.mode` vaut
+  `fix`) : sans les indications, le résultat est celui du mode `fix`.
 - En mode `review`, le mode par défaut de chaque règle devient une indication :
   `suggested: "apply"` pour une règle en mode `fix`, `"review"` sinon. Un groupe
   est `suggested` si toutes ses propositions le sont. Un hôte peut ainsi
@@ -280,7 +288,14 @@ runPipeline(input, rules, { locale, mode: "review", dismissed });
 - Le pipeline projette l’emplacement de chaque proposition au moment où sa règle
   s’exécute ; si la règle et la plage source correspondent à une entrée de
   `dismissed`, la proposition n’est pas appliquée et la cascade continue sans
-  elle. Elle est rapportée avec `dismissed: true`, sans groupe.
+  elle. Elle est rapportée avec `dismissed: true`, sans groupe. Ses
+  modifications restent validées avec celles des autres propositions de sa
+  règle.
+- Une entrée désigne le segment par `segmentId` ou par `segmentIndex`, et
+  écarte toutes les propositions de sa règle rapportées sur cette plage ; une
+  entrée sans segment ou dont la plage est invalide est refusée.
+- L’écart vaut dans tous les modes : en `lint` et pour les règles non
+  appliquées du mode par défaut, la proposition est seulement marquée.
 - Les plages désignent le document sur lequel la passe s’exécute. Quand l’hôte
   modifie le document, il met à jour ces plages comme il le fait pour toute
   annotation de son éditeur ; le cœur ne suit pas l’historique du document.

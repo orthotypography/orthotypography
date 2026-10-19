@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Add the `review` mode and dismissed proposals (#26, fourth step of
+  `docs/conception-resultats-v0.1.md`). `review` applies the proposals of every
+  rule, like `fix`, and adds `suggested` to each applied proposal (`apply` when
+  its rule's default mode is `fix`, `review` otherwise) and to each group
+  (whether all its proposals are suggested). The `dismissed` option of
+  `runPipeline` and `runTextNodePipeline` lists proposals by rule and reported
+  source location; matching proposals are validated but not applied, are
+  reported with `dismissed: true` and no group, and the cascade runs without
+  them. `PipelineMode` and `DismissedProposal` are exported. Outputs of the
+  `fix`, `lint` and default modes are unchanged.
 - Link diagnostics to the changes they produce (#26, third step of
   `docs/conception-resultats-v0.1.md`). `TextChange.id` identifies each change
   in a result. In `fix` mode, the diagnostic of an applied proposal carries

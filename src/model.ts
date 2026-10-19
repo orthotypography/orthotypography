@@ -10,6 +10,26 @@ export type DocumentaryStatus =
 /** Default action exposed to consumers for a rule. */
 export type RuleMode = "fix" | "lint" | "manual-review";
 
+/**
+ * Mode of one pipeline pass. A rule mode applies to every rule; `review`
+ * applies the proposals of every rule, like `fix`, and reports each rule's
+ * default mode as a `suggested` hint.
+ */
+export type PipelineMode = RuleMode | "review";
+
+/**
+ * Proposal that the host declined, designated by its rule and by the source
+ * location reported for it: `segmentId` or `segmentIndex`, with `start` and
+ * `end`.
+ */
+export interface DismissedProposal {
+  readonly ruleId: string;
+  readonly segmentId?: string;
+  readonly segmentIndex?: number;
+  readonly start: number;
+  readonly end: number;
+}
+
 /** Stable pipeline phases. Their order is part of the public contract. */
 export type RulePhase =
   | "classify"
@@ -105,6 +125,13 @@ export interface RuleDiagnostic extends DiagnosticLocation {
    * edits, in result order. Empty when later edits cancelled them.
    */
   readonly changeIds?: readonly string[];
+  /**
+   * In `review` mode, for an applied proposal: `apply` when its rule's default
+   * mode is `fix`, `review` otherwise.
+   */
+  readonly suggested?: "apply" | "review";
+  /** Proposal dismissed by the host: validated, not applied, without group. */
+  readonly dismissed?: true;
 }
 
 /**
@@ -122,6 +149,8 @@ export interface ProposalGroup {
   readonly changeIds: readonly string[];
   /** Indexes of the group's diagnostics in `diagnostics`. */
   readonly diagnostics: readonly number[];
+  /** In `review` mode: whether every proposal of the group is suggested. */
+  readonly suggested?: boolean;
 }
 
 /** Half-open range in logical-run coordinates (UTF-16 code units). */

@@ -306,3 +306,24 @@ et 2,8 par doublement. Deux cas extrêmes restent linéaires jusqu’à 400 000
 caractères : une proposition dont l’édition couvre autant de nœuds d’un
 caractère (un changement par nœud), et des propositions fusionnées en un seul
 changement par une seconde règle (facteur 1,9 à 2,4 par doublement).
+
+## Mode `review` et propositions écartées
+
+Le mode `review` exécute la même cascade que `fix` et n’ajoute que les
+indications `suggested` ; il coûte autant. Écarter des propositions demande,
+pour chaque proposition de chaque règle, la projection de son emplacement et
+une recherche dans un ensemble : la passe reste linéaire. Médianes de cinq
+exécutions, en écartant toutes les propositions appliquées d’une passe
+`review` précédente :
+
+| Entrée                    | Caractères | `fix`  | `review` | tout écarté (propositions) |
+| ------------------------- | ---------: | -----: | -------: | -------------------------: |
+| virgules dans un jeton    |    125 000 | 375 ms |   457 ms |           244 ms (62 499) |
+| virgules dans un jeton    |    250 000 | 930 ms |   856 ms |          398 ms (124 999) |
+| ponctuation haute espacée |    125 000 | 232 ms |   212 ms |           95 ms (31 249) |
+| ponctuation haute espacée |    250 000 | 473 ms |   510 ms |          226 ms (62 501) |
+
+Écarter toutes les propositions coûte moins qu’une passe complète, puisque
+rien n’est appliqué. Les lignes de `deno task bench --scaling` restent
+inchangées (facteur 1,3 à 2,7 par doublement), le mode par défaut et les modes
+`fix` et `lint` produisant les mêmes sorties qu’auparavant.

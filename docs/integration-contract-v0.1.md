@@ -42,9 +42,17 @@ Une intégration choisit toujours le mode :
 
 - `lint` conserve toutes les valeurs ;
 - `fix` retourne les nouvelles valeurs par nœud et son tableau `changes`, jeu
-  complet de remplacements dans l’espace source.
+  complet de remplacements dans l’espace source ;
+- `review` donne le même résultat que `fix`, avec en plus, pour chaque
+  proposition appliquée et chaque groupe, l’indication `suggested` tirée du
+  mode par défaut des règles ; un éditeur interactif peut ainsi pré-cocher les
+  groupes suggérés.
 
-Dans les deux modes, les diagnostics sont exprimés dans l’espace source : leurs
+Les propositions que l’utilisateur refuse sont transmises à la passe suivante
+dans `dismissed`, par leur règle, leur `segmentId` et leur plage source ;
+l’intégration met ces plages à jour quand le document change.
+
+Dans tous les modes, les diagnostics sont exprimés dans l’espace source : leurs
 offsets UTF-16 semi-ouverts s’appliquent directement au nœud identifié par
 `segmentId`. En correction, un diagnostic dont l’objet se trouve dans un texte
 produit par une correction antérieure désigne la plage source de cette
