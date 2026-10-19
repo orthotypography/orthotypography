@@ -7,7 +7,12 @@ import type {
 } from "../model.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
 import { diagnosticMessage } from "../messages.ts";
-import { RunStretches, spacingCharacters } from "./run-text.ts";
+import {
+  type Boundary,
+  RunStretches,
+  spacingCharacters,
+  spacingText,
+} from "./run-text.ts";
 
 const message = diagnosticMessage("quotes.french.inner-space");
 
@@ -54,38 +59,50 @@ function applyGuillemetSpacing(run: LogicalRun): RuleResult {
   const { text } = run;
   const paired = pairGuillemets(run);
   if (paired.size === 0) return {};
-  // Spacing is normalized only within the guillemet's stretch (its node and
-  // unprotected text), as the per-fragment implementation did, so that every
-  // edit and diagnostic stays with the guillemet's node.
+  // The inner space is set in the guillemet's stretch (its node and
+  // unprotected text), as the per-fragment implementation did. Spacing that
+  // continues into neighboring stretches counts too: a correct space in a
+  // neighboring node is left there, and wrong spacing there is removed
+  // (issue #66). Spacing in protected text cannot be corrected, so the
+  // guillemet is left as is.
   const stretches = new RunStretches(run);
   const diagnostics: RunDiagnostic[] = [];
 
   const positions = [...paired.keys()].sort((left, right) => left - right);
   for (const position of positions) {
     const partner = paired.get(position) as number;
-    let edit: RunEdit;
+    const stretch = stretches.indexAt(position);
+    let own: RunEdit;
+    let boundary: Boundary | undefined;
     if (text[position] === "«") {
       let end = position + 1;
-      while (!stretches.isEdge(end) && spacingCharacters.has(text[end])) end++;
-      if (text.slice(position + 1, end) === " ") continue;
+      const last = stretches.ends[stretch];
+      while (end < last && spacingCharacters.has(text[end])) end++;
+      if (end === last) boundary = stretches.followingBoundary(stretch);
       // An inserted space stays in the opening guillemet's node.
-      edit = { start: position + 1, end, replacement: " ", bias: "left" };
+      own = { start: position + 1, end, replacement: " ", bias: "left" };
     } else {
       let start = position;
-      while (
-        !stretches.isEdge(start) && spacingCharacters.has(text[start - 1])
-      ) {
-        start--;
-      }
-      if (text.slice(start, position) === " ") continue;
+      const first = stretches.starts[stretch];
+      while (start > first && spacingCharacters.has(text[start - 1])) start--;
+      if (start === first) boundary = stretches.precedingBoundary(stretch);
       // An inserted space stays in the closing guillemet's node.
-      edit = { start, end: position, replacement: " ", bias: "right" };
+      own = { start, end: position, replacement: " ", bias: "right" };
     }
+    if (boundary?.blocked) continue;
+    const removals = boundary?.removals ?? [];
+    const ownText = text.slice(own.start, own.end);
+    const spacing = text[position] === "«"
+      ? ownText + spacingText(text, removals)
+      : spacingText(text, removals) + ownText;
+    if (spacing === " ") continue;
+    const edits: RunEdit[] = ownText === own.replacement ? [] : [own];
+    for (const removal of removals) edits.push({ ...removal, replacement: "" });
     diagnostics.push({
-      ...edit,
+      ...own,
       ...message,
-      related: [{ start: partner, end: partner + 1 }],
-      edits: [edit],
+      related: [{ start: partner, end: partner + 1 }, ...removals],
+      edits,
     });
   }
 

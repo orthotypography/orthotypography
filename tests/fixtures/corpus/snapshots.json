@@ -935,10 +935,11 @@
         ]
       },
       "segmented/default": {
-        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","","quotes.french.nbsp-inner"],
           [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
@@ -955,10 +956,10 @@
         ],
         "groups": [
           ["0","c0"],
-          ["1","c2"],
-          ["2","c3"],
-          ["3 5","c5"],
-          ["4","c4"],
+          ["1","c2 c3"],
+          ["2","c4"],
+          ["3 5","c6"],
+          ["4","c5"],
           ["6","c1"]
         ]
       },
@@ -975,10 +976,11 @@
         ]
       },
       "segmented/fix": {
-        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","","quotes.french.nbsp-inner"],
           [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
@@ -995,10 +997,10 @@
         ],
         "groups": [
           ["0","c0"],
-          ["1","c2"],
-          ["2","c3"],
-          ["3 5","c5"],
-          ["4","c4"],
+          ["1","c2 c3"],
+          ["2","c4"],
+          ["3 5","c6"],
+          ["4","c5"],
           ["6","c1"]
         ]
       }
@@ -1073,10 +1075,11 @@
         ]
       },
       "segmented/default": {
-        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","","quotes.french.nbsp-inner"],
           [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
@@ -1093,10 +1096,10 @@
         ],
         "groups": [
           ["0","c0"],
-          ["1","c2"],
-          ["2","c3"],
-          ["3 5","c5"],
-          ["4","c4"],
+          ["1","c2 c3"],
+          ["2","c4"],
+          ["3 5","c6"],
+          ["4","c5"],
           ["6","c1"]
         ]
       },
@@ -1113,10 +1116,11 @@
         ]
       },
       "segmented/fix": {
-        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","","quotes.french.nbsp-inner"],
           [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
@@ -1133,10 +1137,10 @@
         ],
         "groups": [
           ["0","c0"],
-          ["1","c2"],
-          ["2","c3"],
-          ["3 5","c5"],
-          ["4","c4"],
+          ["1","c2 c3"],
+          ["2","c4"],
+          ["3 5","c6"],
+          ["4","c5"],
           ["6","c1"]
         ]
       }
