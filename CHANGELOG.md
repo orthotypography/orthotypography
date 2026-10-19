@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Do not double the inner space of French guillemets split across nodes
+  (#66). `quotes.french.nbsp-inner` read the spacing inside the guillemet's
+  node only: a correct no-break space in a neighboring node received a second
+  one (`«` · ` ` · `oui` became `«  oui`), and a wrong space there was kept
+  next to the inserted one. The rule now reads the spacing across unprotected
+  nodes, as the high punctuation rules do since #63: correct spacing gets no
+  proposal, and wrong spacing is set in the guillemet's node and removed from
+  its neighbors. Spacing in protected text is left as is. The corpus snapshot
+  of a segmented paragraph loses a doubled space before `»`.
 - Add typed errors and coded diagnostic messages (#27;
   `docs/conception-erreurs-messages-v0.1.md`). Every error thrown by the core
   is an `OrthotypographyError` with a stable `code`, a `category` (`input`,
