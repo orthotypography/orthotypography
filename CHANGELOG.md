@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [0.2.0-alpha.0] - 2026-10-19
+
+This preview opens the `0.2` line, whose rule interface and result contract
+break compatibility with `0.1.0-alpha.3`. Rules now run once per pass on the
+logical run across text nodes (`RuntimeRule.apply(run)`); diagnostics carry
+their edits, are always located in the input segments, and are linked to the
+changes and proposal groups they produce. The new `review` mode and dismissed
+proposals support interactive review. Presets are compiled from the catalogue
+and locales are matched canonically, so a pass whose locale no rule supports
+now throws. Errors are typed, and diagnostics carry message codes.
+Integrations must adopt this contract. Outputs of the built-in rules are
+unchanged except for the fixes listed below.
+
 - Do not double the inner space of French guillemets split across nodes
   (#66). `quotes.french.nbsp-inner` read the spacing inside the guillemet's
   node only: a correct no-break space in a neighboring node received a second

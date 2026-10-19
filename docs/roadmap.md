@@ -1,24 +1,30 @@
 # Feuille de route du cœur
 
-État vérifié le 26 septembre 2026 sur
-[`7905702`](https://github.com/orthotypography/orthotypography/commit/7905702e1a56ec3b0130504b766835896ce48c49),
-commit publié sous `0.1.0-alpha.3`. Ce document sert de passation ; les prochaines
-tâches sont proposées et ne constituent pas une promesse de release.
+État vérifié le 19 octobre 2026 sur
+[`4e440e5`](https://github.com/orthotypography/orthotypography/commit/4e440e5),
+`main` après la [PR nº 67](https://github.com/orthotypography/orthotypography/pull/67).
+La version `0.2.0-alpha.0` est préparée par la PR PR_PREP, non encore
+publiée ; la dernière version publiée reste `0.1.0-alpha.3`. Ce document sert
+de passation ; les prochaines tâches sont proposées et ne constituent pas une
+promesse de release.
 
 ## État acquis
 
 | Chantier                | État vérifié                                                                                                                               | Preuve                                                                                                                 |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Distribution JavaScript | Alpha publique `0.1.0-alpha.3`, publiée le 26 septembre 2026 sur JSR et npm, sous le tag npm `latest` | [Release](https://github.com/orthotypography/orthotypography/releases/tag/v0.1.0-alpha.3), [manifeste](../deno.json) |
-| Catalogue documentaire  | Modèle de règles, autorités et deux presets français candidats ; prescriptions d’espacement après ponctuation représentées par des identifiants autonomes | [Catalogue](catalogue-documentaire-v0.1.md), [matrice](matrice-couverture-in-2002-v0.1.md) |
-| Normalisation           | Pipeline, classification numérique, ponctuation exécutable et traitement de suites textuelles traversant les nœuds                         | [README](../README.md), [architecture](architecture-v0.4.md)                                                           |
+| Distribution JavaScript | Dernière version publiée : alpha `0.1.0-alpha.3`, le 26 septembre 2026 sur JSR et npm, sous le tag npm `latest`. `0.2.0-alpha.0` préparée (manifeste, `CHANGELOG`, README), non publiée | [Release](https://github.com/orthotypography/orthotypography/releases/tag/v0.1.0-alpha.3), [manifeste](../deno.json), [CHANGELOG](../CHANGELOG.md) |
+| Catalogue documentaire  | Modèle de règles, autorités et deux presets français candidats ; prescriptions d’espacement après ponctuation représentées par des identifiants autonomes ; locales canoniques vérifiées | [Catalogue](catalogue-documentaire-v0.1.md), [matrice](matrice-couverture-in-2002-v0.1.md) |
+| Exécution sur la suite logique | Chaque règle s’exécute une fois par passe sur la suite logique traversant les nœuds (`RuntimeRule.apply(run)`), métadonnées tirées du catalogue, constructions numériques partagées par annotations ; croissance linéaire mesurée par `deno task bench --scaling` | [Conception](conception-suite-logique-v0.1.md), PR [nº 41](https://github.com/orthotypography/orthotypography/pull/41) à [nº 50](https://github.com/orthotypography/orthotypography/pull/50) |
+| Résultats               | Modifications portées par les diagnostics, emplacements toujours sources, identifiants de changements, groupes de propositions, mode `review` et propositions écartées ; journal des changements linéaire | [Conception](conception-resultats-v0.1.md), PR [nº 38](https://github.com/orthotypography/orthotypography/pull/38), [nº 52](https://github.com/orthotypography/orthotypography/pull/52), [nº 53](https://github.com/orthotypography/orthotypography/pull/53), [nº 55](https://github.com/orthotypography/orthotypography/pull/55) à [nº 57](https://github.com/orthotypography/orthotypography/pull/57) |
+| Presets et locales      | `compilePreset` compile les presets du catalogue avec leurs modes ; `IMPRIMERIE_NATIONALE_RULES` en est dérivé ; locales canonisées, sans repli, passe sans règle applicable refusée, `skippedRuleIds` et `ruleLocaleSupport` | [Conception](conception-presets-locales-v0.1.md), [PR nº 62](https://github.com/orthotypography/orthotypography/pull/62) |
+| Erreurs et messages     | `OrthotypographyError` avec `code`, `category` et `details` ; diagnostics porteurs de `messageId` et `messageArgs`, gabarits anglais exportés dans `DIAGNOSTIC_MESSAGES` | [Conception](conception-erreurs-messages-v0.1.md), [PR nº 65](https://github.com/orthotypography/orthotypography/pull/65) |
 | Changements localisés   | `TextChange` et `applyTextChanges` avec contrôles du texte attendu, des segments, des bornes UTF-16, des chevauchements et des protections | [Contrat](integration-contract-v0.1.md), [implémentation](../src/changes.ts)                                           |
 | Registres               | Unités et monnaies documentées ; leur présence ne signifie pas que toutes les corrections sont activées par défaut                         | [Unités](registre-unites-v0.7.md), [monnaies](registre-monnaies-v0.7.md)                                               |
-| Matrice de couverture   | Prescriptions du dépouillement reliées au catalogue, à l’exécution, aux tests, aux exclusions et au preset IN 2002                   | [Matrice](matrice-couverture-in-2002-v0.1.md)                                                                          |
+| Matrice de couverture   | Prescriptions du dépouillement reliées au catalogue, à l’exécution, aux tests, aux exclusions et au preset IN 2002 ; vérifiée le 19 octobre 2026 | [Matrice](matrice-couverture-in-2002-v0.1.md)                                                                          |
 | Groupement des chiffres | Prescription historique et transposition Unicode spécifiées ; premier lint candidat limité aux quantités déjà classifiées, hors preset et sans correction | [Spécification](groupement-chiffres-v0.1.md), [matrice](matrice-couverture-in-2002-v0.1.md) |
-| Ponctuation haute       | Règles d’espace avant et après exécutées et diagnostiquées sous huit identifiants atomiques, à sortie inchangée ; tranche fusionnée dans la PR nº 7 | [Catalogue](../src/catalogue/rules.ts), [tests](../tests/high_punctuation_atomicity_test.ts), [matrice](matrice-couverture-in-2002-v0.1.md) |
-| Points de suspension    | Quatre règles atomiques cataloguées ; reconnaissance interne de `U+2026` et de trois `U+002E`, correction du glyphe des formes finales ou initiales certaines (PR nº 10) et espace après `…` initiale structurelle (PR nº 11), tous deux hors preset | [Conception](points-de-suspension-v0.1.md), [tests](../tests/ellipsis_initial_spacing_test.ts), [matrice](matrice-couverture-in-2002-v0.1.md) |
-| Validation de release   | 151 tests, contrôles JSR et npm répétés au tag par le workflow de publication, puis présence de la version sur les deux registres et tag npm `latest` vérifiés | [Workflow de publication](https://github.com/orthotypography/orthotypography/actions/runs/36237577147) |
+| Ponctuation haute       | Règles d’espace avant et après exécutées et diagnostiquées sous huit identifiants atomiques ; aucune espace imposée devant un signe fermant, une virgule ou un point ; blanc correct d’un nœud voisin laissé en place | [Catalogue](../src/catalogue/rules.ts), [tests](../tests/closing_signs_test.ts), [matrice](matrice-couverture-in-2002-v0.1.md) |
+| Points de suspension    | Quatre règles atomiques cataloguées ; correction du glyphe des formes finales ou initiales certaines et espace après `…` initiale structurelle, hors preset, publiées dans `0.1.0-alpha.3` | [Conception](points-de-suspension-v0.1.md), [tests](../tests/ellipsis_initial_spacing_test.ts), [matrice](matrice-couverture-in-2002-v0.1.md) |
+| Validation              | 250 tests hors ligne sur `4e440e5` : invariants sur entrées générées, instantanés d’un corpus, découpage de textes corrigés à chaque position ; contrôles JSR et npm exécutés par la CI de chaque PR touchant le paquet. Aucune validation dans un éditeur réel pour la ligne `0.2` | [Tests](../tests/), [mesures](performances-v0.1.md) |
 
 Le cœur reste indépendant des parseurs Markdown/HTML et des API d'éditeurs. Les
 adaptateurs et leur avancement sont suivis dans la
@@ -31,48 +37,66 @@ ou de CI. Elle permet aussi une exécution manuelle complète, parallélise les
 contrôles de paquets avec les tests et annule les exécutions de PR dépassées.
 Le workflow de publication garde tous ses contrôles sur le tag de release.
 
-La version `0.1.0-alpha.3` réunit les PR fusionnées depuis `0.1.0-alpha.2`,
-dont la préparation de release : renommage de `number.digits.grouping`
-([nº 13](https://github.com/orthotypography/orthotypography/pull/13)), publication npm de confiance sans jeton ([nº 14](https://github.com/orthotypography/orthotypography/pull/14)),
-guide de contribution ([nº 15](https://github.com/orthotypography/orthotypography/pull/15)), version, `CHANGELOG` et matrice
-([nº 16](https://github.com/orthotypography/orthotypography/pull/16)), puis publication de toute version `0.x` sous le tag npm
-`latest`, vérifié en fin de workflow ([nº 17](https://github.com/orthotypography/orthotypography/pull/17)). La version npm porte une
-attestation de provenance émise par la publication de confiance. Aucun essai
-dans un éditeur n’accompagne cette publication.
+### Version `0.2.0-alpha.0` préparée
 
-Les intégrations dépendent encore de versions antérieures du cœur ; leur montée
-vers `0.1.0-alpha.3` est suivie dans la
+Cette préversion ouvre la ligne `0.2`, qui rompt la compatibilité avec
+`0.1.0-alpha.3` : interface des règles sur la suite logique, contrat des
+résultats, presets compilés et locales, erreurs typées et messages codés. Elle
+réunit les étapes 1 à 5 de la [revue d’architecture](revue-architecture-v0.1.md)
+(issues [nº 19](https://github.com/orthotypography/orthotypography/issues/19) à
+[nº 21](https://github.com/orthotypography/orthotypography/issues/21) et
+[nº 23](https://github.com/orthotypography/orthotypography/issues/23) à
+[nº 27](https://github.com/orthotypography/orthotypography/issues/27), closes),
+ainsi que les corrections des anomalies
+[nº 30](https://github.com/orthotypography/orthotypography/issues/30),
+[nº 31](https://github.com/orthotypography/orthotypography/issues/31),
+[nº 32](https://github.com/orthotypography/orthotypography/issues/32),
+[nº 36](https://github.com/orthotypography/orthotypography/issues/36),
+[nº 54](https://github.com/orthotypography/orthotypography/issues/54),
+[nº 59](https://github.com/orthotypography/orthotypography/issues/59),
+[nº 63](https://github.com/orthotypography/orthotypography/issues/63) et
+[nº 66](https://github.com/orthotypography/orthotypography/issues/66). Les
+sorties des règles intégrées sont inchangées hors de ces corrections ; le
+[`CHANGELOG`](../CHANGELOG.md) détaille les ruptures. Le numéro de préversion
+laisse aux intégrations le temps d’adopter ce contrat et de le valider dans les
+éditeurs avant une version `0.2.0`.
+
+Sa publication suit [`RELEASING.md`](../RELEASING.md) et attend une
+autorisation explicite ; la fusion de la PR de préparation ne l’autorise pas.
+
+La version `0.1.0-alpha.3` réunissait les PR fusionnées depuis
+`0.1.0-alpha.2`, dont la publication npm de confiance sans jeton
+([nº 14](https://github.com/orthotypography/orthotypography/pull/14)) et la
+publication de toute version `0.x` sous le tag npm `latest`
+([nº 17](https://github.com/orthotypography/orthotypography/pull/17)). La
+version npm porte une attestation de provenance émise par la publication de
+confiance.
+
+Les intégrations publiées dépendent du cœur `0.1.0-alpha.3`. Leur
+développement suit des commits précis de la ligne `0.2` ; le passage au cœur
+`0.2` publié et la validation réelle dans Google Docs sont suivis dans la
 [feuille de route des intégrations](https://github.com/orthotypography/orthotypography-integrations/blob/main/docs/roadmap.md).
 
 ## Prochaines tâches proposées
 
-1. **Consolidation de l’architecture.** La
-   [revue d’architecture](revue-architecture-v0.1.md) du 26 septembre 2026
-   ouvre les issues [nº 19](https://github.com/orthotypography/orthotypography/issues/19) à [nº 28](https://github.com/orthotypography/orthotypography/issues/28). Ordre proposé : filet de
-   tests et mesure de performance ([nº 19](https://github.com/orthotypography/orthotypography/issues/19)), journal des changements
-   linéaire ([nº 20](https://github.com/orthotypography/orthotypography/issues/20)), vue de la suite logique, annotations typées et
-   séparation des définitions ([nº 21](https://github.com/orthotypography/orthotypography/issues/21), [nº 22](https://github.com/orthotypography/orthotypography/issues/22),
-   [nº 25](https://github.com/orthotypography/orthotypography/issues/25)), presets compilés et locales ([nº 23](https://github.com/orthotypography/orthotypography/issues/23),
-   [nº 24](https://github.com/orthotypography/orthotypography/issues/24) ; [conception](conception-presets-locales-v0.1.md) validée, implémentation proposée), diagnostics porteurs de corrections, erreurs et messages
-   codés ([nº 26](https://github.com/orthotypography/orthotypography/issues/26), [nº 27](https://github.com/orthotypography/orthotypography/issues/27) ; la nº 27 suit une [conception](conception-erreurs-messages-v0.1.md) validée, implémentation proposée ; la nº 26 suit une [conception](conception-resultats-v0.1.md) en quatre étapes : modifications portées par les diagnostics et emplacements toujours sources, identifiants de changements et groupes de propositions, fusionnés (PR [nº 52](https://github.com/orthotypography/orthotypography/pull/52), [nº 53](https://github.com/orthotypography/orthotypography/pull/53) et [nº 56](https://github.com/orthotypography/orthotypography/pull/56), après la correction de performance du journal, PR [nº 55](https://github.com/orthotypography/orthotypography/pull/55)) ; mode `review` et propositions écartées, fusionnés (PR [nº 57](https://github.com/orthotypography/orthotypography/pull/57)), l’issue nº 26 étant close ; les intégrations adopteront ce contrat avec le cœur `0.2` publié), matrice générée ([nº 28](https://github.com/orthotypography/orthotypography/issues/28)).
-   Les ruptures d’API sont à regrouper dans une ligne `0.2` coordonnée avec les
-   intégrations ; la [conception de l’exécution sur la suite logique](conception-suite-logique-v0.1.md)
-   fixe le contrat commun aux issues nº 21, 22 et 25 ; ses étapes 1 à 4 sont achevées (PR [nº 41](https://github.com/orthotypography/orthotypography/pull/41), [nº 43](https://github.com/orthotypography/orthotypography/pull/43), [nº 45](https://github.com/orthotypography/orthotypography/pull/45), [nº 47](https://github.com/orthotypography/orthotypography/pull/47), [nº 48](https://github.com/orthotypography/orthotypography/pull/48), [nº 49](https://github.com/orthotypography/orthotypography/pull/49) et [nº 50](https://github.com/orthotypography/orthotypography/pull/50)) ; l’interface publique des règles change en conséquence pour la ligne `0.2`, que les intégrations devront adopter, et `deno task bench --scaling` vérifie que la croissance reste linéaire ; la version `0.2.0` suivra les étapes 3 et 5 de la revue. Le
-   filet de tests ([nº 19](https://github.com/orthotypography/orthotypography/issues/19)) est proposé dans la [PR nº 33](https://github.com/orthotypography/orthotypography/pull/33) :
-   invariants sur entrées générées, instantanés d’un corpus et
-   [mesures de référence](performances-v0.1.md). Il a révélé les anomalies
-   [nº 30](https://github.com/orthotypography/orthotypography/issues/30), [nº 31](https://github.com/orthotypography/orthotypography/issues/31) et [nº 32](https://github.com/orthotypography/orthotypography/issues/32), à corriger avant les
-   refontes. Le travail sur la suite logique a révélé l’anomalie
-   [nº 54](https://github.com/orthotypography/orthotypography/issues/54) : les règles d’espace après `?`, `!`, `:` et `;` imposent une
-   espace justifiante devant un signe fermant, au détriment de l’espace
-   insécable du guillemet ; sa correction est apportée par la PR
-   [nº 58](https://github.com/orthotypography/orthotypography/pull/58), fusionnée : ces règles laissent
-   désormais l’espace devant `»`, `)`, `]` et `”` au signe fermant. Le cas
-   voisin de la virgule et du point
-   ([nº 59](https://github.com/orthotypography/orthotypography/issues/59)) est
-   corrigé par la PR [nº 60](https://github.com/orthotypography/orthotypography/pull/60) ; une ponctuation haute suivie de points de suspension,
-   combinaison que la source ne décrit pas, est seulement signalée.
-2. **Cohérence documentaire et linguistique.** Auditer les textes hors de
+1. **Publication de `0.2.0-alpha.0` et adoption par les intégrations.**
+   Publier sur instruction explicite, vérifier la présence de la version sur
+   JSR et npm et le tag `latest`, puis consigner la publication ici. Les
+   intégrations passent alors du commit de développement au cœur publié ; leurs
+   retours, y compris ceux de la validation réelle dans Google Docs, décident
+   des ajustements avant `0.2.0`. Toute rupture supplémentaire doit être
+   regroupée avant `0.2.0`.
+2. **Fin de la consolidation de l’architecture.** Restent ouvertes l’issue
+   [nº 22](https://github.com/orthotypography/orthotypography/issues/22)
+   (partage de la classification des points de suspension et `dependsOn`
+   portant sur des types d’annotations ; la classification numérique est déjà
+   partagée) et l’issue
+   [nº 28](https://github.com/orthotypography/orthotypography/issues/28)
+   (matrice générée à partir de données structurées). Ni l’une ni l’autre ne
+   change les sorties attendues ; la nº 22 peut modifier l’interface publique
+   des règles et doit donc être tranchée avant `0.2.0`.
+
+3. **Cohérence documentaire et linguistique.** Auditer les textes hors de
    `docs/`, traduire leur prose en anglais et actualiser les instructions
    devenues obsolètes. `CONTRIBUTING.md` et `RELEASING.md` sont traités dans
    les PR [nº 15](https://github.com/orthotypography/orthotypography/pull/15) et [nº 14](https://github.com/orthotypography/orthotypography/pull/14) ; reste à décider si les
@@ -81,16 +105,17 @@ vers `0.1.0-alpha.3` est suivie dans la
    linguistiques nécessaires aux règles et aux tests. Terminé lorsque les
    fichiers concernés respectent `AGENTS.md` et que les commandes documentées
    correspondent au manifeste courant.
-3. **Matrice de couverture.** Première version achevée dans
-   [`matrice-couverture-in-2002-v0.1.md`](matrice-couverture-in-2002-v0.1.md).
-   Son en-tête et ses sections sur les points de suspension sont synchronisés
-   dans la [PR nº 16](https://github.com/orthotypography/orthotypography/pull/16). La maintenir à chaque ajout de catalogue,
+4. **Matrice de couverture.** Première version achevée dans
+   [`matrice-couverture-in-2002-v0.1.md`](matrice-couverture-in-2002-v0.1.md),
+   vérifiée de nouveau le 19 octobre 2026 pour la préparation de
+   `0.2.0-alpha.0`. La maintenir à chaque ajout de catalogue,
    d’exécution, de test ou de preset.
    Sa génération à partir de données structurées est proposée dans
    l’issue [nº 28](https://github.com/orthotypography/orthotypography/issues/28).
-4. **Extension atomique des règles.** Reprise après les issues
-   [nº 21](https://github.com/orthotypography/orthotypography/issues/21) et [nº 22](https://github.com/orthotypography/orthotypography/issues/22), afin d’écrire les nouvelles règles dans le
-   modèle révisé. L’interdiction des points de suspension
+5. **Extension atomique des règles.** Le modèle révisé de l’issue
+   [nº 21](https://github.com/orthotypography/orthotypography/issues/21) est
+   en place ; reprise après l’issue [nº 22](https://github.com/orthotypography/orthotypography/issues/22), afin d’écrire les nouvelles règles
+   avec les annotations partagées. L’interdiction des points de suspension
    après `etc.` et `space.after.comma` ont été fusionnées dans les PR
    [nº 2](https://github.com/orthotypography/orthotypography/pull/2) et
    [nº 3](https://github.com/orthotypography/orthotypography/pull/3). Les
@@ -131,8 +156,10 @@ vers `0.1.0-alpha.3` est suivie dans la
    `punctuation.ellipsis.final.no-space-before` reste documentaire : les
    ellipses finales certaines sont déjà collées à la lettre précédente,
    tandis que `Alors ...` n’a pas de fonction établie.
-5. **Stabilité du contrat d'intégration.** Les issues [nº 26](https://github.com/orthotypography/orthotypography/issues/26) et
-   [nº 27](https://github.com/orthotypography/orthotypography/issues/27) en sont le premier chantier. Examiner les besoins remontés par les
+6. **Stabilité du contrat d'intégration.** Les issues [nº 26](https://github.com/orthotypography/orthotypography/issues/26) et
+   [nº 27](https://github.com/orthotypography/orthotypography/issues/27), closes, en ont été le premier chantier ; les anomalies
+   [nº 63](https://github.com/orthotypography/orthotypography/issues/63) et
+   [nº 66](https://github.com/orthotypography/orthotypography/issues/66), remontées par les intégrations, sont corrigées. Examiner les besoins remontés par les
    adaptateurs sans transférer leurs contraintes natives dans le cœur. Toute
    évolution publique doit avoir des tests de contrat et une stratégie explicite
    de compatibilité et de versionnement.
