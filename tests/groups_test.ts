@@ -2,10 +2,9 @@ import assert from "node:assert/strict";
 import {
   applyTextChanges,
   FRENCH_GUILLEMETS_SPACING_RULE,
-  IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,
   runPipeline,
 } from "../src/mod.ts";
-import type { PipelineResult, RuntimeRule } from "../src/model.ts";
+import type { PipelineResult } from "../src/model.ts";
 import { testRule } from "./support/rules.ts";
 
 const fix = { locale: "fr-FR", mode: "fix" } as const;
@@ -170,30 +169,32 @@ Deno.test("proposals away from earlier output keep separate groups", () => {
 });
 
 Deno.test("cancelling proposals form one group without changes", () => {
-  // The quotes rule inserts a no-break space before the closing guillemet;
-  // the space-after rule replaces it with a word space (issue #54). Both
-  // proposals touch the same text, and the ordinary space they leave is the
-  // source text, so the group has no change.
-  const rules: RuntimeRule[] = [
-    FRENCH_GUILLEMETS_SPACING_RULE,
-    ...IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,
-  ];
-  const input = "« Partez ! »";
-  const result = runPipeline(input, rules, fix);
-  const closing = result.groups.find(({ diagnostics }) =>
-    diagnostics.some((index) =>
-      result.diagnostics[index].ruleId ===
-        "punctuation.exclamation.space-after"
-    )
-  );
-  assert.ok(closing);
-  assert.deepEqual(closing.changeIds, []);
+  // The first rule inserts a sign that the second removes: both proposals
+  // touch the same text, and the text they leave is the source text, so the
+  // group has no change.
+  const add = testRule("x-test.add", (run) =>
+    run.text.includes("+") ? {} : {
+      edits: [{ start: 2, end: 2, replacement: "+" }],
+    });
+  const remove = testRule("x-test.remove", (run) => {
+    const at = run.text.indexOf("+");
+    return {
+      edits: at < 0 ? [] : [{ start: at, end: at + 1, replacement: "" }],
+    };
+  }, { phase: "cleanup" });
+  const result = runPipeline("abcd", [add, remove], fix);
+  assert.equal(result.value, "abcd");
+  assert.deepEqual(result.changes, []);
+  assert.equal(result.groups.length, 1);
+  assert.deepEqual(result.groups[0].changeIds, []);
   assert.deepEqual(
-    closing.diagnostics.map((index) => result.diagnostics[index].ruleId),
-    ["quotes.french.nbsp-inner", "punctuation.exclamation.space-after"],
+    result.groups[0].diagnostics.map((index) =>
+      result.diagnostics[index].ruleId
+    ),
+    ["x-test.add", "x-test.remove"],
   );
-  for (const index of closing.diagnostics) {
-    assert.deepEqual(result.diagnostics[index].changeIds, []);
+  for (const diagnostic of result.diagnostics) {
+    assert.deepEqual(diagnostic.changeIds, []);
   }
 });
 

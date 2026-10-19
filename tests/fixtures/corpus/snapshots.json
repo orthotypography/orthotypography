@@ -186,16 +186,16 @@
     "source": "« Tu es sûre de vouloir rester ?» demanda son frère. Elle haussa les épaules... Puis elle répondit :«Je n'ai plus le choix!»",
     "IMPRIMERIE_NATIONALE_RULES": {
       "single/default": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,30,31," ","\u202f","punctuation.question.nnbsp-before"],
-          [0,32,32,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [0,32,32,"","\u00a0","quotes.french.nbsp-inner"],
           [0,98,99," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,100,100,""," ","punctuation.colon.space-after"],
           [0,101,101,"","\u00a0","quotes.french.nbsp-inner"],
           [0,122,122,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [0,123,123,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
@@ -205,19 +205,17 @@
           ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
           ["punctuation.colon.space-after",0,100,100," "],
           ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
-          ["punctuation.question.space-after",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after",0,123,123," "]
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7","c2"],
+          ["1","c2"],
           ["2","c5"],
-          ["3 9","c7"],
+          ["3","c7"],
           ["4","c3"],
           ["5","c4"],
           ["6","c1"],
-          ["8","c6"]
+          ["7","c6"]
         ]
       },
       "single/lint": {
@@ -230,22 +228,20 @@
           ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
           ["punctuation.colon.space-after",0,100,100," "],
           ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
-          ["punctuation.question.space-after",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after",0,123,123," "]
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"]
         ]
       },
       "single/fix": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,30,31," ","\u202f","punctuation.question.nnbsp-before"],
-          [0,32,32,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [0,32,32,"","\u00a0","quotes.french.nbsp-inner"],
           [0,98,99," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,100,100,""," ","punctuation.colon.space-after"],
           [0,101,101,"","\u00a0","quotes.french.nbsp-inner"],
           [0,122,122,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [0,123,123,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
@@ -255,32 +251,30 @@
           ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
           ["punctuation.colon.space-after",0,100,100," "],
           ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
-          ["punctuation.question.space-after",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after",0,123,123," "]
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7","c2"],
+          ["1","c2"],
           ["2","c5"],
-          ["3 9","c7"],
+          ["3","c7"],
           ["4","c3"],
           ["5","c4"],
           ["6","c1"],
-          ["8","c6"]
+          ["7","c6"]
         ]
       },
       "segmented/default": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [1,17,18," ","\u202f","punctuation.question.nnbsp-before"],
-          [1,19,19,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [1,19,19,"","\u00a0","quotes.french.nbsp-inner"],
           [4,13,14," ","\u00a0","punctuation.colon.nbsp-before"],
           [4,15,15,""," ","punctuation.colon.space-after"],
           [4,16,16,"","\u00a0","quotes.french.nbsp-inner"],
           [5,13,13,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [5,14,14,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
@@ -290,19 +284,17 @@
           ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
           ["punctuation.colon.space-after",4,15,15," "],
           ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
-          ["punctuation.question.space-after",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after",5,14,14," "]
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7","c2"],
+          ["1","c2"],
           ["2","c5"],
-          ["3 9","c7"],
+          ["3","c7"],
           ["4","c3"],
           ["5","c4"],
           ["6","c1"],
-          ["8","c6"]
+          ["7","c6"]
         ]
       },
       "segmented/lint": {
@@ -315,22 +307,20 @@
           ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
           ["punctuation.colon.space-after",4,15,15," "],
           ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
-          ["punctuation.question.space-after",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after",5,14,14," "]
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"]
         ]
       },
       "segmented/fix": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [1,17,18," ","\u202f","punctuation.question.nnbsp-before"],
-          [1,19,19,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [1,19,19,"","\u00a0","quotes.french.nbsp-inner"],
           [4,13,14," ","\u00a0","punctuation.colon.nbsp-before"],
           [4,15,15,""," ","punctuation.colon.space-after"],
           [4,16,16,"","\u00a0","quotes.french.nbsp-inner"],
           [5,13,13,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [5,14,14,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
@@ -340,34 +330,32 @@
           ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
           ["punctuation.colon.space-after",4,15,15," "],
           ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
-          ["punctuation.question.space-after",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after",5,14,14," "]
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7","c2"],
+          ["1","c2"],
           ["2","c5"],
-          ["3 9","c7"],
+          ["3","c7"],
           ["4","c3"],
           ["5","c4"],
           ["6","c1"],
-          ["8","c6"]
+          ["7","c6"]
         ]
       }
     },
     "IMPRIMERIE_NATIONALE_RULES with opt-in ellipsis rules": {
       "single/default": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,30,31," ","\u202f","punctuation.question.nnbsp-before"],
-          [0,32,32,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [0,32,32,"","\u00a0","quotes.french.nbsp-inner"],
           [0,98,99," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,100,100,""," ","punctuation.colon.space-after"],
           [0,101,101,"","\u00a0","quotes.french.nbsp-inner"],
           [0,122,122,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [0,123,123,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["punctuation.ellipsis.glyph",0,76,79],
@@ -378,19 +366,17 @@
           ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
           ["punctuation.colon.space-after",0,100,100," "],
           ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
-          ["punctuation.question.space-after",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after",0,123,123," "]
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"]
         ],
         "groups": [
           ["1","c0"],
-          ["2 8","c2"],
+          ["2","c2"],
           ["3","c5"],
-          ["4 10","c7"],
+          ["4","c7"],
           ["5","c3"],
           ["6","c4"],
           ["7","c1"],
-          ["9","c6"]
+          ["8","c6"]
         ]
       },
       "single/lint": {
@@ -404,23 +390,21 @@
           ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
           ["punctuation.colon.space-after",0,100,100," "],
           ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
-          ["punctuation.question.space-after",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after",0,123,123," "]
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"]
         ]
       },
       "single/fix": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules… Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules… Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,30,31," ","\u202f","punctuation.question.nnbsp-before"],
-          [0,32,32,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [0,32,32,"","\u00a0","quotes.french.nbsp-inner"],
           [0,76,79,"...","…","punctuation.ellipsis.glyph"],
           [0,98,99," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,100,100,""," ","punctuation.colon.space-after"],
           [0,101,101,"","\u00a0","quotes.french.nbsp-inner"],
           [0,122,122,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [0,123,123,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["punctuation.ellipsis.glyph",0,76,79],
@@ -431,33 +415,31 @@
           ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
           ["punctuation.colon.space-after",0,100,100," "],
           ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
-          ["punctuation.question.space-after",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after",0,123,123," "]
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"]
         ],
         "groups": [
           ["0","c3"],
           ["1","c0"],
-          ["2 8","c2"],
+          ["2","c2"],
           ["3","c6"],
-          ["4 10","c8"],
+          ["4","c8"],
           ["5","c4"],
           ["6","c5"],
           ["7","c1"],
-          ["9","c7"]
+          ["8","c7"]
         ]
       },
       "segmented/default": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules... Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [1,17,18," ","\u202f","punctuation.question.nnbsp-before"],
-          [1,19,19,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [1,19,19,"","\u00a0","quotes.french.nbsp-inner"],
           [4,13,14," ","\u00a0","punctuation.colon.nbsp-before"],
           [4,15,15,""," ","punctuation.colon.space-after"],
           [4,16,16,"","\u00a0","quotes.french.nbsp-inner"],
           [5,13,13,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [5,14,14,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["punctuation.ellipsis.glyph",3,18,21],
@@ -468,19 +450,17 @@
           ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
           ["punctuation.colon.space-after",4,15,15," "],
           ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
-          ["punctuation.question.space-after",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after",5,14,14," "]
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"]
         ],
         "groups": [
           ["1","c0"],
-          ["2 8","c2"],
+          ["2","c2"],
           ["3","c5"],
-          ["4 10","c7"],
+          ["4","c7"],
           ["5","c3"],
           ["6","c4"],
           ["7","c1"],
-          ["9","c6"]
+          ["8","c6"]
         ]
       },
       "segmented/lint": {
@@ -494,23 +474,21 @@
           ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
           ["punctuation.colon.space-after",4,15,15," "],
           ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
-          ["punctuation.question.space-after",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after",5,14,14," "]
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"]
         ]
       },
       "segmented/fix": {
-        "value": "«\u00a0Tu es sûre de vouloir rester\u202f? » demanda son frère. Elle haussa les épaules… Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f! »",
+        "value": "«\u00a0Tu es sûre de vouloir rester\u202f?\u00a0» demanda son frère. Elle haussa les épaules… Puis elle répondit\u00a0: «\u00a0Je n'ai plus le choix\u202f!\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [1,17,18," ","\u202f","punctuation.question.nnbsp-before"],
-          [1,19,19,""," ","quotes.french.nbsp-inner+punctuation.question.space-after"],
+          [1,19,19,"","\u00a0","quotes.french.nbsp-inner"],
           [3,18,21,"...","…","punctuation.ellipsis.glyph"],
           [4,13,14," ","\u00a0","punctuation.colon.nbsp-before"],
           [4,15,15,""," ","punctuation.colon.space-after"],
           [4,16,16,"","\u00a0","quotes.french.nbsp-inner"],
           [5,13,13,"","\u202f","punctuation.exclamation.nnbsp-before"],
-          [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [5,14,14,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["punctuation.ellipsis.glyph",3,18,21],
@@ -521,20 +499,18 @@
           ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
           ["punctuation.colon.space-after",4,15,15," "],
           ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
-          ["punctuation.question.space-after",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after",5,14,14," "]
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"]
         ],
         "groups": [
           ["0","c3"],
           ["1","c0"],
-          ["2 8","c2"],
+          ["2","c2"],
           ["3","c6"],
-          ["4 10","c8"],
+          ["4","c8"],
           ["5","c4"],
           ["6","c5"],
           ["7","c1"],
-          ["9","c7"]
+          ["8","c7"]
         ]
       }
     }
@@ -891,10 +867,11 @@
     "source": "« Entrez donc ! » cria une voix depuis l'étage. «Et fermez la porte , il fait froid .»",
     "IMPRIMERIE_NATIONALE_RULES": {
       "single/default": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","\u00a0","quotes.french.nbsp-inner"],
           [0,49,49,"","\u00a0","quotes.french.nbsp-inner"],
           [0,67,69," ,",",","punctuation.comma.no-space-before"],
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -906,15 +883,14 @@
           ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
           ["punctuation.comma.no-space-before",0,67,69,","],
           ["punctuation.period.no-space-before",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       },
@@ -931,10 +907,11 @@
         ]
       },
       "single/fix": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","\u00a0","quotes.french.nbsp-inner"],
           [0,49,49,"","\u00a0","quotes.french.nbsp-inner"],
           [0,67,69," ,",",","punctuation.comma.no-space-before"],
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -946,23 +923,23 @@
           ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
           ["punctuation.comma.no-space-before",0,67,69,","],
           ["punctuation.period.no-space-before",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       },
       "segmented/default": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -974,15 +951,14 @@
           ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
           ["punctuation.comma.no-space-before",3,8,10,","],
           ["punctuation.period.no-space-before",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       },
@@ -999,10 +975,11 @@
         ]
       },
       "segmented/fix": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -1014,25 +991,25 @@
           ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
           ["punctuation.comma.no-space-before",3,8,10,","],
           ["punctuation.period.no-space-before",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       }
     },
     "IMPRIMERIE_NATIONALE_RULES with opt-in ellipsis rules": {
       "single/default": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","\u00a0","quotes.french.nbsp-inner"],
           [0,49,49,"","\u00a0","quotes.french.nbsp-inner"],
           [0,67,69," ,",",","punctuation.comma.no-space-before"],
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -1044,15 +1021,14 @@
           ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
           ["punctuation.comma.no-space-before",0,67,69,","],
           ["punctuation.period.no-space-before",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       },
@@ -1069,10 +1045,11 @@
         ]
       },
       "single/fix": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f!\u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [0,15,16," ","\u00a0","quotes.french.nbsp-inner"],
           [0,49,49,"","\u00a0","quotes.french.nbsp-inner"],
           [0,67,69," ,",",","punctuation.comma.no-space-before"],
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -1084,23 +1061,23 @@
           ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
           ["punctuation.comma.no-space-before",0,67,69,","],
           ["punctuation.period.no-space-before",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       },
       "segmented/default": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -1112,15 +1089,14 @@
           ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
           ["punctuation.comma.no-space-before",3,8,10,","],
           ["punctuation.period.no-space-before",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       },
@@ -1137,10 +1113,11 @@
         ]
       },
       "segmented/fix": {
-        "value": "«\u00a0Entrez donc\u202f! » cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
+        "value": "«\u00a0Entrez donc\u202f! \u00a0» cria une voix depuis l'étage. «\u00a0Et fermez la porte, il fait froid.\u00a0»",
         "changes": [
           [0,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [0,13,14," ","\u202f","punctuation.exclamation.nnbsp-before"],
+          [1,0,0,"","\u00a0","quotes.french.nbsp-inner"],
           [2,17,17,"","\u00a0","quotes.french.nbsp-inner"],
           [3,8,10," ,",",","punctuation.comma.no-space-before"],
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
@@ -1152,15 +1129,14 @@
           ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
           ["punctuation.comma.no-space-before",3,8,10,","],
           ["punctuation.period.no-space-before",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after",0,15,16," "]
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ],
         "groups": [
           ["0","c0"],
-          ["1 7",""],
-          ["2","c2"],
-          ["3 5","c4"],
-          ["4","c3"],
+          ["1","c2"],
+          ["2","c3"],
+          ["3 5","c5"],
+          ["4","c4"],
           ["6","c1"]
         ]
       }
@@ -1170,14 +1146,14 @@
     "source": "Le soir, elle écrivit dans son carnet : « Arrivée. Pluie. Tante fatiguée ?  Frère silencieux !» Elle relut ces mots deux fois... puis ferma le carnet.",
     "IMPRIMERIE_NATIONALE_RULES": {
       "single/default": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois... puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois... puis ferma le carnet.",
         "changes": [
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,41,42," ","\u00a0","quotes.french.nbsp-inner"],
           [0,72,73," ","\u202f","punctuation.question.nnbsp-before"],
           [0,74,76,"  "," ","punctuation.question.space-after"],
           [0,92,93," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,94,94,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [0,94,94,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
@@ -1185,12 +1161,11 @@
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
           ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
           ["punctuation.question.space-after",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after",0,94,94," "]
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"]
         ],
         "groups": [
           ["0","c1"],
-          ["1 6","c5"],
+          ["1","c5"],
           ["2","c0"],
           ["3","c2"],
           ["4","c3"],
@@ -1205,19 +1180,18 @@
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
           ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
           ["punctuation.question.space-after",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after",0,94,94," "]
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"]
         ]
       },
       "single/fix": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois... puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois... puis ferma le carnet.",
         "changes": [
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,41,42," ","\u00a0","quotes.french.nbsp-inner"],
           [0,72,73," ","\u202f","punctuation.question.nnbsp-before"],
           [0,74,76,"  "," ","punctuation.question.space-after"],
           [0,92,93," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,94,94,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [0,94,94,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
@@ -1225,12 +1199,11 @@
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
           ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
           ["punctuation.question.space-after",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after",0,94,94," "]
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"]
         ],
         "groups": [
           ["0","c1"],
-          ["1 6","c5"],
+          ["1","c5"],
           ["2","c0"],
           ["3","c2"],
           ["4","c3"],
@@ -1238,14 +1211,14 @@
         ]
       },
       "segmented/default": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois... puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois... puis ferma le carnet.",
         "changes": [
           [1,15,16," ","\u00a0","punctuation.colon.nbsp-before"],
           [2,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [3,8,9," ","\u202f","punctuation.question.nnbsp-before"],
           [3,10,12,"  "," ","punctuation.question.space-after"],
           [4,10,11," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [4,12,12,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [4,12,12,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
@@ -1253,12 +1226,11 @@
           ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
           ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
           ["punctuation.question.space-after",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after",4,12,12," "]
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"]
         ],
         "groups": [
           ["0","c1"],
-          ["1 6","c5"],
+          ["1","c5"],
           ["2","c0"],
           ["3","c2"],
           ["4","c3"],
@@ -1273,19 +1245,18 @@
           ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
           ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
           ["punctuation.question.space-after",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after",4,12,12," "]
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"]
         ]
       },
       "segmented/fix": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois... puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois... puis ferma le carnet.",
         "changes": [
           [1,15,16," ","\u00a0","punctuation.colon.nbsp-before"],
           [2,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [3,8,9," ","\u202f","punctuation.question.nnbsp-before"],
           [3,10,12,"  "," ","punctuation.question.space-after"],
           [4,10,11," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [4,12,12,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [4,12,12,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
@@ -1293,12 +1264,11 @@
           ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
           ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
           ["punctuation.question.space-after",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after",4,12,12," "]
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"]
         ],
         "groups": [
           ["0","c1"],
-          ["1 6","c5"],
+          ["1","c5"],
           ["2","c0"],
           ["3","c2"],
           ["4","c3"],
@@ -1308,14 +1278,14 @@
     },
     "IMPRIMERIE_NATIONALE_RULES with opt-in ellipsis rules": {
       "single/default": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois... puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois... puis ferma le carnet.",
         "changes": [
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,41,42," ","\u00a0","quotes.french.nbsp-inner"],
           [0,72,73," ","\u202f","punctuation.question.nnbsp-before"],
           [0,74,76,"  "," ","punctuation.question.space-after"],
           [0,92,93," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,94,94,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [0,94,94,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["punctuation.ellipsis.glyph",0,125,128],
@@ -1324,12 +1294,11 @@
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
           ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
           ["punctuation.question.space-after",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after",0,94,94," "]
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"]
         ],
         "groups": [
           ["1","c1"],
-          ["2 7","c5"],
+          ["2","c5"],
           ["3","c0"],
           ["4","c2"],
           ["5","c3"],
@@ -1345,19 +1314,18 @@
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
           ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
           ["punctuation.question.space-after",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after",0,94,94," "]
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"]
         ]
       },
       "single/fix": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois… puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois… puis ferma le carnet.",
         "changes": [
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"],
           [0,41,42," ","\u00a0","quotes.french.nbsp-inner"],
           [0,72,73," ","\u202f","punctuation.question.nnbsp-before"],
           [0,74,76,"  "," ","punctuation.question.space-after"],
           [0,92,93," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [0,94,94,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"],
+          [0,94,94,"","\u00a0","quotes.french.nbsp-inner"],
           [0,125,128,"...","…","punctuation.ellipsis.glyph"]
         ],
         "diagnostics": [
@@ -1367,13 +1335,12 @@
           ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
           ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
           ["punctuation.question.space-after",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after",0,94,94," "]
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"]
         ],
         "groups": [
           ["0","c6"],
           ["1","c1"],
-          ["2 7","c5"],
+          ["2","c5"],
           ["3","c0"],
           ["4","c2"],
           ["5","c3"],
@@ -1381,14 +1348,14 @@
         ]
       },
       "segmented/default": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois... puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois... puis ferma le carnet.",
         "changes": [
           [1,15,16," ","\u00a0","punctuation.colon.nbsp-before"],
           [2,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [3,8,9," ","\u202f","punctuation.question.nnbsp-before"],
           [3,10,12,"  "," ","punctuation.question.space-after"],
           [4,10,11," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [4,12,12,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
+          [4,12,12,"","\u00a0","quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
           ["punctuation.ellipsis.glyph",5,18,21],
@@ -1397,12 +1364,11 @@
           ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
           ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
           ["punctuation.question.space-after",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after",4,12,12," "]
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"]
         ],
         "groups": [
           ["1","c1"],
-          ["2 7","c5"],
+          ["2","c5"],
           ["3","c0"],
           ["4","c2"],
           ["5","c3"],
@@ -1418,19 +1384,18 @@
           ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
           ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
           ["punctuation.question.space-after",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after",4,12,12," "]
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"]
         ]
       },
       "segmented/fix": {
-        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f! » Elle relut ces mots deux fois… puis ferma le carnet.",
+        "value": "Le soir, elle écrivit dans son carnet\u00a0: «\u00a0Arrivée. Pluie. Tante fatiguée\u202f? Frère silencieux\u202f!\u00a0» Elle relut ces mots deux fois… puis ferma le carnet.",
         "changes": [
           [1,15,16," ","\u00a0","punctuation.colon.nbsp-before"],
           [2,1,2," ","\u00a0","quotes.french.nbsp-inner"],
           [3,8,9," ","\u202f","punctuation.question.nnbsp-before"],
           [3,10,12,"  "," ","punctuation.question.space-after"],
           [4,10,11," ","\u202f","punctuation.exclamation.nnbsp-before"],
-          [4,12,12,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"],
+          [4,12,12,"","\u00a0","quotes.french.nbsp-inner"],
           [5,18,21,"...","…","punctuation.ellipsis.glyph"]
         ],
         "diagnostics": [
@@ -1440,13 +1405,12 @@
           ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
           ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
           ["punctuation.question.space-after",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after",4,12,12," "]
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"]
         ],
         "groups": [
           ["0","c6"],
           ["1","c1"],
-          ["2 7","c5"],
+          ["2","c5"],
           ["3","c0"],
           ["4","c2"],
           ["5","c3"],

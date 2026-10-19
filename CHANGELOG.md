@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Fix the space after `?`, `!`, `:`, and `;` before a closing sign (#54). The
+  four `space-after` rules required a word space whenever text followed, so
+  they replaced the no-break space that `quotes.french.nbsp-inner` sets before
+  `»` and inserted a space before `)`, `]`, and `”`. They now leave the space
+  before these closing signs to the sign's own rule, as the Imprimerie
+  nationale table of spaces prescribes; their catalogue entries list the
+  `closing sign` exception.
 - Link diagnostics to the changes they produce (#26, third step of
   `docs/conception-resultats-v0.1.md`). `TextChange.id` identifies each change
   in a result. In `fix` mode, the diagnostic of an applied proposal carries

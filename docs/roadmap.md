@@ -65,7 +65,8 @@ vers `0.1.0-alpha.3` est suivie dans la
    refontes. Le travail sur la suite logique a révélé l’anomalie
    [nº 54](https://github.com/orthotypography/orthotypography/issues/54) : les règles d’espace après `?`, `!`, `:` et `;` imposent une
    espace justifiante devant un signe fermant, au détriment de l’espace
-   insécable du guillemet.
+   insécable du guillemet ; sa correction est proposée : ces règles laissent
+   désormais l’espace devant `»`, `)`, `]` et `”` au signe fermant.
 2. **Cohérence documentaire et linguistique.** Auditer les textes hors de
    `docs/`, traduire leur prose en anglais et actualiser les instructions
    devenues obsolètes. `CONTRIBUTING.md` et `RELEASING.md` sont traités dans

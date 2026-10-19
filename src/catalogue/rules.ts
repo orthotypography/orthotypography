@@ -121,6 +121,7 @@ export const RULES: readonly RuleDefinition[] = [
     outcome: { after: "U+0020" },
     exceptions: [
       "end of text",
+      "closing sign",
       "adjacent punctuation",
       "technical syntax",
       "protected content",
@@ -160,6 +161,7 @@ export const RULES: readonly RuleDefinition[] = [
     outcome: { after: "U+0020" },
     exceptions: [
       "end of text",
+      "closing sign",
       "adjacent punctuation",
       "technical syntax",
       "protected content",
@@ -205,6 +207,7 @@ export const RULES: readonly RuleDefinition[] = [
     outcome: { after: "U+0020" },
     exceptions: [
       "end of text",
+      "closing sign",
       "expressive sequence",
       "technical syntax",
       "protected content",
@@ -250,6 +253,7 @@ export const RULES: readonly RuleDefinition[] = [
     outcome: { after: "U+0020" },
     exceptions: [
       "end of text",
+      "closing sign",
       "expressive sequence",
       "technical syntax",
       "protected content",
