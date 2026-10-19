@@ -4,7 +4,7 @@
 **Date de vérification :** 19 octobre 2026
 **Base examinée :** `ae78ecd`, `main` après la
 [PR nº 67](https://github.com/orthotypography/orthotypography/pull/67),
-préparée sous `0.2.0-alpha.0`
+publiée sous `0.2.0-alpha.0`
 **Source primaire :** *Lexique des règles typographiques en usage à
 l’Imprimerie nationale*, édition 2002  
 **Relevé de référence :**
