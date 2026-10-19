@@ -167,9 +167,9 @@ Deno.test("guillemet spacing stays in the guillemet's node", () => {
     "",
     "\u00a0»",
   ]);
-  // Spacing in a neighboring node is left to that node, as before the
-  // logical-run migration.
-  assert.deepEqual(fix(["« ", " Oui »"]), ["«\u00a0", " Oui\u00a0»"]);
+  // Wrong spacing that continues into a neighboring node is set in the
+  // guillemet's node and removed from the neighbor (issue #66).
+  assert.deepEqual(fix(["« ", " Oui »"]), ["«\u00a0", "Oui\u00a0»"]);
   assert.deepEqual(fix(["«", "Non"]), ["«", "Non"]);
 });
 

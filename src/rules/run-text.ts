@@ -1,4 +1,4 @@
-import type { LogicalRun, RunLocation } from "../model.ts";
+import type { LogicalRun, RunLocation, RunRange } from "../model.ts";
 
 /** Characters treated as typographic spacing by the built-in rules. */
 export const spacingCharacters: ReadonlySet<string> = new Set([
@@ -7,6 +7,19 @@ export const spacingCharacters: ReadonlySet<string> = new Set([
   " ",
   " ",
 ]);
+
+/** Character adjacent to a boundary, or a protected stretch in the way. */
+export interface Adjacent {
+  readonly blocked: boolean;
+  readonly character?: string;
+  /** Run position of `character`, when known. */
+  readonly index?: number;
+}
+
+/** Spacing to remove in neighboring stretches, nearest first. */
+export interface Boundary extends Adjacent {
+  readonly removals: readonly RunRange[];
+}
 
 /**
  * Stretches of a logical run delimited by node boundaries and protected-range
@@ -86,6 +99,69 @@ export class RunStretches {
     if (position === 0 || position === this.text.length) return true;
     return this.starts[this.indexAt(position)] === position;
   }
+
+  /**
+   * Character before a stretch and the trailing spacing of earlier stretches,
+   * nearest first. Spacing in a protected stretch blocks the boundary.
+   */
+  precedingBoundary(stretch: number): Boundary {
+    const { text, starts, ends, protectedFlags } = this;
+    const removals: RunRange[] = [];
+    for (let index = stretch - 1; index >= 0; index--) {
+      const start = starts[index];
+      const end = ends[index];
+      let spacing = end;
+      while (spacing > start && spacingCharacters.has(text[spacing - 1])) {
+        spacing--;
+      }
+      if (spacing < end) {
+        if (protectedFlags[index]) return { blocked: true, removals };
+        removals.push({ start: spacing, end });
+      }
+      if (spacing > start) {
+        return { blocked: false, character: text[spacing - 1], removals };
+      }
+    }
+    return { blocked: false, removals };
+  }
+
+  /**
+   * Character after a stretch and the leading spacing of later stretches,
+   * nearest first. Spacing in a protected stretch blocks the boundary.
+   */
+  followingBoundary(stretch: number): Boundary {
+    const { text, starts, ends, protectedFlags } = this;
+    const removals: RunRange[] = [];
+    for (let index = stretch + 1; index < starts.length; index++) {
+      const start = starts[index];
+      const end = ends[index];
+      let spacing = start;
+      while (spacing < end && spacingCharacters.has(text[spacing])) spacing++;
+      if (spacing > start) {
+        if (protectedFlags[index]) return { blocked: true, removals };
+        removals.push({ start, end: spacing });
+      }
+      if (spacing < end) {
+        return {
+          blocked: false,
+          character: text[spacing],
+          index: spacing,
+          removals,
+        };
+      }
+    }
+    return { blocked: false, removals };
+  }
+}
+
+/** Text of spacing ranges in neighboring stretches, in text order. */
+export function spacingText(
+  text: string,
+  ranges: readonly RunRange[],
+): string {
+  if (ranges.length === 0) return "";
+  return [...ranges].sort((left, right) => left.start - right.start)
+    .map(({ start, end }) => text.slice(start, end)).join("");
 }
 
 /** Maximal unprotected text between protected ranges. */
