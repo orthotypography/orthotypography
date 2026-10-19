@@ -159,7 +159,8 @@ Deno.test("high punctuation crosses inline formatting boundaries", () => {
         { id: "plain", value: "Bonjour :" },
         { id: "emphasis", value: " suite" },
       ],
-      expected: ["Bonjour\u00a0: ", "suite"],
+      // The correct space after the colon stays in its node (#63).
+      expected: ["Bonjour\u00a0:", " suite"],
     },
   ] as const;
 

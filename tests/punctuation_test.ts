@@ -195,9 +195,10 @@ Deno.test("punctuation spacing stays in the mark's node", () => {
   assert.deepEqual(fixNodes(["Bonjour,", "monde"]), ["Bonjour, ", "monde"]);
   assert.deepEqual(fixNodes(["Bonjour", "; oui"]), ["Bonjour", " ; oui"]);
   assert.deepEqual(fixNodes(["Bonjour ", ";oui"]), ["Bonjour", " ; oui"]);
+  // A correct space after the mark stays in its node (#63).
   assert.deepEqual(fixNodes(["Bonjour :", " suite"]), [
-    "Bonjour : ",
-    "suite",
+    "Bonjour\u00a0:",
+    " suite",
   ]);
   assert.deepEqual(fixNodes(["Oui ", " ", "!"]), ["Oui", "", " !"]);
   assert.deepEqual(fixNodes(["Bonjour", "  ,", " monde"]), [
