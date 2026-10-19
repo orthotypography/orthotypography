@@ -14,6 +14,7 @@ import { SOURCES } from "../src/catalogue/sources.ts";
 import type { Annotation } from "../src/model.ts";
 import { assertCode } from "./support/errors.ts";
 import { testRule } from "./support/rules.ts";
+import { covers } from "./support/coverage.ts";
 
 // Issue #22: rules declare the annotation kinds they provide or require
 // (docs/conception-annotations-v0.1.md).
@@ -144,6 +145,7 @@ Deno.test("rules may only return and read the kinds they declare", () => {
 });
 
 Deno.test("ellipsis annotations follow the glyph correction", () => {
+  covers("classify.ellipsis-candidates");
   const seen: Annotation[][] = [];
   const observer = testRule("x-test.observe-ellipsis", (run) => {
     seen.push([...run.annotations("ellipsis")]);

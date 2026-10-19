@@ -8,6 +8,7 @@ import {
   NUMERIC_PROTECTION_RULE,
   runPipeline,
 } from "../src/mod.ts";
+import { covers } from "./support/coverage.ts";
 
 const rules = [
   NUMERIC_PROTECTION_RULE,
@@ -17,6 +18,7 @@ const rules = [
 const options = { locale: "fr-FR", mode: "fix" } as const;
 
 Deno.test("glyph fix converts only certain final and structural initial ellipses", () => {
+  covers("punctuation.ellipsis.glyph");
   for (
     const [input, expected] of [
       ["Il hésite...", "Il hésite…"],
@@ -38,6 +40,13 @@ Deno.test("glyph fix converts only certain final and structural initial ellipses
 });
 
 Deno.test("glyph fix preserves ambiguous and excluded sequences", () => {
+  covers("punctuation.ellipsis.glyph", [
+    "ambiguous-function",
+    "other-period-sequence",
+    "etc-abbreviation",
+    "technical-syntax",
+    "editorial-omission",
+  ]);
   for (
     const input of [
       "mot ... mot",
@@ -139,6 +148,7 @@ Deno.test("glyph fix handles an initial ellipse split after two dots", () => {
 });
 
 Deno.test("glyph fix never crosses protected boundaries or changes protected text", () => {
+  covers("punctuation.ellipsis.glyph", ["protected-content"]);
   const input = [
     { id: "left", value: "Il hésite." },
     { id: "barrier", value: ".", protected: true },

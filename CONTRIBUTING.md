@@ -22,7 +22,8 @@ point explicitly states otherwise.
 The tasks are defined in [`deno.json`](deno.json):
 
 ```sh
-deno task check          # formatting, lint, type checks, and API documentation
+deno task check          # formatting, lint, type checks, API documentation, and coverage matrix
+deno task matrix         # regenerate the coverage matrix table
 deno task test           # test suite
 deno task publish:check  # JSR dry run
 deno task npm:check      # npm build, smoke test, and pack dry run
@@ -43,6 +44,14 @@ invariant violation found in existing code is reported in an issue and listed in
 changes that may affect performance, compare `deno task bench` with the baseline
 in [`docs/performances-v0.1.md`](docs/performances-v0.1.md) on the same machine.
 
+Tests declare the rules and catalogue exceptions they cover with
+`covers(ruleId, [exceptionIds])` (`tests/support/coverage.ts`), called with
+literal arguments. `tests/coverage_test.ts` fails when an executable rule, or
+one of its exceptions that the core can test, has no covering test. The table of
+the coverage matrix is generated from these declarations, the catalogue, the
+preset, and `docs/data/matrice-in-2002.json`: run `deno task matrix` after a
+change to any of them, since `deno task check` fails on a stale table.
+
 `deno task currency:update` refreshes the ISO 4217 currency data from its
 official source; submit the regenerated data in a dedicated change.
 
@@ -59,8 +68,11 @@ A behavioral rule change should:
 - distinguish the documentary catalogue entry from the executable rule, and
   state its default mode and preset membership;
 - cover positive cases, negative cases, protected content, and text split across
-  segments, and check idempotence where applicable;
-- update the relevant documents in `docs/`, including the coverage matrix.
+  segments, and check idempotence where applicable, declaring them with
+  `covers`;
+- give each exception a stable ID and an English description in the catalogue,
+  and a French label in `docs/data/matrice-in-2002.json`;
+- update the relevant documents in `docs/`, and regenerate the coverage matrix.
 
 The engine stays independent of Markdown or HTML parsers and editor APIs; those
 adapters belong in

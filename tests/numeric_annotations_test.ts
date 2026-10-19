@@ -13,6 +13,7 @@ import {
 import type { TextSegment } from "../src/model.ts";
 import type { Annotation, LogicalRun } from "../src/model.ts";
 import { testRule } from "./support/rules.ts";
+import { covers } from "./support/coverage.ts";
 
 function fixNodes(values: readonly (string | TextSegment)[]): string[] {
   const nodes = values.map((value, index) => ({
@@ -59,6 +60,7 @@ function observer(seen: Annotation[][]) {
 }
 
 Deno.test("numeric annotations carry kind and disposition", () => {
+  covers("classify.numeric-constructs");
   const seen: Annotation[][] = [];
   runTextNodePipeline(
     [{ id: "a", value: "À 10" }, { id: "b", value: ":30, 25 % en plus" }],

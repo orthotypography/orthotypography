@@ -62,6 +62,19 @@ export interface SourceLocator {
   readonly locator: string;
 }
 
+/** A documented case where a rule deliberately does not apply. */
+export interface RuleException {
+  /** Stable identifier within the rule, in kebab-case. */
+  readonly id: string;
+  readonly description: string;
+  /**
+   * Set when the core does not detect the case: `integration` when the
+   * integration or the host ensures it, `review` when a person decides, for a
+   * rule that reports rather than fixes by default.
+   */
+  readonly scope?: "integration" | "review";
+}
+
 /** Machine-readable description of one atomic orthotypographic behaviour. */
 export interface RuleDefinition {
   readonly id: string;
@@ -72,7 +85,7 @@ export interface RuleDefinition {
   readonly defaultMode: RuleMode;
   readonly sources: readonly SourceLocator[];
   readonly outcome: Readonly<Record<string, string>>;
-  readonly exceptions: readonly string[];
+  readonly exceptions: readonly RuleException[];
   readonly dependsOn?: readonly string[];
   /** Annotation kinds produced, for rules of the `classify` phase. */
   readonly provides?: readonly string[];

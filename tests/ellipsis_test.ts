@@ -12,8 +12,10 @@ import {
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
 import type { TextSegment } from "../src/model.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("suspension points after etc. are removed", () => {
+  covers("punctuation.ellipsis.after-etc.forbidden");
   const result = runPipeline(
     "Liste, etc... Suite; etc.... Fin; etc.… Terminé.",
     [ETC_ELLIPSIS_RULE],
@@ -25,6 +27,10 @@ Deno.test("suspension points after etc. are removed", () => {
 });
 
 Deno.test("the etc. rule preserves non-target and technical text", () => {
+  covers("punctuation.ellipsis.after-etc.forbidden", [
+    "non-standalone-token",
+    "technical-syntax",
+  ]);
   const input =
     "Etc. alone, etc.., projectetc..., etc...suffix, /etc/... and file.etc...name";
   const result = runPipeline(input, [ETC_ELLIPSIS_RULE], {
@@ -67,6 +73,7 @@ Deno.test("the etc. rule crosses unprotected text-node boundaries", () => {
 });
 
 Deno.test("the etc. rule does not cross protected segments", () => {
+  covers("punctuation.ellipsis.after-etc.forbidden", ["protected-content"]);
   const result = runPipeline(
     [
       { value: "Liste, etc." },

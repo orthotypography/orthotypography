@@ -4,6 +4,7 @@ import {
   runPipeline,
   runTextNodePipeline,
 } from "../src/mod.ts";
+import { covers } from "./support/coverage.ts";
 
 // Regression tests for issue #54: the space after `?`, `!`, `:`, and `;` does
 // not apply before a closing sign, which governs the space before it.
@@ -34,6 +35,10 @@ const afterRules = new Set([
 ]);
 
 Deno.test("high punctuation keeps the space set by a closing sign", () => {
+  covers("punctuation.colon.space-after", ["closing-sign"]);
+  covers("punctuation.semicolon.space-after", ["closing-sign"]);
+  covers("punctuation.question.space-after", ["closing-sign"]);
+  covers("punctuation.exclamation.space-after", ["closing-sign"]);
   for (const [input, expected] of cases) {
     const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, fix);
     assert.equal(result.value, expected, input);
@@ -109,6 +114,10 @@ Deno.test("the space after high punctuation still applies before text", () => {
 // source does not describe a mark followed by suspension points: that spacing
 // is reported, not corrected.
 Deno.test("high punctuation leaves no space before a comma or a period", () => {
+  covers("punctuation.colon.space-after", ["comma-or-period"]);
+  covers("punctuation.semicolon.space-after", ["comma-or-period"]);
+  covers("punctuation.question.space-after", ["comma-or-period"]);
+  covers("punctuation.exclamation.space-after", ["comma-or-period"]);
   for (
     const [input, expected] of [
       ["Oui ?, non", `Oui${nnbsp}?, non`],
@@ -149,12 +158,18 @@ Deno.test("high punctuation leaves no space before a comma or a period", () => {
 });
 
 Deno.test("suspension points after high punctuation are reported, not fixed", () => {
+  covers("punctuation.colon.space-after", ["suspension-points"]);
+  covers("punctuation.semicolon.space-after", ["suspension-points"]);
+  covers("punctuation.question.space-after", ["suspension-points"]);
+  covers("punctuation.exclamation.space-after", ["suspension-points"]);
   for (
     const [input, start, end] of [
       ["Oui ?…", 5, 5],
       ["Oui ? …", 5, 6],
       ["Oui ? ...", 5, 6],
       ["Il dit :…", 8, 8],
+      ["Oui ;…", 5, 5],
+      ["Oui ! …", 5, 6],
     ] as const
   ) {
     const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, fix);

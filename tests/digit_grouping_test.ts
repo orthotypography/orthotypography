@@ -5,10 +5,12 @@ import {
   runPipeline,
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 const groupingRules = [NUMERIC_PROTECTION_RULE, DIGIT_GROUPING_RULE] as const;
 
 Deno.test("digit grouping diagnoses classified quantities only", () => {
+  covers("number.digits.grouping");
   const input = "1234 kg; 12 345 kg; 12345%; 12345 CAD; €12345; 12345,6789 km";
   const result = runPipeline(input, groupingRules, {
     locale: "fr-FR",
@@ -35,6 +37,13 @@ Deno.test("digit grouping accepts both non-breaking separators", () => {
 });
 
 Deno.test("digit grouping preserves numbering and technical contexts", () => {
+  covers("number.digits.grouping", [
+    "years-and-dates",
+    "ordinals-and-numbering",
+    "versions-and-addresses",
+    "identifiers-and-codes",
+    "technical-or-protected-content",
+  ]);
   const inputs = [
     "1961",
     "2026-09-12",
@@ -61,6 +70,7 @@ Deno.test("digit grouping preserves numbering and technical contexts", () => {
 });
 
 Deno.test("digit grouping does not cross protected segments", () => {
+  covers("number.digits.grouping", ["technical-or-protected-content"]);
   const input = [
     { id: "left", value: "12" },
     { id: "code", value: "345", protected: true },

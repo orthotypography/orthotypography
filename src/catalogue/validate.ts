@@ -99,6 +99,31 @@ export function validateCatalogue(
   }
 
   for (const rule of rules) {
+    const exceptionIds = new Set<string>();
+    for (const exception of rule.exceptions) {
+      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(exception.id)) {
+        issues.push({
+          path: `rules.${rule.id}.exceptions`,
+          message: `exception ID ${exception.id} is not kebab-case`,
+        });
+      }
+      if (exceptionIds.has(exception.id)) {
+        issues.push({
+          path: `rules.${rule.id}.exceptions`,
+          message: `duplicate exception ${exception.id}`,
+        });
+      }
+      exceptionIds.add(exception.id);
+      if (exception.description.trim().length === 0) {
+        issues.push({
+          path: `rules.${rule.id}.exceptions`,
+          message: `exception ${exception.id} has no description`,
+        });
+      }
+    }
+  }
+
+  for (const rule of rules) {
     for (const locale of rule.locales) {
       if (!isCanonicalLocale(locale)) {
         issues.push({

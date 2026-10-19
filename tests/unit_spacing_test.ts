@@ -6,6 +6,7 @@ import {
   UNIT_SPACING_RULE,
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("unit spacing is diagnostic by default", () => {
   const input = "12kg";
@@ -21,6 +22,7 @@ Deno.test("unit spacing is diagnostic by default", () => {
 });
 
 Deno.test("unit spacing fixes recognized symbols when requested", () => {
+  covers("number.unit.nbsp-before");
   const result = runPipeline(
     "12kg ; 20°C ; 2 kPa ; 5 µm",
     IMPRIMERIE_NATIONALE_RULES,
@@ -34,6 +36,12 @@ Deno.test("unit spacing fixes recognized symbols when requested", () => {
 });
 
 Deno.test("unit spacing preserves exclusions and technical text", () => {
+  covers("number.unit.nbsp-before", [
+    "angle",
+    "common-noun",
+    "unknown-unit",
+    "protected-content",
+  ]);
   const input = "20° / 12 kilogrammes / 12 Kg / https://x.test/12kg";
   const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, {
     locale: "fr-FR",

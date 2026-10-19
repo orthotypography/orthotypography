@@ -99,11 +99,12 @@ développement suit des commits précis de la ligne `0.2` ; le passage au cœur
    implémentée selon sa [conception](conception-annotations-v0.1.md) : les
    règles déclarent les types d’annotations qu’elles produisent ou lisent, et
    la classification des points de suspension s’exécute une fois par passe ;
-   ses ruptures rejoignent la prochaine préversion. Reste l’issue
-   [nº 28](https://github.com/orthotypography/orthotypography/issues/28)
-   (matrice générée à partir de données structurées), qui suit sa
-   [conception](conception-matrice-generee-v0.1.md) et change le type des
-   exceptions du catalogue.
+   ses ruptures rejoignent la prochaine préversion. L’issue
+   [nº 28](https://github.com/orthotypography/orthotypography/issues/28) est
+   implémentée selon sa [conception](conception-matrice-generee-v0.1.md) :
+   exceptions structurées au catalogue, déclarations de couverture dans les
+   tests et tableau de la matrice généré, vérifié par `deno task check`. La
+   revue d’architecture est ainsi entièrement réalisée.
 
 3. **Cohérence documentaire et linguistique.** Auditer les textes hors de
    `docs/`, traduire leur prose en anglais et actualiser les instructions
@@ -117,10 +118,9 @@ développement suit des commits précis de la ligne `0.2` ; le passage au cœur
 4. **Matrice de couverture.** Première version achevée dans
    [`matrice-couverture-in-2002-v0.1.md`](matrice-couverture-in-2002-v0.1.md),
    vérifiée de nouveau le 19 octobre 2026 pour la préparation de
-   `0.2.0-alpha.0`. La maintenir à chaque ajout de catalogue,
-   d’exécution, de test ou de preset.
-   Sa génération à partir de données structurées est proposée dans
-   l’issue [nº 28](https://github.com/orthotypography/orthotypography/issues/28).
+   `0.2.0-alpha.0`. Son tableau est désormais généré par `deno task matrix` ;
+   la prose et l’en-tête restent rédigés à la main
+   ([nº 28](https://github.com/orthotypography/orthotypography/issues/28)).
 5. **Extension atomique des règles.** Le modèle révisé de l’issue
    [nº 21](https://github.com/orthotypography/orthotypography/issues/21) est
    en place, comme les annotations déclarées de l’issue

@@ -5,6 +5,7 @@ import {
   IMPRIMERIE_NATIONALE_RULES,
   runTextNodePipeline,
 } from "../src/mod.ts";
+import { covers } from "./support/coverage.ts";
 
 function applyNodeChanges(
   source: string,
@@ -289,6 +290,7 @@ Deno.test("low-punctuation lint relates preceding-node whitespace", () => {
 });
 
 Deno.test("low punctuation does not edit protected neighboring whitespace", () => {
+  covers("punctuation.comma.no-space-before", ["protected-content"]);
   const nodes = [
     { id: "protected", value: "Code ", protected: true },
     { id: "plain", value: ", suite" },

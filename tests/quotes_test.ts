@@ -5,8 +5,10 @@ import {
   runPipeline,
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("paired French guillemets receive inner no-break spaces", () => {
+  covers("quotes.french.nbsp-inner");
   for (const input of ["«texte»", "« texte »", "«\u202ftexte\u202f»"]) {
     const result = runPipeline(input, [FRENCH_GUILLEMETS_SPACING_RULE], {
       locale: "fr-FR",
@@ -37,6 +39,10 @@ Deno.test("guillemet pairing crosses numeric protection segments", () => {
 });
 
 Deno.test("unpaired, empty, straight, and protected quotes are preserved", () => {
+  covers("quotes.french.nbsp-inner", [
+    "unpaired-guillemet",
+    "protected-content",
+  ]);
   for (const input of ["«texte", "texte»", "«»", "« »", 'Il mesure 5".']) {
     const result = runPipeline(input, [FRENCH_GUILLEMETS_SPACING_RULE], {
       locale: "fr-FR",
