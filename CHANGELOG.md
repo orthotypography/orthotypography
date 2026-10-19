@@ -18,6 +18,12 @@ All notable changes to this project will be documented in this file.
   unchanged; `PipelineResult.skippedRuleIds` lists the rules left out, and
   `ruleLocaleSupport` reports them without running the pass. The catalogue
   validation rejects non-canonical locales.
+- Do not move a leading euro sign attached to the preceding text (#36).
+  `EURO_SPACING_RULE` moved the sign behind the amount and left the preceding
+  word glued to the digits (`Prix€ 12` became `Prix12 €`). When the sign follows
+  neither the start of the text, a space, nor an opening sign, the rule now
+  reports the construct without a correction, since inserting a space is not
+  prescribed.
 - Do not require a space after `?`, `!`, `:`, or `;` before a comma or a
   period (#59), which the Imprimerie nationale sets « toujours collés au mot
   précédent »: the four `space-after` rules inserted a space that the comma and
