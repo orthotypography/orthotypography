@@ -1,8 +1,9 @@
 import type {
   ChangeSet,
+  DismissedProposal,
+  PipelineMode,
   ProposalGroup,
   RuleDiagnostic,
-  RuleMode,
   RuntimeRule,
   TextChange,
   TextSegment,
@@ -24,7 +25,9 @@ export interface TextNodeOutput {
 export interface TextNodePipelineOptions {
   readonly locale: string;
   /** Integrations must choose an explicit pass instead of relying on defaults. */
-  readonly mode: RuleMode;
+  readonly mode: PipelineMode;
+  /** Proposals the host declined; see `PipelineOptions.dismissed`. */
+  readonly dismissed?: readonly DismissedProposal[];
 }
 
 export interface TextNodePipelineResult extends ChangeSet {

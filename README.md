@@ -56,6 +56,22 @@ console.log(applyTextChanges(
   result.changes.filter(({ id }) => accepted.has(id)),
 ));
 // "Bonjour, monde : 25%."
+
+// Review mode applies every rule and hints at each rule's default mode. A
+// proposal the user declines goes back in `dismissed` on the next pass.
+const review = runPipeline("Prix : 25€.", IMPRIMERIE_NATIONALE_RULES, {
+  locale: "fr-FR",
+  mode: "review",
+});
+const euro = review.diagnostics.find(({ suggested }) => suggested === "review");
+console.log(euro?.ruleId); // "number.euro.nbsp-before"
+const declined = runPipeline("Prix : 25€.", IMPRIMERIE_NATIONALE_RULES, {
+  locale: "fr-FR",
+  mode: "review",
+  dismissed: euro === undefined ? [] : [euro],
+});
+console.log(declined.value);
+// "Prix\u00a0: 25€."
 ```
 
 ## Writing a rule

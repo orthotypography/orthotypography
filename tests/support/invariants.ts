@@ -16,7 +16,7 @@ import {
   SPACE_AFTER_COMMA_RULE,
   UNIT_SPACING_RULE,
 } from "../../src/mod.ts";
-import type { RuntimeRule } from "../../src/model.ts";
+import type { RuleDiagnostic, RuntimeRule } from "../../src/model.ts";
 import type {
   TextNodeInput,
   TextNodePipelineResult,
@@ -178,6 +178,102 @@ function groupViolations(
   return violations;
 }
 
+/** Identity of a diagnostic across passes: rule, location, and message. */
+function diagnosticKey(diagnostic: RuleDiagnostic): string {
+  return JSON.stringify([
+    diagnostic.ruleId,
+    diagnostic.segmentIndex,
+    diagnostic.start,
+    diagnostic.end,
+    diagnostic.message,
+    diagnostic.replacement,
+  ]);
+}
+
+/**
+ * Review-mode and dismissal invariants (design of #26, sections 5 and 8):
+ * without its hints, review mode gives the fix result; every applied proposal
+ * and group carries a hint; dismissing the proposals of a group reports them
+ * as dismissed, outside any group, and leaves the cascade upstream unchanged.
+ */
+function reviewViolations(
+  nodes: readonly TextNodeInput[],
+  rules: readonly RuntimeRule[],
+  locale: string,
+  fix: TextNodePipelineResult,
+): string[] {
+  const violations: string[] = [];
+  const review = runTextNodePipeline(nodes, rules, { locale, mode: "review" });
+  const withoutHints = JSON.stringify(
+    review,
+    (key, value) => key === "suggested" ? undefined : value,
+  );
+  if (withoutHints !== JSON.stringify(fix)) {
+    violations.push("review mode differs from fix mode beyond its hints");
+  }
+  if (
+    review.diagnostics.some(({ groupId, suggested }) =>
+      (groupId !== undefined) !== (suggested !== undefined)
+    ) || review.groups.some(({ suggested }) => suggested === undefined)
+  ) {
+    violations.push("review mode hints are missing or misplaced");
+  }
+
+  for (const group of [review.groups[0], review.groups.at(-1)]) {
+    if (group === undefined) continue;
+    const proposals = group.diagnostics.map((index) =>
+      review.diagnostics[index]
+    );
+    const dismissed = runTextNodePipeline(nodes, rules, {
+      locale,
+      mode: "review",
+      dismissed: proposals.map(({ ruleId, segmentIndex, start, end }) => ({
+        ruleId,
+        segmentIndex,
+        start,
+        end,
+      })),
+    });
+    const targets = new Set(proposals.map(diagnosticKey));
+    for (const diagnostic of dismissed.diagnostics) {
+      if (!targets.has(diagnosticKey(diagnostic))) continue;
+      if (diagnostic.dismissed !== true || diagnostic.groupId !== undefined) {
+        violations.push(`proposal of ${group.id} is not reported dismissed`);
+      }
+    }
+    // The proposals of the group's first rule do not depend on the others and
+    // reappear, dismissed; later proposals of the group may no longer arise.
+    const firstRule = review.diagnostics[group.diagnostics[0]].ruleId;
+    for (const proposal of proposals) {
+      if (proposal.ruleId !== firstRule) continue;
+      if (
+        !dismissed.diagnostics.some((diagnostic) =>
+          diagnosticKey(diagnostic) === diagnosticKey(proposal) &&
+          diagnostic.dismissed === true
+        )
+      ) {
+        violations.push(`proposal of ${group.id} disappeared when dismissed`);
+      }
+    }
+    // Diagnostics are reported rule by rule. Those of the rules up to the
+    // group's first rule do not depend on the dismissal.
+    const upstream = (result: TextNodePipelineResult): string => {
+      const keys: string[] = [];
+      let reached = false;
+      for (const diagnostic of result.diagnostics) {
+        if (diagnostic.ruleId === firstRule) reached = true;
+        else if (reached) break;
+        keys.push(diagnosticKey(diagnostic));
+      }
+      return keys.join("\n");
+    };
+    if (upstream(review) !== upstream(dismissed)) {
+      violations.push(`dismissing ${group.id} changed upstream diagnostics`);
+    }
+  }
+  return violations;
+}
+
 /**
  * Checks the pipeline invariants of one composition on one logical text run.
  *
@@ -241,6 +337,9 @@ export function checkInvariants(
       violations.push(`fixed value does not join the fixed nodes for ${input}`);
     }
     for (const violation of groupViolations(nodes, fix)) {
+      violations.push(`${violation} for ${input}`);
+    }
+    for (const violation of reviewViolations(nodes, rules, locale, fix)) {
       violations.push(`${violation} for ${input}`);
     }
 

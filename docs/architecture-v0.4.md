@@ -69,6 +69,15 @@ modifiées et sur les propositions, ce qui garde la passe linéaire
 § 7). En mode `lint`, et pour les propositions non appliquées d’une règle en
 mode `lint` dans le mode par défaut, il n’y a ni groupe ni changement.
 
+Le mode `review` applique les propositions de toutes les règles, comme `fix`,
+et indique pour chaque proposition appliquée le mode par défaut de sa règle
+(`suggested`, `apply` ou `review`) ; un groupe est suggéré quand toutes ses
+propositions le sont. L’option `dismissed` désigne des propositions écartées
+par leur règle et leur emplacement source : elles sont validées mais non
+appliquées, rapportées avec `dismissed: true`, et la cascade se poursuit sans
+elles. Un hôte interactif relance ainsi la passe après chaque décision, sans
+que le cœur suive l’historique du document.
+
 Les éditions d’une même règle forment une transaction sur l’instantané courant
 de la suite logique. Elles peuvent viser plusieurs segments non protégés ; le
 pipeline les valide et les applique ensemble avant de passer à la règle
