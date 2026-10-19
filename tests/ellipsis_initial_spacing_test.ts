@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   applyTextChanges,
+  ELLIPSIS_CLASSIFICATION_RULE,
   ELLIPSIS_GLYPH_RULE,
   ELLIPSIS_INITIAL_SPACE_AFTER_RULE,
   IMPRIMERIE_NATIONALE_RULES,
@@ -11,6 +12,7 @@ import { assertCode } from "./support/errors.ts";
 
 const rules = [
   NUMERIC_PROTECTION_RULE,
+  ELLIPSIS_CLASSIFICATION_RULE,
   ELLIPSIS_GLYPH_RULE,
   ELLIPSIS_INITIAL_SPACE_AFTER_RULE,
 ] as const;

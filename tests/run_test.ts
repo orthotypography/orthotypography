@@ -23,7 +23,12 @@ function runRule(
   apply: (run: LogicalRun) => TestRuleResult,
   phase: RulePhase = "punctuation-spacing",
 ): RuntimeRule {
-  return testRule(id, apply, { phase });
+  // A classify rule declares the `x-test` kind that the test rules annotate.
+  return testRule(
+    id,
+    apply,
+    phase === "classify" ? { phase, provides: ["x-test"] } : { phase },
+  );
 }
 
 function fixNodes(

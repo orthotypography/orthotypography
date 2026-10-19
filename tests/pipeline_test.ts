@@ -403,7 +403,7 @@ Deno.test("diagnostics name the input segment when protection splits it", () => 
         }],
       };
     },
-    { phase: "classify" },
+    { phase: "classify", provides: ["x-test"] },
   );
   const insert = testRule("x-test.insert-after", (run) => {
     const at = run.text.indexOf("1.2 ");

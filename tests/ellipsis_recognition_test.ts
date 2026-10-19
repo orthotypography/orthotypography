@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { classifyEllipsisCandidates } from "../src/classify/ellipsis.ts";
 import {
   compilePipeline,
+  ELLIPSIS_CLASSIFICATION_RULE,
   ELLIPSIS_GLYPH_RULE,
   ELLIPSIS_RECOGNITION_RULE,
   IMPRIMERIE_NATIONALE_RULES,
@@ -12,6 +13,7 @@ import { assertCode } from "./support/errors.ts";
 
 const recognitionRules = [
   NUMERIC_PROTECTION_RULE,
+  ELLIPSIS_CLASSIFICATION_RULE,
   ELLIPSIS_RECOGNITION_RULE,
 ] as const;
 

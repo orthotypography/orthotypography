@@ -64,6 +64,39 @@ export function validateCatalogue(
     }
   }
 
+  // Annotation kinds: one provider per kind, in the classify phase, and a
+  // provider for every required kind.
+  const providers = new Map<string, string>();
+  for (const rule of rules) {
+    for (const kind of rule.provides ?? []) {
+      if (rule.phase !== "classify") {
+        issues.push({
+          path: `rules.${rule.id}.provides`,
+          message: `annotation kind ${kind} provided outside the classify phase`,
+        });
+      }
+      const provider = providers.get(kind);
+      if (provider !== undefined) {
+        issues.push({
+          path: `rules.${rule.id}.provides`,
+          message: `annotation kind ${kind} already provided by ${provider}`,
+        });
+      } else {
+        providers.set(kind, rule.id);
+      }
+    }
+  }
+  for (const rule of rules) {
+    for (const kind of rule.requires ?? []) {
+      if (!providers.has(kind)) {
+        issues.push({
+          path: `rules.${rule.id}.requires`,
+          message: `no rule provides annotation kind ${kind}`,
+        });
+      }
+    }
+  }
+
   for (const rule of rules) {
     for (const locale of rule.locales) {
       if (!isCanonicalLocale(locale)) {
@@ -104,6 +137,19 @@ export function validateCatalogue(
         });
       }
       selected.add(selection.ruleId);
+    }
+    for (const selection of preset.rules) {
+      const rule = rules.find(({ id }) => id === selection.ruleId);
+      for (const kind of rule?.requires ?? []) {
+        const provider = providers.get(kind);
+        if (provider !== undefined && !selected.has(provider)) {
+          issues.push({
+            path: `presets.${preset.id}.rules`,
+            message:
+              `rule ${selection.ruleId} requires ${kind}, provided by ${provider}, which the preset does not select`,
+          });
+        }
+      }
     }
   }
 

@@ -1,2 +1,5 @@
 export { classifyNumericConstructs } from "./numeric.ts";
-export { NUMERIC_PROTECTION_RULE } from "./runtime.ts";
+export {
+  ELLIPSIS_CLASSIFICATION_RULE,
+  NUMERIC_PROTECTION_RULE,
+} from "./runtime.ts";

@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Declare annotation dependencies and classify ellipses once per pass (#22;
+  `docs/conception-annotations-v0.1.md`). `RuntimeRule` and `RuleDefinition`
+  gain `provides`, the annotation kinds a classify rule produces, and
+  `requires`, the kinds a rule reads. `compilePipeline` orders each provider
+  before the rules that require its kinds and rejects a required kind without
+  provider (`MISSING_ANNOTATION_PROVIDER`, naming the built-in provider), two
+  providers of one kind (`DUPLICATE_ANNOTATION_PROVIDER`), and `provides`
+  outside the classify phase. A classify rule may only return annotations of
+  the kinds it provides, and `LogicalRun.annotations` rejects kinds the rule
+  does not require (`UNDECLARED_ANNOTATION`). The numeric rules now require
+  `numeric` instead of depending on `classify.numeric-constructs` by ID. The
+  new `ELLIPSIS_CLASSIFICATION_RULE` (`classify.ellipsis-candidates`)
+  classifies ellipsis candidates once, after the numeric classification, as
+  `ellipsis` annotations read by `ELLIPSIS_GLYPH_RULE` and
+  `ELLIPSIS_INITIAL_SPACE_AFTER_RULE`; it joins the Imprimerie nationale
+  preset, whose outputs are unchanged. **Breaking:** a composition with an
+  ellipsis rule but without the preset must add `NUMERIC_PROTECTION_RULE` and
+  `ELLIPSIS_CLASSIFICATION_RULE`; external rules must declare the annotation
+  kinds they read or produce. The initial ellipsis spacing rule now decides
+  on the classified source text, like the glyph rule, instead of text already
+  corrected by earlier rules: `…Bon!Oui/non` no longer receives a space after
+  the ellipsis, since its source token contains a slash, and with numeric
+  protections a technical context protected in the source no longer hides a
+  certain initial ellipsis.
+
 ## [0.2.0-alpha.0] - 2026-10-19
 
 This preview opens the `0.2` line, whose rule interface and result contract

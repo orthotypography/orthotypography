@@ -25,6 +25,7 @@ export {
 } from "./integration.ts";
 export {
   classifyNumericConstructs,
+  ELLIPSIS_CLASSIFICATION_RULE,
   NUMERIC_PROTECTION_RULE,
 } from "./classify/mod.ts";
 export {

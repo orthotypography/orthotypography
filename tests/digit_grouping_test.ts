@@ -132,5 +132,5 @@ Deno.test("digit grouping requires numeric classification", () => {
     runPipeline("12345 kg", [DIGIT_GROUPING_RULE], {
       locale: "fr-FR",
       mode: "lint",
-    }), "MISSING_DEPENDENCY");
+    }), "MISSING_ANNOTATION_PROVIDER");
 });

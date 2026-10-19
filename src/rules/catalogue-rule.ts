@@ -4,7 +4,8 @@ import type { LogicalRun, RuleResult, RuntimeRule } from "../model.ts";
 
 /**
  * Builds a built-in executable rule from its catalogue entry, which is the only
- * source of its phase, locales, default mode, and dependencies.
+ * source of its phase, locales, default mode, dependencies, and annotation
+ * kinds.
  */
 export function catalogueRule(
   id: string,
@@ -26,6 +27,12 @@ export function catalogueRule(
     ...(definition.dependsOn === undefined
       ? {}
       : { dependsOn: definition.dependsOn }),
+    ...(definition.provides === undefined
+      ? {}
+      : { provides: definition.provides }),
+    ...(definition.requires === undefined
+      ? {}
+      : { requires: definition.requires }),
     apply,
   });
 }

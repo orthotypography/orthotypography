@@ -74,6 +74,10 @@ export interface RuleDefinition {
   readonly outcome: Readonly<Record<string, string>>;
   readonly exceptions: readonly string[];
   readonly dependsOn?: readonly string[];
+  /** Annotation kinds produced, for rules of the `classify` phase. */
+  readonly provides?: readonly string[];
+  /** Annotation kinds read by the rule. */
+  readonly requires?: readonly string[];
 }
 
 export interface PresetRuleSelection {
@@ -233,7 +237,10 @@ export interface LogicalRun {
   readonly protectedRanges: readonly RunRange[];
   /** Start offset of each source node, followed by the text length. */
   readonly nodeBoundaries: readonly number[];
-  /** Annotations of one kind, sorted by position. */
+  /**
+   * Annotations of one kind, sorted by position. The kind must be declared in
+   * the rule's `requires`.
+   */
   annotations(kind: string): readonly Annotation[];
 }
 
@@ -259,6 +266,16 @@ export interface RuntimeRule {
   readonly defaultMode: RuleMode;
   /** IDs of rules that must run before this one. */
   readonly dependsOn?: readonly string[];
+  /**
+   * Annotation kinds produced by the rule; only rules of the `classify` phase
+   * may produce annotations, and only of the kinds they declare.
+   */
+  readonly provides?: readonly string[];
+  /**
+   * Annotation kinds read by the rule. Their providers must be in the
+   * composition and run first; `LogicalRun.annotations` rejects other kinds.
+   */
+  readonly requires?: readonly string[];
   apply(run: LogicalRun): RuleResult;
 }
 

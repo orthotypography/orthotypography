@@ -51,7 +51,7 @@ Deno.test("euro spacing preserves protected URI", () => {
 Deno.test("euro spacing requires classification and is idempotent", () => {
   assertCode(
     () => runPipeline("12€", [EURO_SPACING_RULE], { locale: "fr-FR" }),
-    "MISSING_DEPENDENCY",
+    "MISSING_ANNOTATION_PROVIDER",
   );
   const rules = [NUMERIC_PROTECTION_RULE, EURO_SPACING_RULE];
   const first = runPipeline("€12", rules, {

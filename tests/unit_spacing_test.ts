@@ -51,7 +51,7 @@ Deno.test("unit spacing preserves exclusions and technical text", () => {
 Deno.test("unit spacing requires numeric classification", () => {
   assertCode(
     () => runPipeline("12kg", [UNIT_SPACING_RULE], { locale: "fr-FR" }),
-    "MISSING_DEPENDENCY",
+    "MISSING_ANNOTATION_PROVIDER",
   );
 });
 

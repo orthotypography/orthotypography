@@ -1,5 +1,10 @@
-import { classifyEllipsisCandidates } from "../classify/ellipsis.ts";
-import type { RuleResult, RunDiagnostic, RuntimeRule } from "../model.ts";
+import { ELLIPSIS_ANNOTATION } from "../classify/runtime.ts";
+import type {
+  LogicalRun,
+  RuleResult,
+  RunDiagnostic,
+  RuntimeRule,
+} from "../model.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
 import { diagnosticMessage } from "../messages.ts";
 import { RunStretches, stretchParts, unprotectedRegions } from "./run-text.ts";
@@ -59,21 +64,53 @@ export const ETC_ELLIPSIS_RULE: RuntimeRule = catalogueRule(
   },
 );
 
-/** Certain ellipsis candidates of each unprotected region, in text order. */
-function* regionCandidates(stretches: RunStretches) {
-  for (const region of unprotectedRegions(stretches)) {
-    const value = stretches.text.slice(region.start, region.end);
-    for (
-      const candidate of classifyEllipsisCandidates(value, region.start === 0)
-    ) {
-      yield {
-        ...candidate,
-        start: region.start + candidate.start,
-        end: region.start + candidate.end,
-        /** Code point after the candidate within its region, or 0. */
-        next: value.codePointAt(candidate.end) ?? 0,
-      };
+interface AnnotatedCandidate {
+  readonly start: number;
+  readonly end: number;
+  readonly value: "..." | "…";
+  readonly function: string;
+  readonly certain: boolean;
+  /** Code point after the candidate within its unprotected region, or 0. */
+  readonly next: number;
+}
+
+/**
+ * Ellipsis candidates classified by `classify.ellipsis-candidates`, in text
+ * order, with their current representation. A candidate whose text no longer
+ * reads as an ellipsis is skipped.
+ */
+function* annotatedCandidates(
+  run: LogicalRun,
+): Generator<AnnotatedCandidate> {
+  const { text, protectedRanges } = run;
+  let range = 0;
+  for (const annotation of run.annotations(ELLIPSIS_ANNOTATION)) {
+    const value = text.slice(annotation.start, annotation.end);
+    if (value !== "..." && value !== "…") continue;
+    while (
+      range < protectedRanges.length &&
+      protectedRanges[range].end <= annotation.end
+    ) range++;
+    // The region ends at the next protected range, or at the end of the text.
+    const regionEnd = range < protectedRanges.length &&
+        protectedRanges[range].start >= annotation.end
+      ? protectedRanges[range].start
+      : text.length;
+    let next = 0;
+    if (annotation.end < regionEnd) {
+      const unit = text.charCodeAt(annotation.end);
+      next = unit >= 0xd800 && unit <= 0xdbff && annotation.end + 1 < regionEnd
+        ? text.codePointAt(annotation.end) as number
+        : unit;
     }
+    yield {
+      start: annotation.start,
+      end: annotation.end,
+      value,
+      function: annotation.data?.function ?? "unknown",
+      certain: annotation.data?.certain === "true",
+      next,
+    };
   }
 }
 
@@ -83,7 +120,7 @@ export const ELLIPSIS_GLYPH_RULE: RuntimeRule = catalogueRule(
   (run) => {
     const stretches = new RunStretches(run);
     const diagnostics: RunDiagnostic[] = [];
-    for (const candidate of regionCandidates(stretches)) {
+    for (const candidate of annotatedCandidates(run)) {
       if (candidate.value !== "..." || !candidate.certain) continue;
       const [primary, ...related] = stretchParts(
         stretches,
@@ -119,9 +156,8 @@ const letterOrMark = /[\p{L}\p{M}]/u;
 export const ELLIPSIS_INITIAL_SPACE_AFTER_RULE: RuntimeRule = catalogueRule(
   "punctuation.ellipsis.initial.space-after",
   (run) => {
-    const stretches = new RunStretches(run);
     const diagnostics: RunDiagnostic[] = [];
-    for (const candidate of regionCandidates(stretches)) {
+    for (const candidate of annotatedCandidates(run)) {
       if (
         candidate.value !== "…" || candidate.function !== "initial" ||
         !candidate.certain ||

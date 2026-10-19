@@ -94,15 +94,16 @@ développement suit des commits précis de la ligne `0.2` ; le passage au cœur
    publié ; leurs retours, y compris ceux de la validation réelle dans Google
    Docs, décident des ajustements avant `0.2.0`. Toute rupture supplémentaire doit être
    regroupée avant `0.2.0`.
-2. **Fin de la consolidation de l’architecture.** Restent ouvertes l’issue
-   [nº 22](https://github.com/orthotypography/orthotypography/issues/22)
-   (partage de la classification des points de suspension et `dependsOn`
-   portant sur des types d’annotations ; la classification numérique est déjà
-   partagée) et l’issue
+2. **Fin de la consolidation de l’architecture.** L’issue
+   [nº 22](https://github.com/orthotypography/orthotypography/issues/22) est
+   implémentée selon sa [conception](conception-annotations-v0.1.md) : les
+   règles déclarent les types d’annotations qu’elles produisent ou lisent, et
+   la classification des points de suspension s’exécute une fois par passe ;
+   ses ruptures rejoignent la prochaine préversion. Reste l’issue
    [nº 28](https://github.com/orthotypography/orthotypography/issues/28)
-   (matrice générée à partir de données structurées). Ni l’une ni l’autre ne
-   change les sorties attendues ; la nº 22 peut modifier l’interface publique
-   des règles et doit donc être tranchée avant `0.2.0`.
+   (matrice générée à partir de données structurées), qui suit sa
+   [conception](conception-matrice-generee-v0.1.md) et change le type des
+   exceptions du catalogue.
 
 3. **Cohérence documentaire et linguistique.** Auditer les textes hors de
    `docs/`, traduire leur prose en anglais et actualiser les instructions
@@ -122,8 +123,9 @@ développement suit des commits précis de la ligne `0.2` ; le passage au cœur
    l’issue [nº 28](https://github.com/orthotypography/orthotypography/issues/28).
 5. **Extension atomique des règles.** Le modèle révisé de l’issue
    [nº 21](https://github.com/orthotypography/orthotypography/issues/21) est
-   en place ; reprise après l’issue [nº 22](https://github.com/orthotypography/orthotypography/issues/22), afin d’écrire les nouvelles règles
-   avec les annotations partagées. L’interdiction des points de suspension
+   en place, comme les annotations déclarées de l’issue
+   [nº 22](https://github.com/orthotypography/orthotypography/issues/22) ; les
+   nouvelles règles s’écrivent dans ce modèle. L’interdiction des points de suspension
    après `etc.` et `space.after.comma` ont été fusionnées dans les PR
    [nº 2](https://github.com/orthotypography/orthotypography/pull/2) et
    [nº 3](https://github.com/orthotypography/orthotypography/pull/3). Les

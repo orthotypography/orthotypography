@@ -1006,7 +1006,7 @@ function planRule(
   diagnosticBase: number,
 ): readonly Annotation[] {
   const id = rule.id;
-  const layout = buildRun(segments, locale, mode, stored);
+  const layout = buildRun(segments, locale, mode, stored, rule);
   const result = rule.apply(layout.run);
   const ruleDiagnostics = result.diagnostics ?? [];
   for (const diagnostic of ruleDiagnostics) {
@@ -1092,6 +1092,13 @@ function planRule(
           { ruleId: id },
         );
       }
+      if (!(rule.provides ?? []).includes(annotation.kind)) {
+        throw new OrthotypographyError(
+          "INVALID_ANNOTATION",
+          `Rule ${id} returned an annotation of undeclared kind ${annotation.kind}`,
+          { ruleId: id, kind: annotation.kind },
+        );
+      }
     }
   }
   const projected = projectRunEdits(
@@ -1150,12 +1157,22 @@ function planRule(
 
 const catalogueIds: ReadonlySet<string> = new Set(RULES.map(({ id }) => id));
 
+/** Built-in provider of each annotation kind, named in composition errors. */
+const catalogueProviders: ReadonlyMap<string, string> = new Map(
+  RULES.flatMap(({ id, provides }) =>
+    (provides ?? []).map((kind) => [kind, id] as const)
+  ),
+);
+
 /**
  * Orders executable rules by phase and dependencies.
  *
  * The function rejects IDs that are neither in the catalogue nor prefixed with
  * `x-`, unknown phases, duplicate IDs, missing dependencies, backward phase
- * dependencies, and dependency cycles before any text is touched.
+ * dependencies, dependency cycles, annotation kinds provided outside the
+ * classify phase or by two rules, and required annotation kinds that no rule
+ * provides, before any text is touched. Providers run before the rules that
+ * require their kinds.
  */
 export function compilePipeline(
   runtimeRules: readonly RuntimeRule[],
@@ -1214,6 +1231,46 @@ export function compilePipeline(
     }
   }
 
+  // Annotation kinds: one provider per kind, in the classify phase, present
+  // for every kind a rule requires and ordered before it.
+  const providerOf = new Map<string, RuntimeRule>();
+  for (const rule of runtimeRules) {
+    for (const kind of rule.provides ?? []) {
+      if (rule.phase !== "classify") {
+        throw new OrthotypographyError(
+          "INVALID_RULE",
+          `Rule ${rule.id} provides annotation kind ${kind} outside the classify phase`,
+          { ruleId: rule.id, kind },
+        );
+      }
+      const provider = providerOf.get(kind);
+      if (provider !== undefined) {
+        throw new OrthotypographyError(
+          "DUPLICATE_ANNOTATION_PROVIDER",
+          `Annotation kind ${kind} is provided by both ${provider.id} and ${rule.id}`,
+          { kind, ruleId: rule.id, provider: provider.id },
+        );
+      }
+      providerOf.set(kind, rule);
+    }
+  }
+  for (const rule of runtimeRules) {
+    for (const kind of rule.requires ?? []) {
+      if (providerOf.has(kind)) continue;
+      const builtIn = catalogueProviders.get(kind);
+      throw new OrthotypographyError(
+        "MISSING_ANNOTATION_PROVIDER",
+        `Rule ${rule.id} requires annotation kind ${kind}, but no rule of the composition provides it` +
+          (builtIn === undefined ? "" : `; add ${builtIn}`),
+        {
+          ruleId: rule.id,
+          kind,
+          ...(builtIn === undefined ? {} : { provider: builtIn }),
+        },
+      );
+    }
+  }
+
   const ordered: RuntimeRule[] = [];
   const visiting = new Set<string>();
   const visited = new Set<string>();
@@ -1240,6 +1297,9 @@ export function compilePipeline(
         );
       }
       visit(dependencyRule);
+    }
+    for (const kind of rule.requires ?? []) {
+      visit(providerOf.get(kind) as RuntimeRule);
     }
     visiting.delete(id);
     visited.add(id);

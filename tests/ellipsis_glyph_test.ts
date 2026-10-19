@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   applyTextChanges,
+  ELLIPSIS_CLASSIFICATION_RULE,
   ELLIPSIS_GLYPH_RULE,
   ETC_ELLIPSIS_RULE,
   IMPRIMERIE_NATIONALE_RULES,
@@ -8,7 +9,11 @@ import {
   runPipeline,
 } from "../src/mod.ts";
 
-const rules = [NUMERIC_PROTECTION_RULE, ELLIPSIS_GLYPH_RULE] as const;
+const rules = [
+  NUMERIC_PROTECTION_RULE,
+  ELLIPSIS_CLASSIFICATION_RULE,
+  ELLIPSIS_GLYPH_RULE,
+] as const;
 const options = { locale: "fr-FR", mode: "fix" } as const;
 
 Deno.test("glyph fix converts only certain final and structural initial ellipses", () => {
@@ -163,6 +168,7 @@ Deno.test("glyph rule defaults to lint and fix is idempotent", () => {
 Deno.test("glyph and etc. rules do not emit competing diagnostics", () => {
   const result = runPipeline("etc... Il hésite...", [
     NUMERIC_PROTECTION_RULE,
+    ELLIPSIS_CLASSIFICATION_RULE,
     ELLIPSIS_GLYPH_RULE,
     ETC_ELLIPSIS_RULE,
   ], options);

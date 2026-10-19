@@ -22,7 +22,7 @@ L’ordre stable est : classification, glyphes, guillemets, espaces de ponctuati
 
 Chaque règle est appelée une fois par passe sur une vue de toute la suite logique ; ses modifications et diagnostics, exprimés dans les coordonnées de cette suite, sont projetés sur les nœuds sources (voir la [conception de l’exécution sur la suite logique](conception-suite-logique-v0.1.md)).
 
-Les intégrations peuvent protéger un segment entier. Cette primitive suffit au cœur pour préserver code, attributs ou syntaxe, sans lier la bibliothèque à un parseur particulier. Les règles de classification retournent des annotations typées : celles qui protègent deviennent des segments protégés, et toutes suivent les modifications des règles suivantes.
+Les intégrations peuvent protéger un segment entier. Cette primitive suffit au cœur pour préserver code, attributs ou syntaxe, sans lier la bibliothèque à un parseur particulier. Les règles de classification retournent des annotations typées : celles qui protègent deviennent des segments protégés, et toutes suivent les modifications des règles suivantes. Une règle déclare les types qu’elle produit (`provides`) ou lit (`requires`) ; chaque classification s’exécute une fois par passe, et une composition sans le producteur d’un type requis est refusée ([conception des annotations](conception-annotations-v0.1.md)).
 
 ### Coordonnées des diagnostics
 

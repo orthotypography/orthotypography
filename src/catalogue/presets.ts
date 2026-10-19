@@ -19,6 +19,7 @@ export const PRESETS: readonly PresetDefinition[] = [
     status: "CANDIDATE",
     rules: [
       ...commonFrenchRules,
+      { ruleId: "classify.ellipsis-candidates", mode: "manual-review" },
       { ruleId: "punctuation.comma.space-after" },
       { ruleId: "punctuation.period.space-after", mode: "manual-review" },
       { ruleId: "punctuation.colon.space-after" },
