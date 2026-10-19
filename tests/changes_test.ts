@@ -6,6 +6,7 @@ import {
   runTextNodePipeline,
   type TextChange,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 Deno.test("text changes reconstruct a string pipeline result", () => {
   const source = "Bonjour , monde !";
@@ -49,25 +50,19 @@ Deno.test("text changes reject stale, mismatched, and protected sources", () => 
     ruleIds: ["test"],
   };
 
-  assert.throws(
+  assertCode(
     () => applyTextChanges([{ id: "node", value: "axc" }], [change]),
-    Error,
-    "Stale change",
+    "STALE_CHANGE",
   );
-  assert.throws(
+  assertCode(
     () => applyTextChanges([{ id: "other", value: "abc" }], [change]),
-    Error,
-    "does not match",
+    "INVALID_CHANGE",
   );
-  assert.throws(
-    () =>
-      applyTextChanges(
-        [{ id: "node", value: "abc", protected: true }],
-        [change],
-      ),
-    Error,
-    "protected segment",
-  );
+  assertCode(() =>
+    applyTextChanges(
+      [{ id: "node", value: "abc", protected: true }],
+      [change],
+    ), "INVALID_CHANGE");
 });
 
 Deno.test("text changes reject invalid ranges and overlaps", () => {
@@ -81,18 +76,13 @@ Deno.test("text changes reject invalid ranges and overlaps", () => {
     ruleIds: ["test"],
   } satisfies TextChange;
 
-  assert.throws(
+  assertCode(
     () => applyTextChanges("abc", [{ ...base, end: 4 }]),
-    Error,
-    "Invalid change range",
+    "INVALID_CHANGE",
   );
-  assert.throws(
-    () =>
-      applyTextChanges("abc", [
-        { ...base, end: 2, expected: "ab" },
-        { ...base, start: 1, end: 2, expected: "b" },
-      ]),
-    Error,
-    "Overlapping changes",
-  );
+  assertCode(() =>
+    applyTextChanges("abc", [
+      { ...base, end: 2, expected: "ab" },
+      { ...base, start: 1, end: 2, expected: "b" },
+    ]), "INVALID_CHANGE");
 });

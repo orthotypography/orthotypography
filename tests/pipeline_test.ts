@@ -5,6 +5,7 @@ import {
   IMPRIMERIE_NATIONALE_RULES,
   runPipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 import type { RunEdit } from "../src/model.ts";
 import { testRule } from "./support/rules.ts";
 import {
@@ -146,42 +147,32 @@ Deno.test("rules cannot edit protected text", () => {
     "x-test.protected",
     () => ({ edits: [{ start: 0, end: 1, replacement: "x" }] }),
   );
-  assert.throws(
-    () =>
-      runPipeline(
-        [{ value: "a", protected: true }, { value: "b" }],
-        [rule],
-        { locale: "fr-FR", mode: "fix" },
-      ),
-    Error,
-    "edits protected text",
-  );
+  assertCode(() =>
+    runPipeline(
+      [{ value: "a", protected: true }, { value: "b" }],
+      [rule],
+      { locale: "fr-FR", mode: "fix" },
+    ), "PROTECTED_TEXT_EDIT");
 });
 
 Deno.test("compiled pipelines reject duplicate rule IDs", () => {
-  assert.throws(
+  assertCode(
     () => compilePipeline([cleanupRule, cleanupRule]),
-    Error,
-    "Duplicate runtime rule",
+    "DUPLICATE_RULE",
   );
 });
 
 Deno.test("rule IDs are catalogue IDs or use the x- prefix", () => {
-  assert.throws(
+  assertCode(
     () => compilePipeline([testRule("custom.rule", () => ({}))]),
-    Error,
-    "is not in the catalogue",
+    "UNKNOWN_RULE_ID",
   );
-  assert.throws(
-    () =>
-      compilePipeline([
-        testRule("x-test.phase", () => ({}), {
-          phase: "unknown" as "cleanup",
-        }),
-      ]),
-    Error,
-    "unknown phase",
-  );
+  assertCode(() =>
+    compilePipeline([
+      testRule("x-test.phase", () => ({}), {
+        phase: "unknown" as "cleanup",
+      }),
+    ]), "INVALID_RULE");
   assert.doesNotThrow(() => compilePipeline([cleanupRule]));
 });
 
@@ -246,10 +237,9 @@ Deno.test("pipelines reject invalid annotation ranges", () => {
     { phase: "classify" },
   );
 
-  assert.throws(
+  assertCode(
     () => runPipeline("texte", [invalid], { locale: "fr-FR" }),
-    Error,
-    "Invalid annotation range",
+    "INVALID_ANNOTATION",
   );
 });
 
@@ -263,10 +253,9 @@ Deno.test("pipelines reject simultaneous transformation and protection", () => {
     { phase: "classify" },
   );
 
-  assert.throws(
+  assertCode(
     () => runPipeline("text", [ambiguous], { locale: "fr-FR", mode: "fix" }),
-    Error,
-    "cannot transform and protect in one pass",
+    "TRANSFORM_AND_PROTECT",
   );
 });
 
@@ -275,28 +264,22 @@ Deno.test("only classify rules may annotate", () => {
     "x-test.late-annotation",
     () => ({ annotations: [{ kind: "x-test", start: 0, end: 1 }] }),
   );
-  assert.throws(
+  assertCode(
     () => runPipeline("text", [rule], { locale: "fr-FR" }),
-    Error,
-    "annotates outside the classify phase",
+    "INVALID_ANNOTATION",
   );
 });
 
 Deno.test("source segment IDs must be unique and non-empty", () => {
-  assert.throws(
-    () =>
-      runPipeline(
-        [{ id: "node", value: "a" }, { id: "node", value: "b" }],
-        [],
-        { locale: "fr-FR" },
-      ),
-    Error,
-    "duplicate source segment ID",
-  );
-  assert.throws(
+  assertCode(() =>
+    runPipeline(
+      [{ id: "node", value: "a" }, { id: "node", value: "b" }],
+      [],
+      { locale: "fr-FR" },
+    ), "INVALID_SEGMENT_ID");
+  assertCode(
     () => runPipeline([{ id: "", value: "a" }], [], { locale: "fr-FR" }),
-    Error,
-    "Invalid or duplicate source segment ID",
+    "INVALID_SEGMENT_ID",
   );
 });
 

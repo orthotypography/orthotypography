@@ -5,6 +5,7 @@ import {
   PERCENTAGE_SPACING_RULE,
   runPipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 Deno.test("percentage spacing uses a no-break space", () => {
   const result = runPipeline(
@@ -38,10 +39,9 @@ Deno.test("percentage spacing supports lint mode", () => {
 });
 
 Deno.test("percentage spacing requires numeric classification", () => {
-  assert.throws(
+  assertCode(
     () => runPipeline("25%", [PERCENTAGE_SPACING_RULE], { locale: "fr-FR" }),
-    Error,
-    "Missing dependency classify.numeric-constructs",
+    "MISSING_DEPENDENCY",
   );
 });
 

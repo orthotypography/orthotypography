@@ -55,6 +55,14 @@ interroge `ruleLocaleSupport` avant chaque suite et passe celles qu’aucune
 règle ne couvre. Les règles ignorées d’une passe figurent dans
 `skippedRuleIds`.
 
+Une intégration affiche les diagnostics à partir de `messageId` et
+`messageArgs`, le texte anglais de `message` n’étant qu’un rendu par défaut ;
+la liste des identifiants et de leurs gabarits est exportée dans
+`DIAGNOSTIC_MESSAGES`. Elle traite les erreurs selon leur `category` :
+corriger l’appel pour `input`, relancer la passe sur le document à jour pour
+`stale-change`, désactiver ou signaler la règle désignée par `details.ruleId`
+pour `rule-contract`, signaler un défaut du cœur pour `internal`.
+
 Les propositions que l’utilisateur refuse sont transmises à la passe suivante
 dans `dismissed`, par leur règle, leur `segmentId` et leur plage source ;
 l’intégration met ces plages à jour quand le document change.

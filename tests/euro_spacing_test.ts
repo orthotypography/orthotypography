@@ -5,6 +5,7 @@ import {
   NUMERIC_PROTECTION_RULE,
   runPipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 Deno.test("euro spacing is diagnostic by default", () => {
   const result = runPipeline(
@@ -48,10 +49,9 @@ Deno.test("euro spacing preserves protected URI", () => {
 });
 
 Deno.test("euro spacing requires classification and is idempotent", () => {
-  assert.throws(
+  assertCode(
     () => runPipeline("12€", [EURO_SPACING_RULE], { locale: "fr-FR" }),
-    Error,
-    "Missing dependency classify.numeric-constructs",
+    "MISSING_DEPENDENCY",
   );
   const rules = [NUMERIC_PROTECTION_RULE, EURO_SPACING_RULE];
   const first = runPipeline("€12", rules, {
