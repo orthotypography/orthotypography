@@ -528,6 +528,15 @@ function highPunctuationBeforeRule(
   });
 }
 
+/**
+ * Closing signs that govern the space before them (Imprimerie nationale 2002,
+ * table of spaces around punctuation): a no-break word space before the
+ * closing guillemet, set by the guillemet rule, and no space before the
+ * closing parenthesis and bracket. A closing English quotation mark is closed
+ * the same way. The space after high punctuation does not apply before them.
+ */
+const closingSigns: ReadonlySet<string> = new Set(["»", ")", "]", "”"]);
+
 function highPunctuationAfterRule(
   id: string,
   mark: HighPunctuationMark,
@@ -538,6 +547,10 @@ function highPunctuationAfterRule(
     for (const { index, stretch } of scan.marks(mark)) {
       const inspected = inspectHighPunctuation(scan, index, stretch);
       if (excludesHighPunctuation(scan, index, mark, inspected)) continue;
+      // The closing sign governs the space before it, which is left as is.
+      if (inspected.next !== undefined && closingSigns.has(inspected.next)) {
+        continue;
+      }
       if (isHighPunctuationMark(inspected.next)) {
         const next = followingPunctuationLocation(
           scan,
