@@ -1,8 +1,11 @@
 /** Orthotypography core: source-backed, composable typographic primitives. */
 export { applyTextChanges } from "./changes.ts";
 export {
+  canonicalLocale,
   compilePipeline,
+  type LocaleSupport,
   type PipelineOptions,
+  ruleLocaleSupport,
   runPipeline,
 } from "./pipeline.ts";
 export {
@@ -17,12 +20,15 @@ export {
   NUMERIC_PROTECTION_RULE,
 } from "./classify/mod.ts";
 export {
+  compilePreset,
+  type CompilePresetOptions,
   DIGIT_GROUPING_RULE,
   ELLIPSIS_GLYPH_RULE,
   ELLIPSIS_INITIAL_SPACE_AFTER_RULE,
   ELLIPSIS_RECOGNITION_RULE,
   ETC_ELLIPSIS_RULE,
   EURO_SPACING_RULE,
+  EXECUTABLE_RULES,
   FRENCH_GUILLEMETS_SPACING_RULE,
   HIGH_PUNCTUATION_RULES,
   IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,

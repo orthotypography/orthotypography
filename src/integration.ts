@@ -37,6 +37,7 @@ export interface TextNodePipelineResult extends ChangeSet {
   readonly groups: readonly ProposalGroup[];
   readonly diagnostics: readonly RuleDiagnostic[];
   readonly appliedRuleIds: readonly string[];
+  readonly skippedRuleIds: readonly string[];
 }
 
 /**
@@ -80,5 +81,6 @@ export function runTextNodePipeline(
     groups: result.groups,
     diagnostics: result.diagnostics,
     appliedRuleIds: result.appliedRuleIds,
+    skippedRuleIds: result.skippedRuleIds,
   };
 }

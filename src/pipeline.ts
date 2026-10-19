@@ -1141,6 +1141,49 @@ export function compilePipeline(
   return ordered;
 }
 
+/**
+ * Canonical form of a BCP 47 locale tag, such as `fr-FR` for `fr-fr`. Invalid
+ * tags are rejected.
+ */
+export function canonicalLocale(locale: string): string {
+  let canonical: readonly string[];
+  try {
+    canonical = Intl.getCanonicalLocales(locale);
+  } catch {
+    throw new Error(`Invalid locale: ${locale}`);
+  }
+  if (canonical.length !== 1) throw new Error(`Invalid locale: ${locale}`);
+  return canonical[0];
+}
+
+/** Rules of a composition that support a locale, and those that do not. */
+export interface LocaleSupport {
+  /** Canonical locale. */
+  readonly locale: string;
+  /** IDs of the rules that support the locale, in execution order. */
+  readonly supported: readonly string[];
+  /** IDs of the rules that do not, in execution order. */
+  readonly unsupported: readonly string[];
+}
+
+/**
+ * Tells which rules of a composition would run for a locale, without running
+ * the pipeline. A host processing a multilingual document can skip the runs
+ * whose locale no rule supports, for which `runPipeline` throws.
+ */
+export function ruleLocaleSupport(
+  runtimeRules: readonly RuntimeRule[],
+  locale: string,
+): LocaleSupport {
+  const canonical = canonicalLocale(locale);
+  const supported: string[] = [];
+  const unsupported: string[] = [];
+  for (const rule of compilePipeline(runtimeRules)) {
+    (rule.locales.includes(canonical) ? supported : unsupported).push(rule.id);
+  }
+  return { locale: canonical, supported, unsupported };
+}
+
 function dismissalKey(ruleId: string, segment: string, range: string): string {
   return `${ruleId}\u0000${segment}\u0000${range}`;
 }
@@ -1211,11 +1254,20 @@ export function runPipeline(
   const review = options.mode === "review";
   const dismissedKeys = dismissalKeys(options.dismissed ?? []);
   const orderedRules = compilePipeline(runtimeRules);
+  const locale = canonicalLocale(options.locale);
+  const skippedRuleIds = orderedRules.filter((rule) =>
+    !rule.locales.includes(locale)
+  ).map(({ id }) => id);
+  if (
+    orderedRules.length > 0 && skippedRuleIds.length === orderedRules.length
+  ) {
+    throw new Error(`No rule supports locale ${locale}`);
+  }
   // Annotations of classify rules, kept in current run coordinates.
   let annotations: Annotation[] = [];
 
   for (const rule of orderedRules) {
-    if (!rule.locales.includes(options.locale)) continue;
+    if (!rule.locales.includes(locale)) continue;
     // In review mode, every rule runs as in fix mode.
     const mode: RuleMode = review ? "fix" : options.mode ?? rule.defaultMode;
     const diagnosticLedgers = ledgers.map(({ source, pieces }) => ({
@@ -1250,7 +1302,7 @@ export function runPipeline(
     const added = planRule(
       rule,
       segments,
-      options.locale,
+      locale,
       mode,
       mode === "fix",
       isDismissed,
@@ -1410,5 +1462,6 @@ export function runPipeline(
     groups,
     diagnostics,
     appliedRuleIds,
+    skippedRuleIds,
   };
 }

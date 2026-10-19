@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Compile presets from the catalogue and match locales canonically (#23, #24;
+  `docs/conception-presets-locales-v0.1.md`). `compilePreset(presetId,
+  { modes })` returns the executable rules of a catalogue preset, each with the
+  preset's mode (or an override) as its default mode, in the order of the new
+  `EXECUTABLE_RULES` registry; documentary rules of the preset are left out.
+  `IMPRIMERIE_NATIONALE_RULES` is now the compiled Imprimerie nationale preset,
+  with unchanged outputs, and `fr-CA/oqlf` compiles to an executable
+  composition with its `lint` modes. `manual-review` is documented as behaving
+  like `lint` at run time. **Breaking:** locales are canonicalized
+  (`canonicalLocale`, so `fr-fr` now works), matched without fallback, and a
+  pass whose locale no rule supports throws instead of returning the input
+  unchanged; `PipelineResult.skippedRuleIds` lists the rules left out, and
+  `ruleLocaleSupport` reports them without running the pass. The catalogue
+  validation rejects non-canonical locales.
 - Do not move a leading euro sign attached to the preceding text (#36).
   `EURO_SPACING_RULE` moved the sign behind the amount and left the preceding
   word glued to the digits (`Prix€ 12` became `Prix12 €`). When the sign follows

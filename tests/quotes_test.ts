@@ -130,12 +130,13 @@ Deno.test("lint coordinates survive classifier-created fragments", () => {
 });
 
 Deno.test("French guillemet spacing is locale-aware and idempotent", () => {
-  const otherLocale = runPipeline(
-    "«text»",
-    [FRENCH_GUILLEMETS_SPACING_RULE],
-    { locale: "en-US" },
+  assert.throws(
+    () =>
+      runPipeline("«text»", [FRENCH_GUILLEMETS_SPACING_RULE], {
+        locale: "en-US",
+      }),
+    /No rule supports locale en-US/,
   );
-  assert.equal(otherLocale.value, "«text»");
 
   const first = runPipeline(
     "«texte»",
