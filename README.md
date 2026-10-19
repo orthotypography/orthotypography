@@ -27,7 +27,12 @@ suspension points after `etc.`. Opt-in rules outside the presets diagnose or, in
 explicit `fix` mode, correct certain ellipses, and diagnose ungrouped digits in
 classified quantities. Every rule runs once per pass on one logical run across
 text nodes, so that constructs split by inline formatting are handled, while
-text-node integrations preserve the formatting boundaries.
+text-node integrations preserve the formatting boundaries. `compilePreset`
+builds the executable rules of a catalogue preset with its per-rule modes, and
+`IMPRIMERIE_NATIONALE_RULES` is the compiled Imprimerie nationale preset.
+Locales are matched in canonical form without fallback: a pass whose locale no
+rule supports throws, and `ruleLocaleSupport` tells beforehand which rules
+would run.
 
 ```ts
 import {
