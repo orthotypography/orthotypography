@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Do not require a space after `?`, `!`, `:`, or `;` before a comma or a
+  period (#59), which the Imprimerie nationale sets « toujours collés au mot
+  précédent »: the four `space-after` rules inserted a space that the comma and
+  period rules removed. Before suspension points, a combination the source
+  does not describe, the rules now leave the spacing as is and report it with
+  a diagnostic without edits. The catalogue entries list both exceptions.
 - Fix the space after `?`, `!`, `:`, and `;` before a closing sign (#54). The
   four `space-after` rules required a word space whenever text followed, so
   they replaced the no-break space that `quotes.french.nbsp-inner` sets before

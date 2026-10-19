@@ -28,6 +28,8 @@ import { RunStretches, spacingCharacters } from "./run-text.ts";
 interface Adjacent {
   readonly blocked: boolean;
   readonly character?: string;
+  /** Run position of `character`, when known. */
+  readonly index?: number;
 }
 
 /** Spacing to remove in neighboring stretches, nearest first. */
@@ -35,11 +37,14 @@ interface Boundary extends Adjacent {
   readonly removals: readonly RunRange[];
 }
 
-/** One diagnostic of a mark with its own edit and neighboring removals. */
+/**
+ * One diagnostic of a mark with its own edit and neighboring removals, or a
+ * diagnostic without edits when `own` is absent.
+ */
 interface Proposal {
   readonly stretch: number;
   readonly diagnostic: RunDiagnostic;
-  readonly own: RunEdit;
+  readonly own?: RunEdit;
   readonly removals: readonly RunRange[];
 }
 
@@ -179,7 +184,12 @@ class PunctuationScan {
         removals.push({ start, end: spacing });
       }
       if (spacing < end) {
-        return { blocked: false, character: this.text[spacing], removals };
+        return {
+          blocked: false,
+          character: this.text[spacing],
+          index: spacing,
+          removals,
+        };
       }
     }
     return { blocked: false, removals };
@@ -227,6 +237,11 @@ class PunctuationScan {
     this.#proposals.push({ stretch, diagnostic, own, removals });
   }
 
+  /** Reports a diagnostic without edits, in mark order with the proposals. */
+  report(stretch: number, diagnostic: RunDiagnostic): void {
+    this.#proposals.push({ stretch, diagnostic, removals: [] });
+  }
+
   /**
    * Returns the diagnostics with their edits. As with per-fragment
    * application, a stretch keeps its own edits only when at least one of them
@@ -235,13 +250,18 @@ class PunctuationScan {
   result(): RuleResult {
     const effective = new Set<number>();
     for (const { stretch, own } of this.#proposals) {
-      if (this.text.slice(own.start, own.end) !== own.replacement) {
+      if (
+        own !== undefined &&
+        this.text.slice(own.start, own.end) !== own.replacement
+      ) {
         effective.add(stretch);
       }
     }
     const diagnostics = this.#proposals.map(
       ({ stretch, diagnostic, own, removals }): RunDiagnostic => {
-        const edits: RunEdit[] = effective.has(stretch) ? [own] : [];
+        const edits: RunEdit[] = own !== undefined && effective.has(stretch)
+          ? [own]
+          : [];
         for (const removal of removals) {
           edits.push({ ...removal, replacement: "" });
         }
@@ -376,7 +396,7 @@ function inspectHighPunctuation(
     : { blocked: false, character: scan.text[start - 1], removals: [] };
   const following: Boundary = end === scan.end(stretch)
     ? scan.followingBoundary(stretch)
-    : { blocked: false, character: scan.text[end], removals: [] };
+    : { blocked: false, character: scan.text[end], index: end, removals: [] };
   return {
     start,
     end,
@@ -529,28 +549,52 @@ function highPunctuationBeforeRule(
 }
 
 /**
- * Closing signs that govern the space before them (Imprimerie nationale 2002,
- * table of spaces around punctuation): a no-break word space before the
- * closing guillemet, set by the guillemet rule, and no space before the
- * closing parenthesis and bracket. A closing English quotation mark is closed
- * the same way. The space after high punctuation does not apply before them.
+ * Signs that govern the space before them (Imprimerie nationale 2002, table of
+ * spaces around punctuation): a no-break word space before the closing
+ * guillemet, set by the guillemet rule, and no space before the closing
+ * parenthesis and bracket, the comma, and the period, which are « toujours
+ * collés au mot précédent ». A closing English quotation mark is closed the
+ * same way. The space after high punctuation does not apply before them.
  */
-const closingSigns: ReadonlySet<string> = new Set(["»", ")", "]", "”"]);
+const signsGoverningSpaceBefore: ReadonlySet<string> = new Set([
+  "»",
+  ")",
+  "]",
+  "”",
+  ",",
+  ".",
+]);
 
 function highPunctuationAfterRule(
   id: string,
   mark: HighPunctuationMark,
 ): RuntimeRule {
   const message = `Unexpected whitespace after ${mark}`;
+  const ellipsisMessage =
+    `Spacing between ${mark} and suspension points is not prescribed`;
   return catalogueRule(id, (run) => {
     const scan = new PunctuationScan(run);
     for (const { index, stretch } of scan.marks(mark)) {
       const inspected = inspectHighPunctuation(scan, index, stretch);
       if (excludesHighPunctuation(scan, index, mark, inspected)) continue;
-      // The closing sign governs the space before it, which is left as is.
-      if (inspected.next !== undefined && closingSigns.has(inspected.next)) {
+      const { next } = inspected;
+      const nextIndex = inspected.following.index;
+      // The source does not describe a mark followed by suspension points:
+      // the spacing is reported for review and left as is.
+      if (
+        next === "…" ||
+        (next === "." && nextIndex !== undefined &&
+          scan.text.startsWith("...", nextIndex))
+      ) {
+        scan.report(stretch, {
+          start: index + 1,
+          end: inspected.end,
+          message: ellipsisMessage,
+        });
         continue;
       }
+      // The next sign governs the space before it, which is left as is.
+      if (next !== undefined && signsGoverningSpaceBefore.has(next)) continue;
       if (isHighPunctuationMark(inspected.next)) {
         const next = followingPunctuationLocation(
           scan,

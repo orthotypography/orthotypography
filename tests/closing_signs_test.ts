@@ -103,3 +103,75 @@ Deno.test("the space after high punctuation still applies before text", () => {
     );
   }
 });
+
+// Issue #59: the space after high punctuation does not apply before a comma
+// or a period either, which are « toujours collés au mot précédent ». The
+// source does not describe a mark followed by suspension points: that spacing
+// is reported, not corrected.
+Deno.test("high punctuation leaves no space before a comma or a period", () => {
+  for (
+    const [input, expected] of [
+      ["Oui ?, non", `Oui${nnbsp}?, non`],
+      ["Qui ?,dit-il", `Qui${nnbsp}?, dit-il`],
+      ["Oui !, dit-il.", `Oui${nnbsp}!, dit-il.`],
+      ["Hein :, bon", `Hein${nbsp}:, bon`],
+      ["Bon ;, bien", `Bon${nnbsp};, bien`],
+      ["Vraiment ?. Non", `Vraiment${nnbsp}?. Non`],
+    ] as const
+  ) {
+    const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, fix);
+    assert.equal(result.value, expected, input);
+    const lint = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, {
+      locale: "fr-FR",
+      mode: "lint",
+    });
+    assert.ok(
+      lint.diagnostics.every(({ ruleId }) => !afterRules.has(ruleId)),
+      input,
+    );
+    const again = runPipeline(result.value, IMPRIMERIE_NATIONALE_RULES, fix);
+    assert.deepEqual(again.changes, [], input);
+    assert.deepEqual(again.diagnostics, [], input);
+  }
+
+  const segmented = runTextNodePipeline(
+    [
+      { id: "question", value: "Oui ?" },
+      { id: "comma", value: " , non" },
+    ],
+    IMPRIMERIE_NATIONALE_RULES,
+    fix,
+  );
+  assert.equal(segmented.value, `Oui${nnbsp}?, non`);
+  assert.ok(
+    segmented.diagnostics.every(({ ruleId }) => !afterRules.has(ruleId)),
+  );
+});
+
+Deno.test("suspension points after high punctuation are reported, not fixed", () => {
+  for (
+    const [input, start, end] of [
+      ["Oui ?…", 5, 5],
+      ["Oui ? …", 5, 6],
+      ["Oui ? ...", 5, 6],
+      ["Il dit :…", 8, 8],
+    ] as const
+  ) {
+    const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, fix);
+    const reported = result.diagnostics.filter(({ ruleId }) =>
+      afterRules.has(ruleId)
+    );
+    assert.equal(reported.length, 1, input);
+    assert.deepEqual(
+      [reported[0].start, reported[0].end, reported[0].changeIds],
+      [start, end, undefined],
+      input,
+    );
+    assert.ok(
+      result.changes.every(({ ruleIds }) =>
+        ruleIds.every((ruleId) => !afterRules.has(ruleId))
+      ),
+      input,
+    );
+  }
+});
