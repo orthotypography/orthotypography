@@ -3,8 +3,8 @@
 État vérifié le 19 octobre 2026 sur
 [`4e440e5`](https://github.com/orthotypography/orthotypography/commit/4e440e5),
 `main` après la [PR nº 67](https://github.com/orthotypography/orthotypography/pull/67).
-La version `0.2.0-alpha.0` est préparée par la PR PR_PREP, non encore
-publiée ; la dernière version publiée reste `0.1.0-alpha.3`. Ce document sert
+La version `0.2.0-alpha.0` est préparée par la
+[PR nº 68](https://github.com/orthotypography/orthotypography/pull/68), non encore publiée ; la dernière version publiée reste `0.1.0-alpha.3`. Ce document sert
 de passation ; les prochaines tâches sont proposées et ne constituent pas une
 promesse de release.
 
