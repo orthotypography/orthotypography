@@ -13,6 +13,8 @@ import {
 import {
   type Annotation,
   type DiagnosticLocation,
+  type DismissedProposal,
+  type PipelineMode,
   type PipelineResult,
   type ProposalGroup,
   RULE_PHASES,
@@ -26,7 +28,14 @@ import {
 
 export interface PipelineOptions {
   readonly locale: string;
-  readonly mode?: RuleMode;
+  /** Pass mode; each rule's default mode when omitted. */
+  readonly mode?: PipelineMode;
+  /**
+   * Proposals to leave unapplied. Each entry dismisses the proposals of its
+   * rule whose reported source location it matches; the rest of the cascade
+   * runs without them.
+   */
+  readonly dismissed?: readonly DismissedProposal[];
 }
 
 interface PipelineSegment extends TextSegment {
@@ -103,9 +112,13 @@ class Provenance {
   readonly #entryToken: number[] = [];
   readonly #entryNext: number[] = [];
 
-  addProposal(diagnosticIndex: number): number {
+  /** Whether each proposal's rule has the `fix` default mode. */
+  readonly proposalSuggested: boolean[] = [];
+
+  addProposal(diagnosticIndex: number, suggested: boolean): number {
     const key = this.proposals.add();
     this.proposalDiagnostic.push(diagnosticIndex);
+    this.proposalSuggested.push(suggested);
     this.#head.push(-1);
     return key;
   }
@@ -612,11 +625,13 @@ function proposalGroups(
   changes: readonly TextChange[],
   tokens: readonly number[],
   diagnostics: RuleDiagnostic[],
+  review: boolean,
 ): ProposalGroup[] {
   const proposalCount = provenance.proposalDiagnostic.length;
   const groupOfRoot = new Int32Array(proposalCount).fill(-1);
   const groupOf = new Int32Array(proposalCount);
   const groupDiagnostics: number[][] = [];
+  const groupSuggested: boolean[] = [];
   for (let proposal = 0; proposal < proposalCount; proposal++) {
     const root = provenance.proposals.find(proposal);
     let group = groupOfRoot[root];
@@ -624,8 +639,10 @@ function proposalGroups(
       group = groupDiagnostics.length;
       groupOfRoot[root] = group;
       groupDiagnostics.push([]);
+      groupSuggested.push(true);
     }
     groupOf[proposal] = group;
+    if (!provenance.proposalSuggested[proposal]) groupSuggested[group] = false;
     groupDiagnostics[group].push(provenance.proposalDiagnostic[proposal]);
   }
 
@@ -670,6 +687,7 @@ function proposalGroups(
     id: `g${group}`,
     changeIds: groupChanges[group],
     diagnostics: members,
+    ...(review ? { suggested: groupSuggested[group] } : {}),
   }));
 }
 
@@ -917,6 +935,8 @@ interface LocatedDiagnostic {
   readonly location: FragmentLocation;
   /** Provenance key of an applied proposal, or -1. */
   readonly proposal: number;
+  /** Proposal dismissed by the host. */
+  readonly dismissed: boolean;
   readonly message: string;
   readonly replacement?: string;
   readonly related?: readonly FragmentLocation[];
@@ -928,6 +948,8 @@ function planRule(
   segments: readonly PipelineSegment[],
   locale: string,
   mode: RuleMode,
+  applies: boolean,
+  isDismissed: ((location: FragmentLocation) => boolean) | undefined,
   stored: readonly Annotation[],
   plans: (FragmentPlan | undefined)[],
   diagnostics: LocatedDiagnostic[],
@@ -937,16 +959,30 @@ function planRule(
   const id = rule.id;
   const layout = buildRun(segments, locale, mode, stored);
   const result = rule.apply(layout.run);
+  const ruleDiagnostics = result.diagnostics ?? [];
+  const locations = ruleDiagnostics.map((diagnostic) =>
+    locateInFragment(id, segments, layout, diagnostic)
+  );
   // Edits belong to the diagnostics they correct. They are validated in every
-  // mode, so that a proposal is checked whether or not it is applied, and
-  // applied only in fix mode, where each proposal receives a provenance key.
+  // mode, so that a proposal is checked whether or not it is applied. When the
+  // pass applies the rule's proposals, each one that the host did not dismiss
+  // receives a provenance key and is applied.
   const proposed: RunEdit[] = [];
   const proposalOf: number[] = [];
   const keys: (number | undefined)[] = [];
-  for (const [index, diagnostic] of (result.diagnostics ?? []).entries()) {
+  const dismissals: boolean[] = [];
+  let anyDismissed = false;
+  for (const [index, diagnostic] of ruleDiagnostics.entries()) {
     const edits = diagnostic.edits ?? [];
-    const key = mode === "fix" && edits.length > 0
-      ? provenance.addProposal(diagnosticBase + index)
+    const dismissed = edits.length > 0 && isDismissed !== undefined &&
+      isDismissed(locations[index]);
+    if (dismissed) anyDismissed = true;
+    dismissals.push(dismissed);
+    const key = applies && edits.length > 0 && !dismissed
+      ? provenance.addProposal(
+        diagnosticBase + index,
+        rule.defaultMode === "fix",
+      )
       : undefined;
     keys.push(key);
     for (const edit of edits) {
@@ -986,7 +1022,18 @@ function planRule(
     proposed,
     proposalOf,
   );
-  const edited = mode === "fix" ? projected : new Map<number, FragmentEdit[]>();
+  // Dismissed proposals are validated with the others, then left out.
+  const edited = !applies
+    ? new Map<number, FragmentEdit[]>()
+    : !anyDismissed
+    ? projected
+    : projectRunEdits(
+      id,
+      segments,
+      layout,
+      proposed.filter((_, index) => proposalOf[index] >= 0),
+      proposalOf.filter((key) => key >= 0),
+    );
   const protections = projectProtections(layout, segments, annotations);
   for (const [segmentIndex, segment] of segments.entries()) {
     plans.push(
@@ -996,11 +1043,12 @@ function planRule(
       },
     );
   }
-  for (const [index, diagnostic] of (result.diagnostics ?? []).entries()) {
+  for (const [index, diagnostic] of ruleDiagnostics.entries()) {
     const key = keys[index];
     diagnostics.push({
-      location: locateInFragment(id, segments, layout, diagnostic),
+      location: locations[index],
       proposal: key ?? -1,
+      dismissed: dismissals[index],
       message: diagnostic.message,
       ...(diagnostic.replacement === undefined
         ? {}
@@ -1093,6 +1141,38 @@ export function compilePipeline(
   return ordered;
 }
 
+function dismissalKey(ruleId: string, segment: string, range: string): string {
+  return `${ruleId}\u0000${segment}\u0000${range}`;
+}
+
+/** Lookup keys of dismissed proposals, after validating each entry. */
+function dismissalKeys(
+  dismissed: readonly DismissedProposal[],
+): ReadonlySet<string> {
+  const keys = new Set<string>();
+  for (const entry of dismissed) {
+    if (
+      typeof entry.ruleId !== "string" || !Number.isInteger(entry.start) ||
+      !Number.isInteger(entry.end) || entry.start < 0 || entry.end < entry.start
+    ) {
+      throw new Error(`Invalid dismissed proposal: ${JSON.stringify(entry)}`);
+    }
+    const range = `${entry.start}:${entry.end}`;
+    if (entry.segmentId !== undefined) {
+      keys.add(dismissalKey(entry.ruleId, `id:${entry.segmentId}`, range));
+    } else if (Number.isInteger(entry.segmentIndex)) {
+      keys.add(
+        dismissalKey(entry.ruleId, `index:${entry.segmentIndex}`, range),
+      );
+    } else {
+      throw new Error(
+        `Dismissed proposal without segmentId or segmentIndex: ${entry.ruleId}`,
+      );
+    }
+  }
+  return keys;
+}
+
 /** Runs pure atomic rules on text segments while preserving protected nodes. */
 export function runPipeline(
   input: string | readonly TextSegment[],
@@ -1128,13 +1208,16 @@ export function runPipeline(
   const diagnostics: RuleDiagnostic[] = [];
   const appliedRuleIds: string[] = [];
   const provenance = new Provenance();
+  const review = options.mode === "review";
+  const dismissedKeys = dismissalKeys(options.dismissed ?? []);
   const orderedRules = compilePipeline(runtimeRules);
   // Annotations of classify rules, kept in current run coordinates.
   let annotations: Annotation[] = [];
 
   for (const rule of orderedRules) {
     if (!rule.locales.includes(options.locale)) continue;
-    const mode = options.mode ?? rule.defaultMode;
+    // In review mode, every rule runs as in fix mode.
+    const mode: RuleMode = review ? "fix" : options.mode ?? rule.defaultMode;
     const diagnosticLedgers = ledgers.map(({ source, pieces }) => ({
       source,
       pieces: [...pieces],
@@ -1142,21 +1225,7 @@ export function runPipeline(
     appliedRuleIds.push(rule.id);
     const plans: (FragmentPlan | undefined)[] = [];
     const ruleDiagnostics: LocatedDiagnostic[] = [];
-    const added = planRule(
-      rule,
-      segments,
-      options.locale,
-      mode,
-      annotations,
-      plans,
-      ruleDiagnostics,
-      provenance,
-      diagnostics.length,
-    );
-
-    const nextSegments: PipelineSegment[] = [];
     const runtimeOffsets = fragmentOffsets(segments);
-    const ledgerEdits = new Map<number, LedgerEdit[]>();
     const locate = (location: FragmentLocation) =>
       diagnosticLocation(
         location,
@@ -1165,6 +1234,35 @@ export function runPipeline(
         sourceSegments,
         diagnosticLedgers,
       );
+    const isDismissed = dismissedKeys.size === 0
+      ? undefined
+      : (location: FragmentLocation): boolean => {
+        const source = locate(location);
+        const range = `${source.start}:${source.end}`;
+        return (source.segmentId !== undefined &&
+          dismissedKeys.has(
+            dismissalKey(rule.id, `id:${source.segmentId}`, range),
+          )) ||
+          dismissedKeys.has(
+            dismissalKey(rule.id, `index:${source.segmentIndex}`, range),
+          );
+      };
+    const added = planRule(
+      rule,
+      segments,
+      options.locale,
+      mode,
+      mode === "fix",
+      isDismissed,
+      annotations,
+      plans,
+      ruleDiagnostics,
+      provenance,
+      diagnostics.length,
+    );
+
+    const nextSegments: PipelineSegment[] = [];
+    const ledgerEdits = new Map<number, LedgerEdit[]>();
     const report = (diagnostic: LocatedDiagnostic): void => {
       diagnostics.push({
         ...locate(diagnostic.location),
@@ -1178,7 +1276,14 @@ export function runPipeline(
         }),
         // Filled in once the pass is complete; created here so that the
         // object keeps its shape.
-        ...(diagnostic.proposal < 0 ? {} : { groupId: "", changeIds: [] }),
+        ...(diagnostic.proposal < 0 ? {} : {
+          groupId: "",
+          changeIds: [],
+          ...(review
+            ? { suggested: rule.defaultMode === "fix" ? "apply" : "review" }
+            : {}),
+        }),
+        ...(diagnostic.dismissed ? { dismissed: true } : {}),
       });
     };
     const runChanges: RunChange[] = [];
@@ -1287,7 +1392,13 @@ export function runPipeline(
   }
 
   const { changes, tokens } = ledgerChanges(ledgers);
-  const groups = proposalGroups(provenance, changes, tokens, diagnostics);
+  const groups = proposalGroups(
+    provenance,
+    changes,
+    tokens,
+    diagnostics,
+    review,
+  );
   return {
     value: segments.map((segment) => segment.value).join(""),
     segments: segments.map(({ id, value, protected: isProtected }) => ({
