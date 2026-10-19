@@ -144,11 +144,11 @@ Deno.test("the Imprimerie nationale comma rule is idempotent", () => {
 });
 
 Deno.test("the comma spacing rule is scoped to metropolitan French", () => {
-  const input = "Bonjour,monde.";
-  const result = runPipeline(input, [SPACE_AFTER_COMMA_RULE], {
-    locale: "fr-CA",
-  });
-
-  assert.equal(result.value, input);
-  assert.deepEqual(result.appliedRuleIds, []);
+  assert.throws(
+    () =>
+      runPipeline("Bonjour,monde.", [SPACE_AFTER_COMMA_RULE], {
+        locale: "fr-CA",
+      }),
+    /No rule supports locale fr-CA/,
+  );
 });

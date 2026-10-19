@@ -17,4 +17,9 @@ export {
   ETC_ELLIPSIS_RULE,
 } from "./ellipsis.ts";
 export { FRENCH_GUILLEMETS_SPACING_RULE } from "./quotes.ts";
-export { IMPRIMERIE_NATIONALE_RULES } from "./presets.ts";
+export {
+  compilePreset,
+  type CompilePresetOptions,
+  EXECUTABLE_RULES,
+  IMPRIMERIE_NATIONALE_RULES,
+} from "./presets.ts";

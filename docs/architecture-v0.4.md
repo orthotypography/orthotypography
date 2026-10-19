@@ -127,6 +127,15 @@ protégée et dans les constructions numériques ou techniques reconnues. La
 composition diagnostique l’espacement des unités et de l’euro sans les corriger
 par défaut. Elle ne constitue pas un profil français universel.
 
+`IMPRIMERIE_NATIONALE_RULES` est le résultat de `compilePreset` pour le preset
+`fr-FR/imprimerie-nationale-2002` : le catalogue est la seule source des
+presets et de leurs modes par règle, appliqués dans le mode par défaut et
+rapportés comme indications en mode `review`. `manual-review` se comporte comme
+`lint` à l’exécution. Les locales sont comparées sous forme canonique, sans
+repli ; une passe dont aucune règle ne prend en charge la locale lève une
+erreur, et le résultat liste les règles ignorées dans `skippedRuleIds`
+([conception des presets et des locales](conception-presets-locales-v0.1.md)).
+
 ## Distribution
 
 Les mêmes sources TypeScript alimentent toutes les distributions JavaScript. Elles sont publiées directement sur JSR sous `@orthotypography/core` ; le paquet npm de même nom et de même version est généré par `@deno/dnt`, avec ESM et déclarations TypeScript. Comme dans `greek-conversion`, la publication de confiance est déclenchée par une release GitHub et reste désactivée tant que la variable `PUBLISH_ENABLED` n’est pas explicitement réglée à `true`.

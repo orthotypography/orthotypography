@@ -48,6 +48,13 @@ Une intégration choisit toujours le mode :
   mode par défaut des règles ; un éditeur interactif peut ainsi pré-cocher les
   groupes suggérés.
 
+La locale de chaque suite logique est comparée sous forme canonique aux locales
+des règles, sans repli régional. Une passe dont aucune règle ne prend en charge
+la locale lève une erreur : une intégration qui traite un document multilingue
+interroge `ruleLocaleSupport` avant chaque suite et passe celles qu’aucune
+règle ne couvre. Les règles ignorées d’une passe figurent dans
+`skippedRuleIds`.
+
 Les propositions que l’utilisateur refuse sont transmises à la passe suivante
 dans `dismissed`, par leur règle, leur `segmentId` et leur plage source ;
 l’intégration met ces plages à jour quand le document change.

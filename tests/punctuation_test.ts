@@ -136,15 +136,15 @@ Deno.test("high punctuation supports lint mode", () => {
 });
 
 Deno.test("French punctuation rules do not run for another locale", () => {
-  const input = "Note: example; really?";
-  const result = runPipeline(
-    input,
-    IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,
-    { locale: "en-US" },
+  assert.throws(
+    () =>
+      runPipeline(
+        "Note: example; really?",
+        IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,
+        { locale: "en-US" },
+      ),
+    /No rule supports locale en-US/,
   );
-
-  assert.equal(result.value, input);
-  assert.deepEqual(result.appliedRuleIds, []);
 });
 
 Deno.test("period spacing leaves runs of periods to the ellipsis rules", () => {
