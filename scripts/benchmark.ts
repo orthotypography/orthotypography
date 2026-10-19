@@ -10,7 +10,8 @@
  * the rules, with every executable rule (the preset and its opt-in rules):
  * sizes of 31,250, 62,500, and 125,000 characters, and the growth factor per
  * doubling of the size. A factor close to 2 is linear; a factor close to 4 is
- * quadratic. A size that takes more than 20 seconds ends its row.
+ * quadratic. A size that takes more than 20 seconds ends its row. Two
+ * external rules then stress the change ledger alone.
  */
 import {
   DIGIT_GROUPING_RULE,
@@ -20,7 +21,13 @@ import {
   runPipeline,
   runTextNodePipeline,
 } from "../src/mod.ts";
-import type { RuleMode, TextSegment } from "../src/model.ts";
+import type {
+  LogicalRun,
+  RuleMode,
+  RuleResult,
+  RuntimeRule,
+  TextSegment,
+} from "../src/model.ts";
 
 const corpusFiles = ["prose.txt", "technique.txt", "nombres.txt"];
 const corpusDirectory = new URL("../tests/fixtures/corpus/", import.meta.url);
@@ -113,6 +120,38 @@ const scalingRules = [
   DIGIT_GROUPING_RULE,
 ];
 
+/** External rule replacing every occurrence of one character. */
+function replaceEach(id: string, from: string, to: string): RuntimeRule {
+  return {
+    id,
+    phase: "cleanup",
+    locales: ["fr-FR"],
+    defaultMode: "fix",
+    apply(run: LogicalRun): RuleResult {
+      const diagnostics = [];
+      for (let index = 0; index < run.text.length; index++) {
+        if (run.text[index] !== from) continue;
+        const edit = { start: index, end: index + 1, replacement: to };
+        diagnostics.push({ ...edit, message: id, edits: [edit] });
+      }
+      return { diagnostics };
+    },
+  };
+}
+
+/**
+ * Ledger stress: the first rule rewrites every character, so that its edits
+ * coalesce into one changed piece; the second edits every character of that
+ * piece again.
+ */
+const ledgerRules = [
+  replaceEach("x-bench.rewrite", "a", "b"),
+  replaceEach("x-bench.refine", "b", "c"),
+];
+const ledgerInputs: Readonly<Record<string, (size: number) => Input>> = {
+  "edits refining one changed piece": (size) => "a".repeat(size),
+};
+
 if (Deno.args.includes("--scaling")) {
   const scalingSizes = [31_250, 62_500, 125_000];
   console.log(
@@ -123,14 +162,22 @@ if (Deno.args.includes("--scaling")) {
   console.log(
     `| --- | --- | ${scalingSizes.map(() => "---:").join(" | ")} | ---: |`,
   );
-  for (const [name, make] of Object.entries(scalingInputs)) {
-    for (const mode of modes) {
+  const cases = [
+    ...Object.entries(scalingInputs).map(([name, make]) =>
+      [name, make, scalingRules, modes] as const
+    ),
+    ...Object.entries(ledgerInputs).map(([name, make]) =>
+      [name, make, ledgerRules, ["fix"] as const] as const
+    ),
+  ];
+  for (const [name, make, rules, caseModes] of cases) {
+    for (const mode of caseModes) {
       const times: number[] = [];
       for (const size of scalingSizes) {
         const input = make(size);
         times.push(
           measure(() =>
-            runPipeline(input, scalingRules, {
+            runPipeline(input, rules, {
               locale: "fr-FR",
               mode,
             })

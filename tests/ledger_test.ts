@@ -81,3 +81,55 @@ Deno.test("stacked rules keep source changes consistent with their output", () =
     );
   }
 });
+
+Deno.test("edits inside one changed piece compose like single edits", () => {
+  // The first rule's adjacent edits coalesce into one changed piece "bbbbbb";
+  // the second edits inside it, across its end, and right after, so that the
+  // ledger merges everything into one change.
+  const rewrite = testRule("x-test.rewrite", (run) => ({
+    edits: [...run.text].flatMap((character, index) =>
+      character === "a"
+        ? [{ start: index, end: index + 1, replacement: "b" }]
+        : []
+    ),
+  }));
+  const refine = testRule(
+    "x-test.refine",
+    (run) =>
+      run.text.includes("B") ? {} : {
+        edits: [
+          { start: 2, end: 3, replacement: "B" },
+          { start: 4, end: 4, replacement: "+" },
+          { start: 6, end: 8, replacement: "BX" },
+          { start: 8, end: 9, replacement: "Y" },
+        ],
+      },
+  );
+  const input = "-aaaaaa-x-";
+  const result = runTextNodePipeline(
+    [{ id: "n", value: input }],
+    [rewrite, refine],
+    { locale: "fr-FR", mode: "fix" },
+  );
+  assert.equal(result.value, "-bBb+bbBXY-");
+  assert.deepEqual(
+    result.changes.map(({ start, end, expected, replacement, ruleIds }) => ({
+      start,
+      end,
+      expected,
+      replacement,
+      ruleIds,
+    })),
+    [{
+      start: 1,
+      end: 9,
+      expected: "aaaaaa-x",
+      replacement: "bBb+bbBXY",
+      ruleIds: ["x-test.rewrite", "x-test.refine"],
+    }],
+  );
+  assert.equal(
+    applyTextChanges([{ id: "n", value: input }], result.changes)[0].value,
+    result.value,
+  );
+});
