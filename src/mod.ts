@@ -1,6 +1,14 @@
 /** Orthotypography core: source-backed, composable typographic primitives. */
 export { applyTextChanges } from "./changes.ts";
 export {
+  ERROR_CODES,
+  type ErrorCategory,
+  type ErrorCode,
+  type ErrorDetails,
+  OrthotypographyError,
+} from "./errors.ts";
+export { DIAGNOSTIC_MESSAGES, formatDiagnosticMessage } from "./messages.ts";
+export {
   canonicalLocale,
   compilePipeline,
   type LocaleSupport,

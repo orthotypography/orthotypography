@@ -1,6 +1,7 @@
 import { classifyEllipsisCandidates } from "../classify/ellipsis.ts";
 import type { RuleResult, RunDiagnostic, RuntimeRule } from "../model.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
+import { diagnosticMessage } from "../messages.ts";
 import { RunStretches, stretchParts, unprotectedRegions } from "./run-text.ts";
 
 function result(diagnostics: readonly RunDiagnostic[]): RuleResult {
@@ -48,7 +49,7 @@ export const ETC_ELLIPSIS_RULE: RuntimeRule = catalogueRule(
         diagnostics.push({
           start,
           end: Math.min(start + 4, stretchEnd),
-          message: "Suspension points must not follow etc.",
+          ...diagnosticMessage("ellipsis.after-etc"),
           related: removals.filter(({ start }) => start >= stretchEnd),
           edits: removals.map((removal) => ({ ...removal, replacement: "" })),
         });
@@ -93,7 +94,9 @@ export const ELLIPSIS_GLYPH_RULE: RuntimeRule = catalogueRule(
       // starts; the other parts are removed from their nodes.
       diagnostics.push({
         ...primary,
-        message: `Use U+2026 for a recognized ${candidate.function} ellipsis`,
+        ...diagnosticMessage("ellipsis.glyph", {
+          function: candidate.function,
+        }),
         ...(related.length === 0 ? {} : { related }),
         edits: [{
           start: candidate.start,
@@ -128,7 +131,7 @@ export const ELLIPSIS_INITIAL_SPACE_AFTER_RULE: RuntimeRule = catalogueRule(
       diagnostics.push({
         start: candidate.start,
         end: candidate.end,
-        message: "Insert a word space after a structurally initial ellipsis",
+        ...diagnosticMessage("ellipsis.initial.space-after"),
         edits: [{
           start: candidate.end,
           end: candidate.end,

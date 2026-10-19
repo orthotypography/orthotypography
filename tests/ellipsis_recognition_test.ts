@@ -8,6 +8,7 @@ import {
   NUMERIC_PROTECTION_RULE,
   runPipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 const recognitionRules = [
   NUMERIC_PROTECTION_RULE,
@@ -196,9 +197,9 @@ Deno.test("recognition remains non-mutating in lint mode", () => {
 
 Deno.test("recognition export aliases the glyph rule without a second diagnostic", () => {
   assert.strictEqual(ELLIPSIS_RECOGNITION_RULE, ELLIPSIS_GLYPH_RULE);
-  assert.throws(
+  assertCode(
     () => compilePipeline([ELLIPSIS_RECOGNITION_RULE, ELLIPSIS_GLYPH_RULE]),
-    /Duplicate runtime rule: punctuation\.ellipsis\.glyph/,
+    "DUPLICATE_RULE",
   );
   const result = runPipeline("Il hésite...", recognitionRules, {
     locale: "fr-FR",

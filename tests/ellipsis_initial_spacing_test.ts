@@ -7,6 +7,7 @@ import {
   NUMERIC_PROTECTION_RULE,
   runPipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 const rules = [
   NUMERIC_PROTECTION_RULE,
@@ -102,11 +103,11 @@ Deno.test("initial spacing keeps source segments and guarded UTF-16 offsets", ()
   assert.equal(result.diagnostics[0].segmentId, "ellipsis");
   assert.equal(result.diagnostics[0].start, 2);
   assert.equal(result.diagnostics[0].end, 3);
-  assert.throws(() =>
+  assertCode(() =>
     applyTextChanges([
       { id: "ellipsis", value: "  …", protected: true },
       input[1],
-    ], result.changes), /protected/);
+    ], result.changes), "INVALID_CHANGE");
 });
 
 Deno.test("initial spacing does not cross protected boundaries", () => {

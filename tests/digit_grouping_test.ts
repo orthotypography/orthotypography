@@ -4,6 +4,7 @@ import {
   NUMERIC_PROTECTION_RULE,
   runPipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 const groupingRules = [NUMERIC_PROTECTION_RULE, DIGIT_GROUPING_RULE] as const;
 
@@ -127,13 +128,9 @@ Deno.test("digit grouping remains diagnostic in fix mode", () => {
 });
 
 Deno.test("digit grouping requires numeric classification", () => {
-  assert.throws(
-    () =>
-      runPipeline("12345 kg", [DIGIT_GROUPING_RULE], {
-        locale: "fr-FR",
-        mode: "lint",
-      }),
-    Error,
-    "Missing dependency classify.numeric-constructs",
-  );
+  assertCode(() =>
+    runPipeline("12345 kg", [DIGIT_GROUPING_RULE], {
+      locale: "fr-FR",
+      mode: "lint",
+    }), "MISSING_DEPENDENCY");
 });
