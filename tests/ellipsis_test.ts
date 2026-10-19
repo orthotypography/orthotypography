@@ -89,7 +89,6 @@ Deno.test("the etc. rule supports lint mode with source coordinates", () => {
   assert.equal(result.value, input);
   assert.deepEqual(result.changes, []);
   assert.equal(result.diagnostics.length, 1);
-  assert.equal(result.diagnostics[0].coordinateSpace, "source");
   assert.equal(result.diagnostics[0].start, 7);
   assert.equal(result.diagnostics[0].end, 11);
 });

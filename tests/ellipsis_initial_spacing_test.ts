@@ -138,7 +138,6 @@ Deno.test("initial spacing defaults to lint and explicit fix is idempotent", () 
   assert.deepEqual(lint.diagnostics.map(({ ruleId }) => ruleId), [
     "punctuation.ellipsis.initial.space-after",
   ]);
-  assert.equal(lint.diagnostics[0].coordinateSpace, "source");
   const fixed = runPipeline(input, rules, fix);
   assert.equal(fixed.value, "… Suite");
   const again = runPipeline(fixed.value, rules, fix);
@@ -179,26 +178,24 @@ Deno.test("glyph and initial spacing produce disjoint source changes", () => {
     ],
   );
   assert.deepEqual(
-    result.diagnostics.map(({ coordinateSpace, segmentId }) => ({
-      coordinateSpace,
+    result.diagnostics.map(({ segmentId }) => ({
       segmentId,
     })),
     [
-      { coordinateSpace: "source", segmentId: "word" },
-      { coordinateSpace: "source", segmentId: "ellipsis" },
+      { segmentId: "word" },
+      { segmentId: "ellipsis" },
     ],
   );
   assert.deepEqual(applyTextChanges(input, result.changes), result.segments);
   const sameSegment = runPipeline("…Suite puis hésite...", rules, fix);
   assert.equal(sameSegment.value, "… Suite puis hésite…");
   assert.deepEqual(
-    sameSegment.diagnostics.map(({ coordinateSpace, start }) => ({
-      coordinateSpace,
+    sameSegment.diagnostics.map(({ start }) => ({
       start,
     })),
     [
-      { coordinateSpace: "source", start: 18 },
-      { coordinateSpace: "source", start: 0 },
+      { start: 18 },
+      { start: 0 },
     ],
   );
   assert.equal(

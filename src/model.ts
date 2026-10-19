@@ -78,16 +78,17 @@ export interface TextSegment {
   readonly protected?: boolean;
 }
 
-/** Exact location of a diagnostic or one of its related subjects. */
+/**
+ * Location of a diagnostic or one of its related subjects, always in the input
+ * segment. A subject inside text produced by an earlier fix is reported on the
+ * source range of that fix.
+ */
 export interface DiagnosticLocation {
-  /** Whether offsets address the input node or a runtime fragment snapshot. */
-  readonly coordinateSpace: "source" | "runtime";
+  /** Index of the input segment. */
   readonly segmentIndex: number;
   readonly segmentId?: string;
-  /** Immutable text snapshot against which start and end are measured. */
+  /** Input segment value against which start and end are measured. */
   readonly segmentValue: string;
-  /** Revision of the runtime fragment; always zero in source coordinates. */
-  readonly segmentRevision: number;
   readonly start: number;
   readonly end: number;
 }

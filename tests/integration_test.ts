@@ -86,18 +86,15 @@ Deno.test("text-node lint exposes source diagnostics without mutation", () => {
   assert.deepEqual(
     result.diagnostics.map((diagnostic) => ({
       segmentId: diagnostic.segmentId,
-      coordinateSpace: diagnostic.coordinateSpace,
       relatedId: diagnostic.related?.[0]?.segmentId,
     })),
     [
       {
         segmentId: "opening",
-        coordinateSpace: "source",
         relatedId: "closing",
       },
       {
         segmentId: "closing",
-        coordinateSpace: "source",
         relatedId: "opening",
       },
     ],

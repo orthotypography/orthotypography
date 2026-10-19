@@ -90,26 +90,22 @@ Deno.test("digit grouping reports cross-segment UTF-16 locations", () => {
   assert.deepEqual(result.changes, []);
   assert.deepEqual(
     result.diagnostics.map((diagnostic) => ({
-      coordinateSpace: diagnostic.coordinateSpace,
       segmentId: diagnostic.segmentId,
       start: diagnostic.start,
       end: diagnostic.end,
       replacement: diagnostic.replacement,
       related: diagnostic.related?.map((location) => ({
-        coordinateSpace: location.coordinateSpace,
         segmentId: location.segmentId,
         start: location.start,
         end: location.end,
       })),
     })),
     [{
-      coordinateSpace: "source",
       segmentId: "left",
       start: 3,
       end: 5,
       replacement: undefined,
       related: [{
-        coordinateSpace: "source",
         segmentId: "digits",
         start: 0,
         end: 3,

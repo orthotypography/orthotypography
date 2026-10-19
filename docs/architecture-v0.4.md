@@ -30,20 +30,24 @@ Une intégration peut attribuer un `id` stable à chaque `TextSegment`. Ces
 identifiants doivent être non vides et uniques dans un appel au pipeline ; ils
 sont conservés quand le classificateur découpe un nœud en fragments protégés.
 
-Avec `mode: "lint"`, aucune règle ne transforme le texte. Chaque diagnostic et
-chaque emplacement `related` est alors exprimé dans l’espace `source` :
-`segmentIndex` et `segmentId` désignent le segment fourni par l’intégration,
-tandis que `start` et `end` sont des offsets UTF-16 semi-ouverts dans sa valeur
-initiale. Une paire peut donc relier deux nœuds distincts sans fusionner leurs
-positions. `segmentValue` constitue l’instantané exact auquel appliquer ces
-offsets.
+Chaque diagnostic et chaque emplacement `related` est exprimé dans le segment
+fourni par l’intégration, quel que soit le mode : `segmentIndex` et
+`segmentId` désignent ce segment, tandis que `start` et `end` sont des offsets
+UTF-16 semi-ouverts dans sa valeur initiale, dont `segmentValue` constitue
+l’instantané exact. Une paire peut donc relier deux nœuds distincts sans
+fusionner leurs positions, et un découpage par la protection ne change pas le
+segment désigné.
 
-Dans tout autre mode, des règles antérieures peuvent avoir modifié ou découpé
-le texte. Les diagnostics utilisent alors l’espace `runtime` : ils désignent le
-fragment au moment précis de l’exécution de la règle, identifié par son index,
-sa révision et `segmentValue`. Une intégration qui doit publier des positions
-dans le document source exécute donc une passe `lint` séparée ; elle ne doit pas
-projeter les offsets d’une passe de correction sur l’arbre d’origine.
+Avec `mode: "lint"`, aucune règle ne transforme le texte et ces positions sont
+exactes. Dans les autres modes, une règle peut constater un fait dans du texte
+produit par une correction antérieure. Son emplacement est alors élargi à la
+plage source de cette correction : un début situé dans un texte produit se
+reporte au début de la plage remplacée, une fin à sa fin, et une position vide
+au bord d’un texte inchangé garde sa position exacte
+(`conception-resultats-v0.1.md`, § 6). Si des corrections s’annulent,
+l’emplacement désigne le texte source inchangé qui les entourait. Une
+intégration publie donc les diagnostics d’une passe de correction sur l’arbre
+d’origine, sans passe `lint` séparée.
 
 Les corrections suivent un contrat distinct. Une passe qui transforme le texte
 retourne des `TextChange` non chevauchants, toujours projetés sur les segments

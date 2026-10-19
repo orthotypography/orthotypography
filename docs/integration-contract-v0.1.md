@@ -40,18 +40,17 @@ répartit pas une chaîne concaténée par calcul de longueurs.
 
 Une intégration choisit toujours le mode :
 
-- `lint` conserve toutes les valeurs et produit des diagnostics dans l’espace
-  `source` ; leurs offsets UTF-16 semi-ouverts s’appliquent directement au nœud
-  identifié par `segmentId` ;
-- `fix` retourne les nouvelles valeurs par nœud. Ses diagnostics décrivent des
-  instantanés `runtime` et ne doivent pas être projetés sur les positions de
-  l’arbre source. En revanche, son tableau `changes` constitue un jeu complet
-  de remplacements dans l’espace `source`.
+- `lint` conserve toutes les valeurs ;
+- `fix` retourne les nouvelles valeurs par nœud et son tableau `changes`, jeu
+  complet de remplacements dans l’espace source.
 
-Une intégration qui doit corriger et publier des diagnostics effectue donc une
-passe `lint` sur l’arbre initial, puis une passe `fix` séparée. Elle n’applique
-pas elle-même les champs `replacement` des diagnostics, car cette opération
-contournerait l’ordre, les dépendances et les protections du pipeline.
+Dans les deux modes, les diagnostics sont exprimés dans l’espace source : leurs
+offsets UTF-16 semi-ouverts s’appliquent directement au nœud identifié par
+`segmentId`. En correction, un diagnostic dont l’objet se trouve dans un texte
+produit par une correction antérieure désigne la plage source de cette
+correction. Une intégration n’applique pas elle-même les champs `replacement`
+des diagnostics, car cette opération contournerait l’ordre, les dépendances et
+les protections du pipeline.
 
 ## Changements applicables
 
@@ -97,7 +96,7 @@ Le futur adaptateur rehype devra :
 2. attribuer les identifiants et appliquer une politique configurable
    d’exclusion et de protection ;
 3. appeler `runTextNodePipeline` une fois par suite logique ;
-4. rattacher les diagnostics `source` aux nœuds par `segmentId` ;
+4. rattacher les diagnostics aux nœuds par `segmentId` ;
 5. en correction, remplacer uniquement la propriété `value` de chaque nœud ;
 6. pour une correction interactive, appliquer `changes` après vérification de
    `expected`, plutôt que les remplacements des diagnostics ;

@@ -318,3 +318,123 @@ Deno.test("lint mode reports proposals without applying them", () => {
   assert.deepEqual(result.changes, []);
   assert.equal(result.diagnostics.length, 1);
 });
+
+/** Reports fixed runtime ranges relative to a marker, without edits. */
+function reporter(marker: string, ranges: readonly [number, number][]) {
+  return testRule("x-test.report", (run) => {
+    const at = run.text.indexOf(marker);
+    if (at < 0) return {};
+    return {
+      diagnostics: ranges.map(([start, end]) => ({
+        start: at + start,
+        end: at + end,
+        message: `${start}-${end}`,
+      })),
+    };
+  }, { phase: "cleanup" });
+}
+
+function locations(
+  input: string | { id?: string; value: string; protected?: boolean }[],
+  rules: Parameters<typeof runPipeline>[1],
+) {
+  return runPipeline(input, rules, { locale: "fr-FR", mode: "fix" })
+    .diagnostics
+    .filter(({ ruleId }) => ruleId === "x-test.report")
+    .map(({ segmentIndex, segmentValue, start, end }) => ({
+      segmentIndex,
+      segmentValue,
+      start,
+      end,
+    }));
+}
+
+Deno.test("diagnostics on fixed text are widened to the source of the fix", () => {
+  const insert = testRule("x-test.insert", (run) => ({
+    edits: run.text.includes("XYZ")
+      ? []
+      : [{ start: 2, end: 2, replacement: "XYZ" }],
+  }));
+  // Runtime text: "abXYZcd"; ranges are relative to "XYZ" at 2.
+  const rules = [
+    insert,
+    reporter("XYZ", [[1, 2], [-1, 2], [3, 3], [2, 4], [0, 0]]),
+  ];
+  assert.deepEqual(
+    locations("abcd", rules).map(({ start, end }) => [start, end]),
+    [
+      // Inside the inserted text: the insertion point.
+      [2, 2],
+      // From unchanged text into the insertion: up to the insertion point.
+      [1, 2],
+      // Empty, right after the insertion: exact, before "c".
+      [2, 2],
+      // From the insertion into unchanged text: through "c".
+      [2, 3],
+      // Empty, right before the insertion: exact, after "b".
+      [2, 2],
+    ],
+  );
+});
+
+Deno.test("diagnostics next to replaced or removed text keep exact positions", () => {
+  const replace = testRule("x-test.replace", (run) => {
+    const at = run.text.indexOf("bc");
+    return {
+      edits: at < 0 ? [] : [{ start: at, end: at + 2, replacement: "Q" }],
+    };
+  });
+  // Runtime text: "aQd".
+  assert.deepEqual(
+    locations("abcd", [replace, reporter("Q", [[0, 1], [1, 1], [0, 0]])])
+      .map(({ start, end }) => [start, end]),
+    [[1, 3], [3, 3], [1, 1]],
+  );
+
+  const trim = testRule("x-test.trim", (run) => ({
+    edits: run.text.endsWith(" ")
+      ? [{ start: run.text.length - 1, end: run.text.length, replacement: "" }]
+      : [],
+  }));
+  // Runtime text: "ab"; the position after "b" precedes the removed space.
+  assert.deepEqual(
+    locations("ab ", [trim, reporter("b", [[1, 1], [0, 1]])])
+      .map(({ start, end }) => [start, end]),
+    [[2, 2], [1, 2]],
+  );
+});
+
+Deno.test("diagnostics name the input segment when protection splits it", () => {
+  const protect = testRule(
+    "x-test.protect",
+    (run) => {
+      const at = run.text.indexOf("1.2");
+      return at < 0 ? {} : {
+        annotations: [{
+          kind: "x-test",
+          start: at,
+          end: at + 3,
+          protect: true,
+        }],
+      };
+    },
+    { phase: "classify" },
+  );
+  const insert = testRule("x-test.insert-after", (run) => {
+    const at = run.text.indexOf("1.2 ");
+    return {
+      edits: at < 0 ? [] : [{ start: at + 3, end: at + 4, replacement: "  " }],
+    };
+  });
+  const input = [
+    { id: "lead", value: "a " },
+    { id: "mixed", value: "v1.2 b" },
+  ];
+  // Runtime text: "a v1.2  b", "mixed" split around the protected "1.2".
+  assert.deepEqual(
+    locations(input, [protect, insert, reporter("  b", [[1, 3]])]),
+    [
+      { segmentIndex: 1, segmentValue: "v1.2 b", start: 4, end: 6 },
+    ],
+  );
+});

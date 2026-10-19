@@ -74,12 +74,11 @@ Deno.test("comma spacing supports lint mode in source UTF-16 coordinates", () =>
   assert.deepEqual(result.changes, []);
   assert.deepEqual(
     result.diagnostics.map((diagnostic) => ({
-      coordinateSpace: diagnostic.coordinateSpace,
       start: diagnostic.start,
       end: diagnostic.end,
       replacement: diagnostic.replacement,
     })),
-    [{ coordinateSpace: "source", start: 17, end: 17, replacement: " " }],
+    [{ start: 17, end: 17, replacement: " " }],
   );
 });
 

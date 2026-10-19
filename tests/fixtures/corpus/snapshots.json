@@ -10,17 +10,17 @@
           [0,138,139," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,39,41,","],
-          ["punctuation.colon.nbsp-before","source",0,91,91,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,138,139,"\u202f"]
+          ["punctuation.comma.no-space-before",0,39,41,","],
+          ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,39,41,","],
-          ["punctuation.colon.nbsp-before","source",0,91,91,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,138,139,"\u202f"]
+          ["punctuation.comma.no-space-before",0,39,41,","],
+          ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
         ]
       },
       "single/fix": {
@@ -31,9 +31,9 @@
           [0,138,139," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,39,41,","],
-          ["punctuation.colon.nbsp-before","source",0,91,91,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,138,139,"\u202f"]
+          ["punctuation.comma.no-space-before",0,39,41,","],
+          ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -44,17 +44,17 @@
           [6,4,5," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",2,0,1,","],
-          ["punctuation.colon.nbsp-before","source",4,8,8,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",6,4,5,"\u202f"]
+          ["punctuation.comma.no-space-before",2,0,1,","],
+          ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",2,0,1,","],
-          ["punctuation.colon.nbsp-before","source",4,8,8,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",6,4,5,"\u202f"]
+          ["punctuation.comma.no-space-before",2,0,1,","],
+          ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -65,9 +65,9 @@
           [6,4,5," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",2,0,1,","],
-          ["punctuation.colon.nbsp-before","source",4,8,8,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",6,4,5,"\u202f"]
+          ["punctuation.comma.no-space-before",2,0,1,","],
+          ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
         ]
       }
     },
@@ -80,17 +80,17 @@
           [0,138,139," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,39,41,","],
-          ["punctuation.colon.nbsp-before","source",0,91,91,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,138,139,"\u202f"]
+          ["punctuation.comma.no-space-before",0,39,41,","],
+          ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,39,41,","],
-          ["punctuation.colon.nbsp-before","source",0,91,91,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,138,139,"\u202f"]
+          ["punctuation.comma.no-space-before",0,39,41,","],
+          ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
         ]
       },
       "single/fix": {
@@ -101,9 +101,9 @@
           [0,138,139," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,39,41,","],
-          ["punctuation.colon.nbsp-before","source",0,91,91,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,138,139,"\u202f"]
+          ["punctuation.comma.no-space-before",0,39,41,","],
+          ["punctuation.colon.nbsp-before",0,91,91,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,138,139,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -114,17 +114,17 @@
           [6,4,5," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",2,0,1,","],
-          ["punctuation.colon.nbsp-before","source",4,8,8,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",6,4,5,"\u202f"]
+          ["punctuation.comma.no-space-before",2,0,1,","],
+          ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",2,0,1,","],
-          ["punctuation.colon.nbsp-before","source",4,8,8,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",6,4,5,"\u202f"]
+          ["punctuation.comma.no-space-before",2,0,1,","],
+          ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -135,9 +135,9 @@
           [6,4,5," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",2,0,1,","],
-          ["punctuation.colon.nbsp-before","source",4,8,8,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",6,4,5,"\u202f"]
+          ["punctuation.comma.no-space-before",2,0,1,","],
+          ["punctuation.colon.nbsp-before",4,8,8,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",6,4,5,"\u202f"]
         ]
       }
     }
@@ -158,31 +158,31 @@
           [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,32,32,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,101,101,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,123,123,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,98,99,"\u00a0"],
-          ["punctuation.colon.space-after","source",0,100,100," "],
-          ["punctuation.question.nnbsp-before","source",0,30,31,"\u202f"],
-          ["punctuation.question.space-after","runtime",0,32,33," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,127,128," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,32,32,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,101,101,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,123,123,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
+          ["punctuation.colon.space-after",0,100,100," "],
+          ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
+          ["punctuation.question.space-after",0,32,32," "],
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
+          ["punctuation.exclamation.space-after",0,123,123," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,32,32,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,101,101,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,123,123,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,98,99,"\u00a0"],
-          ["punctuation.colon.space-after","source",0,100,100," "],
-          ["punctuation.question.nnbsp-before","source",0,30,31,"\u202f"],
-          ["punctuation.question.space-after","source",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,123,123," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,32,32,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,101,101,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,123,123,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
+          ["punctuation.colon.space-after",0,100,100," "],
+          ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
+          ["punctuation.question.space-after",0,32,32," "],
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
+          ["punctuation.exclamation.space-after",0,123,123," "]
         ]
       },
       "single/fix": {
@@ -198,16 +198,16 @@
           [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,32,32,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,101,101,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,123,123,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,98,99,"\u00a0"],
-          ["punctuation.colon.space-after","source",0,100,100," "],
-          ["punctuation.question.nnbsp-before","source",0,30,31,"\u202f"],
-          ["punctuation.question.space-after","runtime",0,32,33," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,127,128," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,32,32,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,101,101,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,123,123,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
+          ["punctuation.colon.space-after",0,100,100," "],
+          ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
+          ["punctuation.question.space-after",0,32,32," "],
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
+          ["punctuation.exclamation.space-after",0,123,123," "]
         ]
       },
       "segmented/default": {
@@ -223,31 +223,31 @@
           [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,19,19,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,16,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",5,14,14,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",4,13,14,"\u00a0"],
-          ["punctuation.colon.space-after","source",4,15,15," "],
-          ["punctuation.question.nnbsp-before","source",1,17,18,"\u202f"],
-          ["punctuation.question.space-after","runtime",1,19,20," "],
-          ["punctuation.exclamation.nnbsp-before","source",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",5,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,19,19,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,16,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",5,14,14,"\u00a0"],
+          ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
+          ["punctuation.colon.space-after",4,15,15," "],
+          ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
+          ["punctuation.question.space-after",1,19,19," "],
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
+          ["punctuation.exclamation.space-after",5,14,14," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,19,19,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,16,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",5,14,14,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",4,13,14,"\u00a0"],
-          ["punctuation.colon.space-after","source",4,15,15," "],
-          ["punctuation.question.nnbsp-before","source",1,17,18,"\u202f"],
-          ["punctuation.question.space-after","source",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before","source",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after","source",5,14,14," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,19,19,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,16,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",5,14,14,"\u00a0"],
+          ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
+          ["punctuation.colon.space-after",4,15,15," "],
+          ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
+          ["punctuation.question.space-after",1,19,19," "],
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
+          ["punctuation.exclamation.space-after",5,14,14," "]
         ]
       },
       "segmented/fix": {
@@ -263,16 +263,16 @@
           [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,19,19,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,16,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",5,14,14,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",4,13,14,"\u00a0"],
-          ["punctuation.colon.space-after","source",4,15,15," "],
-          ["punctuation.question.nnbsp-before","source",1,17,18,"\u202f"],
-          ["punctuation.question.space-after","runtime",1,19,20," "],
-          ["punctuation.exclamation.nnbsp-before","source",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",5,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,19,19,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,16,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",5,14,14,"\u00a0"],
+          ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
+          ["punctuation.colon.space-after",4,15,15," "],
+          ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
+          ["punctuation.question.space-after",1,19,19," "],
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
+          ["punctuation.exclamation.space-after",5,14,14," "]
         ]
       }
     },
@@ -290,33 +290,33 @@
           [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",0,76,79],
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,32,32,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,101,101,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,123,123,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,98,99,"\u00a0"],
-          ["punctuation.colon.space-after","source",0,100,100," "],
-          ["punctuation.question.nnbsp-before","source",0,30,31,"\u202f"],
-          ["punctuation.question.space-after","runtime",0,32,33," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,127,128," "]
+          ["punctuation.ellipsis.glyph",0,76,79],
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,32,32,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,101,101,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,123,123,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
+          ["punctuation.colon.space-after",0,100,100," "],
+          ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
+          ["punctuation.question.space-after",0,32,32," "],
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
+          ["punctuation.exclamation.space-after",0,123,123," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",0,76,79],
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,32,32,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,101,101,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,123,123,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,98,99,"\u00a0"],
-          ["punctuation.colon.space-after","source",0,100,100," "],
-          ["punctuation.question.nnbsp-before","source",0,30,31,"\u202f"],
-          ["punctuation.question.space-after","source",0,32,32," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,123,123," "]
+          ["punctuation.ellipsis.glyph",0,76,79],
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,32,32,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,101,101,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,123,123,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
+          ["punctuation.colon.space-after",0,100,100," "],
+          ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
+          ["punctuation.question.space-after",0,32,32," "],
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
+          ["punctuation.exclamation.space-after",0,123,123," "]
         ]
       },
       "single/fix": {
@@ -333,17 +333,17 @@
           [0,123,123,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",0,76,79],
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,32,32,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,101,101,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,123,123,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,98,99,"\u00a0"],
-          ["punctuation.colon.space-after","source",0,100,100," "],
-          ["punctuation.question.nnbsp-before","source",0,30,31,"\u202f"],
-          ["punctuation.question.space-after","runtime",0,32,33," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,122,122,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,125,126," "]
+          ["punctuation.ellipsis.glyph",0,76,79],
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,32,32,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,101,101,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,123,123,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,98,99,"\u00a0"],
+          ["punctuation.colon.space-after",0,100,100," "],
+          ["punctuation.question.nnbsp-before",0,30,31,"\u202f"],
+          ["punctuation.question.space-after",0,32,32," "],
+          ["punctuation.exclamation.nnbsp-before",0,122,122,"\u202f"],
+          ["punctuation.exclamation.space-after",0,123,123," "]
         ]
       },
       "segmented/default": {
@@ -359,33 +359,33 @@
           [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",3,18,21],
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,19,19,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,16,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",5,14,14,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",4,13,14,"\u00a0"],
-          ["punctuation.colon.space-after","source",4,15,15," "],
-          ["punctuation.question.nnbsp-before","source",1,17,18,"\u202f"],
-          ["punctuation.question.space-after","runtime",1,19,20," "],
-          ["punctuation.exclamation.nnbsp-before","source",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",5,15,16," "]
+          ["punctuation.ellipsis.glyph",3,18,21],
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,19,19,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,16,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",5,14,14,"\u00a0"],
+          ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
+          ["punctuation.colon.space-after",4,15,15," "],
+          ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
+          ["punctuation.question.space-after",1,19,19," "],
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
+          ["punctuation.exclamation.space-after",5,14,14," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",3,18,21],
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,19,19,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,16,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",5,14,14,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",4,13,14,"\u00a0"],
-          ["punctuation.colon.space-after","source",4,15,15," "],
-          ["punctuation.question.nnbsp-before","source",1,17,18,"\u202f"],
-          ["punctuation.question.space-after","source",1,19,19," "],
-          ["punctuation.exclamation.nnbsp-before","source",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after","source",5,14,14," "]
+          ["punctuation.ellipsis.glyph",3,18,21],
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,19,19,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,16,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",5,14,14,"\u00a0"],
+          ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
+          ["punctuation.colon.space-after",4,15,15," "],
+          ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
+          ["punctuation.question.space-after",1,19,19," "],
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
+          ["punctuation.exclamation.space-after",5,14,14," "]
         ]
       },
       "segmented/fix": {
@@ -402,17 +402,17 @@
           [5,14,14,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",3,18,21],
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,19,19,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,16,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",5,14,14,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",4,13,14,"\u00a0"],
-          ["punctuation.colon.space-after","source",4,15,15," "],
-          ["punctuation.question.nnbsp-before","source",1,17,18,"\u202f"],
-          ["punctuation.question.space-after","runtime",1,19,20," "],
-          ["punctuation.exclamation.nnbsp-before","source",5,13,13,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",5,15,16," "]
+          ["punctuation.ellipsis.glyph",3,18,21],
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,19,19,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,16,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",5,14,14,"\u00a0"],
+          ["punctuation.colon.nbsp-before",4,13,14,"\u00a0"],
+          ["punctuation.colon.space-after",4,15,15," "],
+          ["punctuation.question.nnbsp-before",1,17,18,"\u202f"],
+          ["punctuation.question.space-after",1,19,19," "],
+          ["punctuation.exclamation.nnbsp-before",5,13,13,"\u202f"],
+          ["punctuation.exclamation.space-after",5,14,14," "]
         ]
       }
     }
@@ -427,15 +427,15 @@
           [0,161,163,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,52,52," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",0,157,161]
+          ["punctuation.comma.space-after",0,52,52," "],
+          ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,52,52," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",0,157,161]
+          ["punctuation.comma.space-after",0,52,52," "],
+          ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
         ]
       },
       "single/fix": {
@@ -445,8 +445,8 @@
           [0,161,163,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,52,52," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",0,157,161]
+          ["punctuation.comma.space-after",0,52,52," "],
+          ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
         ]
       },
       "segmented/default": {
@@ -456,15 +456,15 @@
           [6,29,31,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",2,9,9," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",6,25,29]
+          ["punctuation.comma.space-after",2,9,9," "],
+          ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",2,9,9," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",6,25,29]
+          ["punctuation.comma.space-after",2,9,9," "],
+          ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
         ]
       },
       "segmented/fix": {
@@ -474,8 +474,8 @@
           [6,29,31,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",2,9,9," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",6,25,29]
+          ["punctuation.comma.space-after",2,9,9," "],
+          ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
         ]
       }
     },
@@ -487,15 +487,15 @@
           [0,161,163,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,52,52," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",0,157,161]
+          ["punctuation.comma.space-after",0,52,52," "],
+          ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,52,52," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",0,157,161]
+          ["punctuation.comma.space-after",0,52,52," "],
+          ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
         ]
       },
       "single/fix": {
@@ -505,8 +505,8 @@
           [0,161,163,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,52,52," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",0,157,161]
+          ["punctuation.comma.space-after",0,52,52," "],
+          ["punctuation.ellipsis.after-etc.forbidden",0,157,161]
         ]
       },
       "segmented/default": {
@@ -516,15 +516,15 @@
           [6,29,31,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",2,9,9," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",6,25,29]
+          ["punctuation.comma.space-after",2,9,9," "],
+          ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",2,9,9," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",6,25,29]
+          ["punctuation.comma.space-after",2,9,9," "],
+          ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
         ]
       },
       "segmented/fix": {
@@ -534,8 +534,8 @@
           [6,29,31,"..","","punctuation.ellipsis.after-etc.forbidden"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",2,9,9," "],
-          ["punctuation.ellipsis.after-etc.forbidden","source",6,25,29]
+          ["punctuation.comma.space-after",2,9,9," "],
+          ["punctuation.ellipsis.after-etc.forbidden",6,25,29]
         ]
       }
     }
@@ -551,17 +551,17 @@
           [0,96,98," ,",",","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,78,80,","],
-          ["punctuation.comma.no-space-before","source",0,96,98,","],
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"]
+          ["punctuation.comma.no-space-before",0,78,80,","],
+          ["punctuation.comma.no-space-before",0,96,98,","],
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,78,80,","],
-          ["punctuation.comma.no-space-before","source",0,96,98,","],
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"]
+          ["punctuation.comma.no-space-before",0,78,80,","],
+          ["punctuation.comma.no-space-before",0,96,98,","],
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"]
         ]
       },
       "single/fix": {
@@ -572,9 +572,9 @@
           [0,96,98," ,",",","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,78,80,","],
-          ["punctuation.comma.no-space-before","source",0,96,98,","],
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"]
+          ["punctuation.comma.no-space-before",0,78,80,","],
+          ["punctuation.comma.no-space-before",0,96,98,","],
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -585,17 +585,17 @@
           [3,24,25," ","","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",3,6,8,","],
-          ["punctuation.comma.no-space-before","source",4,0,1,","],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"]
+          ["punctuation.comma.no-space-before",3,6,8,","],
+          ["punctuation.comma.no-space-before",4,0,1,","],
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",3,6,8,","],
-          ["punctuation.comma.no-space-before","source",4,0,1,","],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"]
+          ["punctuation.comma.no-space-before",3,6,8,","],
+          ["punctuation.comma.no-space-before",4,0,1,","],
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -606,9 +606,9 @@
           [3,24,25," ","","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",3,6,8,","],
-          ["punctuation.comma.no-space-before","source",4,0,1,","],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"]
+          ["punctuation.comma.no-space-before",3,6,8,","],
+          ["punctuation.comma.no-space-before",4,0,1,","],
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"]
         ]
       }
     },
@@ -621,19 +621,19 @@
           [0,96,98," ,",",","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,78,80,","],
-          ["punctuation.comma.no-space-before","source",0,96,98,","],
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["punctuation.ellipsis.initial.space-after","source",0,0,1]
+          ["punctuation.comma.no-space-before",0,78,80,","],
+          ["punctuation.comma.no-space-before",0,96,98,","],
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["punctuation.ellipsis.initial.space-after",0,0,1]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,78,80,","],
-          ["punctuation.comma.no-space-before","source",0,96,98,","],
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["punctuation.ellipsis.initial.space-after","source",0,0,1]
+          ["punctuation.comma.no-space-before",0,78,80,","],
+          ["punctuation.comma.no-space-before",0,96,98,","],
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["punctuation.ellipsis.initial.space-after",0,0,1]
         ]
       },
       "single/fix": {
@@ -645,10 +645,10 @@
           [0,96,98," ,",",","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",0,78,80,","],
-          ["punctuation.comma.no-space-before","source",0,96,98,","],
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["punctuation.ellipsis.initial.space-after","source",0,0,1]
+          ["punctuation.comma.no-space-before",0,78,80,","],
+          ["punctuation.comma.no-space-before",0,96,98,","],
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["punctuation.ellipsis.initial.space-after",0,0,1]
         ]
       },
       "segmented/default": {
@@ -659,19 +659,19 @@
           [3,24,25," ","","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",3,6,8,","],
-          ["punctuation.comma.no-space-before","source",4,0,1,","],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["punctuation.ellipsis.initial.space-after","source",0,0,1]
+          ["punctuation.comma.no-space-before",3,6,8,","],
+          ["punctuation.comma.no-space-before",4,0,1,","],
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["punctuation.ellipsis.initial.space-after",0,0,1]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",3,6,8,","],
-          ["punctuation.comma.no-space-before","source",4,0,1,","],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["punctuation.ellipsis.initial.space-after","source",0,0,1]
+          ["punctuation.comma.no-space-before",3,6,8,","],
+          ["punctuation.comma.no-space-before",4,0,1,","],
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["punctuation.ellipsis.initial.space-after",0,0,1]
         ]
       },
       "segmented/fix": {
@@ -683,10 +683,10 @@
           [3,24,25," ","","punctuation.comma.no-space-before"]
         ],
         "diagnostics": [
-          ["punctuation.comma.no-space-before","source",3,6,8,","],
-          ["punctuation.comma.no-space-before","source",4,0,1,","],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["punctuation.ellipsis.initial.space-after","source",0,0,1]
+          ["punctuation.comma.no-space-before",3,6,8,","],
+          ["punctuation.comma.no-space-before",4,0,1,","],
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["punctuation.ellipsis.initial.space-after",0,0,1]
         ]
       }
     }
@@ -704,26 +704,26 @@
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,15,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,49,49,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,85,85,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",0,67,69,","],
-          ["punctuation.period.no-space-before","source",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,15,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,49,49,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
+          ["punctuation.comma.no-space-before",0,67,69,","],
+          ["punctuation.period.no-space-before",0,83,85,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,15,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,49,49,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,85,85,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",0,67,69,","],
-          ["punctuation.period.no-space-before","source",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,15,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,49,49,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
+          ["punctuation.comma.no-space-before",0,67,69,","],
+          ["punctuation.period.no-space-before",0,83,85,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ]
       },
       "single/fix": {
@@ -736,14 +736,14 @@
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,15,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,49,49,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,85,85,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",0,67,69,","],
-          ["punctuation.period.no-space-before","source",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,15,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,49,49,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
+          ["punctuation.comma.no-space-before",0,67,69,","],
+          ["punctuation.period.no-space-before",0,83,85,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       },
       "segmented/default": {
@@ -756,26 +756,26 @@
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,0,0,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",2,17,17,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",3,8,10,","],
-          ["punctuation.period.no-space-before","source",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,0,0,"\u00a0"],
+          ["quotes.french.nbsp-inner",2,17,17,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.comma.no-space-before",3,8,10,","],
+          ["punctuation.period.no-space-before",4,10,12,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,0,0,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",2,17,17,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",3,8,10,","],
-          ["punctuation.period.no-space-before","source",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,0,0,"\u00a0"],
+          ["quotes.french.nbsp-inner",2,17,17,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.comma.no-space-before",3,8,10,","],
+          ["punctuation.period.no-space-before",4,10,12,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -788,14 +788,14 @@
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,0,0,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",2,17,17,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",3,8,10,","],
-          ["punctuation.period.no-space-before","source",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,0,0,"\u00a0"],
+          ["quotes.french.nbsp-inner",2,17,17,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.comma.no-space-before",3,8,10,","],
+          ["punctuation.period.no-space-before",4,10,12,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       }
     },
@@ -810,26 +810,26 @@
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,15,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,49,49,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,85,85,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",0,67,69,","],
-          ["punctuation.period.no-space-before","source",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,15,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,49,49,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
+          ["punctuation.comma.no-space-before",0,67,69,","],
+          ["punctuation.period.no-space-before",0,83,85,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,15,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,49,49,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,85,85,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",0,67,69,","],
-          ["punctuation.period.no-space-before","source",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,15,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,49,49,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
+          ["punctuation.comma.no-space-before",0,67,69,","],
+          ["punctuation.period.no-space-before",0,83,85,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ]
       },
       "single/fix": {
@@ -842,14 +842,14 @@
           [0,83,85," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,15,16,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,49,49,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,85,85,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",0,67,69,","],
-          ["punctuation.period.no-space-before","source",0,83,85,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,15,16,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,49,49,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,85,85,"\u00a0"],
+          ["punctuation.comma.no-space-before",0,67,69,","],
+          ["punctuation.period.no-space-before",0,83,85,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       },
       "segmented/default": {
@@ -862,26 +862,26 @@
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,0,0,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",2,17,17,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",3,8,10,","],
-          ["punctuation.period.no-space-before","source",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,0,0,"\u00a0"],
+          ["quotes.french.nbsp-inner",2,17,17,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.comma.no-space-before",3,8,10,","],
+          ["punctuation.period.no-space-before",4,10,12,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,0,0,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",2,17,17,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",3,8,10,","],
-          ["punctuation.period.no-space-before","source",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,0,0,"\u00a0"],
+          ["quotes.french.nbsp-inner",2,17,17,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.comma.no-space-before",3,8,10,","],
+          ["punctuation.period.no-space-before",4,10,12,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -894,14 +894,14 @@
           [4,10,12," .",".\u00a0","punctuation.period.no-space-before+quotes.french.nbsp-inner"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",1,0,0,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",2,17,17,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.comma.no-space-before","source",3,8,10,","],
-          ["punctuation.period.no-space-before","source",4,10,12,"."],
-          ["punctuation.exclamation.nnbsp-before","source",0,13,14,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,15,16," "]
+          ["quotes.french.nbsp-inner",0,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",1,0,0,"\u00a0"],
+          ["quotes.french.nbsp-inner",2,17,17,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.comma.no-space-before",3,8,10,","],
+          ["punctuation.period.no-space-before",4,10,12,"."],
+          ["punctuation.exclamation.nnbsp-before",0,13,14,"\u202f"],
+          ["punctuation.exclamation.space-after",0,15,16," "]
         ]
       }
     }
@@ -920,25 +920,25 @@
           [0,94,94,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,41,42,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,94,94,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,72,73,"\u202f"],
-          ["punctuation.question.space-after","source",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,93,94," "]
+          ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,94,94,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
+          ["punctuation.question.space-after",0,74,76," "],
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
+          ["punctuation.exclamation.space-after",0,94,94," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,41,42,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,94,94,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,72,73,"\u202f"],
-          ["punctuation.question.space-after","source",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,94,94," "]
+          ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,94,94,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
+          ["punctuation.question.space-after",0,74,76," "],
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
+          ["punctuation.exclamation.space-after",0,94,94," "]
         ]
       },
       "single/fix": {
@@ -952,13 +952,13 @@
           [0,94,94,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",0,41,42,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,94,94,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,72,73,"\u202f"],
-          ["punctuation.question.space-after","source",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,93,94," "]
+          ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,94,94,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
+          ["punctuation.question.space-after",0,74,76," "],
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
+          ["punctuation.exclamation.space-after",0,94,94," "]
         ]
       },
       "segmented/default": {
@@ -972,25 +972,25 @@
           [4,12,12,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",2,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",1,15,16,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",3,8,9,"\u202f"],
-          ["punctuation.question.space-after","source",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before","source",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",4,12,13," "]
+          ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
+          ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
+          ["punctuation.question.space-after",3,10,12," "],
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
+          ["punctuation.exclamation.space-after",4,12,12," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",2,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",1,15,16,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",3,8,9,"\u202f"],
-          ["punctuation.question.space-after","source",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before","source",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after","source",4,12,12," "]
+          ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
+          ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
+          ["punctuation.question.space-after",3,10,12," "],
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
+          ["punctuation.exclamation.space-after",4,12,12," "]
         ]
       },
       "segmented/fix": {
@@ -1004,13 +1004,13 @@
           [4,12,12,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["quotes.french.nbsp-inner","source",2,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",1,15,16,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",3,8,9,"\u202f"],
-          ["punctuation.question.space-after","source",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before","source",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",4,12,13," "]
+          ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
+          ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
+          ["punctuation.question.space-after",3,10,12," "],
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
+          ["punctuation.exclamation.space-after",4,12,12," "]
         ]
       }
     },
@@ -1026,27 +1026,27 @@
           [0,94,94,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",0,125,128],
-          ["quotes.french.nbsp-inner","source",0,41,42,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,94,94,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,72,73,"\u202f"],
-          ["punctuation.question.space-after","source",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,93,94," "]
+          ["punctuation.ellipsis.glyph",0,125,128],
+          ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,94,94,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
+          ["punctuation.question.space-after",0,74,76," "],
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
+          ["punctuation.exclamation.space-after",0,94,94," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",0,125,128],
-          ["quotes.french.nbsp-inner","source",0,41,42,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,94,94,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,72,73,"\u202f"],
-          ["punctuation.question.space-after","source",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,94,94," "]
+          ["punctuation.ellipsis.glyph",0,125,128],
+          ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,94,94,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
+          ["punctuation.question.space-after",0,74,76," "],
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
+          ["punctuation.exclamation.space-after",0,94,94," "]
         ]
       },
       "single/fix": {
@@ -1061,14 +1061,14 @@
           [0,125,128,"...","…","punctuation.ellipsis.glyph"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",0,125,128],
-          ["quotes.french.nbsp-inner","source",0,41,42,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",0,94,94,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,72,73,"\u202f"],
-          ["punctuation.question.space-after","source",0,74,76," "],
-          ["punctuation.exclamation.nnbsp-before","source",0,92,93,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",0,93,94," "]
+          ["punctuation.ellipsis.glyph",0,125,128],
+          ["quotes.french.nbsp-inner",0,41,42,"\u00a0"],
+          ["quotes.french.nbsp-inner",0,94,94,"\u00a0"],
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,72,73,"\u202f"],
+          ["punctuation.question.space-after",0,74,76," "],
+          ["punctuation.exclamation.nnbsp-before",0,92,93,"\u202f"],
+          ["punctuation.exclamation.space-after",0,94,94," "]
         ]
       },
       "segmented/default": {
@@ -1082,27 +1082,27 @@
           [4,12,12,""," ","quotes.french.nbsp-inner+punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",5,18,21],
-          ["quotes.french.nbsp-inner","source",2,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",1,15,16,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",3,8,9,"\u202f"],
-          ["punctuation.question.space-after","source",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before","source",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",4,12,13," "]
+          ["punctuation.ellipsis.glyph",5,18,21],
+          ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
+          ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
+          ["punctuation.question.space-after",3,10,12," "],
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
+          ["punctuation.exclamation.space-after",4,12,12," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",5,18,21],
-          ["quotes.french.nbsp-inner","source",2,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",1,15,16,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",3,8,9,"\u202f"],
-          ["punctuation.question.space-after","source",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before","source",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after","source",4,12,12," "]
+          ["punctuation.ellipsis.glyph",5,18,21],
+          ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
+          ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
+          ["punctuation.question.space-after",3,10,12," "],
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
+          ["punctuation.exclamation.space-after",4,12,12," "]
         ]
       },
       "segmented/fix": {
@@ -1117,14 +1117,14 @@
           [5,18,21,"...","…","punctuation.ellipsis.glyph"]
         ],
         "diagnostics": [
-          ["punctuation.ellipsis.glyph","source",5,18,21],
-          ["quotes.french.nbsp-inner","source",2,1,2,"\u00a0"],
-          ["quotes.french.nbsp-inner","source",4,12,12,"\u00a0"],
-          ["punctuation.colon.nbsp-before","source",1,15,16,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",3,8,9,"\u202f"],
-          ["punctuation.question.space-after","source",3,10,12," "],
-          ["punctuation.exclamation.nnbsp-before","source",4,10,11,"\u202f"],
-          ["punctuation.exclamation.space-after","runtime",4,12,13," "]
+          ["punctuation.ellipsis.glyph",5,18,21],
+          ["quotes.french.nbsp-inner",2,1,2,"\u00a0"],
+          ["quotes.french.nbsp-inner",4,12,12,"\u00a0"],
+          ["punctuation.colon.nbsp-before",1,15,16,"\u00a0"],
+          ["punctuation.question.nnbsp-before",3,8,9,"\u202f"],
+          ["punctuation.question.space-after",3,10,12," "],
+          ["punctuation.exclamation.nnbsp-before",4,10,11,"\u202f"],
+          ["punctuation.exclamation.space-after",4,12,12," "]
         ]
       }
     }
@@ -1138,13 +1138,13 @@
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"]
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"]
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
         ]
       },
       "single/fix": {
@@ -1153,7 +1153,7 @@
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"]
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
         ]
       },
       "segmented/default": {
@@ -1162,13 +1162,13 @@
           [1,12,13," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,12,13,"\u00a0"]
+          ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,12,13,"\u00a0"]
+          ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
         ]
       },
       "segmented/fix": {
@@ -1177,7 +1177,7 @@
           [1,12,13," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,12,13,"\u00a0"]
+          ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
         ]
       }
     },
@@ -1188,13 +1188,13 @@
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"]
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"]
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
         ]
       },
       "single/fix": {
@@ -1203,7 +1203,7 @@
           [0,37,38," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,37,38,"\u00a0"]
+          ["punctuation.colon.nbsp-before",0,37,38,"\u00a0"]
         ]
       },
       "segmented/default": {
@@ -1212,13 +1212,13 @@
           [1,12,13," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,12,13,"\u00a0"]
+          ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,12,13,"\u00a0"]
+          ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
         ]
       },
       "segmented/fix": {
@@ -1227,7 +1227,7 @@
           [1,12,13," ","\u00a0","punctuation.colon.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,12,13,"\u00a0"]
+          ["punctuation.colon.nbsp-before",1,12,13,"\u00a0"]
         ]
       }
     }
@@ -1241,13 +1241,13 @@
           [0,38,39," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,38,39,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,38,39,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
         ]
       },
       "single/fix": {
@@ -1256,7 +1256,7 @@
           [0,38,39," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,38,39,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -1265,13 +1265,13 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -1280,7 +1280,7 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       }
     },
@@ -1291,13 +1291,13 @@
           [0,38,39," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,38,39,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,38,39,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
         ]
       },
       "single/fix": {
@@ -1306,7 +1306,7 @@
           [0,38,39," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,38,39,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,38,39,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -1315,13 +1315,13 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -1330,7 +1330,7 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       }
     }
@@ -1345,15 +1345,15 @@
           [0,56,56,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,22,22,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,56,56,"\u202f"]
+          ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,22,22,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,56,56,"\u202f"]
+          ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
         ]
       },
       "single/fix": {
@@ -1363,8 +1363,8 @@
           [0,56,56,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,22,22,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,56,56,"\u202f"]
+          ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -1374,15 +1374,15 @@
           [2,11,11,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,5,5,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,11,"\u202f"]
+          ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,5,5,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,11,"\u202f"]
+          ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -1392,8 +1392,8 @@
           [2,11,11,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,5,5,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,11,"\u202f"]
+          ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
         ]
       }
     },
@@ -1405,15 +1405,15 @@
           [0,56,56,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,22,22,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,56,56,"\u202f"]
+          ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,22,22,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,56,56,"\u202f"]
+          ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
         ]
       },
       "single/fix": {
@@ -1423,8 +1423,8 @@
           [0,56,56,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",0,22,22,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",0,56,56,"\u202f"]
+          ["punctuation.colon.nbsp-before",0,22,22,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",0,56,56,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -1434,15 +1434,15 @@
           [2,11,11,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,5,5,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,11,"\u202f"]
+          ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,5,5,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,11,"\u202f"]
+          ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -1452,8 +1452,8 @@
           [2,11,11,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.colon.nbsp-before","source",1,5,5,"\u00a0"],
-          ["punctuation.semicolon.nnbsp-before","source",2,11,11,"\u202f"]
+          ["punctuation.colon.nbsp-before",1,5,5,"\u00a0"],
+          ["punctuation.semicolon.nnbsp-before",2,11,11,"\u202f"]
         ]
       }
     }
@@ -1467,13 +1467,13 @@
           [0,43,44," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,43,44,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,43,44,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
         ]
       },
       "single/fix": {
@@ -1482,7 +1482,7 @@
           [0,43,44," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,43,44,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -1491,13 +1491,13 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -1506,7 +1506,7 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       }
     },
@@ -1517,13 +1517,13 @@
           [0,43,44," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,43,44,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,43,44,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
         ]
       },
       "single/fix": {
@@ -1532,7 +1532,7 @@
           [0,43,44," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,43,44,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",0,43,44,"\u202f"]
         ]
       },
       "segmented/default": {
@@ -1541,13 +1541,13 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       },
       "segmented/fix": {
@@ -1556,7 +1556,7 @@
           [1,7,8," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,7,8,"\u202f"]
+          ["punctuation.semicolon.nnbsp-before",1,7,8,"\u202f"]
         ]
       }
     }
@@ -1638,23 +1638,23 @@
           [0,71,71,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,36,36," "],
-          ["punctuation.comma.space-after","source",0,38,38," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,64,65,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",0,70,70,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,71,71," "]
+          ["punctuation.comma.space-after",0,36,36," "],
+          ["punctuation.comma.space-after",0,38,38," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
+          ["punctuation.exclamation.space-after",0,71,71," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,36,36," "],
-          ["punctuation.comma.space-after","source",0,38,38," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,64,65,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",0,70,70,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,71,71," "]
+          ["punctuation.comma.space-after",0,36,36," "],
+          ["punctuation.comma.space-after",0,38,38," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
+          ["punctuation.exclamation.space-after",0,71,71," "]
         ]
       },
       "single/fix": {
@@ -1668,12 +1668,12 @@
           [0,71,71,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,36,36," "],
-          ["punctuation.comma.space-after","source",0,38,38," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,64,65,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",0,70,70,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,71,71," "]
+          ["punctuation.comma.space-after",0,36,36," "],
+          ["punctuation.comma.space-after",0,38,38," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
+          ["punctuation.exclamation.space-after",0,71,71," "]
         ]
       },
       "segmented/default": {
@@ -1687,23 +1687,23 @@
           [2,16,16,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",1,2,2," "],
-          ["punctuation.comma.space-after","source",1,4,4," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",2,9,10,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",2,15,15,"\u202f"],
-          ["punctuation.exclamation.space-after","source",2,16,16," "]
+          ["punctuation.comma.space-after",1,2,2," "],
+          ["punctuation.comma.space-after",1,4,4," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
+          ["punctuation.exclamation.space-after",2,16,16," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",1,2,2," "],
-          ["punctuation.comma.space-after","source",1,4,4," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",2,9,10,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",2,15,15,"\u202f"],
-          ["punctuation.exclamation.space-after","source",2,16,16," "]
+          ["punctuation.comma.space-after",1,2,2," "],
+          ["punctuation.comma.space-after",1,4,4," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
+          ["punctuation.exclamation.space-after",2,16,16," "]
         ]
       },
       "segmented/fix": {
@@ -1717,12 +1717,12 @@
           [2,16,16,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",1,2,2," "],
-          ["punctuation.comma.space-after","source",1,4,4," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",2,9,10,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",2,15,15,"\u202f"],
-          ["punctuation.exclamation.space-after","source",2,16,16," "]
+          ["punctuation.comma.space-after",1,2,2," "],
+          ["punctuation.comma.space-after",1,4,4," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
+          ["punctuation.exclamation.space-after",2,16,16," "]
         ]
       }
     },
@@ -1738,23 +1738,23 @@
           [0,71,71,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,36,36," "],
-          ["punctuation.comma.space-after","source",0,38,38," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,64,65,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",0,70,70,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,71,71," "]
+          ["punctuation.comma.space-after",0,36,36," "],
+          ["punctuation.comma.space-after",0,38,38," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
+          ["punctuation.exclamation.space-after",0,71,71," "]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,36,36," "],
-          ["punctuation.comma.space-after","source",0,38,38," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,64,65,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",0,70,70,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,71,71," "]
+          ["punctuation.comma.space-after",0,36,36," "],
+          ["punctuation.comma.space-after",0,38,38," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
+          ["punctuation.exclamation.space-after",0,71,71," "]
         ]
       },
       "single/fix": {
@@ -1768,12 +1768,12 @@
           [0,71,71,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",0,36,36," "],
-          ["punctuation.comma.space-after","source",0,38,38," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",0,64,65,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",0,70,70,"\u202f"],
-          ["punctuation.exclamation.space-after","source",0,71,71," "]
+          ["punctuation.comma.space-after",0,36,36," "],
+          ["punctuation.comma.space-after",0,38,38," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",0,64,65,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",0,70,70,"\u202f"],
+          ["punctuation.exclamation.space-after",0,71,71," "]
         ]
       },
       "segmented/default": {
@@ -1787,23 +1787,23 @@
           [2,16,16,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",1,2,2," "],
-          ["punctuation.comma.space-after","source",1,4,4," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",2,9,10,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",2,15,15,"\u202f"],
-          ["punctuation.exclamation.space-after","source",2,16,16," "]
+          ["punctuation.comma.space-after",1,2,2," "],
+          ["punctuation.comma.space-after",1,4,4," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
+          ["punctuation.exclamation.space-after",2,16,16," "]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",1,2,2," "],
-          ["punctuation.comma.space-after","source",1,4,4," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",2,9,10,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",2,15,15,"\u202f"],
-          ["punctuation.exclamation.space-after","source",2,16,16," "]
+          ["punctuation.comma.space-after",1,2,2," "],
+          ["punctuation.comma.space-after",1,4,4," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
+          ["punctuation.exclamation.space-after",2,16,16," "]
         ]
       },
       "segmented/fix": {
@@ -1817,12 +1817,12 @@
           [2,16,16,""," ","punctuation.exclamation.space-after"]
         ],
         "diagnostics": [
-          ["punctuation.comma.space-after","source",1,2,2," "],
-          ["punctuation.comma.space-after","source",1,4,4," "],
-          ["punctuation.colon.nbsp-before","source",0,8,8,"\u00a0"],
-          ["punctuation.question.nnbsp-before","source",2,9,10,"\u202f"],
-          ["punctuation.exclamation.nnbsp-before","source",2,15,15,"\u202f"],
-          ["punctuation.exclamation.space-after","source",2,16,16," "]
+          ["punctuation.comma.space-after",1,2,2," "],
+          ["punctuation.comma.space-after",1,4,4," "],
+          ["punctuation.colon.nbsp-before",0,8,8,"\u00a0"],
+          ["punctuation.question.nnbsp-before",2,9,10,"\u202f"],
+          ["punctuation.exclamation.nnbsp-before",2,15,15,"\u202f"],
+          ["punctuation.exclamation.space-after",2,16,16," "]
         ]
       }
     }
@@ -1836,19 +1836,19 @@
           [0,65,66," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",0,31,36,"4,5\u00a0m"],
-          ["number.unit.nbsp-before","source",0,52,57,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
+          ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",0,31,36,"4,5\u00a0m"],
-          ["number.unit.nbsp-before","source",0,52,57,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
+          ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
         ]
       },
       "single/fix": {
@@ -1860,10 +1860,10 @@
           [0,65,66," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",0,31,36,"4,5\u00a0m"],
-          ["number.unit.nbsp-before","source",0,52,57,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
+          ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
         ]
       },
       "segmented/default": {
@@ -1872,19 +1872,19 @@
           [3,13,14," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,13,14,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",1,11,15],
-          ["number.unit.nbsp-before","source",3,0,5,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",3,13,14,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",1,11,15],
+          ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,13,14,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",1,11,15],
-          ["number.unit.nbsp-before","source",3,0,5,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",3,13,14,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",1,11,15],
+          ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
         ]
       },
       "segmented/fix": {
@@ -1897,10 +1897,10 @@
           [3,13,14," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,13,14,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",1,11,15],
-          ["number.unit.nbsp-before","source",3,0,5,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",3,13,14,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",1,11,15],
+          ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
         ]
       }
     },
@@ -1911,19 +1911,19 @@
           [0,65,66," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",0,31,36,"4,5\u00a0m"],
-          ["number.unit.nbsp-before","source",0,52,57,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
+          ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",0,31,36,"4,5\u00a0m"],
-          ["number.unit.nbsp-before","source",0,52,57,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
+          ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
         ]
       },
       "single/fix": {
@@ -1935,10 +1935,10 @@
           [0,65,66," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,65,66,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",0,31,36,"4,5\u00a0m"],
-          ["number.unit.nbsp-before","source",0,52,57,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",0,65,66,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",0,31,36,"4,5\u00a0m"],
+          ["number.unit.nbsp-before",0,52,57,"54\u00a0m²"]
         ]
       },
       "segmented/default": {
@@ -1947,19 +1947,19 @@
           [3,13,14," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,13,14,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",1,11,15],
-          ["number.unit.nbsp-before","source",3,0,5,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",3,13,14,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",1,11,15],
+          ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,13,14,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",1,11,15],
-          ["number.unit.nbsp-before","source",3,0,5,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",3,13,14,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",1,11,15],
+          ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
         ]
       },
       "segmented/fix": {
@@ -1972,10 +1972,10 @@
           [3,13,14," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,13,14,"\u202f"],
-          ["number.unit.nbsp-before","source",0,16,19,"12\u00a0m"],
-          ["number.unit.nbsp-before","source",1,11,15],
-          ["number.unit.nbsp-before","source",3,0,5,"54\u00a0m²"]
+          ["punctuation.semicolon.nnbsp-before",3,13,14,"\u202f"],
+          ["number.unit.nbsp-before",0,16,19,"12\u00a0m"],
+          ["number.unit.nbsp-before",1,11,15],
+          ["number.unit.nbsp-before",3,0,5,"54\u00a0m²"]
         ]
       }
     }
@@ -1992,19 +1992,19 @@
           [0,63,67,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,42,43,"\u202f"],
-          ["number.percent.nbsp-before","source",0,21,25,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",0,28,33,"4,2\u00a0%"],
-          ["number.percent.nbsp-before","source",0,63,67,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",0,42,43,"\u202f"],
+          ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
+          ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,42,43,"\u202f"],
-          ["number.percent.nbsp-before","source",0,21,25,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",0,28,33,"4,2\u00a0%"],
-          ["number.percent.nbsp-before","source",0,63,67,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",0,42,43,"\u202f"],
+          ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
+          ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
         ]
       },
       "single/fix": {
@@ -2016,10 +2016,10 @@
           [0,63,67,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,42,43,"\u202f"],
-          ["number.percent.nbsp-before","source",0,21,25,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",0,28,33,"4,2\u00a0%"],
-          ["number.percent.nbsp-before","source",0,63,67,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",0,42,43,"\u202f"],
+          ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
+          ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
         ]
       },
       "segmented/default": {
@@ -2033,19 +2033,19 @@
           [4,0,4,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.percent.nbsp-before","source",1,3,7,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",1,10,14],
-          ["number.percent.nbsp-before","source",4,0,4,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",1,10,14],
+          ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.percent.nbsp-before","source",1,3,7,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",1,10,14],
-          ["number.percent.nbsp-before","source",4,0,4,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",1,10,14],
+          ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
         ]
       },
       "segmented/fix": {
@@ -2059,10 +2059,10 @@
           [4,0,4,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.percent.nbsp-before","source",1,3,7,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",1,10,14],
-          ["number.percent.nbsp-before","source",4,0,4,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",1,10,14],
+          ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
         ]
       }
     },
@@ -2076,19 +2076,19 @@
           [0,63,67,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,42,43,"\u202f"],
-          ["number.percent.nbsp-before","source",0,21,25,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",0,28,33,"4,2\u00a0%"],
-          ["number.percent.nbsp-before","source",0,63,67,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",0,42,43,"\u202f"],
+          ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
+          ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,42,43,"\u202f"],
-          ["number.percent.nbsp-before","source",0,21,25,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",0,28,33,"4,2\u00a0%"],
-          ["number.percent.nbsp-before","source",0,63,67,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",0,42,43,"\u202f"],
+          ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
+          ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
         ]
       },
       "single/fix": {
@@ -2100,10 +2100,10 @@
           [0,63,67,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,42,43,"\u202f"],
-          ["number.percent.nbsp-before","source",0,21,25,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",0,28,33,"4,2\u00a0%"],
-          ["number.percent.nbsp-before","source",0,63,67,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",0,42,43,"\u202f"],
+          ["number.percent.nbsp-before",0,21,25,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",0,28,33,"4,2\u00a0%"],
+          ["number.percent.nbsp-before",0,63,67,"20\u00a0‰"]
         ]
       },
       "segmented/default": {
@@ -2117,19 +2117,19 @@
           [4,0,4,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.percent.nbsp-before","source",1,3,7,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",1,10,14],
-          ["number.percent.nbsp-before","source",4,0,4,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",1,10,14],
+          ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.percent.nbsp-before","source",1,3,7,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",1,10,14],
-          ["number.percent.nbsp-before","source",4,0,4,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",1,10,14],
+          ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
         ]
       },
       "segmented/fix": {
@@ -2143,10 +2143,10 @@
           [4,0,4,"20 ‰","20\u00a0‰","number.percent.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.percent.nbsp-before","source",1,3,7,"3,5\u00a0%"],
-          ["number.percent.nbsp-before","source",1,10,14],
-          ["number.percent.nbsp-before","source",4,0,4,"20\u00a0‰"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.percent.nbsp-before",1,3,7,"3,5\u00a0%"],
+          ["number.percent.nbsp-before",1,10,14],
+          ["number.percent.nbsp-before",4,0,4,"20\u00a0‰"]
         ]
       }
     }
@@ -2160,19 +2160,19 @@
           [0,49,50," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,49,50,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",0,34,37,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",0,75,82,"1 200\u00a0€"]
+          ["punctuation.semicolon.nnbsp-before",0,49,50,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
+          ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,49,50,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",0,34,37,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",0,75,82,"1 200\u00a0€"]
+          ["punctuation.semicolon.nnbsp-before",0,49,50,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
+          ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"]
         ]
       },
       "single/fix": {
@@ -2184,10 +2184,10 @@
           [0,75,82,"1 200 €","1 200\u00a0€","number.euro.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,49,50,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",0,34,37,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",0,75,82,"1 200\u00a0€"]
+          ["punctuation.semicolon.nnbsp-before",0,49,50,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
+          ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"]
         ]
       },
       "segmented/default": {
@@ -2196,19 +2196,19 @@
           [2,11,12," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",1,14,17,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",3,20,22]
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
+          ["number.euro.nbsp-before",3,20,22]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",1,14,17,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",3,20,22]
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
+          ["number.euro.nbsp-before",3,20,22]
         ]
       },
       "segmented/fix": {
@@ -2220,10 +2220,10 @@
           [4,3,4," ","\u00a0","number.euro.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",1,14,17,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",3,20,22]
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
+          ["number.euro.nbsp-before",3,20,22]
         ]
       }
     },
@@ -2234,21 +2234,21 @@
           [0,49,50," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,49,50,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",0,34,37,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",0,75,82,"1 200\u00a0€"],
-          ["number.digits.grouping","source",0,75,80]
+          ["punctuation.semicolon.nnbsp-before",0,49,50,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
+          ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"],
+          ["number.digits.grouping",0,75,80]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,49,50,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",0,34,37,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",0,75,82,"1 200\u00a0€"],
-          ["number.digits.grouping","source",0,75,80]
+          ["punctuation.semicolon.nnbsp-before",0,49,50,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
+          ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"],
+          ["number.digits.grouping",0,75,80]
         ]
       },
       "single/fix": {
@@ -2260,11 +2260,11 @@
           [0,75,82,"1 200 €","1 200\u00a0€","number.euro.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,49,50,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",0,34,37,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",0,75,82,"1 200\u00a0€"],
-          ["number.digits.grouping","runtime",0,77,82]
+          ["punctuation.semicolon.nnbsp-before",0,49,50,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",0,34,37,"30\u00a0€"],
+          ["number.euro.nbsp-before",0,75,82,"1 200\u00a0€"],
+          ["number.digits.grouping",0,75,82]
         ]
       },
       "segmented/default": {
@@ -2273,21 +2273,21 @@
           [2,11,12," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",1,14,17,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",3,20,22],
-          ["number.digits.grouping","source",3,20,22]
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
+          ["number.euro.nbsp-before",3,20,22],
+          ["number.digits.grouping",3,20,22]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",1,14,17,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",3,20,22],
-          ["number.digits.grouping","source",3,20,22]
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
+          ["number.euro.nbsp-before",3,20,22],
+          ["number.digits.grouping",3,20,22]
         ]
       },
       "segmented/fix": {
@@ -2299,11 +2299,11 @@
           [4,3,4," ","\u00a0","number.euro.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",2,11,12,"\u202f"],
-          ["number.euro.nbsp-before","source",0,16,19,"25\u00a0€"],
-          ["number.euro.nbsp-before","source",1,14,17,"30\u00a0€"],
-          ["number.euro.nbsp-before","source",3,20,22],
-          ["number.digits.grouping","source",3,20,22]
+          ["punctuation.semicolon.nnbsp-before",2,11,12,"\u202f"],
+          ["number.euro.nbsp-before",0,16,19,"25\u00a0€"],
+          ["number.euro.nbsp-before",1,14,17,"30\u00a0€"],
+          ["number.euro.nbsp-before",3,20,22],
+          ["number.digits.grouping",3,20,22]
         ]
       }
     }
@@ -2317,17 +2317,17 @@
           [0,39,40," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,39,40,"\u202f"],
-          ["number.unit.nbsp-before","source",0,79,85,"465\u00a0km"],
-          ["number.unit.nbsp-before","source",0,99,107,"300\u00a0km/h"]
+          ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
+          ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
+          ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,39,40,"\u202f"],
-          ["number.unit.nbsp-before","source",0,79,85,"465\u00a0km"],
-          ["number.unit.nbsp-before","source",0,99,107,"300\u00a0km/h"]
+          ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
+          ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
+          ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
         ]
       },
       "single/fix": {
@@ -2338,9 +2338,9 @@
           [0,99,107,"300 km/h","300\u00a0km/h","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,39,40,"\u202f"],
-          ["number.unit.nbsp-before","source",0,79,85,"465\u00a0km"],
-          ["number.unit.nbsp-before","source",0,99,107,"300\u00a0km/h"]
+          ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
+          ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
+          ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
         ]
       },
       "segmented/default": {
@@ -2349,17 +2349,17 @@
           [1,9,10," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,9,10,"\u202f"],
-          ["number.unit.nbsp-before","source",2,25,29],
-          ["number.unit.nbsp-before","source",3,16,20]
+          ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
+          ["number.unit.nbsp-before",2,25,29],
+          ["number.unit.nbsp-before",3,16,20]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,9,10,"\u202f"],
-          ["number.unit.nbsp-before","source",2,25,29],
-          ["number.unit.nbsp-before","source",3,16,20]
+          ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
+          ["number.unit.nbsp-before",2,25,29],
+          ["number.unit.nbsp-before",3,16,20]
         ]
       },
       "segmented/fix": {
@@ -2372,9 +2372,9 @@
           [4,0,0,"","\u00a0","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,9,10,"\u202f"],
-          ["number.unit.nbsp-before","source",2,25,29],
-          ["number.unit.nbsp-before","source",3,16,20]
+          ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
+          ["number.unit.nbsp-before",2,25,29],
+          ["number.unit.nbsp-before",3,16,20]
         ]
       }
     },
@@ -2385,17 +2385,17 @@
           [0,39,40," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,39,40,"\u202f"],
-          ["number.unit.nbsp-before","source",0,79,85,"465\u00a0km"],
-          ["number.unit.nbsp-before","source",0,99,107,"300\u00a0km/h"]
+          ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
+          ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
+          ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,39,40,"\u202f"],
-          ["number.unit.nbsp-before","source",0,79,85,"465\u00a0km"],
-          ["number.unit.nbsp-before","source",0,99,107,"300\u00a0km/h"]
+          ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
+          ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
+          ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
         ]
       },
       "single/fix": {
@@ -2406,9 +2406,9 @@
           [0,99,107,"300 km/h","300\u00a0km/h","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,39,40,"\u202f"],
-          ["number.unit.nbsp-before","source",0,79,85,"465\u00a0km"],
-          ["number.unit.nbsp-before","source",0,99,107,"300\u00a0km/h"]
+          ["punctuation.semicolon.nnbsp-before",0,39,40,"\u202f"],
+          ["number.unit.nbsp-before",0,79,85,"465\u00a0km"],
+          ["number.unit.nbsp-before",0,99,107,"300\u00a0km/h"]
         ]
       },
       "segmented/default": {
@@ -2417,17 +2417,17 @@
           [1,9,10," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,9,10,"\u202f"],
-          ["number.unit.nbsp-before","source",2,25,29],
-          ["number.unit.nbsp-before","source",3,16,20]
+          ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
+          ["number.unit.nbsp-before",2,25,29],
+          ["number.unit.nbsp-before",3,16,20]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,9,10,"\u202f"],
-          ["number.unit.nbsp-before","source",2,25,29],
-          ["number.unit.nbsp-before","source",3,16,20]
+          ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
+          ["number.unit.nbsp-before",2,25,29],
+          ["number.unit.nbsp-before",3,16,20]
         ]
       },
       "segmented/fix": {
@@ -2440,9 +2440,9 @@
           [4,0,0,"","\u00a0","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",1,9,10,"\u202f"],
-          ["number.unit.nbsp-before","source",2,25,29],
-          ["number.unit.nbsp-before","source",3,16,20]
+          ["punctuation.semicolon.nnbsp-before",1,9,10,"\u202f"],
+          ["number.unit.nbsp-before",2,25,29],
+          ["number.unit.nbsp-before",3,16,20]
         ]
       }
     }
@@ -2456,19 +2456,19 @@
           [0,53,54," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,53,54,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",0,33,38,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",0,84,88,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",0,53,54,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
+          ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,53,54,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",0,33,38,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",0,84,88,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",0,53,54,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
+          ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
         ]
       },
       "single/fix": {
@@ -2480,10 +2480,10 @@
           [0,84,88,"5 °C","5\u00a0°C","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,53,54,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",0,33,38,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",0,84,88,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",0,53,54,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
+          ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
         ]
       },
       "segmented/default": {
@@ -2493,19 +2493,19 @@
           [3,0,0,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",2,0,5,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",4,3,7,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
+          ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",2,0,5,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",4,3,7,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
+          ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
         ]
       },
       "segmented/fix": {
@@ -2518,10 +2518,10 @@
           [4,3,7,"5 °C","5\u00a0°C","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",2,0,5,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",4,3,7,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
+          ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
         ]
       }
     },
@@ -2532,19 +2532,19 @@
           [0,53,54," ","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,53,54,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",0,33,38,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",0,84,88,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",0,53,54,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
+          ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
         ]
       },
       "single/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,53,54,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",0,33,38,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",0,84,88,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",0,53,54,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
+          ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
         ]
       },
       "single/fix": {
@@ -2556,10 +2556,10 @@
           [0,84,88,"5 °C","5\u00a0°C","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",0,53,54,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",0,33,38,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",0,84,88,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",0,53,54,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",0,33,38,"750\u00a0g"],
+          ["number.unit.nbsp-before",0,84,88,"5\u00a0°C"]
         ]
       },
       "segmented/default": {
@@ -2569,19 +2569,19 @@
           [3,0,0,"","\u202f","punctuation.semicolon.nnbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",2,0,5,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",4,3,7,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
+          ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
         ]
       },
       "segmented/lint": {
         "changes": [],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",2,0,5,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",4,3,7,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
+          ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
         ]
       },
       "segmented/fix": {
@@ -2594,10 +2594,10 @@
           [4,3,7,"5 °C","5\u00a0°C","number.unit.nbsp-before"]
         ],
         "diagnostics": [
-          ["punctuation.semicolon.nnbsp-before","source",3,0,0,"\u202f"],
-          ["number.unit.nbsp-before","source",0,12,17,"2,5\u00a0kg"],
-          ["number.unit.nbsp-before","source",2,0,5,"750\u00a0g"],
-          ["number.unit.nbsp-before","source",4,3,7,"5\u00a0°C"]
+          ["punctuation.semicolon.nnbsp-before",3,0,0,"\u202f"],
+          ["number.unit.nbsp-before",0,12,17,"2,5\u00a0kg"],
+          ["number.unit.nbsp-before",2,0,5,"750\u00a0g"],
+          ["number.unit.nbsp-before",4,3,7,"5\u00a0°C"]
         ]
       }
     }
