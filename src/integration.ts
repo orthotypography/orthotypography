@@ -1,3 +1,4 @@
+import { OrthotypographyError } from "./errors.ts";
 import type {
   ChangeSet,
   DismissedProposal,
@@ -57,7 +58,10 @@ export function runTextNodePipeline(
 
   for (const segment of result.segments) {
     if (segment.id === undefined || !fragments.has(segment.id)) {
-      throw new Error("Pipeline returned a segment without a source node ID");
+      throw new OrthotypographyError(
+        "INTERNAL_INVARIANT",
+        "Pipeline returned a segment without a source node ID",
+      );
     }
     fragments.get(segment.id)?.push(segment.value);
   }
@@ -65,7 +69,11 @@ export function runTextNodePipeline(
   const output = nodes.map((node): TextNodeOutput => {
     const values = fragments.get(node.id);
     if (values === undefined || values.length === 0) {
-      throw new Error(`Pipeline lost source node: ${node.id}`);
+      throw new OrthotypographyError(
+        "INTERNAL_INVARIANT",
+        `Pipeline lost source node: ${node.id}`,
+        { segmentId: node.id },
+      );
     }
     return {
       id: node.id,

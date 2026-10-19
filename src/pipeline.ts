@@ -1,3 +1,8 @@
+import {
+  type ErrorCode,
+  type ErrorDetails,
+  OrthotypographyError,
+} from "./errors.ts";
 import { RULES } from "./catalogue/rules.ts";
 import {
   buildRun,
@@ -125,7 +130,12 @@ class Provenance {
 
   /** Token of a piece produced by one edit of one or two proposals. */
   addToken(proposal: number, mergedProposal: number): number {
-    if (proposal < 0) throw new Error("Edit without a proposal");
+    if (proposal < 0) {
+      throw new OrthotypographyError(
+        "INTERNAL_INVARIANT",
+        "Edit without a proposal",
+      );
+    }
     const token = this.pieces.add();
     this.tokenProposal.push(proposal);
     this.#addEntry(proposal, token);
@@ -282,7 +292,10 @@ function splitUnchangedPieceAt(
     const end = offset + piece.value.length;
     if (target > offset && target < end) {
       if (piece.ruleIds.length > 0) {
-        throw new Error("Cannot split changed ledger piece");
+        throw new OrthotypographyError(
+          "INTERNAL_INVARIANT",
+          "Cannot split changed ledger piece",
+        );
       }
       const local = target - offset;
       const sourceMiddle = piece.sourceStart + local;
@@ -323,7 +336,10 @@ function ledgerBoundaryIndex(
     const piece = pieces[index];
     if (piece !== undefined) offset += piece.value.length;
   }
-  throw new Error(`Unlocatable ledger boundary: ${target}`);
+  throw new OrthotypographyError(
+    "INTERNAL_INVARIANT",
+    `Unlocatable ledger boundary: ${target}`,
+  );
 }
 
 function sourcePositionAt(
@@ -532,7 +548,12 @@ function applyEdits(
   let previousStart = value.length + 1;
   for (const edit of ordered) {
     validateRange(edit.start, edit.end, value.length, "edit");
-    if (edit.end > previousStart) throw new Error("Overlapping rule edits");
+    if (edit.end > previousStart) {
+      throw new OrthotypographyError(
+        "INTERNAL_INVARIANT",
+        "Overlapping rule edits",
+      );
+    }
     previousStart = edit.start;
   }
   const parts: string[] = [];
@@ -564,7 +585,11 @@ function ledgerChanges(
       );
       if (expected === piece.value) continue;
       if (piece.token < 0) {
-        throw new Error(`Changed piece without provenance in ${segmentIndex}`);
+        throw new OrthotypographyError(
+          "INTERNAL_INVARIANT",
+          `Changed piece without provenance in ${segmentIndex}`,
+          { segmentIndex },
+        );
       }
       segmentTokens.push(piece.token);
       segmentChanges.push({
@@ -582,8 +607,10 @@ function ledgerChanges(
     }
     for (let index = 1; index < segmentChanges.length; index++) {
       if (segmentChanges[index].start < segmentChanges[index - 1].end) {
-        throw new Error(
+        throw new OrthotypographyError(
+          "INTERNAL_INVARIANT",
           `Overlapping source changes in segment ${segmentIndex}`,
+          { segmentIndex },
         );
       }
     }
@@ -593,7 +620,11 @@ function ledgerChanges(
       if (
         ledger.source.value.slice(change.start, change.end) !== change.expected
       ) {
-        throw new Error(`Invalid expected value in segment ${segmentIndex}`);
+        throw new OrthotypographyError(
+          "INTERNAL_INVARIANT",
+          `Invalid expected value in segment ${segmentIndex}`,
+          { segmentIndex },
+        );
       }
       parts.push(
         ledger.source.value.slice(cursor, change.start),
@@ -603,7 +634,11 @@ function ledgerChanges(
     }
     parts.push(ledger.source.value.slice(cursor));
     if (parts.join("") !== ledgerValue(ledger)) {
-      throw new Error(`Source changes diverged for segment ${segmentIndex}`);
+      throw new OrthotypographyError(
+        "INTERNAL_INVARIANT",
+        `Source changes diverged for segment ${segmentIndex}`,
+        { segmentIndex },
+      );
     }
     for (const change of segmentChanges) changes.push(change);
     for (const token of segmentTokens) tokens.push(token);
@@ -746,7 +781,8 @@ function splitProtectedRanges(
       protection.end <= protection.start ||
       protection.end > segment.value.length
     ) {
-      throw new Error(
+      throw new OrthotypographyError(
+        "INTERNAL_INVARIANT",
         `Invalid protection range: ${protection.start}:${protection.end}`,
       );
     }
@@ -781,12 +817,18 @@ function validateRange(
   end: number,
   length: number,
   label: string,
+  code: ErrorCode = "INTERNAL_INVARIANT",
+  details: ErrorDetails = {},
 ): void {
   if (
     !Number.isInteger(start) || !Number.isInteger(end) || start < 0 ||
     end < start || end > length
   ) {
-    throw new Error(`Invalid ${label} range: ${start}:${end}`);
+    throw new OrthotypographyError(
+      code,
+      `Invalid ${label} range: ${start}:${end}`,
+      details,
+    );
   }
 }
 
@@ -898,7 +940,10 @@ function diagnosticLocation(
 ): DiagnosticLocation {
   const segment = segments[location.segmentIndex];
   if (segment === undefined) {
-    throw new Error(`Invalid diagnostic segment: ${location.segmentIndex}`);
+    throw new OrthotypographyError(
+      "INTERNAL_INVARIANT",
+      `Invalid diagnostic segment: ${location.segmentIndex}`,
+    );
   }
   validateRange(
     location.start,
@@ -938,9 +983,13 @@ interface LocatedDiagnostic {
   /** Proposal dismissed by the host. */
   readonly dismissed: boolean;
   readonly message: string;
+  readonly messageId?: string;
+  readonly messageArgs?: Readonly<Record<string, string>>;
   readonly replacement?: string;
   readonly related?: readonly FragmentLocation[];
 }
+
+const noMessageArgs: Readonly<Record<string, string>> = Object.freeze({});
 
 /** Applies a rule once to the logical run and projects its result. */
 function planRule(
@@ -960,6 +1009,22 @@ function planRule(
   const layout = buildRun(segments, locale, mode, stored);
   const result = rule.apply(layout.run);
   const ruleDiagnostics = result.diagnostics ?? [];
+  for (const diagnostic of ruleDiagnostics) {
+    if (
+      (diagnostic.messageId !== undefined &&
+        (typeof diagnostic.messageId !== "string" ||
+          diagnostic.messageId.length === 0)) ||
+      Object.values(diagnostic.messageArgs ?? {}).some((value) =>
+        typeof value !== "string"
+      )
+    ) {
+      throw new OrthotypographyError(
+        "INVALID_DIAGNOSTIC",
+        `Rule ${id} returned an invalid message identifier or arguments`,
+        { ruleId: id },
+      );
+    }
+  }
   const locations = ruleDiagnostics.map((diagnostic) =>
     locateInFragment(id, segments, layout, diagnostic)
   );
@@ -993,10 +1058,18 @@ function planRule(
   const annotations = result.annotations ?? [];
   if (annotations.length > 0) {
     if (rule.phase !== "classify") {
-      throw new Error(`Rule ${id} annotates outside the classify phase`);
+      throw new OrthotypographyError(
+        "INVALID_ANNOTATION",
+        `Rule ${id} annotates outside the classify phase`,
+        { ruleId: id },
+      );
     }
     if (proposed.length > 0) {
-      throw new Error(`Rule ${id} cannot transform and protect in one pass`);
+      throw new OrthotypographyError(
+        "TRANSFORM_AND_PROTECT",
+        `Rule ${id} cannot transform and protect in one pass`,
+        { ruleId: id },
+      );
     }
     for (const annotation of annotations) {
       validateRange(
@@ -1004,6 +1077,8 @@ function planRule(
         annotation.end,
         layout.run.text.length,
         "annotation",
+        "INVALID_ANNOTATION",
+        { ruleId: id },
       );
       if (
         typeof annotation.kind !== "string" || annotation.kind.length === 0 ||
@@ -1011,7 +1086,11 @@ function planRule(
           typeof value !== "string"
         )
       ) {
-        throw new Error(`Rule ${id} returned an invalid annotation`);
+        throw new OrthotypographyError(
+          "INVALID_ANNOTATION",
+          `Rule ${id} returned an invalid annotation`,
+          { ruleId: id },
+        );
       }
     }
   }
@@ -1050,6 +1129,12 @@ function planRule(
       proposal: key ?? -1,
       dismissed: dismissals[index],
       message: diagnostic.message,
+      ...(diagnostic.messageId === undefined
+        ? {}
+        : { messageId: diagnostic.messageId }),
+      ...(diagnostic.messageArgs === undefined
+        ? {}
+        : { messageArgs: diagnostic.messageArgs }),
       ...(diagnostic.replacement === undefined
         ? {}
         : { replacement: diagnostic.replacement }),
@@ -1078,20 +1163,33 @@ export function compilePipeline(
   const byId = new Map<string, RuntimeRule>();
   for (const rule of runtimeRules) {
     if (typeof rule.id !== "string" || rule.id.length === 0) {
-      throw new Error("Runtime rule without an ID");
+      throw new OrthotypographyError(
+        "INVALID_RULE",
+        "Runtime rule without an ID",
+      );
     }
     if (!rule.id.startsWith("x-") && !catalogueIds.has(rule.id)) {
-      throw new Error(
+      throw new OrthotypographyError(
+        "UNKNOWN_RULE_ID",
         `Rule ${rule.id} is not in the catalogue; use an ID prefixed with x-`,
+        { ruleId: rule.id },
       );
     }
     if (!RULE_PHASES.includes(rule.phase)) {
-      throw new Error(`Rule ${rule.id} has an unknown phase: ${rule.phase}`);
+      throw new OrthotypographyError(
+        "INVALID_RULE",
+        `Rule ${rule.id} has an unknown phase: ${rule.phase}`,
+        { ruleId: rule.id },
+      );
     }
   }
   for (const rule of runtimeRules) {
     if (byId.has(rule.id)) {
-      throw new Error(`Duplicate runtime rule: ${rule.id}`);
+      throw new OrthotypographyError(
+        "DUPLICATE_RULE",
+        `Duplicate runtime rule: ${rule.id}`,
+        { ruleId: rule.id },
+      );
     }
     byId.set(rule.id, rule);
   }
@@ -1100,13 +1198,17 @@ export function compilePipeline(
     for (const dependency of rule.dependsOn ?? []) {
       const dependencyRule = byId.get(dependency);
       if (dependencyRule === undefined) {
-        throw new Error(
+        throw new OrthotypographyError(
+          "MISSING_DEPENDENCY",
           `Missing dependency ${dependency} for ${rule.id}`,
+          { ruleId: rule.id, dependency },
         );
       }
       if (phaseIndex(dependencyRule) > phaseIndex(rule)) {
-        throw new Error(
+        throw new OrthotypographyError(
+          "BACKWARD_DEPENDENCY",
           `Backward phase dependency ${dependency} for ${rule.id}`,
+          { ruleId: rule.id, dependency },
         );
       }
     }
@@ -1119,13 +1221,23 @@ export function compilePipeline(
   const visit = (rule: RuntimeRule): void => {
     const id = rule.id;
     if (visited.has(id)) return;
-    if (visiting.has(id)) throw new Error(`Rule dependency cycle at ${id}`);
+    if (visiting.has(id)) {
+      throw new OrthotypographyError(
+        "DEPENDENCY_CYCLE",
+        `Rule dependency cycle at ${id}`,
+        { ruleId: id },
+      );
+    }
 
     visiting.add(id);
     for (const dependency of rule.dependsOn ?? []) {
       const dependencyRule = byId.get(dependency);
       if (dependencyRule === undefined) {
-        throw new Error(`Missing dependency ${dependency} for ${id}`);
+        throw new OrthotypographyError(
+          "MISSING_DEPENDENCY",
+          `Missing dependency ${dependency} for ${id}`,
+          { ruleId: id, dependency },
+        );
       }
       visit(dependencyRule);
     }
@@ -1150,9 +1262,19 @@ export function canonicalLocale(locale: string): string {
   try {
     canonical = Intl.getCanonicalLocales(locale);
   } catch {
-    throw new Error(`Invalid locale: ${locale}`);
+    throw new OrthotypographyError(
+      "INVALID_LOCALE",
+      `Invalid locale: ${locale}`,
+      { locale },
+    );
   }
-  if (canonical.length !== 1) throw new Error(`Invalid locale: ${locale}`);
+  if (canonical.length !== 1) {
+    throw new OrthotypographyError(
+      "INVALID_LOCALE",
+      `Invalid locale: ${locale}`,
+      { locale },
+    );
+  }
   return canonical[0];
 }
 
@@ -1198,7 +1320,10 @@ function dismissalKeys(
       typeof entry.ruleId !== "string" || !Number.isInteger(entry.start) ||
       !Number.isInteger(entry.end) || entry.start < 0 || entry.end < entry.start
     ) {
-      throw new Error(`Invalid dismissed proposal: ${JSON.stringify(entry)}`);
+      throw new OrthotypographyError(
+        "INVALID_DISMISSED_PROPOSAL",
+        `Invalid dismissed proposal: ${JSON.stringify(entry)}`,
+      );
     }
     const range = `${entry.start}:${entry.end}`;
     if (entry.segmentId !== undefined) {
@@ -1208,8 +1333,10 @@ function dismissalKeys(
         dismissalKey(entry.ruleId, `index:${entry.segmentIndex}`, range),
       );
     } else {
-      throw new Error(
+      throw new OrthotypographyError(
+        "INVALID_DISMISSED_PROPOSAL",
         `Dismissed proposal without segmentId or segmentIndex: ${entry.ruleId}`,
+        { ruleId: entry.ruleId },
       );
     }
   }
@@ -1229,7 +1356,10 @@ export function runPipeline(
   for (const segment of sourceSegments) {
     if (segment.id === undefined) continue;
     if (segment.id.length === 0 || ids.has(segment.id)) {
-      throw new Error(`Invalid or duplicate source segment ID: ${segment.id}`);
+      throw new OrthotypographyError(
+        "INVALID_SEGMENT_ID",
+        `Invalid or duplicate source segment ID: ${segment.id}`,
+      );
     }
     ids.add(segment.id);
   }
@@ -1261,7 +1391,11 @@ export function runPipeline(
   if (
     orderedRules.length > 0 && skippedRuleIds.length === orderedRules.length
   ) {
-    throw new Error(`No rule supports locale ${locale}`);
+    throw new OrthotypographyError(
+      "UNSUPPORTED_LOCALE",
+      `No rule supports locale ${locale}`,
+      { locale },
+    );
   }
   // Annotations of classify rules, kept in current run coordinates.
   let annotations: Annotation[] = [];
@@ -1320,6 +1454,8 @@ export function runPipeline(
         ...locate(diagnostic.location),
         ruleId: rule.id,
         message: diagnostic.message,
+        messageId: diagnostic.messageId ?? rule.id,
+        messageArgs: diagnostic.messageArgs ?? noMessageArgs,
         ...(diagnostic.replacement === undefined
           ? {}
           : { replacement: diagnostic.replacement }),
@@ -1425,7 +1561,11 @@ export function runPipeline(
         ledgerValue(ledgers[sourceIndex]) !==
           reconstructed[sourceIndex].join("")
       ) {
-        throw new Error(`Change ledger diverged for segment ${sourceIndex}`);
+        throw new OrthotypographyError(
+          "INTERNAL_INVARIANT",
+          `Change ledger diverged for segment ${sourceIndex}`,
+          { segmentIndex: sourceIndex },
+        );
       }
     }
     segments.length = 0;

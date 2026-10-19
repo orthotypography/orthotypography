@@ -12,6 +12,7 @@ import {
   whitespaceFreeStarts,
 } from "../classify/text-index.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
+import { diagnosticMessage } from "../messages.ts";
 import { RunStretches, spacingCharacters } from "./run-text.ts";
 
 /*
@@ -281,7 +282,7 @@ class PunctuationScan {
 }
 
 function noSpaceBeforeRule(id: string, mark: "," | "."): RuntimeRule {
-  const message = `Unexpected whitespace before ${mark}`;
+  const message = diagnosticMessage("spacing.no-space-before", { mark });
   return catalogueRule(id, (run) => {
     const scan = new PunctuationScan(run);
     const { text } = scan;
@@ -314,7 +315,7 @@ function noSpaceBeforeRule(id: string, mark: "," | "."): RuntimeRule {
         {
           start,
           end: index + 1,
-          message,
+          ...message,
           replacement: mark,
           ...(removals.length === 0 ? {} : { related: removals }),
         },
@@ -373,7 +374,7 @@ export const SPACE_AFTER_COMMA_RULE: RuntimeRule = catalogueRule(
       };
       scan.propose(
         stretch,
-        { ...edit, message: "Missing whitespace after comma" },
+        { ...edit, ...diagnosticMessage("spacing.comma.space-after") },
         edit,
       );
     }
@@ -510,7 +511,7 @@ function highPunctuationBeforeRule(
   mark: HighPunctuationMark,
   before: " " | " ",
 ): RuntimeRule {
-  const message = `Unexpected whitespace before ${mark}`;
+  const message = diagnosticMessage("spacing.space-before", { mark });
   return catalogueRule(id, (run) => {
     const scan = new PunctuationScan(run);
     for (const { index, stretch } of scan.marks(mark)) {
@@ -547,7 +548,7 @@ function highPunctuationBeforeRule(
         stretch,
         {
           ...edit,
-          message,
+          ...message,
           ...(removals.length === 0 ? {} : { related: removals }),
         },
         edit,
@@ -579,9 +580,10 @@ function highPunctuationAfterRule(
   id: string,
   mark: HighPunctuationMark,
 ): RuntimeRule {
-  const message = `Unexpected whitespace after ${mark}`;
-  const ellipsisMessage =
-    `Spacing between ${mark} and suspension points is not prescribed`;
+  const message = diagnosticMessage("spacing.space-after", { mark });
+  const ellipsisMessage = diagnosticMessage("spacing.space-after.ellipsis", {
+    mark,
+  });
   return catalogueRule(id, (run) => {
     const scan = new PunctuationScan(run);
     for (const { index, stretch } of scan.marks(mark)) {
@@ -599,7 +601,7 @@ function highPunctuationAfterRule(
         scan.report(stretch, {
           start: index + 1,
           end: inspected.end,
-          message: ellipsisMessage,
+          ...ellipsisMessage,
         });
         continue;
       }
@@ -638,7 +640,7 @@ function highPunctuationAfterRule(
         stretch,
         {
           ...edit,
-          message,
+          ...message,
           ...(removals.length === 0 ? {} : { related: removals }),
         },
         edit,

@@ -4,6 +4,7 @@ import {
   runPipeline,
   runTextNodePipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 import type { PipelineResult, RuntimeRule } from "../src/model.ts";
 import { testRule } from "./support/rules.ts";
 
@@ -228,27 +229,21 @@ Deno.test("dismissal applies in every mode and rejects incomplete entries", () =
     assert.equal(result.diagnostics[0].dismissed, true);
     assert.deepEqual(result.groups, []);
   }
-  assert.throws(
-    () =>
-      runPipeline("texte", [bang], {
-        locale: "fr-FR",
-        dismissed: [{ ruleId: "x-test.bang", start: 5, end: 5 }],
-      }),
-    /without segmentId or segmentIndex/,
-  );
-  assert.throws(
-    () =>
-      runPipeline("texte", [bang], {
-        locale: "fr-FR",
-        dismissed: [{
-          ruleId: "x-test.bang",
-          segmentIndex: 0,
-          start: 5,
-          end: 4,
-        }],
-      }),
-    /Invalid dismissed proposal/,
-  );
+  assertCode(() =>
+    runPipeline("texte", [bang], {
+      locale: "fr-FR",
+      dismissed: [{ ruleId: "x-test.bang", start: 5, end: 5 }],
+    }), "INVALID_DISMISSED_PROPOSAL");
+  assertCode(() =>
+    runPipeline("texte", [bang], {
+      locale: "fr-FR",
+      dismissed: [{
+        ruleId: "x-test.bang",
+        segmentIndex: 0,
+        start: 5,
+        end: 4,
+      }],
+    }), "INVALID_DISMISSED_PROPOSAL");
 });
 
 Deno.test("dismissed proposals are still validated", () => {
@@ -268,18 +263,15 @@ Deno.test("dismissed proposals are still validated", () => {
       },
     ],
   }));
-  assert.throws(
-    () =>
-      runPipeline("texte", [overlapping], {
-        locale: "fr-FR",
-        mode: "fix",
-        dismissed: [{
-          ruleId: "x-test.overlap",
-          segmentIndex: 0,
-          start: 0,
-          end: 2,
-        }],
-      }),
-    /overlapping edits/,
-  );
+  assertCode(() =>
+    runPipeline("texte", [overlapping], {
+      locale: "fr-FR",
+      mode: "fix",
+      dismissed: [{
+        ruleId: "x-test.overlap",
+        segmentIndex: 0,
+        start: 0,
+        end: 2,
+      }],
+    }), "OVERLAPPING_EDITS");
 });

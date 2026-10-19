@@ -115,7 +115,15 @@ export interface DiagnosticLocation {
 
 export interface RuleDiagnostic extends DiagnosticLocation {
   readonly ruleId: string;
+  /** English description, the default rendering of the message. */
   readonly message: string;
+  /**
+   * Stable message identifier: one of `DIAGNOSTIC_MESSAGES` for the built-in
+   * rules, or the rule's ID when the rule gives none.
+   */
+  readonly messageId: string;
+  /** Parameters of the message. */
+  readonly messageArgs: Readonly<Record<string, string>>;
   readonly replacement?: string;
   readonly related?: readonly DiagnosticLocation[];
   /** For an applied proposal: the group that accepts it. */
@@ -185,7 +193,15 @@ export interface RunLocation extends RunRange {
  * text node or unprotected fragment.
  */
 export interface RunDiagnostic extends RunLocation {
+  /** English description, the default rendering of the message. */
   readonly message: string;
+  /**
+   * Stable message identifier for hosts that render their own text; the
+   * rule's ID when omitted.
+   */
+  readonly messageId?: string;
+  /** Parameters of the message; none when omitted. */
+  readonly messageArgs?: Readonly<Record<string, string>>;
   readonly replacement?: string;
   readonly related?: readonly RunLocation[];
   /**

@@ -6,9 +6,10 @@ import type {
   RuntimeRule,
 } from "../model.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
+import { diagnosticMessage } from "../messages.ts";
 import { RunStretches, spacingCharacters } from "./run-text.ts";
 
-const message = "Expected a no-break space inside paired French guillemets";
+const message = diagnosticMessage("quotes.french.inner-space");
 
 /**
  * Pairs French guillemets outside protected text.
@@ -82,7 +83,7 @@ function applyGuillemetSpacing(run: LogicalRun): RuleResult {
     }
     diagnostics.push({
       ...edit,
-      message,
+      ...message,
       related: [{ start: partner, end: partner + 1 }],
       edits: [edit],
     });

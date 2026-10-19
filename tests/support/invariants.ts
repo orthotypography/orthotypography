@@ -1,10 +1,12 @@
 import {
   applyTextChanges,
+  DIAGNOSTIC_MESSAGES,
   DIGIT_GROUPING_RULE,
   ELLIPSIS_GLYPH_RULE,
   ELLIPSIS_INITIAL_SPACE_AFTER_RULE,
   ETC_ELLIPSIS_RULE,
   EURO_SPACING_RULE,
+  formatDiagnosticMessage,
   FRENCH_GUILLEMETS_SPACING_RULE,
   HIGH_PUNCTUATION_RULES,
   IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,
@@ -178,6 +180,27 @@ function groupViolations(
   return violations;
 }
 
+/**
+ * Built-in diagnostics take their message from `DIAGNOSTIC_MESSAGES`, so that
+ * hosts can translate them (#27).
+ */
+function messageViolations(diagnostics: readonly RuleDiagnostic[]): string[] {
+  const violations: string[] = [];
+  for (const diagnostic of diagnostics) {
+    if (diagnostic.ruleId.startsWith("x-")) continue;
+    if (
+      !Object.hasOwn(DIAGNOSTIC_MESSAGES, diagnostic.messageId) ||
+      diagnostic.message !==
+        formatDiagnosticMessage(diagnostic.messageId, diagnostic.messageArgs)
+    ) {
+      violations.push(
+        `diagnostic ${diagnostic.ruleId} has an inconsistent message`,
+      );
+    }
+  }
+  return violations;
+}
+
 /** Identity of a diagnostic across passes: rule, location, and message. */
 function diagnosticKey(diagnostic: RuleDiagnostic): string {
   return JSON.stringify([
@@ -294,6 +317,9 @@ export function checkInvariants(
     if (lint.value !== sourceText || lint.changes.length > 0) {
       violations.push(`lint mode changed the text of ${input}`);
     }
+    for (const violation of messageViolations(lint.diagnostics)) {
+      violations.push(`${violation} for ${input}`);
+    }
     if (
       lint.groups.length > 0 ||
       lint.diagnostics.some(({ groupId, changeIds }) =>
@@ -335,6 +361,9 @@ export function checkInvariants(
     }
     if (fix.value !== outputValues.join("")) {
       violations.push(`fixed value does not join the fixed nodes for ${input}`);
+    }
+    for (const violation of messageViolations(fix.diagnostics)) {
+      violations.push(`${violation} for ${input}`);
     }
     for (const violation of groupViolations(nodes, fix)) {
       violations.push(`${violation} for ${input}`);

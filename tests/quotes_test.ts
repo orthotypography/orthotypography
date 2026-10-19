@@ -4,6 +4,7 @@ import {
   IMPRIMERIE_NATIONALE_RULES,
   runPipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 Deno.test("paired French guillemets receive inner no-break spaces", () => {
   for (const input of ["«texte»", "« texte »", "«\u202ftexte\u202f»"]) {
@@ -130,13 +131,10 @@ Deno.test("lint coordinates survive classifier-created fragments", () => {
 });
 
 Deno.test("French guillemet spacing is locale-aware and idempotent", () => {
-  assert.throws(
-    () =>
-      runPipeline("«text»", [FRENCH_GUILLEMETS_SPACING_RULE], {
-        locale: "en-US",
-      }),
-    /No rule supports locale en-US/,
-  );
+  assertCode(() =>
+    runPipeline("«text»", [FRENCH_GUILLEMETS_SPACING_RULE], {
+      locale: "en-US",
+    }), "UNSUPPORTED_LOCALE");
 
   const first = runPipeline(
     "«texte»",

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Add typed errors and coded diagnostic messages (#27;
+  `docs/conception-erreurs-messages-v0.1.md`). Every error thrown by the core
+  is an `OrthotypographyError` with a stable `code`, a `category` (`input`,
+  `stale-change`, `rule-contract`, `internal`), and `details`; `ERROR_CODES`
+  lists the codes and their category, and messages are unchanged. Every
+  diagnostic carries `messageId` and `messageArgs`. Built-in rules render their
+  English `message` from the templates of `DIAGNOSTIC_MESSAGES`, with
+  `formatDiagnosticMessage`; a rule may give its own `messageId` and
+  `messageArgs`, and otherwise its ID serves as message ID. A rule returning a
+  non-string message identifier or argument breaks the rule contract.
 - Leave a correct space next to high punctuation in its node (#63). The
   space rules before and after `:`, `;`, `?`, and `!` moved a correct space
   from a neighboring node into the sign's node, a change with no effect on the

@@ -5,6 +5,7 @@ import {
   runTextNodePipeline,
   SAFE_PUNCTUATION_RULES,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 import type {
   Annotation,
   LogicalRun,
@@ -103,37 +104,31 @@ Deno.test("run edits never touch protected nodes", () => {
     "x",
     "b",
   ]);
-  assert.throws(
+  assertCode(
     () =>
       fixNodes(nodes, [{ start: 1, end: 1, replacement: "!", bias: "right" }]),
-    /inserts next to protected text/,
+    "PROTECTED_TEXT_EDIT",
   );
-  assert.throws(
+  assertCode(
     () => fixNodes(nodes, [{ start: 0, end: 2, replacement: "" }]),
-    /edits protected text/,
+    "PROTECTED_TEXT_EDIT",
   );
 });
 
 Deno.test("run edits are rejected when overlapping or sharing a start", () => {
-  assert.throws(
-    () =>
-      fixNodes(["abcd"], [
-        { start: 0, end: 2, replacement: "" },
-        { start: 1, end: 3, replacement: "" },
-      ]),
-    /overlapping edits/,
-  );
-  assert.throws(
-    () =>
-      fixNodes(["abcd"], [
-        { start: 1, end: 1, replacement: "x" },
-        { start: 1, end: 1, replacement: "y" },
-      ]),
-    /overlapping edits/,
-  );
-  assert.throws(
+  assertCode(() =>
+    fixNodes(["abcd"], [
+      { start: 0, end: 2, replacement: "" },
+      { start: 1, end: 3, replacement: "" },
+    ]), "OVERLAPPING_EDITS");
+  assertCode(() =>
+    fixNodes(["abcd"], [
+      { start: 1, end: 1, replacement: "x" },
+      { start: 1, end: 1, replacement: "y" },
+    ]), "OVERLAPPING_EDITS");
+  assertCode(
     () => fixNodes(["abcd"], [{ start: 3, end: 5, replacement: "" }]),
-    /invalid edit range/,
+    "INVALID_EDIT_RANGE",
   );
 });
 
@@ -183,9 +178,9 @@ Deno.test("proposed edits are validated in every mode and applied in fix mode", 
       edits: [{ start: 2, end: 9, replacement: "" }],
     }],
   }));
-  assert.throws(
+  assertCode(
     () => runPipeline("abc", [invalid], { locale: "fr-FR", mode: "lint" }),
-    /invalid edit range/,
+    "INVALID_EDIT_RANGE",
   );
 });
 
@@ -204,17 +199,14 @@ Deno.test("protected annotations protect later rules across nodes", () => {
     { locale: "fr-FR", mode: "fix" },
   );
   assert.deepEqual(result.nodes.map(({ value }) => value), ["a ,b", " ,c,"]);
-  assert.throws(
-    () =>
-      runPipeline(
-        "abc",
-        [runRule("x-test.annotate", () => ({
-          annotations: [{ kind: "x-test", start: 0, end: 1, protect: true }],
-        }))],
-        { locale: "fr-FR", mode: "fix" },
-      ),
-    /annotates outside the classify phase/,
-  );
+  assertCode(() =>
+    runPipeline(
+      "abc",
+      [runRule("x-test.annotate", () => ({
+        annotations: [{ kind: "x-test", start: 0, end: 1, protect: true }],
+      }))],
+      { locale: "fr-FR", mode: "fix" },
+    ), "INVALID_ANNOTATION");
 });
 
 Deno.test("run diagnostics map to source coordinates by bias", () => {
@@ -239,17 +231,14 @@ Deno.test("run diagnostics map to source coordinates by bias", () => {
     ]),
     [["left", "a", 2, 2], ["right", "b", 0, 0], ["inside", "b", 1, 2]],
   );
-  assert.throws(
-    () =>
-      runPipeline(
-        [{ value: "ab" }, { value: "cd" }],
-        [runRule("x-test.diagnose", () => ({
-          diagnostics: [{ start: 1, end: 3, message: "cross" }],
-        }))],
-        { locale: "fr-FR", mode: "lint" },
-      ),
-    /diagnostic crossing fragments/,
-  );
+  assertCode(() =>
+    runPipeline(
+      [{ value: "ab" }, { value: "cd" }],
+      [runRule("x-test.diagnose", () => ({
+        diagnostics: [{ start: 1, end: 3, message: "cross" }],
+      }))],
+      { locale: "fr-FR", mode: "lint" },
+    ), "INVALID_DIAGNOSTIC");
 });
 
 Deno.test("random run edits keep source changes consistent", () => {

@@ -9,6 +9,7 @@ import {
   runPipeline,
   runTextNodePipeline,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 import type { TextSegment } from "../src/model.ts";
 
 Deno.test("suspension points after etc. are removed", () => {
@@ -127,13 +128,10 @@ Deno.test("the Imprimerie nationale preset applies the etc. rule idempotently", 
 });
 
 Deno.test("the etc. rule is scoped to metropolitan French", () => {
-  assert.throws(
-    () =>
-      runPipeline("Liste, etc... Suite.", [ETC_ELLIPSIS_RULE], {
-        locale: "fr-CA",
-      }),
-    /No rule supports locale fr-CA/,
-  );
+  assertCode(() =>
+    runPipeline("Liste, etc... Suite.", [ETC_ELLIPSIS_RULE], {
+      locale: "fr-CA",
+    }), "UNSUPPORTED_LOCALE");
 });
 
 function fixEllipsisNodes(values: readonly (string | TextSegment)[]): string[] {

@@ -1,3 +1,4 @@
+import { OrthotypographyError } from "../errors.ts";
 import { RULES } from "../catalogue/rules.ts";
 import type { LogicalRun, RuleResult, RuntimeRule } from "../model.ts";
 
@@ -11,7 +12,11 @@ export function catalogueRule(
 ): RuntimeRule {
   const definition = RULES.find((rule) => rule.id === id);
   if (definition === undefined) {
-    throw new Error(`Missing documentary rule: ${id}`);
+    throw new OrthotypographyError(
+      "CATALOGUE_INCONSISTENCY",
+      `Missing documentary rule: ${id}`,
+      { ruleId: id },
+    );
   }
   return Object.freeze({
     id,

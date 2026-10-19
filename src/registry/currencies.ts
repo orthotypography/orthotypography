@@ -1,3 +1,4 @@
+import { OrthotypographyError } from "../errors.ts";
 import {
   CURRENCIES,
   CURRENCY_REGISTRY_PROVENANCE,
@@ -82,7 +83,10 @@ export function resolveCurrencyNotation(
   const currencies = symbol.currencyCodes.map((code) => {
     const resolved = currenciesByCode.get(code);
     if (resolved === undefined) {
-      throw new Error(`Unknown currency code for symbol ${notation}: ${code}`);
+      throw new OrthotypographyError(
+        "CATALOGUE_INCONSISTENCY",
+        `Unknown currency code for symbol ${notation}: ${code}`,
+      );
     }
     return resolved;
   });

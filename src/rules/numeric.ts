@@ -11,6 +11,7 @@ import type {
 } from "../model.ts";
 import { resolveUnitExpression } from "../registry/units.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
+import { diagnosticMessage } from "../messages.ts";
 import {
   type Region,
   RunStretches,
@@ -59,7 +60,7 @@ interface SpacedConstruct {
     readonly bias: "left" | "right";
   };
   /**
-   * Reason to report the construct without a correction, appended to the
+   * Message of a construct reported without a correction, in place of the
    * rule's message.
    */
   readonly unfixable?: string;
@@ -67,10 +68,11 @@ interface SpacedConstruct {
 
 function spacingRule(
   id: string,
-  message: string,
+  messageId: string,
   kind: NumericConstructKind,
   parse: (annotation: Annotation, text: string) => SpacedConstruct | null,
 ): RuntimeRule {
+  const message = diagnosticMessage(messageId);
   return catalogueRule(id, (run) => {
     const diagnostics: RunDiagnostic[] = [];
     let stretches: RunStretches | undefined;
@@ -89,7 +91,7 @@ function spacingRule(
       if (construct.unfixable !== undefined) {
         diagnostics.push({
           ...primary,
-          message: `${message}; ${construct.unfixable}`,
+          ...diagnosticMessage(construct.unfixable),
           ...(related.length === 0 ? {} : { related }),
         });
         continue;
@@ -100,7 +102,7 @@ function spacingRule(
           end: construct.end,
           replacement: construct.replacement,
         };
-        diagnostics.push({ ...edit, message, edits: [edit] });
+        diagnostics.push({ ...edit, ...message, edits: [edit] });
         continue;
       }
       const { spacing, insertion } = construct;
@@ -124,7 +126,7 @@ function spacingRule(
           bias: insertion.bias,
         });
       }
-      diagnostics.push({ ...primary, message, related, edits });
+      diagnostics.push({ ...primary, ...message, related, edits });
     }
     return result(diagnostics);
   });
@@ -160,7 +162,7 @@ function trailingSymbol(pattern: RegExp) {
 /** Adds a no-break space inside classified percentage constructs. */
 export const PERCENTAGE_SPACING_RULE: RuntimeRule = spacingRule(
   "number.percent.nbsp-before",
-  "Expected a no-break space before the percentage symbol",
+  "number.percent.space",
   "percentage",
   trailingSymbol(spacedSymbol("[%‰]")),
 );
@@ -170,7 +172,7 @@ const measurement = spacedSymbol(".+");
 /** Diagnoses recognized unit spacing, or fixes it when explicitly requested. */
 export const UNIT_SPACING_RULE: RuntimeRule = spacingRule(
   "number.unit.nbsp-before",
-  "Expected a no-break space before the unit symbol",
+  "number.unit.space",
   "measurement",
   (annotation, text) => {
     const parts = measurement.exec(
@@ -196,7 +198,7 @@ const leadingEuroBoundary = /[\s(\[«“‘]/u;
 /** Diagnoses French euro-symbol placement, or fixes it when requested. */
 export const EURO_SPACING_RULE: RuntimeRule = spacingRule(
   "number.euro.nbsp-before",
-  "Expected the euro symbol after the amount with a no-break space",
+  "number.euro.position",
   "currency",
   (annotation, text) => {
     const construct = text.slice(annotation.start, annotation.end);
@@ -211,8 +213,7 @@ export const EURO_SPACING_RULE: RuntimeRule = spacingRule(
       // A sign attached to the preceding text would leave that text glued to
       // the amount (issue #36); inserting a space is not prescribed.
       ...(before === undefined || leadingEuroBoundary.test(before) ? {} : {
-        unfixable:
-          "not corrected because the symbol is attached to the preceding text",
+        unfixable: "number.euro.position.attached",
       }),
       start: annotation.start,
       end: annotation.end,
@@ -309,7 +310,7 @@ export const DIGIT_GROUPING_RULE: RuntimeRule = catalogueRule(
       );
       diagnostics.push({
         ...primary,
-        message: "Expected digit grouping in this classified quantity",
+        ...diagnosticMessage("number.digits.grouping"),
         ...(related.length > 0 ? { related } : {}),
       });
     }
