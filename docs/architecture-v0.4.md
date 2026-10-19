@@ -49,9 +49,10 @@ Les corrections suivent un contrat distinct. Une passe qui transforme le texte
 retourne des `TextChange` non chevauchants, toujours projetés sur les segments
 sources. Le pipeline compose les éditions atomiques successives dans un journal
 et conserve leurs `ruleIds`. `expected` permet à une intégration de refuser un
-changement si le document a évolué depuis son analyse. Les règles tierces qui
-n’exposent pas encore leurs éditions restent compatibles au prix d’un
-remplacement de fragment moins précis.
+changement si le document a évolué depuis son analyse. La
+[conception des diagnostics reliés à leurs changements](conception-resultats-v0.1.md)
+propose de supprimer l’espace `runtime` et de relier chaque diagnostic aux
+changements qui le corrigent.
 
 Les éditions d’une même règle forment une transaction sur l’instantané courant
 de la suite logique. Elles peuvent viser plusieurs segments non protégés ; le
