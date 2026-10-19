@@ -1,3 +1,4 @@
+import { OrthotypographyError } from "./errors.ts";
 import type {
   Annotation,
   LogicalRun,
@@ -329,8 +330,10 @@ export function projectRunEdits(
       !Number.isInteger(edit.start) || !Number.isInteger(edit.end) ||
       edit.start < 0 || edit.end < edit.start || edit.end > run.text.length
     ) {
-      throw new Error(
+      throw new OrthotypographyError(
+        "INVALID_EDIT_RANGE",
         `Rule ${ruleId} returned an invalid edit range: ${edit.start}:${edit.end}`,
+        { ruleId },
       );
     }
     const previous = position > 0 ? edits[order[position - 1]] : undefined;
@@ -339,10 +342,18 @@ export function projectRunEdits(
       (edit.start < previous.end ||
         (edit.start === previous.start && edit.start === edit.end))
     ) {
-      throw new Error(`Rule ${ruleId} returned overlapping edits`);
+      throw new OrthotypographyError(
+        "OVERLAPPING_EDITS",
+        `Rule ${ruleId} returned overlapping edits`,
+        { ruleId },
+      );
     }
     if (isInsideProtected(run.protectedRanges, edit.start, edit.end)) {
-      throw new Error(`Rule ${ruleId} edits protected text`);
+      throw new OrthotypographyError(
+        "PROTECTED_TEXT_EDIT",
+        `Rule ${ruleId} edits protected text`,
+        { ruleId },
+      );
     }
     const bias = edit.bias ?? "left";
 
@@ -355,7 +366,11 @@ export function projectRunEdits(
         true,
       );
       if (index === undefined) {
-        throw new Error(`Rule ${ruleId} inserts next to protected text`);
+        throw new OrthotypographyError(
+          "PROTECTED_TEXT_EDIT",
+          `Rule ${ruleId} inserts next to protected text`,
+          { ruleId },
+        );
       }
       const local = edit.start - starts[index];
       add(index, {
@@ -417,7 +432,10 @@ export function projectProtections(
       const list: FragmentRange[] = byFragment.get(index) ?? [];
       const previous = list.at(-1);
       if (previous !== undefined && start < previous.end) {
-        throw new Error("Overlapping protected annotations");
+        throw new OrthotypographyError(
+          "INVALID_ANNOTATION",
+          "Overlapping protected annotations",
+        );
       }
       list.push({ start, end });
       byFragment.set(index, list);
@@ -439,8 +457,10 @@ export function locateInFragment(
     location.start < 0 || location.end < location.start ||
     location.end > run.text.length
   ) {
-    throw new Error(
+    throw new OrthotypographyError(
+      "INVALID_DIAGNOSTIC",
       `Rule ${ruleId} returned an invalid diagnostic range: ${location.start}:${location.end}`,
+      { ruleId },
     );
   }
   let index: number | undefined;
@@ -458,13 +478,19 @@ export function locateInFragment(
       index++;
     }
     if (index >= fragments.length || location.end > starts[index + 1]) {
-      throw new Error(
+      throw new OrthotypographyError(
+        "INVALID_DIAGNOSTIC",
         `Rule ${ruleId} returned a diagnostic crossing fragments`,
+        { ruleId },
       );
     }
   }
   if (index === undefined) {
-    throw new Error(`Rule ${ruleId} returned an unlocatable diagnostic`);
+    throw new OrthotypographyError(
+      "INVALID_DIAGNOSTIC",
+      `Rule ${ruleId} returned an unlocatable diagnostic`,
+      { ruleId },
+    );
   }
   return {
     segmentIndex: index,

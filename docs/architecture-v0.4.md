@@ -136,6 +136,13 @@ repli ; une passe dont aucune règle ne prend en charge la locale lève une
 erreur, et le résultat liste les règles ignorées dans `skippedRuleIds`
 ([conception des presets et des locales](conception-presets-locales-v0.1.md)).
 
+Toute erreur levée par le cœur est une `OrthotypographyError` portant un
+`code` stable et une catégorie (`input`, `stale-change`, `rule-contract`,
+`internal`). Chaque diagnostic porte `messageId` et `messageArgs` ; les
+messages des règles livrées sont rendus depuis les gabarits anglais de
+`DIAGNOSTIC_MESSAGES`, que les hôtes traduisent
+([conception des erreurs et des messages](conception-erreurs-messages-v0.1.md)).
+
 ## Distribution
 
 Les mêmes sources TypeScript alimentent toutes les distributions JavaScript. Elles sont publiées directement sur JSR sous `@orthotypography/core` ; le paquet npm de même nom et de même version est généré par `@deno/dnt`, avec ESM et déclarations TypeScript. Comme dans `greek-conversion`, la publication de confiance est déclenchée par une release GitHub et reste désactivée tant que la variable `PUBLISH_ENABLED` n’est pas explicitement réglée à `true`.

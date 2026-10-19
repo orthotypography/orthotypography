@@ -7,6 +7,7 @@ import {
   runTextNodePipeline,
   SPACE_AFTER_COMMA_RULE,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 Deno.test("missing spaces after commas are inserted in prose", () => {
   const result = runPipeline(
@@ -144,11 +145,8 @@ Deno.test("the Imprimerie nationale comma rule is idempotent", () => {
 });
 
 Deno.test("the comma spacing rule is scoped to metropolitan French", () => {
-  assert.throws(
-    () =>
-      runPipeline("Bonjour,monde.", [SPACE_AFTER_COMMA_RULE], {
-        locale: "fr-CA",
-      }),
-    /No rule supports locale fr-CA/,
-  );
+  assertCode(() =>
+    runPipeline("Bonjour,monde.", [SPACE_AFTER_COMMA_RULE], {
+      locale: "fr-CA",
+    }), "UNSUPPORTED_LOCALE");
 });

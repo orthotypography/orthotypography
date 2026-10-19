@@ -5,6 +5,7 @@ import {
   runPipeline,
   UNIT_SPACING_RULE,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 
 Deno.test("unit spacing is diagnostic by default", () => {
   const input = "12kg";
@@ -48,10 +49,9 @@ Deno.test("unit spacing preserves exclusions and technical text", () => {
 });
 
 Deno.test("unit spacing requires numeric classification", () => {
-  assert.throws(
+  assertCode(
     () => runPipeline("12kg", [UNIT_SPACING_RULE], { locale: "fr-FR" }),
-    Error,
-    "Missing dependency classify.numeric-constructs",
+    "MISSING_DEPENDENCY",
   );
 });
 

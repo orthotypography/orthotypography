@@ -7,6 +7,7 @@ import {
   runTextNodePipeline,
   SAFE_PUNCTUATION_RULES,
 } from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 import type { TextSegment } from "../src/model.ts";
 
 Deno.test("safe punctuation rules remove whitespace before comma and period", () => {
@@ -97,14 +98,10 @@ Deno.test("high punctuation preserves expressive and code-like sequences", () =>
 });
 
 Deno.test("high punctuation rules require their classifier dependency", () => {
-  assert.throws(
-    () =>
-      runPipeline("Note: exemple", HIGH_PUNCTUATION_RULES, {
-        locale: "fr-FR",
-      }),
-    Error,
-    "Missing dependency classify.numeric-constructs",
-  );
+  assertCode(() =>
+    runPipeline("Note: exemple", HIGH_PUNCTUATION_RULES, {
+      locale: "fr-FR",
+    }), "MISSING_DEPENDENCY");
 });
 
 Deno.test("high punctuation composition is idempotent", () => {
@@ -136,15 +133,12 @@ Deno.test("high punctuation supports lint mode", () => {
 });
 
 Deno.test("French punctuation rules do not run for another locale", () => {
-  assert.throws(
-    () =>
-      runPipeline(
-        "Note: example; really?",
-        IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,
-        { locale: "en-US" },
-      ),
-    /No rule supports locale en-US/,
-  );
+  assertCode(() =>
+    runPipeline(
+      "Note: example; really?",
+      IMPRIMERIE_NATIONALE_PUNCTUATION_RULES,
+      { locale: "en-US" },
+    ), "UNSUPPORTED_LOCALE");
 });
 
 Deno.test("period spacing leaves runs of periods to the ellipsis rules", () => {

@@ -1,3 +1,4 @@
+import { OrthotypographyError } from "./errors.ts";
 import type { TextChange, TextSegment } from "./model.ts";
 
 /** Change accepted by `applyTextChanges`; its identifier is not required. */
@@ -8,29 +9,48 @@ function validateChange(
   change: GuardedChange,
 ): void {
   if (!Number.isInteger(change.segmentIndex)) {
-    throw new Error(`Invalid change segment index: ${change.segmentIndex}`);
+    throw new OrthotypographyError(
+      "INVALID_CHANGE",
+      `Invalid change segment index: ${change.segmentIndex}`,
+    );
   }
   const segment = segments[change.segmentIndex];
   if (segment === undefined) {
-    throw new Error(`Missing source segment ${change.segmentIndex}`);
+    throw new OrthotypographyError(
+      "INVALID_CHANGE",
+      `Missing source segment ${change.segmentIndex}`,
+    );
   }
   if (change.segmentId !== undefined && change.segmentId !== segment.id) {
-    throw new Error(
+    throw new OrthotypographyError(
+      "INVALID_CHANGE",
       `Change segment ID ${change.segmentId} does not match source segment ${change.segmentIndex}`,
     );
   }
   if (segment.protected) {
-    throw new Error(`Change targets protected segment ${change.segmentIndex}`);
+    throw new OrthotypographyError(
+      "INVALID_CHANGE",
+      `Change targets protected segment ${change.segmentIndex}`,
+      { segmentIndex: change.segmentIndex },
+    );
   }
   if (
     !Number.isInteger(change.start) || !Number.isInteger(change.end) ||
     change.start < 0 || change.end < change.start ||
     change.end > segment.value.length
   ) {
-    throw new Error(`Invalid change range in segment ${change.segmentIndex}`);
+    throw new OrthotypographyError(
+      "INVALID_CHANGE",
+      `Invalid change range in segment ${change.segmentIndex}`,
+      { segmentIndex: change.segmentIndex },
+    );
   }
   if (segment.value.slice(change.start, change.end) !== change.expected) {
-    throw new Error(`Stale change in segment ${change.segmentIndex}`);
+    throw new OrthotypographyError(
+      "STALE_CHANGE",
+      `Stale change in segment ${change.segmentIndex}`,
+      { segmentIndex: change.segmentIndex },
+    );
   }
 }
 
@@ -46,7 +66,11 @@ function applySegmentChanges(
     const previous = ordered[index - 1];
     const current = ordered[index];
     if (current.start < previous.end || current.start === previous.start) {
-      throw new Error(`Overlapping changes in segment ${segmentIndex}`);
+      throw new OrthotypographyError(
+        "INVALID_CHANGE",
+        `Overlapping changes in segment ${segmentIndex}`,
+        { segmentIndex },
+      );
     }
   }
 

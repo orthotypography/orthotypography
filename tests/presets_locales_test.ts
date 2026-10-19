@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import * as core from "../src/mod.ts";
+import { assertCode } from "./support/errors.ts";
 import {
   compilePreset,
   EXECUTABLE_RULES,
@@ -113,14 +114,11 @@ Deno.test("preset modes drive the default mode and review hints", () => {
 });
 
 Deno.test("compiling rejects unknown presets and foreign overrides", () => {
-  assert.throws(() => compilePreset("fr-BE/unknown"), /Unknown preset/);
-  assert.throws(
-    () =>
-      compilePreset("fr-CA/oqlf", {
-        modes: { "punctuation.comma.space-after": "lint" },
-      }),
-    /is not in preset fr-CA\/oqlf/,
-  );
+  assertCode(() => compilePreset("fr-BE/unknown"), "UNKNOWN_PRESET");
+  assertCode(() =>
+    compilePreset("fr-CA/oqlf", {
+      modes: { "punctuation.comma.space-after": "lint" },
+    }), "INVALID_PRESET_OVERRIDE");
 });
 
 Deno.test("manual-review behaves as lint at run time", () => {
@@ -160,14 +158,14 @@ Deno.test("locales are canonicalized and matched without fallback", () => {
     assert.deepEqual(result.skippedRuleIds, [], locale);
   }
   for (const locale of ["fr", "fr-BE", "en-US"]) {
-    assert.throws(
+    assertCode(
       () => runPipeline(input, IMPRIMERIE_NATIONALE_RULES, { locale }),
-      new RegExp(`No rule supports locale ${locale}`),
+      "UNSUPPORTED_LOCALE",
     );
   }
-  assert.throws(
+  assertCode(
     () => runPipeline(input, IMPRIMERIE_NATIONALE_RULES, { locale: "fr_FR" }),
-    /Invalid locale: fr_FR/,
+    "INVALID_LOCALE",
   );
   // An empty composition supports nothing and runs nothing.
   assert.equal(runPipeline(input, [], { locale: "en-US" }).value, input);
