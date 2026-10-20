@@ -11,9 +11,11 @@
  * sizes of 31,250, 62,500, and 125,000 characters, and the growth factor per
  * doubling of the size. A factor close to 2 is linear; a factor close to 4 is
  * quadratic. A size that takes more than 20 seconds ends its row. Two
- * external rules then stress the change ledger alone.
+ * external rules then stress the change ledger alone, and a last row measures
+ * `applyTextChanges` with one change every six characters.
  */
 import {
+  applyTextChanges,
   DIGIT_GROUPING_RULE,
   ELLIPSIS_GLYPH_RULE,
   ELLIPSIS_INITIAL_SPACE_AFTER_RULE,
@@ -26,6 +28,7 @@ import type {
   RuleMode,
   RuleResult,
   RuntimeRule,
+  TextChange,
   TextSegment,
 } from "../src/model.ts";
 
@@ -194,6 +197,29 @@ if (Deno.args.includes("--scaling")) {
       console.log(`| ${name} | ${mode} | ${cells.join(" | ")} | ${growth} |`);
     }
   }
+  // Applying many changes to one segment (issue #80).
+  const applyTimes = scalingSizes.map((size) => {
+    const text = "abcdef".repeat(Math.ceil(size / 6)).slice(0, size);
+    const changes: Omit<TextChange, "id">[] = [];
+    for (let start = 0; start + 1 <= size; start += 6) {
+      changes.push({
+        segmentIndex: 0,
+        start,
+        end: start + 1,
+        expected: text[start],
+        replacement: "AB",
+        ruleIds: ["x-bench.apply"],
+      });
+    }
+    return measure(() => applyTextChanges(text, changes));
+  });
+  console.log(
+    `| applyTextChanges, a change every 6 characters | fix | ${
+      applyTimes.map((time) => `${time.toFixed(1)} ms`).join(" | ")
+    } | ${
+      Math.sqrt(applyTimes[2] / Math.max(applyTimes[0], 0.01)).toFixed(1)
+    } |`,
+  );
   Deno.exit(0);
 }
 

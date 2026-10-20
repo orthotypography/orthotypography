@@ -86,3 +86,53 @@ Deno.test("text changes reject invalid ranges and overlaps", () => {
       { ...base, start: 1, end: 2, expected: "b" },
     ]), "INVALID_CHANGE");
 });
+
+Deno.test("many changes in one segment apply in order", () => {
+  // Issue #80: changes are assembled in one pass, in any input order.
+  const count = 20_000;
+  const source = "abcdef".repeat(count);
+  const changes = Array.from({ length: count }, (_, index) => ({
+    segmentIndex: 0,
+    start: 6 * index + 1,
+    end: 6 * index + 3,
+    expected: "bc",
+    replacement: index % 2 === 0 ? "" : "BCX",
+    ruleIds: ["test"],
+  })).reverse();
+  const expected = Array.from(
+    { length: count },
+    (_, index) => `a${index % 2 === 0 ? "" : "BCX"}def`,
+  ).join("");
+  assert.equal(applyTextChanges(source, changes), expected);
+
+  // An insertion and a replacement next to it keep their order.
+  assert.equal(
+    applyTextChanges("abc", [
+      {
+        segmentIndex: 0,
+        start: 1,
+        end: 2,
+        expected: "b",
+        replacement: "B",
+        ruleIds: ["test"],
+      },
+      {
+        segmentIndex: 0,
+        start: 0,
+        end: 0,
+        expected: "",
+        replacement: "<",
+        ruleIds: ["test"],
+      },
+      {
+        segmentIndex: 0,
+        start: 3,
+        end: 3,
+        expected: "",
+        replacement: ">",
+        ruleIds: ["test"],
+      },
+    ]),
+    "<aBc>",
+  );
+});
