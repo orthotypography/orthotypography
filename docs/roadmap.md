@@ -1,17 +1,18 @@
 # Feuille de route du cœur
 
-État vérifié le 19 octobre 2026 sur
-[`ea17be8`](https://github.com/orthotypography/orthotypography/commit/ea17be8),
-commit publié sous `0.2.0-alpha.0` après la
-[PR nº 69](https://github.com/orthotypography/orthotypography/pull/69). Ce
-document sert de passation ; les prochaines tâches sont proposées et ne
+État vérifié le 20 octobre 2026 sur `main` après la
+[PR nº 77](https://github.com/orthotypography/orthotypography/pull/77). La
+version `0.2.0-alpha.1` est préparée par la
+[PR nº 78](https://github.com/orthotypography/orthotypography/pull/78), non encore publiée ;
+la dernière version publiée est `0.2.0-alpha.0`. Ce document sert de
+passation ; les prochaines tâches sont proposées et ne
 constituent pas une promesse de release.
 
 ## État acquis
 
 | Chantier                | État vérifié                                                                                                                               | Preuve                                                                                                                 |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| Distribution JavaScript | Préversion `0.2.0-alpha.0` publiée le 19 octobre 2026 sur JSR et npm, sous le tag npm `latest`, avec attestation de provenance ; `0.1.0-alpha.3` reste la dernière version de la ligne `0.1` | [Release](https://github.com/orthotypography/orthotypography/releases/tag/v0.2.0-alpha.0), [manifeste](../deno.json), [CHANGELOG](../CHANGELOG.md) |
+| Distribution JavaScript | Préversion `0.2.0-alpha.0` publiée le 19 octobre 2026 sur JSR et npm, sous le tag npm `latest`, avec attestation de provenance ; `0.2.0-alpha.1` préparée, non publiée ; `0.1.0-alpha.3` reste la dernière version de la ligne `0.1` | [Release](https://github.com/orthotypography/orthotypography/releases/tag/v0.2.0-alpha.0), [manifeste](../deno.json), [CHANGELOG](../CHANGELOG.md) |
 | Catalogue documentaire  | Modèle de règles, autorités et deux presets français candidats ; prescriptions d’espacement après ponctuation représentées par des identifiants autonomes ; locales canoniques vérifiées | [Catalogue](catalogue-documentaire-v0.1.md), [matrice](matrice-couverture-in-2002-v0.1.md) |
 | Exécution sur la suite logique | Chaque règle s’exécute une fois par passe sur la suite logique traversant les nœuds (`RuntimeRule.apply(run)`), métadonnées tirées du catalogue, constructions numériques partagées par annotations ; croissance linéaire mesurée par `deno task bench --scaling` | [Conception](conception-suite-logique-v0.1.md), PR [nº 41](https://github.com/orthotypography/orthotypography/pull/41) à [nº 50](https://github.com/orthotypography/orthotypography/pull/50) |
 | Résultats               | Modifications portées par les diagnostics, emplacements toujours sources, identifiants de changements, groupes de propositions, mode `review` et propositions écartées ; journal des changements linéaire | [Conception](conception-resultats-v0.1.md), PR [nº 38](https://github.com/orthotypography/orthotypography/pull/38), [nº 52](https://github.com/orthotypography/orthotypography/pull/52), [nº 53](https://github.com/orthotypography/orthotypography/pull/53), [nº 55](https://github.com/orthotypography/orthotypography/pull/55) à [nº 57](https://github.com/orthotypography/orthotypography/pull/57) |
@@ -35,6 +36,27 @@ changements du cœur, du manifeste, des scripts et des workflows de publication
 ou de CI. Elle permet aussi une exécution manuelle complète, parallélise les
 contrôles de paquets avec les tests et annule les exécutions de PR dépassées.
 Le workflow de publication garde tous ses contrôles sur le tag de release.
+
+### Version `0.2.0-alpha.1` préparée
+
+Cette préversion achève la revue d’architecture : annotations déclarées et
+classification des points de suspension partagée
+([nº 22](https://github.com/orthotypography/orthotypography/issues/22), PR
+[nº 75](https://github.com/orthotypography/orthotypography/pull/75)),
+exceptions structurées et matrice générée
+([nº 28](https://github.com/orthotypography/orthotypography/issues/28), PR
+[nº 76](https://github.com/orthotypography/orthotypography/pull/76)), et
+descriptions du catalogue en anglais (PR
+[nº 77](https://github.com/orthotypography/orthotypography/pull/77)). Elle
+rompt la compatibilité avec `0.2.0-alpha.0` pour les règles tierces qui lisent
+ou produisent des annotations, pour les compositions qui utilisent une règle
+des points de suspension sans le preset de l’Imprimerie nationale, et pour le
+code qui lit `RuleDefinition.exceptions` ; seule la règle d’espace initiale des
+points de suspension change de sortie, comme le détaille le
+[`CHANGELOG`](../CHANGELOG.md). Sa publication suit
+[`RELEASING.md`](../RELEASING.md) et attend une autorisation explicite ; la
+configuration npm de publication de confiance, validée par `0.2.0-alpha.0`,
+n’expire plus.
 
 ### Version `0.2.0-alpha.0` publiée
 
@@ -82,17 +104,17 @@ publication de toute version `0.x` sous le tag npm `latest`
 version npm porte une attestation de provenance émise par la publication de
 confiance.
 
-Les intégrations publiées dépendent du cœur `0.1.0-alpha.3`. Leur
-développement suit des commits précis de la ligne `0.2` ; le passage au cœur
-`0.2.0-alpha.0` publié et la validation réelle dans Google Docs sont suivis dans la
+Les intégrations sont passées au cœur `0.2.0-alpha.0` publié et publient
+leurs propres préversions `0.2.0-alpha.0` (PR nº 15 à 18 des intégrations) ;
+leur avancement et la validation réelle dans Google Docs sont suivis dans la
 [feuille de route des intégrations](https://github.com/orthotypography/orthotypography-integrations/blob/main/docs/roadmap.md).
 
 ## Prochaines tâches proposées
 
-1. **Adoption de `0.2.0-alpha.0` par les intégrations.** `0.2.0-alpha.0` est
-   publiée. Les intégrations passent du commit de développement au cœur
-   publié ; leurs retours, y compris ceux de la validation réelle dans Google
-   Docs, décident des ajustements avant `0.2.0`. Toute rupture supplémentaire doit être
+1. **Publication de `0.2.0-alpha.1` et retours des intégrations.** Publier
+   `0.2.0-alpha.1` sur instruction explicite, puis consigner la publication.
+   Les retours des intégrations, y compris ceux de la validation réelle dans
+   Google Docs, décident des ajustements avant `0.2.0`. Toute rupture supplémentaire doit être
    regroupée avant `0.2.0`.
 2. **Fin de la consolidation de l’architecture.** L’issue
    [nº 22](https://github.com/orthotypography/orthotypography/issues/22) est

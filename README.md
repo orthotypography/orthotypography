@@ -3,7 +3,7 @@
 Source-backed orthotypographic primitives and named editorial presets for the
 JavaScript ecosystem, including browsers and server runtimes.
 
-The `0.2.0-alpha.0` release is a public preview. Its API and rule catalogue may
+The `0.2.0-alpha.1` release is a public preview. Its API and rule catalogue may
 change during the alpha series. The canonical TypeScript package is distributed
 through JSR; an equivalent ESM package is generated from the same sources for
 npm.
@@ -11,7 +11,7 @@ npm.
 ## Installation
 
 ```sh
-deno add jsr:@orthotypography/core@0.2.0-alpha.0
+deno add jsr:@orthotypography/core@0.2.0-alpha.1
 npm install @orthotypography/core
 ```
 

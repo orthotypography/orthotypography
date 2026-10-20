@@ -1,10 +1,10 @@
 # Matrice de couverture — Imprimerie nationale 2002
 
 **Version :** 0.1  
-**Date de vérification :** 19 octobre 2026
-**Base examinée :** `ae78ecd`, `main` après la
-[PR nº 67](https://github.com/orthotypography/orthotypography/pull/67),
-publiée sous `0.2.0-alpha.0`
+**Date de vérification :** 20 octobre 2026
+**Base examinée :** `main` après la
+[PR nº 77](https://github.com/orthotypography/orthotypography/pull/77),
+préparée sous `0.2.0-alpha.1` ; le tableau est généré
 **Source primaire :** *Lexique des règles typographiques en usage à
 l’Imprimerie nationale*, édition 2002  
 **Relevé de référence :**
@@ -17,7 +17,7 @@ l’Imprimerie nationale*, édition 2002
 [`groupement-chiffres-v0.1.md`](groupement-chiffres-v0.1.md)
 
 **Dernière PR fusionnée :**
-[nº 67](https://github.com/orthotypography/orthotypography/pull/67)
+[nº 77](https://github.com/orthotypography/orthotypography/pull/77)
 
 ## 1. Objet et vocabulaire
 
