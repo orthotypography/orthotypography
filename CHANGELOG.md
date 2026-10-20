@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [0.2.0-alpha.1] - 2026-10-20
+
+This preview completes the architecture review of the `0.2` line. Rules
+declare the annotation kinds they provide or require, and ellipses are
+classified once per pass; catalogue exceptions are structured, and the
+coverage matrix table is generated from the catalogue and the tests. It breaks
+compatibility with `0.2.0-alpha.0` for external rules that read or produce
+annotations, for compositions that use an ellipsis rule without the
+Imprimerie nationale preset, and for code that reads
+`RuleDefinition.exceptions`. Outputs of the built-in rules are unchanged except
+for the initial ellipsis spacing rule, as described below.
+
 - Write the remaining French descriptions of the catalogue in English, as
   `AGENTS.md` requires for prose outside `docs/`; the exceptions already are.
   The coverage matrix generator takes its French column headings from
