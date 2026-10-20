@@ -20,7 +20,7 @@ const coverage = [
   },
 ];
 const labels = { "protected-content": "contenu protégé" };
-const columns = ["P", "C", "E", "T", "S", "X"];
+const columns = ["P", "C", "E", "T", "S", "X", "G"];
 
 Deno.test("matrix rows combine the catalogue, the preset, and the tests", () => {
   const data: MatrixData = {
@@ -43,8 +43,8 @@ Deno.test("matrix rows combine the catalogue, the preset, and the tests", () => 
     ],
   };
   assert.deepEqual(renderMatrix(data, coverage).slice(2), [
-    "| `space.before.comma` | `punctuation.comma.no-space-before` | `SAFE_PUNCTUATION_RULES` : `fix` | `a_test.ts`, `b_test.ts` | oui | contenu protégé ; note |",
-    "| `dash.spacing` | issue de source seulement | non | non | non | — |",
+    "| `space.before.comma` | `punctuation.comma.no-space-before` | `SAFE_PUNCTUATION_RULES` : `fix` | `a_test.ts`, `b_test.ts` | oui | — | contenu protégé ; note |",
+    "| `dash.spacing` | issue de source seulement | non | non | non | — | — |",
   ]);
 });
 

@@ -68,6 +68,13 @@ export interface RuleException {
   readonly id: string;
   readonly description: string;
   /**
+   * `source` when the source states the exception or its prescription implies
+   * it; `safeguard` for a technical decision of the project, which the source
+   * does not make, so as not to correct text that is not prose or whose
+   * function is not established.
+   */
+  readonly origin: "source" | "safeguard";
+  /**
    * Set when the core does not detect the case: `integration` when the
    * integration or the host ensures it, `review` when a person decides, for a
    * rule that reports rather than fixes by default.

@@ -5,12 +5,14 @@
     "Exécution sur `main`",
     "Tests directs",
     "Preset IN 2002",
-    "Exclusions ou travail restant"
+    "Exceptions de la source",
+    "Garde-fous ou travail restant"
   ],
   "exceptionLabels": {
     "decimal-separator": "séparateur décimal",
     "protected-content": "contenu protégé",
     "end-of-text": "fin de texte",
+    "start-of-text": "début de texte",
     "adjacent-punctuation": "ponctuation adjacente",
     "technical-syntax": "syntaxe technique",
     "period-run": "suite de points",
@@ -36,7 +38,8 @@
     "years-and-dates": "années et dates",
     "ordinals-and-numbering": "ordinaux et numérotations",
     "versions-and-addresses": "versions et adresses réseau",
-    "identifiers-and-codes": "identifiants, codes et références",
+    "numbering-references": "références de numérotation (article, folio, matricule, numéro, page)",
+    "technical-identifiers": "identifiants techniques et codes",
     "technical-or-protected-content": "contenu technique ou protégé",
     "identifier": "identifiant",
     "angle": "angle",

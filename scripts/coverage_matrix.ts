@@ -42,8 +42,8 @@ export function renderMatrix(
 ): string[] {
   const preset = PRESETS.find(({ id }) => id === PRESET_ID);
   if (preset === undefined) throw new Error(`Missing preset ${PRESET_ID}`);
-  if (data.columns.length !== 6) {
-    throw new Error("The matrix data must name six columns");
+  if (data.columns.length !== 7) {
+    throw new Error("The matrix data must name seven columns");
   }
   const lines = [
     `| ${data.columns.join(" | ")} |`,
@@ -98,23 +98,31 @@ export function renderMatrix(
         ? "oui, `manual-review`"
         : "oui");
     // A row linked to the entry of another prescription only adds its notes.
-    const exclusions = row.catalogue === undefined && rule !== undefined
-      ? rule.exceptions.map(({ id }) => {
-        const label = data.exceptionLabels[id];
-        if (label === undefined) {
-          throw new Error(`${rule.id}: no label for exception ${id}`);
-        }
-        return label;
-      })
+    // Exceptions stated or implied by the source are listed apart from the
+    // safeguards of the project.
+    const exceptions = row.catalogue === undefined && rule !== undefined
+      ? rule.exceptions
       : [];
+    const labels = (origin: "source" | "safeguard") =>
+      exceptions.filter((exception) => exception.origin === origin).map(
+        ({ id }) => {
+          const label = data.exceptionLabels[id];
+          if (label === undefined) {
+            throw new Error(`${rule?.id}: no label for exception ${id}`);
+          }
+          return label;
+        },
+      ).join(", ");
+    const sourceExceptions = labels("source");
     const notes = [
-      exclusions.join(", "),
+      labels("safeguard"),
       row.remaining ?? "",
     ].filter((part) => part.length > 0).join(" ; ");
+    const cell = (text: string) => text.length === 0 ? "—" : text;
     lines.push(
       `| ${row.prescription} | ${catalogue} | ${row.execution} | ${tests} | ${presetCell} | ${
-        notes.length === 0 ? "—" : notes
-      } |`,
+        cell(sourceExceptions)
+      } | ${cell(notes)} |`,
     );
   }
   return lines;

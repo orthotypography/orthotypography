@@ -19,7 +19,11 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "" },
     exceptions: [
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
   },
   {
@@ -37,11 +41,27 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
-      { id: "end-of-text", description: "end of text" },
-      { id: "adjacent-punctuation", description: "adjacent punctuation" },
-      { id: "decimal-separator", description: "decimal separator" },
-      { id: "technical-syntax", description: "technical syntax" },
-      { id: "protected-content", description: "protected content" },
+      { id: "end-of-text", origin: "source", description: "end of text" },
+      {
+        id: "adjacent-punctuation",
+        origin: "safeguard",
+        description: "adjacent punctuation",
+      },
+      {
+        id: "decimal-separator",
+        origin: "source",
+        description: "decimal separator",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
   },
   {
@@ -60,9 +80,14 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "" },
     exceptions: [
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
       {
         id: "period-run",
+        origin: "source",
         description: "run of periods, left to the ellipsis rules",
       },
     ],
@@ -82,10 +107,22 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
-      { id: "end-of-text", description: "end of text" },
-      { id: "abbreviation-boundary", description: "abbreviation boundary" },
-      { id: "technical-syntax", description: "technical syntax" },
-      { id: "protected-content", description: "protected content" },
+      { id: "end-of-text", origin: "source", description: "end of text" },
+      {
+        id: "abbreviation-boundary",
+        origin: "source",
+        description: "abbreviation boundary",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
   },
   {
@@ -104,11 +141,26 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+00A0" },
     exceptions: [
-      { id: "time", description: "time of day" },
-      { id: "ratio", description: "ratio" },
-      { id: "uri", description: "URI" },
-      { id: "port", description: "port number" },
-      { id: "protected-content", description: "protected content" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "adjacent-punctuation",
+        origin: "safeguard",
+        description: "adjacent punctuation",
+      },
+      { id: "time", origin: "safeguard", description: "time of day" },
+      { id: "ratio", origin: "safeguard", description: "ratio" },
+      { id: "uri", origin: "safeguard", description: "URI" },
+      { id: "port", origin: "safeguard", description: "port number" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     dependsOn: ["classify.numeric-constructs"],
   },
@@ -127,16 +179,34 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
-      { id: "end-of-text", description: "end of text" },
-      { id: "closing-sign", description: "closing sign" },
-      { id: "comma-or-period", description: "comma or period" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      { id: "end-of-text", origin: "source", description: "end of text" },
+      { id: "closing-sign", origin: "source", description: "closing sign" },
+      {
+        id: "comma-or-period",
+        origin: "source",
+        description: "comma or period",
+      },
       {
         id: "suspension-points",
+        origin: "safeguard",
         description: "suspension points (reported, not corrected)",
       },
-      { id: "adjacent-punctuation", description: "adjacent punctuation" },
-      { id: "technical-syntax", description: "technical syntax" },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "adjacent-punctuation",
+        origin: "safeguard",
+        description: "adjacent punctuation",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     dependsOn: ["classify.numeric-constructs"],
   },
@@ -156,9 +226,20 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+202F" },
     exceptions: [
-      { id: "protected-content", description: "protected content" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      {
+        id: "adjacent-punctuation",
+        origin: "safeguard",
+        description: "adjacent punctuation",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
       {
         id: "constrained-support",
+        origin: "safeguard",
         description: "rendering support without the required space",
         scope: "integration",
       },
@@ -179,16 +260,34 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
-      { id: "end-of-text", description: "end of text" },
-      { id: "closing-sign", description: "closing sign" },
-      { id: "comma-or-period", description: "comma or period" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      { id: "end-of-text", origin: "source", description: "end of text" },
+      { id: "closing-sign", origin: "source", description: "closing sign" },
+      {
+        id: "comma-or-period",
+        origin: "source",
+        description: "comma or period",
+      },
       {
         id: "suspension-points",
+        origin: "safeguard",
         description: "suspension points (reported, not corrected)",
       },
-      { id: "adjacent-punctuation", description: "adjacent punctuation" },
-      { id: "technical-syntax", description: "technical syntax" },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "adjacent-punctuation",
+        origin: "safeguard",
+        description: "adjacent punctuation",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     dependsOn: ["classify.numeric-constructs"],
   },
@@ -208,10 +307,20 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+202F" },
     exceptions: [
-      { id: "expressive-sequence", description: "expressive sequence" },
-      { id: "protected-content", description: "protected content" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      {
+        id: "expressive-sequence",
+        origin: "safeguard",
+        description: "expressive sequence",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
       {
         id: "constrained-support",
+        origin: "safeguard",
         description: "rendering support without the required space",
         scope: "integration",
       },
@@ -233,16 +342,34 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
-      { id: "end-of-text", description: "end of text" },
-      { id: "closing-sign", description: "closing sign" },
-      { id: "comma-or-period", description: "comma or period" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      { id: "end-of-text", origin: "source", description: "end of text" },
+      { id: "closing-sign", origin: "source", description: "closing sign" },
+      {
+        id: "comma-or-period",
+        origin: "source",
+        description: "comma or period",
+      },
       {
         id: "suspension-points",
+        origin: "safeguard",
         description: "suspension points (reported, not corrected)",
       },
-      { id: "expressive-sequence", description: "expressive sequence" },
-      { id: "technical-syntax", description: "technical syntax" },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "expressive-sequence",
+        origin: "safeguard",
+        description: "expressive sequence",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     dependsOn: ["classify.numeric-constructs"],
   },
@@ -262,10 +389,25 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+202F" },
     exceptions: [
-      { id: "expressive-sequence", description: "expressive sequence" },
-      { id: "protected-content", description: "protected content" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "expressive-sequence",
+        origin: "safeguard",
+        description: "expressive sequence",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
       {
         id: "constrained-support",
+        origin: "safeguard",
         description: "rendering support without the required space",
         scope: "integration",
       },
@@ -287,16 +429,34 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
-      { id: "end-of-text", description: "end of text" },
-      { id: "closing-sign", description: "closing sign" },
-      { id: "comma-or-period", description: "comma or period" },
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      { id: "end-of-text", origin: "source", description: "end of text" },
+      { id: "closing-sign", origin: "source", description: "closing sign" },
+      {
+        id: "comma-or-period",
+        origin: "source",
+        description: "comma or period",
+      },
       {
         id: "suspension-points",
+        origin: "safeguard",
         description: "suspension points (reported, not corrected)",
       },
-      { id: "expressive-sequence", description: "expressive sequence" },
-      { id: "technical-syntax", description: "technical syntax" },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "expressive-sequence",
+        origin: "safeguard",
+        description: "expressive sequence",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     dependsOn: ["classify.numeric-constructs"],
   },
@@ -316,18 +476,36 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { glyph: "U+2026", sourceSequence: "U+002E U+002E U+002E" },
     exceptions: [
-      { id: "ambiguous-function", description: "ambiguous function" },
+      {
+        id: "ambiguous-function",
+        origin: "safeguard",
+        description: "ambiguous function",
+      },
       {
         id: "other-period-sequence",
+        origin: "safeguard",
         description: "sequences other than exactly three full stops",
       },
-      { id: "etc-abbreviation", description: "etc. abbreviation" },
-      { id: "technical-syntax", description: "technical syntax" },
+      {
+        id: "etc-abbreviation",
+        origin: "source",
+        description: "etc. abbreviation",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
       {
         id: "editorial-omission",
+        origin: "source",
         description: "editorial omission in brackets",
       },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     requires: ["ellipsis"],
   },
@@ -347,13 +525,26 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "" },
     exceptions: [
-      { id: "unestablished-function", description: "unestablished function" },
-      { id: "technical-syntax", description: "technical syntax" },
+      {
+        id: "unestablished-function",
+        origin: "safeguard",
+        description: "unestablished function",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
       {
         id: "editorial-omission",
+        origin: "source",
         description: "editorial omission in brackets",
       },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
   },
   {
@@ -374,14 +565,24 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       {
         id: "unestablished-beginning",
+        origin: "safeguard",
         description: "unestablished structural beginning",
       },
-      { id: "technical-syntax", description: "technical syntax" },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
       {
         id: "editorial-omission",
+        origin: "source",
         description: "editorial omission in brackets",
       },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     requires: ["ellipsis"],
   },
@@ -403,14 +604,24 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       {
         id: "missing-semantic-evidence",
+        origin: "safeguard",
         description: "missing semantic evidence",
       },
-      { id: "technical-syntax", description: "technical syntax" },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
       {
         id: "editorial-omission",
+        origin: "source",
         description: "editorial omission in brackets",
       },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
   },
   {
@@ -432,9 +643,21 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { afterEtc: "U+002E only" },
     exceptions: [
-      { id: "non-standalone-token", description: "non-standalone token" },
-      { id: "technical-syntax", description: "technical syntax" },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "non-standalone-token",
+        origin: "source",
+        description: "non-standalone token",
+      },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
   },
   {
@@ -453,13 +676,22 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { afterOpening: "U+00A0", beforeClosing: "U+00A0" },
     exceptions: [
-      { id: "unpaired-guillemet", description: "unpaired guillemet" },
+      {
+        id: "unpaired-guillemet",
+        origin: "safeguard",
+        description: "unpaired guillemet",
+      },
       {
         id: "constrained-support",
+        origin: "safeguard",
         description: "rendering support without the required space",
         scope: "integration",
       },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
   },
   {
@@ -478,18 +710,35 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { separator: "U+202F", groupSize: "3" },
     exceptions: [
-      { id: "years-and-dates", description: "years and dates" },
-      { id: "ordinals-and-numbering", description: "ordinals and numbering" },
+      {
+        id: "years-and-dates",
+        origin: "source",
+        description: "years and dates",
+      },
+      {
+        id: "ordinals-and-numbering",
+        origin: "source",
+        description: "ordinals and numbering",
+      },
       {
         id: "versions-and-addresses",
+        origin: "safeguard",
         description: "versions and network addresses",
       },
       {
-        id: "identifiers-and-codes",
-        description: "identifiers, codes, and references",
+        id: "numbering-references",
+        origin: "source",
+        description:
+          "numbers after article, folio, matricule, number, or page markers",
+      },
+      {
+        id: "technical-identifiers",
+        origin: "safeguard",
+        description: "numbers in technical identifiers, codes, and references",
       },
       {
         id: "technical-or-protected-content",
+        origin: "safeguard",
         description: "technical or protected content",
       },
     ],
@@ -511,8 +760,12 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { beforeSymbol: "U+00A0" },
     exceptions: [
-      { id: "identifier", description: "identifier" },
-      { id: "protected-content", description: "protected content" },
+      { id: "identifier", origin: "safeguard", description: "identifier" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     requires: ["numeric"],
   },
@@ -537,10 +790,14 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { beforeSymbol: "U+00A0" },
     exceptions: [
-      { id: "angle", description: "angle" },
-      { id: "common-noun", description: "common noun" },
-      { id: "unknown-unit", description: "unknown unit" },
-      { id: "protected-content", description: "protected content" },
+      { id: "angle", origin: "source", description: "angle" },
+      { id: "common-noun", origin: "source", description: "common noun" },
+      { id: "unknown-unit", origin: "safeguard", description: "unknown unit" },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     requires: ["numeric"],
   },
@@ -564,11 +821,20 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       {
         id: "quoted-convention",
+        origin: "safeguard",
         description: "quotation of another convention",
         scope: "review",
       },
-      { id: "ambiguous-currency", description: "ambiguous currency" },
-      { id: "protected-content", description: "protected content" },
+      {
+        id: "ambiguous-currency",
+        origin: "safeguard",
+        description: "ambiguous currency",
+      },
+      {
+        id: "protected-content",
+        origin: "safeguard",
+        description: "protected content",
+      },
     ],
     requires: ["numeric"],
   },
@@ -585,6 +851,7 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       {
         id: "integration-input",
+        origin: "safeguard",
         description: "structured input supplied by the integration",
         scope: "integration",
       },
@@ -604,6 +871,7 @@ export const RULES: readonly RuleDefinition[] = [
     exceptions: [
       {
         id: "integration-input",
+        origin: "safeguard",
         description: "structured input supplied by the integration",
         scope: "integration",
       },
