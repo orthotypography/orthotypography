@@ -53,7 +53,7 @@ function observer(seen: Annotation[][]) {
     },
     {
       phase: "numeric-spacing",
-      dependsOn: ["classify.numeric-constructs"],
+      requires: ["numeric"],
     },
   );
 }

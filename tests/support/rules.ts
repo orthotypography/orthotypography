@@ -18,7 +18,15 @@ export function testRule(
   id: string,
   apply: (run: LogicalRun) => TestRuleResult,
   options: Partial<
-    Pick<RuntimeRule, "phase" | "locales" | "defaultMode" | "dependsOn">
+    Pick<
+      RuntimeRule,
+      | "phase"
+      | "locales"
+      | "defaultMode"
+      | "dependsOn"
+      | "provides"
+      | "requires"
+    >
   > = {},
 ): RuntimeRule {
   return {

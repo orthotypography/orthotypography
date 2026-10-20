@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   applyTextChanges,
+  ELLIPSIS_CLASSIFICATION_RULE,
   ELLIPSIS_GLYPH_RULE,
   ELLIPSIS_INITIAL_SPACE_AFTER_RULE,
   ETC_ELLIPSIS_RULE,
@@ -141,6 +142,7 @@ function fixEllipsisNodes(values: readonly (string | TextSegment)[]): string[] {
   }));
   const result = runTextNodePipeline(nodes, [
     NUMERIC_PROTECTION_RULE,
+    ELLIPSIS_CLASSIFICATION_RULE,
     ETC_ELLIPSIS_RULE,
     ELLIPSIS_GLYPH_RULE,
     ELLIPSIS_INITIAL_SPACE_AFTER_RULE,

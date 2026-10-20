@@ -291,7 +291,7 @@ export const RULES: readonly RuleDefinition[] = [
       "editorial omission in brackets",
       "protected content",
     ],
-    dependsOn: ["classify.numeric-constructs"],
+    requires: ["ellipsis"],
   },
   {
     id: "punctuation.ellipsis.final.no-space-before",
@@ -336,6 +336,7 @@ export const RULES: readonly RuleDefinition[] = [
       "editorial omission in brackets",
       "protected content",
     ],
+    requires: ["ellipsis"],
   },
   {
     id: "punctuation.ellipsis.word.space-around",
@@ -427,7 +428,7 @@ export const RULES: readonly RuleDefinition[] = [
       "identifiers, codes, and references",
       "technical or protected content",
     ],
-    dependsOn: ["classify.numeric-constructs"],
+    requires: ["numeric"],
   },
   {
     id: "number.percent.nbsp-before",
@@ -446,7 +447,7 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { beforeSymbol: "U+00A0" },
     exceptions: ["identifiant", "syntaxe protégée"],
-    dependsOn: ["classify.numeric-constructs"],
+    requires: ["numeric"],
   },
   {
     id: "number.unit.nbsp-before",
@@ -469,7 +470,7 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { beforeSymbol: "U+00A0" },
     exceptions: ["angle", "nom commun", "unité inconnue", "syntaxe protégée"],
-    dependsOn: ["classify.numeric-constructs"],
+    requires: ["numeric"],
   },
   {
     id: "number.euro.nbsp-before",
@@ -493,7 +494,7 @@ export const RULES: readonly RuleDefinition[] = [
       "devise ambiguë",
       "syntaxe protégée",
     ],
-    dependsOn: ["classify.numeric-constructs"],
+    requires: ["numeric"],
   },
   {
     id: "classify.numeric-constructs",
@@ -506,5 +507,20 @@ export const RULES: readonly RuleDefinition[] = [
     sources: [],
     outcome: { effect: "classification-only" },
     exceptions: ["entrée structurée par l’intégration"],
+    provides: ["numeric"],
+  },
+  {
+    id: "classify.ellipsis-candidates",
+    description:
+      "Classify ellipsis candidates once per pass, with their function and whether it is certain, for the ellipsis rules.",
+    locales: frenchLocales,
+    phase: "classify",
+    status: "TO_VERIFY",
+    defaultMode: "manual-review",
+    sources: [],
+    outcome: { effect: "classification-only" },
+    exceptions: ["structured input supplied by the integration"],
+    dependsOn: ["classify.numeric-constructs"],
+    provides: ["ellipsis"],
   },
 ] as const;

@@ -86,7 +86,10 @@ the concatenated text of every input segment, its protected ranges, node
 boundaries, and annotations from classify rules. It returns diagnostics in run
 coordinates, each carrying the edits that correct it; the pipeline validates
 those edits in every mode, applies them in `fix` mode, and projects them onto
-the input segments. Rules of other packages use IDs prefixed with `x-`. A
+the input segments. Rules of other packages use IDs prefixed with `x-`. A rule
+declares the annotation kinds it reads in `requires`, and a classify rule the
+kinds it produces in `provides`; a composition that lacks the provider of a
+required kind is rejected. A
 diagnostic may give a `messageId` and `messageArgs` for hosts that render their
 own text; otherwise the rule's ID serves as message ID. Errors thrown by the
 core are `OrthotypographyError`s with a stable `code` and `category`.

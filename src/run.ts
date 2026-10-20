@@ -7,6 +7,7 @@ import type {
   RunEdit,
   RunLocation,
   RunRange,
+  RuntimeRule,
 } from "./model.ts";
 
 /**
@@ -60,6 +61,7 @@ export function buildRun(
   locale: string,
   mode: RuleMode,
   annotations: readonly Annotation[] = [],
+  rule?: Pick<RuntimeRule, "id" | "requires">,
 ): RunLayout {
   const starts = new Array<number>(fragments.length + 1);
   starts[0] = 0;
@@ -95,17 +97,28 @@ export function buildRun(
       mode,
       protectedRanges,
       nodeBoundaries,
-      annotations: annotationsByKind(annotations),
+      annotations: annotationsByKind(annotations, rule),
     },
   };
 }
 
-/** Lists annotations of one kind, computed once per kind and view. */
+/**
+ * Lists annotations of one kind, computed once per kind and view. With a rule,
+ * only the kinds it requires can be read.
+ */
 function annotationsByKind(
   annotations: readonly Annotation[],
+  rule?: Pick<RuntimeRule, "id" | "requires">,
 ): (kind: string) => readonly Annotation[] {
   const byKind = new Map<string, readonly Annotation[]>();
   return (kind) => {
+    if (rule !== undefined && !(rule.requires ?? []).includes(kind)) {
+      throw new OrthotypographyError(
+        "UNDECLARED_ANNOTATION",
+        `Rule ${rule.id} reads annotation kind ${kind} without requiring it`,
+        { ruleId: rule.id, kind },
+      );
+    }
     let list = byKind.get(kind);
     if (list === undefined) {
       list = annotations.filter((annotation) => annotation.kind === kind);

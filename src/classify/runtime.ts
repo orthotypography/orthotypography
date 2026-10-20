@@ -7,6 +7,7 @@ import type {
 import { catalogueRule } from "../rules/catalogue-rule.ts";
 import { RunStretches, unprotectedRegions } from "../rules/run-text.ts";
 import { classifyNumericConstructs } from "./numeric.ts";
+import { classifyEllipsisCandidates } from "./ellipsis.ts";
 
 /** Annotation kind of numeric constructs. */
 export const NUMERIC_ANNOTATION = "numeric";
@@ -67,6 +68,41 @@ export const NUMERIC_PROTECTION_RULE: RuntimeRule = catalogueRule(
   "classify.numeric-constructs",
   (run) => {
     const annotations = classifyRun(run);
+    return annotations.length === 0 ? {} : { annotations };
+  },
+);
+
+/** Annotation kind of ellipsis candidates. */
+export const ELLIPSIS_ANNOTATION = "ellipsis";
+
+/**
+ * Pipeline rule that classifies ellipsis candidates once per unprotected region
+ * of the run, after the numeric protections. Each candidate becomes an
+ * `ellipsis` annotation whose data gives its function and whether that
+ * function is certain; its representation is read from the current text.
+ * Excluded candidates get no annotation.
+ */
+export const ELLIPSIS_CLASSIFICATION_RULE: RuntimeRule = catalogueRule(
+  "classify.ellipsis-candidates",
+  (run) => {
+    const stretches = new RunStretches(run);
+    const annotations: Annotation[] = [];
+    for (const region of unprotectedRegions(stretches)) {
+      const text = run.text.slice(region.start, region.end);
+      for (
+        const candidate of classifyEllipsisCandidates(text, region.start === 0)
+      ) {
+        annotations.push({
+          kind: ELLIPSIS_ANNOTATION,
+          start: region.start + candidate.start,
+          end: region.start + candidate.end,
+          data: {
+            function: candidate.function,
+            certain: String(candidate.certain),
+          },
+        });
+      }
+    }
     return annotations.length === 0 ? {} : { annotations };
   },
 );

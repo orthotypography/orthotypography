@@ -1,6 +1,9 @@
 import { OrthotypographyError } from "../errors.ts";
 import { PRESETS } from "../catalogue/presets.ts";
-import { NUMERIC_PROTECTION_RULE } from "../classify/runtime.ts";
+import {
+  ELLIPSIS_CLASSIFICATION_RULE,
+  NUMERIC_PROTECTION_RULE,
+} from "../classify/runtime.ts";
 import type { RuleMode, RuntimeRule } from "../model.ts";
 import {
   DIGIT_GROUPING_RULE,
@@ -31,6 +34,7 @@ import { FRENCH_GUILLEMETS_SPACING_RULE } from "./quotes.ts";
 export const EXECUTABLE_RULES: ReadonlyMap<string, RuntimeRule> = new Map(
   [
     NUMERIC_PROTECTION_RULE,
+    ELLIPSIS_CLASSIFICATION_RULE,
     FRENCH_GUILLEMETS_SPACING_RULE,
     ...SAFE_PUNCTUATION_RULES,
     SPACE_AFTER_COMMA_RULE,

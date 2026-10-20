@@ -41,7 +41,7 @@ Deno.test("percentage spacing supports lint mode", () => {
 Deno.test("percentage spacing requires numeric classification", () => {
   assertCode(
     () => runPipeline("25%", [PERCENTAGE_SPACING_RULE], { locale: "fr-FR" }),
-    "MISSING_DEPENDENCY",
+    "MISSING_ANNOTATION_PROVIDER",
   );
 });
 
