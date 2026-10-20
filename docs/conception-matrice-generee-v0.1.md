@@ -61,7 +61,7 @@ interface RuleException {
   readonly id: string;
   readonly description: string;
   /** Exception assurée hors du cœur, par l’intégration ou l’hôte. */
-  readonly scope?: "integration";
+  readonly scope?: "integration" | "review";
 }
 
 interface RuleDefinition {
@@ -78,6 +78,16 @@ interface RuleDefinition {
   parce qu’elle relève de l’hôte : « support contraint » (police ou éditeur qui
   ne rend pas `U+202F`), « entrée structurée par l’intégration ». Ces exceptions
   sont exemptées de l’exigence de couverture.
+- `scope: "review"` marque un cas que la règle ne détecte pas et qu’une
+  personne tranche, pour une règle qui signale sans corriger par défaut :
+  « citation d’une autre convention » pour l’euro. Ces cas sont exemptés de la
+  même façon (décision du 19 octobre 2026, à l’implémentation).
+- L’exigence de couverture a révélé quatre exceptions sans objet, retirées à
+  l’implémentation : « séparateur décimal » pour l’absence de blanc avant la
+  virgule, « abréviation », « numéro de version » et « adresse IP » pour
+  l’absence de blanc avant le point. Les règles suppriment le blanc dans tous
+  ces cas, ce qui est la prescription ; les constructions numériques restent
+  protégées par la classification.
 - `protected-content` est couverte par les invariants du pipeline, qui
   vérifient la préservation des segments protégés pour chaque composition ; ils
   déclarent `covers` pour chaque règle exécutable.

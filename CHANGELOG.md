@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Generate the coverage matrix table (#28;
+  `docs/conception-matrice-generee-v0.1.md`). **Breaking:**
+  `RuleDefinition.exceptions` is now a list of `RuleException` objects, with a
+  stable kebab-case `id`, an English `description`, and a `scope` for cases
+  the core does not detect: `integration` when the integration or the host
+  ensures them, `review` when a person decides; the catalogue validation checks
+  the IDs. Four exceptions that described no actual case are removed: the
+  decimal separator before a comma, and abbreviations, version numbers, and IP
+  addresses before a period, since the rules remove the whitespace in every
+  case. Tests declare the rules and exceptions
+  they cover with `covers`, and a test fails when an executable rule or one of
+  its testable exceptions has no covering test. `deno task matrix` writes the
+  table of the coverage matrix from the catalogue, the compiled preset, these
+  declarations, and `docs/data/matrice-in-2002.json`; `deno task check` fails
+  when it is out of date. The matrix gains a row for the ellipsis
+  classification.
 - Declare annotation dependencies and classify ellipses once per pass (#22;
   `docs/conception-annotations-v0.1.md`). `RuntimeRule` and `RuleDefinition`
   gain `provides`, the annotation kinds a classify rule produces, and

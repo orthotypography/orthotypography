@@ -1,0 +1,274 @@
+{
+  "exceptionLabels": {
+    "decimal-separator": "séparateur décimal",
+    "protected-content": "contenu protégé",
+    "end-of-text": "fin de texte",
+    "adjacent-punctuation": "ponctuation adjacente",
+    "technical-syntax": "syntaxe technique",
+    "period-run": "suite de points",
+    "abbreviation-boundary": "fin d’abréviation",
+    "time": "heure",
+    "ratio": "ratio",
+    "uri": "URI",
+    "port": "port",
+    "closing-sign": "signe fermant",
+    "comma-or-period": "virgule ou point",
+    "suspension-points": "points de suspension (signalés, non corrigés)",
+    "constrained-support": "support sans l’espace requise (intégration)",
+    "expressive-sequence": "suite expressive",
+    "ambiguous-function": "fonction ambiguë",
+    "other-period-sequence": "suites de points autres que trois",
+    "etc-abbreviation": "abréviation `etc.`",
+    "editorial-omission": "coupure éditoriale entre crochets",
+    "unestablished-function": "fonction non établie",
+    "unestablished-beginning": "début structurel non établi",
+    "missing-semantic-evidence": "indice sémantique absent",
+    "non-standalone-token": "jeton `etc.` non autonome",
+    "unpaired-guillemet": "guillemet non apparié",
+    "years-and-dates": "années et dates",
+    "ordinals-and-numbering": "ordinaux et numérotations",
+    "versions-and-addresses": "versions et adresses réseau",
+    "identifiers-and-codes": "identifiants, codes et références",
+    "technical-or-protected-content": "contenu technique ou protégé",
+    "identifier": "identifiant",
+    "angle": "angle",
+    "common-noun": "nom commun",
+    "unknown-unit": "unité inconnue",
+    "quoted-convention": "citation d’une autre convention (revue humaine)",
+    "ambiguous-currency": "devise ambiguë",
+    "integration-input": "entrée structurée par l’intégration (intégration)"
+  },
+  "rows": [
+    {
+      "prescription": "`space.before.comma`",
+      "rule": "punctuation.comma.no-space-before",
+      "execution": "`SAFE_PUNCTUATION_RULES` : `fix`",
+      "remaining": "décimales et syntaxe technique protégées par classification"
+    },
+    {
+      "prescription": "`space.before.period`",
+      "rule": "punctuation.period.no-space-before",
+      "execution": "`SAFE_PUNCTUATION_RULES` : `fix`",
+      "remaining": "versions, adresses IP, URI et autres constructions protégées par classification ; règles des points de suspension pour les suites de points ([nº 31](https://github.com/orthotypography/orthotypography/issues/31))"
+    },
+    {
+      "prescription": "`space.after.comma`",
+      "rule": "punctuation.comma.space-after",
+      "execution": "`SPACE_AFTER_COMMA_RULE` : `fix` contextuel",
+      "remaining": "URI et chemins préservés"
+    },
+    {
+      "prescription": "`space.after.period`",
+      "rule": "punctuation.period.space-after",
+      "execution": "non ; `manual-review` documentaire",
+      "tests": "`catalogue_test.ts` pour le catalogue seulement",
+      "remaining": "distinguer point final, abréviation et texte qui suit avant toute exécution"
+    },
+    {
+      "prescription": "`space.before.semicolon`",
+      "rule": "punctuation.semicolon.nnbsp-before",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix`",
+      "remaining": "signe redoublé"
+    },
+    {
+      "prescription": "`space.before.exclamation`",
+      "rule": "punctuation.exclamation.nnbsp-before",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix`",
+      "remaining": "`!important`"
+    },
+    {
+      "prescription": "`space.before.question`",
+      "rule": "punctuation.question.nnbsp-before",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix`"
+    },
+    {
+      "prescription": "`space.after.semicolon`",
+      "rule": "punctuation.semicolon.space-after",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix` atomique",
+      "remaining": "aucune espace imposée devant un signe fermant (nº 54) ni devant `,` ou `.` (nº 59) ; blanc correct d’un nœud voisin laissé en place (nº 63)"
+    },
+    {
+      "prescription": "`space.after.exclamation`",
+      "rule": "punctuation.exclamation.space-after",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix` atomique",
+      "remaining": "`!important` ; aucune espace imposée devant un signe fermant (nº 54) ni devant `,` ou `.` (nº 59) ; blanc correct d’un nœud voisin laissé en place (nº 63)"
+    },
+    {
+      "prescription": "`space.after.question`",
+      "rule": "punctuation.question.space-after",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix` atomique",
+      "remaining": "aucune espace imposée devant un signe fermant (nº 54) ni devant `,` ou `.` (nº 59) ; blanc correct d’un nœud voisin laissé en place (nº 63)"
+    },
+    {
+      "prescription": "`space.before.colon`",
+      "rule": "punctuation.colon.nbsp-before",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix`",
+      "remaining": "`::`"
+    },
+    {
+      "prescription": "`space.after.colon`",
+      "rule": "punctuation.colon.space-after",
+      "execution": "`HIGH_PUNCTUATION_RULES` : `fix` atomique",
+      "remaining": "heures, ratios, URI, ports et `::` protégés ; aucune espace imposée devant un signe fermant (nº 54) ni devant `,` ou `.` (nº 59) ; blanc correct d’un nœud voisin laissé en place (nº 63)"
+    },
+    {
+      "prescription": "`quotes.primary.glyphs`",
+      "catalogue": "issue de source seulement",
+      "execution": "non",
+      "tests": "négatifs dans `quotes_test.ts`",
+      "preset": "non",
+      "remaining": "reconnaître sans ambiguïté le rôle ouvrant ou fermant des guillemets droits"
+    },
+    {
+      "prescription": "`quotes.primary.innerSpacing`",
+      "rule": "quotes.french.nbsp-inner",
+      "execution": "`FRENCH_GUILLEMETS_SPACING_RULE` : `fix`",
+      "remaining": "blanc correct d’un nœud voisin laissé en place, blanc incorrect normalisé dans le nœud du guillemet, blanc dans un texte protégé laissé tel quel (nº 66)"
+    },
+    {
+      "prescription": "`ellipsis.count`",
+      "rule": "punctuation.ellipsis.glyph",
+      "execution": "`ELLIPSIS_GLYPH_RULE` : reconnaissance de `U+2026` ou exactement trois `U+002E` ; diagnostic des seuls trois points ASCII classés `final` ou `initial` certains ; correction atomique en mode explicite `fix`, mode par défaut `lint` ; `ELLIPSIS_RECOGNITION_RULE` reste un alias du même objet",
+      "remaining": "publié dans `0.1.0-alpha.3`"
+    },
+    {
+      "prescription": "`ellipsis.spacing.final`",
+      "rule": "punctuation.ellipsis.final.no-space-before",
+      "execution": "fonction `final` reconnue en interne lorsque l’ellipse est attachée à une lettre ; règle d’espacement cataloguée, non exécutable",
+      "tests": "`ellipsis_recognition_test.ts` pour la reconnaissance",
+      "remaining": "les cas certains sont déjà collés au mot précédent ; `Alors ...` reste indéterminé"
+    },
+    {
+      "prescription": "`ellipsis.spacing.initial`",
+      "rule": "punctuation.ellipsis.initial.space-after",
+      "execution": "fonction `initial` certaine au début structurel : diagnostic si une lettre suit immédiatement `…`, insertion de `U+0020` en mode `fix` explicite ; mode par défaut `lint`",
+      "remaining": "`...Suite` reste exclu comme syntaxe potentiellement technique ; simple délimiteur ouvrant insuffisant ; publié dans `0.1.0-alpha.3`"
+    },
+    {
+      "prescription": "`ellipsis.spacing.word`",
+      "rule": "punctuation.ellipsis.word.space-around",
+      "execution": "fonction `word` reconnue en interne mais marquée indéterminée ; aucun diagnostic, aucune correction, non exécutable",
+      "tests": "`ellipsis_recognition_test.ts` pour la reconnaissance et l’indétermination",
+      "remaining": "maintien en `manual-review` documentaire"
+    },
+    {
+      "prescription": "interdiction des points de suspension après `etc.`",
+      "rule": "punctuation.ellipsis.after-etc.forbidden",
+      "execution": "`ETC_ELLIPSIS_RULE` : `fix`"
+    },
+    {
+      "prescription": "`dash.parenthetical.glyph`",
+      "catalogue": "issue de source seulement",
+      "execution": "non",
+      "tests": "non",
+      "preset": "non",
+      "remaining": "le tiret source `-` est trop ambigu pour une conversion globale"
+    },
+    {
+      "prescription": "`dash.spacing`",
+      "catalogue": "issue de source seulement",
+      "execution": "non",
+      "tests": "non",
+      "preset": "non",
+      "remaining": "reconnaître préalablement le tiret d’incise ; cas fermant particulier"
+    },
+    {
+      "prescription": "`dash.closing.beforePeriod`",
+      "catalogue": "issue de source seulement",
+      "execution": "non",
+      "tests": "non",
+      "preset": "non",
+      "remaining": "reconnaître une incise appariée avant suppression"
+    },
+    {
+      "prescription": "`number.groupDigits`",
+      "rule": "number.digits.grouping",
+      "execution": "`DIGIT_GROUPING_RULE` : lint seulement, limité aux mesures, pourcentages et monnaies classifiés",
+      "remaining": "`U+202F` sortie canonique candidate, `U+00A0` accepté ; quantités autonomes, correction et normalisation des séparateurs reportées"
+    },
+    {
+      "prescription": "`number.decimalSeparator`",
+      "catalogue": "issue de source et classificateur",
+      "execution": "reconnaissance sans conversion, non exécutable",
+      "tests": "`numeric_classifier_test.ts`",
+      "preset": "non comme transformation",
+      "remaining": "ne jamais convertir aveuglément versions, identifiants ou conventions citées"
+    },
+    {
+      "prescription": "`number.noGrouping.ordinal`",
+      "rule": "number.digits.grouping",
+      "catalogue": "exclusion de `number.digits.grouping` et protection partielle par classification",
+      "execution": "le lint de groupement exclut les libellés de numérotage reconnus et n’examine pas les nombres autonomes",
+      "remaining": "protéger structurellement les contextes connus"
+    },
+    {
+      "prescription": "`space.before.percent`",
+      "rule": "number.percent.nbsp-before",
+      "execution": "`PERCENTAGE_SPACING_RULE` : `fix`",
+      "remaining": "valeur numérique classifiée ; URI protégés"
+    },
+    {
+      "prescription": "`percent.glyph`",
+      "rule": "number.percent.nbsp-before",
+      "catalogue": "résultat agrégé dans `number.percent.nbsp-before`",
+      "execution": "reconnaissance de `%` et `‰`, sans conversion de glyphe",
+      "preset": "oui, indirectement",
+      "remaining": "aucun glyphe source alternatif défini"
+    },
+    {
+      "prescription": "`space.numberUnit`",
+      "rule": "number.unit.nbsp-before",
+      "execution": "`UNIT_SPACING_RULE` : `lint` par défaut, `fix` explicite",
+      "remaining": "registre d’unités reconnu ; symboles ambigus exclus"
+    },
+    {
+      "prescription": "`unit.symbol.period`",
+      "catalogue": "issue de source seulement",
+      "execution": "non",
+      "tests": "registre seulement",
+      "preset": "non",
+      "remaining": "distinguer point fautif et ponctuation finale de phrase"
+    },
+    {
+      "prescription": "`unit.symbol.plural`",
+      "catalogue": "issue de source seulement",
+      "execution": "non",
+      "tests": "registre seulement",
+      "preset": "non",
+      "remaining": "éviter qu’un `s` forme un autre symbole valide, par exemple `ms`"
+    },
+    {
+      "prescription": "`unit.symbol.case`",
+      "catalogue": "registre d’unités",
+      "execution": "validation exacte, sans réécriture, non exécutable",
+      "tests": "`unit_registry_test.ts`",
+      "preset": "non comme transformation",
+      "remaining": "la casse est signifiante ; correction automatique potentiellement ambiguë"
+    },
+    {
+      "prescription": "`currency.euro.position`",
+      "rule": "number.euro.nbsp-before",
+      "catalogue": "résultat agrégé dans `number.euro.nbsp-before`",
+      "execution": "`EURO_SPACING_RULE` : `lint` par défaut, `fix` explicite",
+      "remaining": "euro seulement ; conventions citées et monnaies ambiguës exclues ; symbole antéposé collé au texte qui précède signalé sans correction (nº 36)"
+    },
+    {
+      "prescription": "`space.numberEuro`",
+      "rule": "number.euro.nbsp-before",
+      "execution": "`EURO_SPACING_RULE` : `lint` par défaut, `fix` explicite",
+      "remaining": "montant classifié et symbole `€` non ambigu"
+    },
+    {
+      "prescription": "classification des constructions numériques et techniques",
+      "rule": "classify.numeric-constructs",
+      "execution": "`NUMERIC_PROTECTION_RULE` : classification et protection",
+      "remaining": "autorité documentaire sans objet direct ; statut `TO_VERIFY` maintenu"
+    },
+    {
+      "prescription": "classification des points de suspension",
+      "rule": "classify.ellipsis-candidates",
+      "execution": "`ELLIPSIS_CLASSIFICATION_RULE` : classification seule, lue par les règles du glyphe et de l’espace initiale (nº 22)",
+      "remaining": "statut `TO_VERIFY`"
+    }
+  ]
+}

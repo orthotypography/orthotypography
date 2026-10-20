@@ -9,6 +9,7 @@ import {
   runPipeline,
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 const rules = [
   NUMERIC_PROTECTION_RULE,
@@ -19,6 +20,7 @@ const rules = [
 const fix = { locale: "fr-FR", mode: "fix" } as const;
 
 Deno.test("initial spacing fixes only a certain structural beginning", () => {
+  covers("punctuation.ellipsis.initial.space-after");
   for (
     const [input, expected] of [
       ["…Suite", "… Suite"],
@@ -46,6 +48,11 @@ Deno.test("initial spacing fixes only a certain structural beginning", () => {
 });
 
 Deno.test("initial spacing preserves excluded functions and syntax", () => {
+  covers("punctuation.ellipsis.initial.space-after", [
+    "unestablished-beginning",
+    "technical-syntax",
+    "editorial-omission",
+  ]);
   for (
     const input of [
       "… Suite",
@@ -113,6 +120,7 @@ Deno.test("initial spacing keeps source segments and guarded UTF-16 offsets", ()
 });
 
 Deno.test("initial spacing does not cross protected boundaries", () => {
+  covers("punctuation.ellipsis.initial.space-after", ["protected-content"]);
   const inputs = [
     [{ id: "mark", value: "…" }, {
       id: "word",

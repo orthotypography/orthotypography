@@ -7,6 +7,7 @@ export type {
   PresetDefinition,
   PresetRuleSelection,
   RuleDefinition,
+  RuleException,
   RuleMode,
   RulePhase,
   SourceDefinition,

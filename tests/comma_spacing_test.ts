@@ -8,8 +8,10 @@ import {
   SPACE_AFTER_COMMA_RULE,
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("missing spaces after commas are inserted in prose", () => {
+  covers("punctuation.comma.space-after");
   const result = runPipeline(
     "Bonjour,monde; puis,« citation »; enfin,(une précision).",
     [SPACE_AFTER_COMMA_RULE],
@@ -24,6 +26,10 @@ Deno.test("missing spaces after commas are inserted in prose", () => {
 });
 
 Deno.test("comma spacing preserves valid whitespace and adjacent punctuation", () => {
+  covers("punctuation.comma.space-after", [
+    "end-of-text",
+    "adjacent-punctuation",
+  ]);
   const input = "Fin, autre,\tencore,\nligne,, suite,. suite,; suite,!? suite,";
   const result = runPipeline(input, [SPACE_AFTER_COMMA_RULE], {
     locale: "fr-FR",
@@ -34,6 +40,10 @@ Deno.test("comma spacing preserves valid whitespace and adjacent punctuation", (
 });
 
 Deno.test("comma spacing preserves numeric and technical constructions", () => {
+  covers("punctuation.comma.space-after", [
+    "decimal-separator",
+    "technical-syntax",
+  ]);
   const input =
     "Décimale 1,5; URI https://example.test/a,b; chemin /tmp/a,b; version 1.2.3.";
   const result = runPipeline(
@@ -47,6 +57,7 @@ Deno.test("comma spacing preserves numeric and technical constructions", () => {
 });
 
 Deno.test("comma spacing does not cross protected segments", () => {
+  covers("punctuation.comma.space-after", ["protected-content"]);
   const source = [
     { id: "plain", value: "Bonjour," },
     { id: "code", value: "monde", protected: true },

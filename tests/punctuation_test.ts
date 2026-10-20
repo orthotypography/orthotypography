@@ -9,8 +9,11 @@ import {
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
 import type { TextSegment } from "../src/model.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("safe punctuation rules remove whitespace before comma and period", () => {
+  covers("punctuation.comma.no-space-before");
+  covers("punctuation.period.no-space-before");
   const result = runPipeline(
     "Bonjour , monde. Fin .",
     SAFE_PUNCTUATION_RULES,
@@ -33,6 +36,7 @@ Deno.test("safe punctuation rules report without changing text in lint mode", ()
 });
 
 Deno.test("safe punctuation rules preserve protected segments", () => {
+  covers("punctuation.period.no-space-before", ["protected-content"]);
   const result = runPipeline(
     [
       { value: "Bonjour ," },
@@ -142,6 +146,7 @@ Deno.test("French punctuation rules do not run for another locale", () => {
 });
 
 Deno.test("period spacing leaves runs of periods to the ellipsis rules", () => {
+  covers("punctuation.period.no-space-before", ["period-run"]);
   for (
     const [input, expected] of [
       ["Alors ...", "Alors ..."],

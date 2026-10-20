@@ -6,6 +6,7 @@ import {
   runPipeline,
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("euro spacing is diagnostic by default", () => {
   const result = runPipeline(
@@ -19,6 +20,7 @@ Deno.test("euro spacing is diagnostic by default", () => {
 });
 
 Deno.test("euro spacing fixes placement and spacing when requested", () => {
+  covers("number.euro.nbsp-before");
   const result = runPipeline("€12 ; 20 €", IMPRIMERIE_NATIONALE_RULES, {
     locale: "fr-FR",
     mode: "fix",
@@ -27,6 +29,7 @@ Deno.test("euro spacing fixes placement and spacing when requested", () => {
 });
 
 Deno.test("euro spacing preserves other and ambiguous currencies", () => {
+  covers("number.euro.nbsp-before", ["ambiguous-currency"]);
   const input = "12 USD / 12$ / $12 / 12 £ / £12 / 12 EUR";
   const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, {
     locale: "fr-FR",
@@ -41,6 +44,7 @@ Deno.test("euro spacing preserves other and ambiguous currencies", () => {
 });
 
 Deno.test("euro spacing preserves protected URI", () => {
+  covers("number.euro.nbsp-before", ["protected-content"]);
   const input = "https://x.test/12€";
   const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, {
     locale: "fr-FR",

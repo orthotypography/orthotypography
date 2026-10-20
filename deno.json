@@ -36,9 +36,11 @@
     ]
   },
   "tasks": {
-    "check": "deno fmt --check && deno lint && deno check && deno task doc",
+    "check": "deno fmt --check && deno lint && deno check && deno task doc && deno task matrix:check",
+    "matrix": "deno run --allow-read --allow-write=docs/matrice-couverture-in-2002-v0.1.md scripts/coverage_matrix.ts",
+    "matrix:check": "deno run --allow-read scripts/coverage_matrix.ts --check",
     "doc": "deno doc src/mod.ts src/catalogue/mod.ts src/registry/mod.ts",
-    "test": "deno test --allow-read=tests/fixtures",
+    "test": "deno test --allow-read=tests",
     "corpus:update": "deno run --allow-read=tests/fixtures --allow-write=tests/fixtures/corpus/snapshots.json tests/support/corpus.ts",
     "bench": "deno run --allow-read=tests/fixtures scripts/benchmark.ts",
     "publish:check": "deno publish --dry-run --check=all",

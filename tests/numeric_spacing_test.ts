@@ -6,8 +6,10 @@ import {
   runPipeline,
 } from "../src/mod.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("percentage spacing uses a no-break space", () => {
+  covers("number.percent.nbsp-before");
   const result = runPipeline(
     "25% ; 25,5 % ; 3‰",
     IMPRIMERIE_NATIONALE_RULES,
@@ -18,6 +20,7 @@ Deno.test("percentage spacing uses a no-break space", () => {
 });
 
 Deno.test("percentage spacing preserves identifiers and protected URI", () => {
+  covers("number.percent.nbsp-before", ["identifier", "protected-content"]);
   const input = "%PATH% prix%variable https://exemple.fr/25%";
   const result = runPipeline(input, IMPRIMERIE_NATIONALE_RULES, {
     locale: "fr-FR",
