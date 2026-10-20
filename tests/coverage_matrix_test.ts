@@ -20,9 +20,11 @@ const coverage = [
   },
 ];
 const labels = { "protected-content": "contenu protégé" };
+const columns = ["P", "C", "E", "T", "S", "X"];
 
 Deno.test("matrix rows combine the catalogue, the preset, and the tests", () => {
   const data: MatrixData = {
+    columns,
     exceptionLabels: labels,
     rows: [
       {
@@ -53,12 +55,13 @@ Deno.test("matrix data must stay consistent with the catalogue", () => {
     execution: "`SAFE_PUNCTUATION_RULES` : `fix`",
   };
   assert.throws(
-    () => renderMatrix({ exceptionLabels: {}, rows: [row] }, coverage),
+    () => renderMatrix({ columns, exceptionLabels: {}, rows: [row] }, coverage),
     /no label for exception protected-content/,
   );
   assert.throws(
     () =>
       renderMatrix({
+        columns,
         exceptionLabels: labels,
         rows: [{ ...row, execution: "non" }],
       }, coverage),
@@ -67,6 +70,7 @@ Deno.test("matrix data must stay consistent with the catalogue", () => {
   assert.throws(
     () =>
       renderMatrix({
+        columns,
         exceptionLabels: labels,
         rows: [{ ...row, rule: "punctuation.unknown" }],
       }, coverage),
@@ -75,6 +79,7 @@ Deno.test("matrix data must stay consistent with the catalogue", () => {
   assert.throws(
     () =>
       renderMatrix({
+        columns,
         exceptionLabels: labels,
         rows: [{ prescription: "`x`", execution: "non" }],
       }, coverage),
@@ -84,10 +89,10 @@ Deno.test("matrix data must stay consistent with the catalogue", () => {
 
 Deno.test("the table is replaced between its markers only", () => {
   const document =
-    "avant\n<!-- matrice:début -->\nancien\n<!-- matrice:fin -->\naprès\n";
+    "avant\n<!-- coverage-matrix:start -->\nancien\n<!-- coverage-matrix:end -->\naprès\n";
   assert.equal(
     replaceTable(document, ["| a |", "| b |"]),
-    "avant\n<!-- matrice:début -->\n| a |\n| b |\n<!-- matrice:fin -->\naprès\n",
+    "avant\n<!-- coverage-matrix:start -->\n| a |\n| b |\n<!-- coverage-matrix:end -->\naprès\n",
   );
   assert.throws(() => replaceTable("sans marqueurs", []), /must contain/);
 });

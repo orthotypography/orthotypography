@@ -12,12 +12,8 @@ import { EXECUTABLE_RULES } from "../src/rules/presets.ts";
 import { type CoverageDeclaration, readCoverage } from "./test_coverage.ts";
 
 const PRESET_ID = "fr-FR/imprimerie-nationale-2002";
-const START = "<!-- matrice:début -->";
-const END = "<!-- matrice:fin -->";
-const HEADER = [
-  "| Prescription atomique du dépouillement | Catalogue machine | Exécution sur `main` | Tests directs | Preset IN 2002 | Exclusions ou travail restant |",
-  "|---|---|---|---|---|---|",
-];
+const START = "<!-- coverage-matrix:start -->";
+const END = "<!-- coverage-matrix:end -->";
 
 /** One row of the data file. */
 export interface MatrixRow {
@@ -33,6 +29,8 @@ export interface MatrixRow {
 }
 
 export interface MatrixData {
+  /** Column headings of the table, in the language of the document. */
+  readonly columns: readonly string[];
   readonly exceptionLabels: Readonly<Record<string, string>>;
   readonly rows: readonly MatrixRow[];
 }
@@ -44,7 +42,13 @@ export function renderMatrix(
 ): string[] {
   const preset = PRESETS.find(({ id }) => id === PRESET_ID);
   if (preset === undefined) throw new Error(`Missing preset ${PRESET_ID}`);
-  const lines = [...HEADER];
+  if (data.columns.length !== 6) {
+    throw new Error("The matrix data must name six columns");
+  }
+  const lines = [
+    `| ${data.columns.join(" | ")} |`,
+    `|${"---|".repeat(data.columns.length)}`,
+  ];
   for (const row of data.rows) {
     const rule = row.rule === undefined
       ? undefined

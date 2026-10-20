@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Write the remaining French descriptions of the catalogue in English, as
+  `AGENTS.md` requires for prose outside `docs/`; the exceptions already are.
+  The coverage matrix generator takes its French column headings from
+  `docs/data/matrice-in-2002.json`, and its markers become
+  `<!-- coverage-matrix:start -->` and `<!-- coverage-matrix:end -->`.
 - Generate the coverage matrix table (#28;
   `docs/conception-matrice-generee-v0.1.md`). **Breaking:**
   `RuleDefinition.exceptions` is now a list of `RuleException` objects, with a

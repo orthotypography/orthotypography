@@ -5,7 +5,7 @@ const frenchLocales = ["fr-FR", "fr-CA"] as const;
 export const RULES: readonly RuleDefinition[] = [
   {
     id: "punctuation.comma.no-space-before",
-    description: "Supprimer tout blanc précédant une virgule de phrase.",
+    description: "Remove any whitespace before a sentence comma.",
     locales: frenchLocales,
     phase: "punctuation-spacing",
     status: "VERIFIED",
@@ -46,7 +46,7 @@ export const RULES: readonly RuleDefinition[] = [
   },
   {
     id: "punctuation.period.no-space-before",
-    description: "Supprimer tout blanc précédant un point final.",
+    description: "Remove any whitespace before a sentence-final period.",
     locales: frenchLocales,
     phase: "punctuation-spacing",
     status: "VERIFIED",
@@ -90,8 +90,7 @@ export const RULES: readonly RuleDefinition[] = [
   },
   {
     id: "punctuation.colon.nbsp-before",
-    description:
-      "Placer une espace insécable de mots avant un deux-points de phrase.",
+    description: "Place a no-break word space before a sentence colon.",
     locales: frenchLocales,
     phase: "punctuation-spacing",
     status: "VERIFIED_MAPPING",
@@ -143,7 +142,7 @@ export const RULES: readonly RuleDefinition[] = [
   },
   {
     id: "punctuation.semicolon.nnbsp-before",
-    description: "Placer une espace fine insécable avant un point-virgule.",
+    description: "Place a narrow no-break space before a semicolon.",
     locales: frenchLocales,
     phase: "punctuation-spacing",
     status: "VERIFIED_MAPPING",
@@ -195,8 +194,7 @@ export const RULES: readonly RuleDefinition[] = [
   },
   {
     id: "punctuation.question.nnbsp-before",
-    description:
-      "Placer une espace fine insécable avant un point d’interrogation.",
+    description: "Place a narrow no-break space before a question mark.",
     locales: frenchLocales,
     phase: "punctuation-spacing",
     status: "VERIFIED_MAPPING",
@@ -250,8 +248,7 @@ export const RULES: readonly RuleDefinition[] = [
   },
   {
     id: "punctuation.exclamation.nnbsp-before",
-    description:
-      "Placer une espace fine insécable avant un point d’exclamation.",
+    description: "Place a narrow no-break space before an exclamation mark.",
     locales: frenchLocales,
     phase: "punctuation-spacing",
     status: "VERIFIED_MAPPING",
@@ -442,8 +439,7 @@ export const RULES: readonly RuleDefinition[] = [
   },
   {
     id: "quotes.french.nbsp-inner",
-    description:
-      "Placer une espace insécable de mots à l’intérieur des guillemets français.",
+    description: "Place a no-break word space inside French guillemets.",
     locales: frenchLocales,
     phase: "quotes",
     status: "VERIFIED_MAPPING",
@@ -501,8 +497,7 @@ export const RULES: readonly RuleDefinition[] = [
   },
   {
     id: "number.percent.nbsp-before",
-    description:
-      "Placer une espace insécable entre une valeur et le symbole pour cent.",
+    description: "Place a no-break space between a value and the percent sign.",
     locales: frenchLocales,
     phase: "numeric-spacing",
     status: "VERIFIED_BY_EXAMPLE",
@@ -524,7 +519,7 @@ export const RULES: readonly RuleDefinition[] = [
   {
     id: "number.unit.nbsp-before",
     description:
-      "Placer une espace insécable entre une valeur et un symbole d’unité reconnu.",
+      "Place a no-break space between a value and a recognized unit symbol.",
     locales: frenchLocales,
     phase: "numeric-spacing",
     status: "VERIFIED_BY_EXAMPLE",
@@ -552,7 +547,7 @@ export const RULES: readonly RuleDefinition[] = [
   {
     id: "number.euro.nbsp-before",
     description:
-      "Placer le symbole euro à droite de la valeur et l’en séparer par une espace insécable.",
+      "Place the euro sign after the value, separated from it by a no-break space.",
     locales: frenchLocales,
     phase: "numeric-spacing",
     status: "VERIFIED_BY_EXAMPLE",
@@ -580,7 +575,7 @@ export const RULES: readonly RuleDefinition[] = [
   {
     id: "classify.numeric-constructs",
     description:
-      "Identifier les heures, ratios, mesures, monnaies et autres constructions numériques protégées.",
+      "Identify times, ratios, measurements, currency amounts, and other numeric constructs, protecting the syntactic ones.",
     locales: frenchLocales,
     phase: "classify",
     status: "TO_VERIFY",
