@@ -97,3 +97,35 @@ Deno.test("ellipsis glyph and spacing functions are catalogued but not selected"
     );
   }
 });
+
+Deno.test("catalogue exceptions declare a valid origin", () => {
+  // Source exceptions are kept apart from the safeguards of the project
+  // (docs/conception-ecriture-regles-v0.1.md, §6).
+  const [rule] = RULES;
+  const [exception] = rule.exceptions;
+  const messages = (exceptions: unknown[]) =>
+    validateCatalogue(SOURCES, [
+      ...RULES.filter(({ id }) => id !== rule.id),
+      { ...rule, exceptions } as typeof rule,
+    ], PRESETS).map(({ message }) => message);
+
+  assert.deepEqual(messages([{ ...exception, origin: "source" }]), []);
+  assert.ok(
+    messages([{ id: exception.id, description: "x" }]).includes(
+      `exception ${exception.id} has no valid origin`,
+    ),
+  );
+  assert.ok(
+    messages([{ ...exception, origin: "lexique" }]).includes(
+      `exception ${exception.id} has no valid origin`,
+    ),
+  );
+  for (const { id, exceptions } of RULES) {
+    for (const { id: exceptionId, origin } of exceptions) {
+      assert.ok(
+        origin === "source" || origin === "safeguard",
+        `${id}#${exceptionId}`,
+      );
+    }
+  }
+});

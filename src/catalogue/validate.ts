@@ -114,6 +114,12 @@ export function validateCatalogue(
         });
       }
       exceptionIds.add(exception.id);
+      if (exception.origin !== "source" && exception.origin !== "safeguard") {
+        issues.push({
+          path: `rules.${rule.id}.exceptions`,
+          message: `exception ${exception.id} has no valid origin`,
+        });
+      }
       if (exception.description.trim().length === 0) {
         issues.push({
           path: `rules.${rule.id}.exceptions`,

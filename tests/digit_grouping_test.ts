@@ -41,7 +41,8 @@ Deno.test("digit grouping preserves numbering and technical contexts", () => {
     "years-and-dates",
     "ordinals-and-numbering",
     "versions-and-addresses",
-    "identifiers-and-codes",
+    "numbering-references",
+    "technical-identifiers",
     "technical-or-protected-content",
   ]);
   const inputs = [
