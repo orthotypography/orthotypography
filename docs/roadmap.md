@@ -2,7 +2,8 @@
 
 État vérifié le 20 octobre 2026 sur `main` après la
 [PR nº 77](https://github.com/orthotypography/orthotypography/pull/77). La
-version `0.2.0-alpha.1` est préparée par la PR PR_PREP, non encore publiée ;
+version `0.2.0-alpha.1` est préparée par la
+[PR nº 78](https://github.com/orthotypography/orthotypography/pull/78), non encore publiée ;
 la dernière version publiée est `0.2.0-alpha.0`. Ce document sert de
 passation ; les prochaines tâches sont proposées et ne
 constituent pas une promesse de release.
