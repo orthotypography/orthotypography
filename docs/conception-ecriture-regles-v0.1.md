@@ -240,20 +240,25 @@ note :
 | `abbreviation-boundary` | `source` | point abréviatif, liste des abréviations |
 | `etc-abbreviation`, `non-standalone-token` | `source` | « On ne doit jamais faire suivre “etc.” de points de suspension » vise l’abréviation, non une suite de lettres |
 | `editorial-omission` | `source` | coupure de citation signalée entre crochets |
-| `years-and-dates`, `ordinals-and-numbering`, `identifiers-and-codes` | `source` | millésimes, matricules, folios et autres numérotages composés sans groupement (Nombres, *nota* b) |
+| `years-and-dates`, `ordinals-and-numbering`, `numbering-references` | `source` | millésimes, matricules, folios et autres numérotages composés sans groupement (Nombres, *nota* b) ; `numbering-references` vise un nombre précédé de `article`, `folio`, `matricule`, `numéro`, `no`, `n°` ou `page` |
 | `angle`, `common-noun` | `source` | angles et noms d’unités hors de la règle « nombre + symbole » (dépouillement, § 6) |
 | `protected-content`, `technical-syntax`, `technical-or-protected-content` | `safeguard` | texte protégé par l’hôte ou d’allure technique |
-| `time`, `ratio`, `uri`, `port`, `versions-and-addresses`, `identifier` | `safeguard` | notations techniques que le *Lexique* ne règle pas |
+| `time`, `ratio`, `uri`, `port`, `versions-and-addresses`, `identifier`, `technical-identifiers` | `safeguard` | notations techniques que le *Lexique* ne règle pas ; `technical-identifiers` vise un nombre précédé de `build`, `code`, `id`, `ISBN`, `ISSN`, `réf.`, `référence`, `ticket`, `version`, ou de `-`, `_`, `/`, `#` |
 | `adjacent-punctuation`, `expressive-sequence`, `suspension-points` | `safeguard` | suites de signes dont le *Lexique* ne décrit pas l’espacement |
 | `ambiguous-function`, `other-period-sequence`, `unestablished-function`, `unestablished-beginning`, `missing-semantic-evidence`, `unpaired-guillemet` | `safeguard` | fonction du signe non établie |
 | `unknown-unit`, `ambiguous-currency`, `quoted-convention` | `safeguard` | symbole hors registre, ou donnée citée dans une autre convention |
 | `constrained-support`, `integration-input` | `safeguard` | support de rendu ou entrée structurée, assurés par l’intégration |
 
-Deux classements demandent une attention particulière : `identifiers-and-codes`
-couvre les matricules de la source mais aussi des codes modernes, et
-`expressive-sequence` (`?!`) n’est pas décrit par le *Lexique*, qui ne parle
-que des suites d’interjections. Un identifiant qui mêle les deux natures peut
-être scindé à l’implémentation.
+Deux classements ont été tranchés le 20 octobre 2026 :
+
+- `identifiers-and-codes`, qui mêlait les matricules et folios de la source et
+  des codes modernes, est scindé en `numbering-references` (`source`) et
+  `technical-identifiers` (`safeguard`). Les préfixes reconnus par
+  `number.digits.grouping` se répartissent entre les deux ; les sorties ne
+  changent pas, et chaque nouvel identifiant reçoit son libellé dans la matrice
+  et un test qui le couvre.
+- `expressive-sequence` (`?!`) reste un garde-fou : le *Lexique* ne décrit que
+  les suites d’interjections, non l’espacement d’une suite de signes.
 
 ## 7. Exclusions et catalogue
 
@@ -297,8 +302,8 @@ existants des règles migrées restent inchangés.
 
 Une PR, après la fusion de cette note :
 
-1. champ `origin` des exceptions, classement de la section 6 et matrice
-   divisée ;
+1. champ `origin` des exceptions, classement de la section 6, scission
+   d’`identifiers-and-codes` et matrice divisée ;
 2. module `src/rules/authoring/` (primitives et fabrique), avec ses tests de
    validation à la construction ;
 3. migration des dix règles d’espacement de virgule, de point et de
