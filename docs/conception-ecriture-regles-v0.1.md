@@ -40,12 +40,21 @@ Constats :
   fiches. Une comparaison du code et du catalogue fait apparaître des
   exclusions exécutées mais non déclarées :
 
-| Règle | Exclusion codée | Exception absente de la fiche |
-| --- | --- | --- |
-| les quatre espaces avant la ponctuation haute | signe en début de texte, sans caractère précédent (`: suite`) | `start-of-text` |
-| `punctuation.colon.nbsp-before` | `::` | `technical-syntax` |
-| `punctuation.colon.nbsp-before`, `punctuation.semicolon.nnbsp-before` | signe doublé, signe de rang supérieur avant le signe (`?:`) | `adjacent-punctuation` |
-| `punctuation.exclamation.nnbsp-before` | `!important` | `technical-syntax` |
+| Règle | Exclusion codée | Exception absente de la fiche | Origine |
+| --- | --- | --- | --- |
+| les quatre espaces avant la ponctuation haute | signe en début de texte, sans caractère précédent (`: suite`) | `start-of-text` | impliquée par la source : aucun mot ne précède le signe |
+| `punctuation.colon.nbsp-before` | `::` | `technical-syntax` | garde-fou du projet |
+| `punctuation.colon.nbsp-before`, `punctuation.semicolon.nnbsp-before` | signe doublé, signe de rang supérieur avant le signe (`?:`) | `adjacent-punctuation` | garde-fou du projet |
+| `punctuation.exclamation.nnbsp-before` | `!important` | `technical-syntax` | garde-fou du projet |
+
+- Les fiches mêlent sous `exceptions` deux natures que rien ne distingue : les
+  exceptions de la source, relevées dans le *Lexique* ou impliquées par sa
+  prescription, et les garde-fous du projet. Le *Lexique* règle la composition
+  éditoriale, pas les URL, le code, les versions logicielles ou la syntaxe HTML
+  ([dépouillement](depouillement-lexique-v0.3.md), § 6) : `technical-syntax`,
+  `uri`, `port` ou `::` ne sont pas des exceptions de l’Imprimerie nationale,
+  mais des décisions techniques qui empêchent de corriger un texte qui n’est
+  pas de la prose.
 
   Les autres exceptions de ces fiches sont soit vérifiées par le code
   (`uri` pour `:/`, `expressive-sequence` pour `?!`, `period-run`…), soit
@@ -73,6 +82,11 @@ Constats :
 5. **`bias` dérivé du côté.** La fabrique fixe `bias: "right"` pour une
    correction avant le signe et `bias: "left"` après ; une règle ne le choisit
    plus.
+6. **Origine des exceptions** (décision du 20 octobre 2026). Chaque exception
+   du catalogue déclare son origine : `source` ou `safeguard`. Le comportement
+   ne change pas ; la matrice présente séparément les exceptions de la source
+   et les garde-fous du projet, pour qu’aucun garde-fou ne passe pour une
+   prescription de l’Imprimerie nationale.
 
 ## 4. Primitives
 
@@ -184,7 +198,64 @@ export const COLON_SPACE_BEFORE_RULE = markSpacingRule({
 classification qui produit ce type d’annotation (`dependsOn` ou `requires`) ;
 la construction échoue sinon.
 
-## 6. Exclusions et catalogue
+## 6. Origine des exceptions
+
+```ts
+interface RuleException {
+  readonly id: string;
+  readonly description: string;
+  /**
+   * `source`: stated by the source, or implied by its prescription.
+   * `safeguard`: a technical decision of the project, which the source does
+   * not make, so as not to correct text that is not prose or whose function
+   * is not established.
+   */
+  readonly origin: "source" | "safeguard";
+  readonly scope?: "integration" | "review";
+}
+```
+
+- `origin` est obligatoire ; `validateCatalogue` refuse une exception sans
+  origine. Le champ rompt le type de `./catalogue`, comme les exceptions
+  structurées de `0.2.0-alpha.1`, et rejoint la prochaine préversion de la
+  ligne `0.2`.
+- Une exception `source` vise une exception énoncée par la source, ou un cas
+  que sa prescription ne vise pas par construction : il n’y a pas d’espace
+  « entre les mots » après un signe en fin de texte. Son localisateur dans le
+  *Lexique* pourra être ajouté avec le
+  [dépouillement v0.4](https://github.com/orthotypography/orthotypography/issues/84).
+- La matrice de couverture divise la colonne des exclusions : exceptions de la
+  source, puis garde-fous, chacun avec ses libellés français.
+
+Classement proposé des exceptions existantes, à valider à la revue de cette
+note :
+
+| Identifiant | Origine | Fondement |
+| --- | --- | --- |
+| `closing-sign` | `source` | tableau des espaces : aucun blanc avant la parenthèse et le crochet fermants, espace insécable avant le guillemet fermant |
+| `comma-or-period` | `source` | « la virgule et le point sont toujours collés au mot précédent » |
+| `end-of-text`, `start-of-text` | `source` | impliquées : aucun mot ne suit, ou ne précède, le signe |
+| `decimal-separator` | `source` | virgule décimale des exemples du *Lexique* (`number.decimalSeparator`) |
+| `period-run` | `source` | le point « se confond » avec les points de suspension, réglés par leurs propres règles |
+| `abbreviation-boundary` | `source` | point abréviatif, liste des abréviations |
+| `etc-abbreviation`, `non-standalone-token` | `source` | « On ne doit jamais faire suivre “etc.” de points de suspension » vise l’abréviation, non une suite de lettres |
+| `editorial-omission` | `source` | coupure de citation signalée entre crochets |
+| `years-and-dates`, `ordinals-and-numbering`, `identifiers-and-codes` | `source` | millésimes, matricules, folios et autres numérotages composés sans groupement (Nombres, *nota* b) |
+| `angle`, `common-noun` | `source` | angles et noms d’unités hors de la règle « nombre + symbole » (dépouillement, § 6) |
+| `protected-content`, `technical-syntax`, `technical-or-protected-content` | `safeguard` | texte protégé par l’hôte ou d’allure technique |
+| `time`, `ratio`, `uri`, `port`, `versions-and-addresses`, `identifier` | `safeguard` | notations techniques que le *Lexique* ne règle pas |
+| `adjacent-punctuation`, `expressive-sequence`, `suspension-points` | `safeguard` | suites de signes dont le *Lexique* ne décrit pas l’espacement |
+| `ambiguous-function`, `other-period-sequence`, `unestablished-function`, `unestablished-beginning`, `missing-semantic-evidence`, `unpaired-guillemet` | `safeguard` | fonction du signe non établie |
+| `unknown-unit`, `ambiguous-currency`, `quoted-convention` | `safeguard` | symbole hors registre, ou donnée citée dans une autre convention |
+| `constrained-support`, `integration-input` | `safeguard` | support de rendu ou entrée structurée, assurés par l’intégration |
+
+Deux classements demandent une attention particulière : `identifiers-and-codes`
+couvre les matricules de la source mais aussi des codes modernes, et
+`expressive-sequence` (`?!`) n’est pas décrit par le *Lexique*, qui ne parle
+que des suites d’interjections. Un identifiant qui mêle les deux natures peut
+être scindé à l’implémentation.
+
+## 7. Exclusions et catalogue
 
 - À la construction, `markSpacingRule` vérifie que chaque clé d’`exclusions`
   est l’identifiant d’une exception de la fiche, et que chaque exception de la
@@ -192,10 +263,10 @@ la construction échoue sinon.
   lève `CATALOGUE_INCONSISTENCY`, au chargement du module, donc dans tous les
   tests.
 - La migration ajoute aux fiches les exceptions de la section 2, qui décrivent
-  des exclusions déjà exécutées : `start-of-text` pour les quatre espaces avant
-  la ponctuation haute, `technical-syntax` pour le deux-points et le point
-  d’exclamation, `adjacent-punctuation` pour le deux-points et le
-  point-virgule. Les sorties ne changent pas ; la matrice reçoit leurs libellés
+  des exclusions déjà exécutées : `start-of-text` (`source`) pour les quatre
+  espaces avant la ponctuation haute, `technical-syntax` (`safeguard`) pour le
+  deux-points et le point d’exclamation, `adjacent-punctuation` (`safeguard`)
+  pour le deux-points et le point-virgule. Les sorties ne changent pas ; la matrice reçoit leurs libellés
   français dans `docs/data/matrice-in-2002.json`, et chaque nouvelle exception
   testable reçoit un test qui la couvre
   ([conception de la matrice générée](conception-matrice-generee-v0.1.md)).
@@ -204,7 +275,7 @@ la construction échoue sinon.
   par ses propres tests. Une exclusion `skip` ou `report` exige un test qui
   déclare `covers(ruleId, [exceptionId])`.
 
-## 7. Gabarit de test
+## 8. Gabarit de test
 
 Chaque règle écrite avec la fabrique reçoit, dans un fichier de test de sa
 famille :
@@ -222,16 +293,18 @@ Un utilitaire de test commun énumère ces cas à partir d’une table, pour que
 coût d’une nouvelle règle soit sa table et non un fichier recopié. Les tests
 existants des règles migrées restent inchangés.
 
-## 8. Mise en œuvre et validation
+## 9. Mise en œuvre et validation
 
 Une PR, après la fusion de cette note :
 
-1. module `src/rules/authoring/` (primitives et fabrique), avec ses tests de
+1. champ `origin` des exceptions, classement de la section 6 et matrice
+   divisée ;
+2. module `src/rules/authoring/` (primitives et fabrique), avec ses tests de
    validation à la construction ;
-2. migration des dix règles d’espacement de virgule, de point et de
+3. migration des dix règles d’espacement de virgule, de point et de
    ponctuation haute ; exceptions ajoutées aux fiches, libellés de la matrice
    et tests de couverture ;
-3. suppression du code remplacé dans `src/rules/punctuation.ts`.
+4. suppression du code remplacé dans `src/rules/punctuation.ts`.
 
 Critères d’acceptation :
 
@@ -242,7 +315,7 @@ Critères d’acceptation :
 - `deno task check` et `deno task test` réussissent ; les tests existants sont
   inchangés, hors déclarations `covers` des nouvelles exceptions.
 
-## 9. Hors champ
+## 10. Hors champ
 
 - L’export public de la couche, à décider après plusieurs lots de règles.
 - Les fabriques des familles « construction annotée » et « motif sur les
