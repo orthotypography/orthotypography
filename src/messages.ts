@@ -9,8 +9,14 @@ import { OrthotypographyError } from "./errors.ts";
 export const DIAGNOSTIC_MESSAGES: Readonly<Record<string, string>> = Object
   .freeze({
     "spacing.no-space-before": "Unexpected whitespace before {mark}",
-    "spacing.space-before": "Unexpected whitespace before {mark}",
-    "spacing.space-after": "Unexpected whitespace after {mark}",
+    "spacing.missing-before": "Missing {space} before {mark}",
+    "spacing.wrong-before": "Expected {space} before {mark}",
+    "spacing.excess-before": "Extra whitespace before {mark}; expected {space}",
+    "spacing.missing-after": "Missing {space} after {mark}",
+    "spacing.wrong-after": "Expected {space} after {mark}",
+    "spacing.excess-after": "Extra whitespace after {mark}; expected {space}",
+    "spacing.trailing-after":
+      "Unexpected whitespace after {mark} at the end of the text",
     "spacing.space-after.ellipsis":
       "Spacing between {mark} and suspension points is not prescribed",
     "spacing.comma.space-after": "Missing whitespace after comma",

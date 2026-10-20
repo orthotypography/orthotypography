@@ -92,8 +92,13 @@ gabarit, si bien que le texte anglais reste identique :
 | Identifiant                     | Paramètres | Règles                                                  |
 | ------------------------------- | ---------- | ------------------------------------------------------- |
 | `spacing.no-space-before`       | `mark`     | `punctuation.comma.no-space-before`, `punctuation.period.no-space-before` |
-| `spacing.space-before`          | `mark`     | espaces avant `:`, `;`, `?`, `!`                         |
-| `spacing.space-after`           | `mark`     | espaces après `:`, `;`, `?`, `!`                         |
+| `spacing.missing-before`        | `mark`, `space` | espace absente avant `:`, `;`, `?`, `!`             |
+| `spacing.wrong-before`          | `mark`, `space` | espace d’une autre nature avant ces signes          |
+| `spacing.excess-before`         | `mark`, `space` | blanc plus long que l’espace attendue avant ces signes |
+| `spacing.missing-after`         | `mark`, `space` | espace absente après ces signes                     |
+| `spacing.wrong-after`           | `mark`, `space` | espace d’une autre nature après ces signes          |
+| `spacing.excess-after`          | `mark`, `space` | blanc plus long que l’espace attendue après ces signes |
+| `spacing.trailing-after`        | `mark`     | blanc après ces signes en fin de texte                   |
 | `spacing.space-after.ellipsis`  | `mark`     | mêmes règles, devant des points de suspension            |
 | `spacing.comma.space-after`     | —          | `punctuation.comma.space-after`                          |
 | `quotes.french.inner-space`     | —          | `quotes.french.nbsp-inner`                               |
@@ -106,10 +111,18 @@ gabarit, si bien que le texte anglais reste identique :
 | `ellipsis.glyph`                | `function` | `punctuation.ellipsis.glyph`                             |
 | `ellipsis.initial.space-after`  | —          | `punctuation.ellipsis.initial.space-after`               |
 
-Deux règles peuvent partager un gabarit anglais sous des identifiants
-distincts (`spacing.no-space-before` et `spacing.space-before`), afin qu’un hôte
-les traduise différemment : la première interdit tout blanc, la seconde attend
-une espace insécable.
+Les espaces des ponctuations hautes distinguent trois défauts, avant et après
+le signe ([issue nº 79](https://github.com/orthotypography/orthotypography/issues/79)) :
+l’espace manque, elle est d’une autre nature (une espace-mot au lieu d’une
+espace fine insécable, par exemple), ou le blanc est plus long que l’espace
+attendue. Le blanc examiné réunit celui du nœud du signe et celui des nœuds
+voisins que la proposition retire. Le paramètre `space` désigne l’espace
+attendue par son point de code (`U+00A0`, `U+202F` ou `U+0020`), qu’un hôte
+traduit sans dépendre du texte anglais. En fin de texte, aucune espace n’est
+attendue après le signe : `spacing.trailing-after` signale le blanc restant.
+Jusqu’à `0.2.0-alpha.1`, un seul identifiant par côté
+(`spacing.space-before`, `spacing.space-after`) couvrait les trois cas, avec un
+texte anglais qui parlait d’un blanc inattendu même quand l’espace manquait.
 
 ## 6. Conséquences pour les intégrations
 

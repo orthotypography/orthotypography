@@ -461,12 +461,37 @@ function punctuationLocationIsExcluded(
   return excludesHighPunctuation(scan, location.index, mark, inspected);
 }
 
+/**
+ * Message of a high-punctuation spacing proposal: the space is missing, of
+ * the wrong kind, or in excess (issue #79). The expected space is named by its
+ * code point, which hosts can translate.
+ */
+function spacingMessage(
+  side: "before" | "after",
+  mark: HighPunctuationMark,
+  actual: string,
+  expected: string,
+): ReturnType<typeof diagnosticMessage> {
+  // After a sign at the end of the text, no space is expected.
+  if (expected.length === 0) {
+    return diagnosticMessage(`spacing.trailing-${side}`, { mark });
+  }
+  const kind = actual.length === 0
+    ? "missing"
+    : actual.length > expected.length
+    ? "excess"
+    : "wrong";
+  const space = `U+${
+    expected.codePointAt(0)!.toString(16).toUpperCase().padStart(4, "0")
+  }`;
+  return diagnosticMessage(`spacing.${kind}-${side}`, { mark, space });
+}
+
 function highPunctuationBeforeRule(
   id: string,
   mark: HighPunctuationMark,
   before: " " | " ",
 ): RuntimeRule {
-  const message = diagnosticMessage("spacing.space-before", { mark });
   return catalogueRule(id, (run) => {
     const scan = new PunctuationScan(run);
     for (const { index, stretch } of scan.marks(mark)) {
@@ -488,10 +513,9 @@ function highPunctuationBeforeRule(
       const { removals } = inspected.preceding;
       // A correct space is left in its node, even when it lies in a node
       // before the sign's node (issue #63).
-      if (
-        scan.spacingText(removals) + scan.text.slice(inspected.start, index) ===
-          before
-      ) continue;
+      const spacing = scan.spacingText(removals) +
+        scan.text.slice(inspected.start, index);
+      if (spacing === before) continue;
       // The space before the mark stays in the mark's node.
       const edit: RunEdit = {
         start: inspected.start,
@@ -503,7 +527,7 @@ function highPunctuationBeforeRule(
         stretch,
         {
           ...edit,
-          ...message,
+          ...spacingMessage("before", mark, spacing, before),
           ...(removals.length === 0 ? {} : { related: removals }),
         },
         edit,
@@ -535,7 +559,6 @@ function highPunctuationAfterRule(
   id: string,
   mark: HighPunctuationMark,
 ): RuntimeRule {
-  const message = diagnosticMessage("spacing.space-after", { mark });
   const ellipsisMessage = diagnosticMessage("spacing.space-after.ellipsis", {
     mark,
   });
@@ -579,11 +602,9 @@ function highPunctuationAfterRule(
       const { removals } = inspected.following;
       // A correct space is left in its node, even when it lies in a node
       // after the sign's node (issue #63).
-      if (
-        scan.text.slice(index + 1, inspected.end) +
-            scan.spacingText(removals) ===
-          replacement
-      ) continue;
+      const spacing = scan.text.slice(index + 1, inspected.end) +
+        scan.spacingText(removals);
+      if (spacing === replacement) continue;
       // The space after the mark stays in the mark's node.
       const edit: RunEdit = {
         start: index + 1,
@@ -595,7 +616,7 @@ function highPunctuationAfterRule(
         stretch,
         {
           ...edit,
-          ...message,
+          ...spacingMessage("after", mark, spacing, replacement),
           ...(removals.length === 0 ? {} : { related: removals }),
         },
         edit,

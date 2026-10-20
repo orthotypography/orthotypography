@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Distinguish missing, wrong, and extra spaces in the messages of the
+  high-punctuation spacing rules (#79). **Breaking for hosts that translate by
+  `messageId`:** `spacing.space-before` and `spacing.space-after` are replaced
+  by `spacing.missing-before`, `spacing.wrong-before`, `spacing.excess-before`,
+  `spacing.missing-after`, `spacing.wrong-after`, `spacing.excess-after`, and
+  `spacing.trailing-after` (whitespace after a sign at the end of the text).
+  Except for `spacing.trailing-after`, they take a `space` argument, the code
+  point of the expected space (`U+00A0`, `U+202F`, or `U+0020`). Values and
+  changes are unchanged.
+
 ## [0.2.0-alpha.1] - 2026-10-20
 
 This preview completes the architecture review of the `0.2` line. Rules
