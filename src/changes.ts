@@ -74,12 +74,16 @@ function applySegmentChanges(
     }
   }
 
-  let result = value;
-  for (const change of ordered.reverse()) {
-    result = result.slice(0, change.start) + change.replacement +
-      result.slice(change.end);
+  // The result is assembled in one pass, so that many changes in one segment
+  // stay linear (issue #80).
+  const parts: string[] = [];
+  let cursor = 0;
+  for (const change of ordered) {
+    parts.push(value.slice(cursor, change.start), change.replacement);
+    cursor = change.end;
   }
-  return result;
+  parts.push(value.slice(cursor));
+  return parts.join("");
 }
 
 /** Applies guarded source-coordinate changes to one string. */

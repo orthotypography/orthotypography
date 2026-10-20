@@ -13,6 +13,12 @@ All notable changes to this project will be documented in this file.
   Except for `spacing.trailing-after`, they take a `space` argument, the code
   point of the expected space (`U+00A0`, `U+202F`, or `U+0020`). Values and
   changes are unchanged.
+- Apply text changes in one pass per segment (#80). `applyTextChanges` rebuilt
+  each segment's string for every change, which grew superlinearly with the
+  number of changes: 1.2 s for 20,833 changes on 125,000 characters, more than
+  the whole `fix` pass. It now assembles each segment once (5.5 ms for the same
+  input); results and errors are unchanged. `deno task bench --scaling` gains a
+  row for `applyTextChanges`.
 
 ## [0.2.0-alpha.1] - 2026-10-20
 
