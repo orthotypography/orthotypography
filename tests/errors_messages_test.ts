@@ -6,9 +6,11 @@ import {
   IMPRIMERIE_NATIONALE_RULES,
   OrthotypographyError,
   runPipeline,
+  runTextNodePipeline,
 } from "../src/mod.ts";
 import { testRule } from "./support/rules.ts";
 import { assertCode } from "./support/errors.ts";
+import { covers } from "./support/coverage.ts";
 
 Deno.test("core errors carry a code, a category, and details", () => {
   try {
@@ -65,8 +67,54 @@ Deno.test("built-in diagnostics carry message IDs and arguments", () => {
   const semicolon = result.diagnostics.find(({ ruleId }) =>
     ruleId === "punctuation.semicolon.nnbsp-before"
   );
-  assert.equal(semicolon?.messageId, "spacing.space-before");
-  assert.deepEqual(semicolon?.messageArgs, { mark: ";" });
+  assert.equal(semicolon?.messageId, "spacing.wrong-before");
+  assert.deepEqual(semicolon?.messageArgs, { mark: ";", space: "U+202F" });
+});
+
+Deno.test("high-punctuation messages tell missing, wrong, and extra spaces apart", () => {
+  // Issue #79: one message per kind of spacing fault, before and after.
+  covers("punctuation.colon.nbsp-before");
+  covers("punctuation.question.nnbsp-before");
+  covers("punctuation.colon.space-after");
+  const messages = (text: string) =>
+    runPipeline(text, IMPRIMERIE_NATIONALE_RULES, {
+      locale: "fr-FR",
+      mode: "lint",
+    }).diagnostics
+      .filter(({ messageId }) => messageId.startsWith("spacing."))
+      .map(({ messageId, messageArgs }) => [messageId, messageArgs]);
+
+  assert.deepEqual(messages("Note: suite"), [
+    ["spacing.missing-before", { mark: ":", space: "U+00A0" }],
+  ]);
+  assert.deepEqual(messages("Note : suite"), [
+    ["spacing.wrong-before", { mark: ":", space: "U+00A0" }],
+  ]);
+  assert.deepEqual(messages("Vrai \u00a0? oui"), [
+    ["spacing.excess-before", { mark: "?", space: "U+202F" }],
+  ]);
+  assert.deepEqual(messages("Note\u00a0:suite"), [
+    ["spacing.missing-after", { mark: ":", space: "U+0020" }],
+  ]);
+  assert.deepEqual(messages("Note\u00a0:\tsuite"), [
+    ["spacing.wrong-after", { mark: ":", space: "U+0020" }],
+  ]);
+  assert.deepEqual(messages("Note\u00a0:  suite"), [
+    ["spacing.excess-after", { mark: ":", space: "U+0020" }],
+  ]);
+  assert.deepEqual(messages("Note\u00a0: "), [
+    ["spacing.trailing-after", { mark: ":" }],
+  ]);
+  // A space split across text nodes counts as one spacing (issue #63).
+  const split = runTextNodePipeline(
+    [{ id: "a", value: "Note  " }, { id: "b", value: ": suite" }],
+    IMPRIMERIE_NATIONALE_RULES,
+    { locale: "fr-FR", mode: "lint" },
+  );
+  assert.deepEqual(
+    split.diagnostics.map(({ messageId }) => messageId),
+    ["spacing.excess-before"],
+  );
 });
 
 Deno.test("external rules may give message IDs or fall back to their ID", () => {
@@ -107,8 +155,11 @@ Deno.test("external rules may give message IDs or fall back to their ID", () => 
 
 Deno.test("message templates render their parameters", () => {
   assert.equal(
-    formatDiagnosticMessage("spacing.space-after", { mark: "?" }),
-    "Unexpected whitespace after ?",
+    formatDiagnosticMessage("spacing.missing-after", {
+      mark: "?",
+      space: "U+0020",
+    }),
+    "Missing U+0020 after ?",
   );
   assert.equal(
     formatDiagnosticMessage("ellipsis.glyph", { function: "final" }),
@@ -117,7 +168,7 @@ Deno.test("message templates render their parameters", () => {
   // Unknown IDs render as themselves; missing parameters stay visible.
   assert.equal(formatDiagnosticMessage("x-test.message"), "x-test.message");
   assert.equal(
-    formatDiagnosticMessage("spacing.space-after"),
-    "Unexpected whitespace after {mark}",
+    formatDiagnosticMessage("spacing.trailing-after"),
+    "Unexpected whitespace after {mark} at the end of the text",
   );
 });
