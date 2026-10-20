@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Declare the origin of catalogue exceptions (#82;
+  `docs/conception-ecriture-regles-v0.1.md`). **Breaking for code that builds
+  or reads `RuleDefinition`:** `RuleException` gains a required
+  `origin: "source" | "safeguard"`. `source` marks an exception stated by the
+  source or implied by its prescription; `safeguard` marks a technical
+  decision of the project, such as `technical-syntax`, `uri`, or `time`, which
+  the Imprimerie nationale does not make. `validateCatalogue` rejects an
+  exception without a valid origin. The digit-grouping exception
+  `identifiers-and-codes` is split into `numbering-references` (source) and
+  `technical-identifiers` (safeguard). The coverage matrix lists source
+  exceptions and safeguards in separate columns.
+- Write the comma, period, and high-punctuation spacing rules with an internal
+  rule-writing layer (#82): shared scan primitives and a `markSpacingRule`
+  factory whose exclusions are keyed by the exception IDs of the catalogue
+  entry, checked when the rule is built. The migration declares exclusions
+  that the rules already applied: `start-of-text` for the eight
+  high-punctuation spacing rules, `technical-syntax` for the space before the
+  colon (`::`) and the exclamation mark (`!important`), and
+  `adjacent-punctuation` for the space before the colon and the semicolon.
+  Values, changes, and diagnostics are unchanged.
+
 - Distinguish missing, wrong, and extra spaces in the messages of the
   high-punctuation spacing rules (#79). **Breaking for hosts that translate by
   `messageId`:** `spacing.space-before` and `spacing.space-after` are replaced

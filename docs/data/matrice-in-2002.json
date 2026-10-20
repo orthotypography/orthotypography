@@ -12,6 +12,7 @@
     "decimal-separator": "séparateur décimal",
     "protected-content": "contenu protégé",
     "end-of-text": "fin de texte",
+    "start-of-text": "début de texte",
     "adjacent-punctuation": "ponctuation adjacente",
     "technical-syntax": "syntaxe technique",
     "period-run": "suite de points",

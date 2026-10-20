@@ -1,6 +1,6 @@
 # Conception — couche d’écriture des règles v0.1
 
-Statut : proposition ; orientations validées le 20 octobre 2026 ;
+Statut : orientations validées et mise en œuvre le 20 octobre 2026 ;
 [issue nº 82](https://github.com/orthotypography/orthotypography/issues/82),
 préalable à l’extension du catalogue par lots retenue dans la
 [feuille de route](roadmap.md) à la suite de l’audit du cœur du 20 octobre 2026
@@ -91,7 +91,7 @@ Constats :
 ## 4. Primitives
 
 `src/rules/authoring/scan.ts` reprend `PunctuationScan`, renommée `RunScan`,
-et `src/rules/run-text.ts`. Les primitives existantes gardent leur
+et s’appuie sur `src/rules/run-text.ts`. Les primitives existantes gardent leur
 sémantique :
 
 | Primitive | Rôle |
@@ -124,31 +124,37 @@ interface MarkSpacingSpec {
   readonly id: string;
   readonly mark: string;
   readonly side: "before" | "after";
-  /** Expected spacing, or a function of the occurrence context. */
-  readonly expected: string | ((context: MarkContext) => string);
+  readonly expected: string;
   /** Exclusions keyed by the `RuleException.id` of the catalogue entry. */
   readonly exclusions: Readonly<Record<string, Exclusion>>;
-  /** Message of a proposal; defaults to `spacingMessage`. */
-  readonly message?: (context: MarkContext, actual: string, expected: string) =>
+  /** Range of the edit: the spacing (default), or the spacing and the mark. */
+  readonly span?: "spacing" | "spacing-and-mark";
+  readonly message: (context: MarkContext, actual: string, expected: string) =>
     DiagnosticMessage;
 }
 
-/** What the rule sees around one occurrence of its mark. */
-interface MarkContext {
+/** What the rule sees around one occurrence of its mark, read on demand. */
+class MarkContext {
   readonly scan: RunScan;
   readonly mark: string;
   readonly index: number;
-  readonly before: Spacing;
-  readonly after: Spacing;
+  readonly stretch: number;
+  get before(): Spacing;
+  get after(): Spacing;
 }
 
 type Exclusion =
-  /** The occurrence is left as is, without diagnostic. */
-  | { readonly skip: (context: MarkContext) => boolean }
-  /** The occurrence is reported without edit, with its own message. */
+  /** Left as is, without diagnostic; a number resumes the scan there. */
+  | { readonly skip: (context: MarkContext) => boolean | number }
+  /** Reported without edit, with its own message. */
   | {
     readonly report: (context: MarkContext) => boolean;
     readonly messageId: string;
+  }
+  /** Another expected spacing, such as none after a mark at the end of text. */
+  | {
+    readonly expect: (context: MarkContext) => boolean;
+    readonly spacing: string;
   }
   /** Ensured before the rule: protected text, or a classification. */
   | { readonly ensuredBy: "protection" | `classification:${string}` };
@@ -156,12 +162,12 @@ type Exclusion =
 
 Pour chaque occurrence du signe, la fabrique :
 
-1. ignore le signe si le blanc du côté examiné touche du texte protégé ;
-2. évalue les exclusions dans l’ordre de leur déclaration : la première qui
-   s’applique laisse le signe sans proposition (`skip`) ou le signale sans
-   modification (`report`) ;
-3. calcule l’espace attendue, puis le blanc effectif, qui réunit le blanc de la
-   portion du signe et celui des portions voisines ;
+1. évalue les exclusions dans l’ordre de leur déclaration : la première qui
+   s’applique laisse le signe sans proposition (`skip`), le signale sans
+   modification (`report`) ou fixe une autre espace attendue (`expect`) ;
+2. ignore le signe si le blanc du côté examiné touche du texte protégé ;
+3. calcule le blanc effectif, qui réunit le blanc de la portion du signe et
+   celui des portions voisines ;
 4. ne propose rien si le blanc effectif est déjà l’espace attendue, même s’il
    se trouve dans un nœud voisin
    ([issue nº 63](https://github.com/orthotypography/orthotypography/issues/63)) ;
@@ -191,6 +197,7 @@ export const COLON_SPACE_BEFORE_RULE = markSpacingRule({
     "adjacent-punctuation": { skip: yieldsToHigherMark },
     "start-of-text": { skip: ({ before }) => before.character === undefined },
   },
+  message: spacingMessage("before"),
 });
 ```
 
@@ -333,3 +340,27 @@ Critères d’acceptation :
   espace-mot avant le deux-points parce que le point d’interrogation est
   prioritaire ; la migration les conserve, et toute évolution relèverait d’une
   issue distincte.
+
+## 11. Écarts constatés à la mise en œuvre
+
+La migration (PR de l’issue nº 82) a précisé la note sur cinq points, sans
+changer les sorties :
+
+- l’espace attendue reste une chaîne ; sa variante en fin de texte s’exprime
+  par une exclusion `expect` indexée par `end-of-text`, ce qui relie aussi
+  cette exception à son code ;
+- une exclusion `skip` peut rendre la position où reprendre le parcours, pour
+  la suite de points (`period-run`) de l’absence de blanc avant le point ;
+- l’absence de blanc avant la virgule et le point remplace le blanc et le
+  signe ensemble (`span: "spacing-and-mark"`), comme avant la migration, et
+  garde donc son `bias` par défaut ;
+- les quatre espaces après la ponctuation haute excluent aussi le signe en
+  début de texte : `start-of-text` (`source`) est ajoutée à leurs fiches, en
+  plus des quatre espaces avant ;
+- `technical-syntax`, déclarée pour l’espace après le point-virgule et le
+  point d’interrogation sans code propre, est assurée par la classification
+  numérique, qui protège URI et chemins (`ensuredBy`).
+
+`src/rules/run-text.ts` reste un module distinct, partagé avec les règles des
+guillemets, des nombres et des points de suspension ; `RunScan` s’appuie sur
+lui.

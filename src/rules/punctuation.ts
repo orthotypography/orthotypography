@@ -1,25 +1,13 @@
 import { NUMERIC_PROTECTION_RULE } from "../classify/runtime.ts";
-import type {
-  LogicalRun,
-  RuleResult,
-  RunDiagnostic,
-  RunEdit,
-  RunRange,
-  RuntimeRule,
-} from "../model.ts";
-import {
-  technicalPatternStarts,
-  whitespaceFreeStarts,
-} from "../classify/text-index.ts";
+import type { RunEdit, RuntimeRule } from "../model.ts";
 import { catalogueRule } from "./catalogue-rule.ts";
 import { diagnosticMessage } from "../messages.ts";
+import { RunScan } from "./authoring/scan.ts";
 import {
-  type Adjacent,
-  type Boundary,
-  RunStretches,
-  spacingCharacters,
-  spacingText,
-} from "./run-text.ts";
+  type Exclusion,
+  MarkContext,
+  markSpacingRule,
+} from "./authoring/mark-spacing.ts";
 
 /*
  * Punctuation rules executed on the logical run.
@@ -32,253 +20,36 @@ import {
  * correct is left in its node, even a neighboring one (issue #63).
  */
 
-/**
- * One diagnostic of a mark with its own edit and neighboring removals, or a
- * diagnostic without edits when `own` is absent.
- */
-interface Proposal {
-  readonly stretch: number;
-  readonly diagnostic: RunDiagnostic;
-  readonly own?: RunEdit;
-  readonly removals: readonly RunRange[];
-}
-
-/** Shared state of one rule call on one run. */
-class PunctuationScan {
-  readonly text: string;
-  readonly stretches: RunStretches;
-  readonly #proposals: Proposal[] = [];
-  #tokenStarts?: Int32Array;
-  #technicalStarts?: Int32Array;
-
-  constructor(readonly run: LogicalRun) {
-    this.text = run.text;
-    this.stretches = new RunStretches(run);
-  }
-
-  /** Positions of a mark outside protected text, in text order. */
-  *marks(mark: string): Generator<{ index: number; stretch: number }> {
-    const { text, stretches } = this;
-    let index = text.indexOf(mark);
-    while (index !== -1) {
-      const stretch = stretches.indexAt(index);
-      if (stretches.protectedFlags[stretch]) {
-        index = text.indexOf(mark, stretches.ends[stretch]);
-        continue;
-      }
-      yield { index, stretch };
-      index = text.indexOf(mark, index + 1);
-    }
-  }
-
-  start(stretch: number): number {
-    return this.stretches.starts[stretch];
-  }
-
-  end(stretch: number): number {
-    return this.stretches.ends[stretch];
-  }
-
-  /** Start of the spacing that ends at `index`, within its stretch. */
-  spacingStart(index: number, stretch: number): number {
-    const first = this.start(stretch);
-    let start = index;
-    while (start > first && spacingCharacters.has(this.text[start - 1])) {
-      start--;
-    }
-    return start;
-  }
-
-  /** End of the spacing that starts at `index`, within its stretch. */
-  spacingEnd(index: number, stretch: number): number {
-    const last = this.end(stretch);
-    let end = index;
-    while (end < last && spacingCharacters.has(this.text[end])) end++;
-    return end;
-  }
-
-  /** Character before a stretch position, not reaching before the stretch. */
-  #characterBefore(index: number, stretch: number): string {
-    const unit = this.text.charCodeAt(index - 1);
-    const start = unit >= 0xdc00 && unit <= 0xdfff ? index - 2 : index - 1;
-    return this.text.slice(Math.max(this.start(stretch), start), index);
-  }
-
-  /** Code point at a stretch position, not reaching past the stretch. */
-  #characterAt(index: number, stretch: number): string {
-    const unit = this.text.charCodeAt(index);
-    const pair = unit >= 0xd800 && unit <= 0xdbff &&
-      index + 1 < this.end(stretch);
-    const codePoint = pair ? this.text.codePointAt(index) as number : unit;
-    return String.fromCodePoint(codePoint);
-  }
-
-  /** Character before a position, looking into the previous stretch. */
-  precedingCharacter(index: number, stretch: number): Adjacent {
-    if (index > this.start(stretch)) {
-      return {
-        blocked: false,
-        character: this.#characterBefore(index, stretch),
-      };
-    }
-    if (stretch === 0) return { blocked: false };
-    const previous = stretch - 1;
-    if (this.stretches.protectedFlags[previous]) return { blocked: true };
-    return {
-      blocked: false,
-      character: this.#characterBefore(this.end(previous), previous),
-    };
-  }
-
-  /** Character at a position, looking into the next stretch. */
-  followingCharacter(index: number, stretch: number): Adjacent {
-    if (index < this.end(stretch)) {
-      return { blocked: false, character: this.#characterAt(index, stretch) };
-    }
-    const next = stretch + 1;
-    if (next >= this.stretches.starts.length) return { blocked: false };
-    if (this.stretches.protectedFlags[next]) return { blocked: true };
-    return {
-      blocked: false,
-      character: this.#characterAt(this.start(next), next),
-    };
-  }
-
-  /** Character before a stretch and the trailing spacing of earlier ones. */
-  precedingBoundary(stretch: number): Boundary {
-    return this.stretches.precedingBoundary(stretch);
-  }
-
-  /** Character after a stretch and the leading spacing of later ones. */
-  followingBoundary(stretch: number): Boundary {
-    return this.stretches.followingBoundary(stretch);
-  }
-
-  /**
-   * Whether the whitespace-free token before a comma is technical: it starts
-   * with `/`, `./`, or `../`, or contains a URL scheme or `www.`. The token
-   * extends into earlier unprotected stretches only while it covers them
-   * entirely and is shorter than 256 code units.
-   */
-  technicalTokenBefore(index: number, stretch: number): boolean {
-    const tokenStarts = this.#tokenStarts ??= whitespaceFreeStarts(this.text);
-    let start = Math.max(this.start(stretch), tokenStarts[index]);
-    if (start === this.start(stretch)) {
-      for (
-        let previous = stretch - 1;
-        previous >= 0 && index - start < 256;
-        previous--
-      ) {
-        if (this.stretches.protectedFlags[previous]) break;
-        const first = this.start(previous);
-        start = Math.max(first, tokenStarts[this.end(previous)]);
-        if (start > first) break;
-      }
-    }
-    const { text } = this;
-    const path = (offset: number, value: string): boolean =>
-      start + offset < index && text[start + offset] === value;
-    if (
-      path(0, "/") || (path(0, ".") && path(1, "/")) ||
-      (path(0, ".") && path(1, ".") && path(2, "/"))
-    ) return true;
-    const technical = this.#technicalStarts ??= technicalPatternStarts(text);
-    return technical[index] >= start;
-  }
-
-  /** Records a diagnostic, its edit in the mark's stretch, and removals. */
-  propose(
-    stretch: number,
-    diagnostic: RunDiagnostic,
-    own: RunEdit,
-    removals: readonly RunRange[] = [],
-  ): void {
-    this.#proposals.push({ stretch, diagnostic, own, removals });
-  }
-
-  /** Text of spacing ranges in neighboring stretches, in text order. */
-  spacingText(ranges: readonly RunRange[]): string {
-    return spacingText(this.text, ranges);
-  }
-
-  /** Reports a diagnostic without edits, in mark order with the proposals. */
-  report(stretch: number, diagnostic: RunDiagnostic): void {
-    this.#proposals.push({ stretch, diagnostic, removals: [] });
-  }
-
-  /**
-   * Returns the diagnostics with their edits. As with per-fragment
-   * application, a stretch keeps its own edits only when at least one of them
-   * changes its text; removals in neighboring stretches are always kept.
-   */
-  result(): RuleResult {
-    const effective = new Set<number>();
-    for (const { stretch, own } of this.#proposals) {
-      if (
-        own !== undefined &&
-        this.text.slice(own.start, own.end) !== own.replacement
-      ) {
-        effective.add(stretch);
-      }
-    }
-    const diagnostics = this.#proposals.map(
-      ({ stretch, diagnostic, own, removals }): RunDiagnostic => {
-        const edits: RunEdit[] = own !== undefined && effective.has(stretch)
-          ? [own]
-          : [];
-        for (const removal of removals) {
-          edits.push({ ...removal, replacement: "" });
-        }
-        return edits.length === 0 ? diagnostic : { ...diagnostic, edits };
-      },
-    );
-    return diagnostics.length > 0 ? { diagnostics } : {};
-  }
-}
-
 function noSpaceBeforeRule(id: string, mark: "," | "."): RuntimeRule {
   const message = diagnosticMessage("spacing.no-space-before", { mark });
-  return catalogueRule(id, (run) => {
-    const scan = new PunctuationScan(run);
-    const { text } = scan;
-    let resumeAt = 0;
-    for (const { index, stretch } of scan.marks(mark)) {
-      if (index < resumeAt) continue;
-      // A run of periods is not a sentence period: suspension points follow
-      // their own spacing rules, and a space before them may be correct.
-      if (
-        mark === "." &&
-        scan.followingCharacter(index + 1, stretch).character === "."
-      ) {
-        let last = index + 1;
-        const end = scan.end(stretch);
-        if (last < end) {
-          while (last + 1 < end && text[last + 1] === ".") last++;
-          resumeAt = last + 1;
+  const exclusions: Record<string, Exclusion> = {
+    "protected-content": { ensuredBy: "protection" },
+  };
+  if (mark === ".") {
+    // A run of periods is not a sentence period: suspension points follow
+    // their own spacing rules, and a space before them may be correct. The
+    // scan resumes after the run within the stretch.
+    exclusions["period-run"] = {
+      skip: ({ scan, index, stretch }) => {
+        if (scan.followingCharacter(index + 1, stretch).character !== ".") {
+          return false;
         }
-        continue;
-      }
-      const start = scan.spacingStart(index, stretch);
-      const preceding = start === scan.start(stretch)
-        ? scan.precedingBoundary(stretch)
-        : { blocked: false, removals: [] };
-      if (preceding.blocked) continue;
-      const { removals } = preceding;
-      if (start === index && removals.length === 0) continue;
-      scan.propose(
-        stretch,
-        {
-          start,
-          end: index + 1,
-          ...message,
-          replacement: mark,
-          ...(removals.length === 0 ? {} : { related: removals }),
-        },
-        { start, end: index + 1, replacement: mark },
-        removals,
-      );
-    }
-    return scan.result();
+        const end = scan.end(stretch);
+        let last = index + 1;
+        if (last >= end) return true;
+        while (last + 1 < end && scan.text[last + 1] === ".") last++;
+        return last + 1;
+      },
+    };
+  }
+  return markSpacingRule({
+    id,
+    mark,
+    side: "before",
+    expected: "",
+    span: "spacing-and-mark",
+    exclusions,
+    message: () => message,
   });
 }
 
@@ -308,8 +79,8 @@ function beginsText(character: string): boolean {
 export const SPACE_AFTER_COMMA_RULE: RuntimeRule = catalogueRule(
   "punctuation.comma.space-after",
   (run) => {
-    const scan = new PunctuationScan(run);
-    for (const { index, stretch } of scan.marks(",")) {
+    const scan = new RunScan(run);
+    for (const { index, stretch } of scan.occurrences(",")) {
       const preceding = scan.precedingCharacter(index, stretch);
       const following = scan.followingCharacter(index + 1, stretch);
       if (preceding.blocked || following.blocked) continue;
@@ -339,60 +110,6 @@ export const SPACE_AFTER_COMMA_RULE: RuntimeRule = catalogueRule(
 
 type HighPunctuationMark = ":" | ";" | "?" | "!";
 
-interface HighPunctuationContext {
-  readonly start: number;
-  readonly end: number;
-  readonly preceding: Boundary;
-  readonly following: Boundary;
-  readonly previous?: string;
-  readonly next?: string;
-}
-
-function inspectHighPunctuation(
-  scan: PunctuationScan,
-  index: number,
-  stretch: number,
-): HighPunctuationContext {
-  const start = scan.spacingStart(index, stretch);
-  const end = scan.spacingEnd(index + 1, stretch);
-  const preceding: Boundary = start === scan.start(stretch)
-    ? scan.precedingBoundary(stretch)
-    : { blocked: false, character: scan.text[start - 1], removals: [] };
-  const following: Boundary = end === scan.end(stretch)
-    ? scan.followingBoundary(stretch)
-    : { blocked: false, character: scan.text[end], index: end, removals: [] };
-  return {
-    start,
-    end,
-    preceding,
-    following,
-    previous: preceding.character,
-    next: following.character,
-  };
-}
-
-function excludesHighPunctuation(
-  scan: PunctuationScan,
-  index: number,
-  mark: HighPunctuationMark,
-  inspected: HighPunctuationContext,
-): boolean {
-  const { preceding, following, previous, next } = inspected;
-  if (preceding.blocked || following.blocked || previous === undefined) {
-    return true;
-  }
-  if (
-    mark === "!" && /^!important\b/iu.test(scan.text.slice(index, index + 11))
-  ) return true;
-  if (previous === mark || next === mark) return true;
-  if (mark === ":" && (previous === ":" || next === ":" || next === "/")) {
-    return true;
-  }
-  return (mark === "?" || mark === "!") &&
-    ((previous !== undefined && "?!".includes(previous)) ||
-      (next !== undefined && "?!".includes(next)));
-}
-
 const highPunctuationOrder = new Map<HighPunctuationMark, number>([
   [":", 0],
   [";", 1],
@@ -410,6 +127,48 @@ function highPunctuationRank(mark: HighPunctuationMark): number {
   return highPunctuationOrder.get(mark) ?? -1;
 }
 
+/*
+ * Exclusions of the high-punctuation rules, shared by the spacing before and
+ * after each mark. They are checked on both sides of the mark.
+ */
+
+/** Protected text on either side of the mark. */
+const touchesProtection = ({ before, after }: MarkContext): boolean =>
+  before.blocked || after.blocked;
+
+/** No character precedes the mark: it punctuates no preceding word. */
+const atStartOfText = ({ before }: MarkContext): boolean =>
+  before.character === undefined;
+
+/** The same mark on either side, as in `::` or `;;`. */
+const doubledMark = ({ mark, before, after }: MarkContext): boolean =>
+  before.character === mark || after.character === mark;
+
+/** A colon followed by a slash, as in a URI scheme. */
+const colonSlash = ({ after }: MarkContext): boolean => after.character === "/";
+
+/** The CSS declaration `!important`. */
+const importantDeclaration = ({ scan, index }: MarkContext): boolean =>
+  /^!important\b/iu.test(scan.text.slice(index, index + 11));
+
+/** A question or exclamation mark next to another one, as in `?!`. */
+const expressiveSequence = (context: MarkContext): boolean => {
+  const { before, after } = context;
+  return doubledMark(context) ||
+    (before.character !== undefined && "?!".includes(before.character)) ||
+    (after.character !== undefined && "?!".includes(after.character));
+};
+
+/** Whether the shared exclusions leave a high-punctuation mark as is. */
+function excludedHighPunctuation(context: MarkContext): boolean {
+  const mark = context.mark as HighPunctuationMark;
+  if (touchesProtection(context) || atStartOfText(context)) return true;
+  if (mark === "!" && importantDeclaration(context)) return true;
+  if (doubledMark(context)) return true;
+  if (mark === ":" && colonSlash(context)) return true;
+  return (mark === "?" || mark === "!") && expressiveSequence(context);
+}
+
 interface PunctuationLocation {
   readonly index: number;
   readonly stretch: number;
@@ -417,7 +176,7 @@ interface PunctuationLocation {
 
 /** Nearest character before `start`, stopping at protected text. */
 function precedingPunctuationLocation(
-  scan: PunctuationScan,
+  scan: RunScan,
   start: number,
   stretch: number,
 ): PunctuationLocation | undefined {
@@ -434,7 +193,7 @@ function precedingPunctuationLocation(
 
 /** Nearest character from `end`, stopping at protected text. */
 function followingPunctuationLocation(
-  scan: PunctuationScan,
+  scan: RunScan,
   end: number,
   stretch: number,
 ): PunctuationLocation | undefined {
@@ -448,17 +207,29 @@ function followingPunctuationLocation(
   return undefined;
 }
 
-function punctuationLocationIsExcluded(
-  scan: PunctuationScan,
-  location: PunctuationLocation,
-  mark: HighPunctuationMark,
-): boolean {
-  const inspected = inspectHighPunctuation(
-    scan,
-    location.index,
-    location.stretch,
-  );
-  return excludesHighPunctuation(scan, location.index, mark, inspected);
+/**
+ * A neighboring high-punctuation mark of higher rank governs the spacing
+ * between both marks, unless its own exclusions leave it as is.
+ */
+function yieldsToHigherMark(side: "before" | "after") {
+  return (context: MarkContext): boolean => {
+    const { scan, stretch } = context;
+    const mark = context.mark as HighPunctuationMark;
+    const neighbor = side === "before"
+      ? context.before.character
+      : context.after.character;
+    if (
+      !isHighPunctuationMark(neighbor) ||
+      highPunctuationRank(neighbor) <= highPunctuationRank(mark)
+    ) return false;
+    const location = side === "before"
+      ? precedingPunctuationLocation(scan, context.before.start, stretch)
+      : followingPunctuationLocation(scan, context.after.end, stretch);
+    return location !== undefined &&
+      !excludedHighPunctuation(
+        new MarkContext(scan, neighbor, location.index, location.stretch),
+      );
+  };
 }
 
 /**
@@ -466,25 +237,66 @@ function punctuationLocationIsExcluded(
  * the wrong kind, or in excess (issue #79). The expected space is named by its
  * code point, which hosts can translate.
  */
-function spacingMessage(
-  side: "before" | "after",
+function spacingMessage(side: "before" | "after") {
+  return (
+    { mark }: MarkContext,
+    actual: string,
+    expected: string,
+  ): ReturnType<typeof diagnosticMessage> => {
+    // After a sign at the end of the text, no space is expected.
+    if (expected.length === 0) {
+      return diagnosticMessage(`spacing.trailing-${side}`, { mark });
+    }
+    const kind = actual.length === 0
+      ? "missing"
+      : actual.length > expected.length
+      ? "excess"
+      : "wrong";
+    const space = `U+${
+      expected.codePointAt(0)!.toString(16).toUpperCase().padStart(4, "0")
+    }`;
+    return diagnosticMessage(`spacing.${kind}-${side}`, { mark, space });
+  };
+}
+
+/**
+ * Exclusions of the shared checks, keyed by the exception that each one
+ * implements for a mark.
+ */
+function sharedExclusions(
   mark: HighPunctuationMark,
-  actual: string,
-  expected: string,
-): ReturnType<typeof diagnosticMessage> {
-  // After a sign at the end of the text, no space is expected.
-  if (expected.length === 0) {
-    return diagnosticMessage(`spacing.trailing-${side}`, { mark });
+  side: "before" | "after",
+): Record<string, Exclusion> {
+  const exclusions: Record<string, Exclusion> = {
+    "protected-content": { skip: touchesProtection },
+    "start-of-text": { skip: atStartOfText },
+  };
+  if (mark === ":") {
+    exclusions["technical-syntax"] = {
+      skip: (context) =>
+        doubledMark(context) || (side === "after" && colonSlash(context)),
+    };
+    if (side === "before") exclusions.uri = { skip: colonSlash };
+  } else if (mark === ";") {
+    exclusions["adjacent-punctuation"] = {
+      skip: (context) =>
+        doubledMark(context) || yieldsToHigherMark(side)(context),
+    };
+  } else {
+    exclusions["expressive-sequence"] = { skip: expressiveSequence };
+    if (mark === "!") {
+      exclusions["technical-syntax"] = { skip: importantDeclaration };
+    }
   }
-  const kind = actual.length === 0
-    ? "missing"
-    : actual.length > expected.length
-    ? "excess"
-    : "wrong";
-  const space = `U+${
-    expected.codePointAt(0)!.toString(16).toUpperCase().padStart(4, "0")
-  }`;
-  return diagnosticMessage(`spacing.${kind}-${side}`, { mark, space });
+  if (mark === ":") {
+    exclusions["adjacent-punctuation"] = { skip: yieldsToHigherMark(side) };
+  }
+  // After the mark, URIs and paths are also protected by the numeric
+  // classification, on which these rules depend.
+  if (side === "after" && (mark === ";" || mark === "?")) {
+    exclusions["technical-syntax"] = { ensuredBy: "classification:numeric" };
+  }
+  return exclusions;
 }
 
 function highPunctuationBeforeRule(
@@ -492,49 +304,20 @@ function highPunctuationBeforeRule(
   mark: HighPunctuationMark,
   before: " " | " ",
 ): RuntimeRule {
-  return catalogueRule(id, (run) => {
-    const scan = new PunctuationScan(run);
-    for (const { index, stretch } of scan.marks(mark)) {
-      const inspected = inspectHighPunctuation(scan, index, stretch);
-      if (excludesHighPunctuation(scan, index, mark, inspected)) continue;
-      if (isHighPunctuationMark(inspected.previous)) {
-        const previous = precedingPunctuationLocation(
-          scan,
-          inspected.start,
-          stretch,
-        );
-        if (
-          previous !== undefined &&
-          highPunctuationRank(inspected.previous) > highPunctuationRank(mark) &&
-          !punctuationLocationIsExcluded(scan, previous, inspected.previous)
-        ) continue;
-      }
-
-      const { removals } = inspected.preceding;
-      // A correct space is left in its node, even when it lies in a node
-      // before the sign's node (issue #63).
-      const spacing = scan.spacingText(removals) +
-        scan.text.slice(inspected.start, index);
-      if (spacing === before) continue;
-      // The space before the mark stays in the mark's node.
-      const edit: RunEdit = {
-        start: inspected.start,
-        end: index,
-        replacement: before,
-        bias: "right",
-      };
-      scan.propose(
-        stretch,
-        {
-          ...edit,
-          ...spacingMessage("before", mark, spacing, before),
-          ...(removals.length === 0 ? {} : { related: removals }),
-        },
-        edit,
-        removals,
-      );
-    }
-    return scan.result();
+  const exclusions = sharedExclusions(mark, "before");
+  if (mark === ":") {
+    // Times, ratios, and ports are protected by the numeric classification.
+    exclusions.time = { ensuredBy: "classification:numeric" };
+    exclusions.ratio = { ensuredBy: "classification:numeric" };
+    exclusions.port = { ensuredBy: "classification:numeric" };
+  }
+  return markSpacingRule({
+    id,
+    mark,
+    side: "before",
+    expected: before,
+    exclusions,
+    message: spacingMessage("before"),
   });
 }
 
@@ -546,84 +329,41 @@ function highPunctuationBeforeRule(
  * collés au mot précédent ». A closing English quotation mark is closed the
  * same way. The space after high punctuation does not apply before them.
  */
-const signsGoverningSpaceBefore: ReadonlySet<string> = new Set([
-  "»",
-  ")",
-  "]",
-  "”",
-  ",",
-  ".",
-]);
+const closingSigns: ReadonlySet<string> = new Set(["»", ")", "]", "”"]);
 
 function highPunctuationAfterRule(
   id: string,
   mark: HighPunctuationMark,
 ): RuntimeRule {
-  const ellipsisMessage = diagnosticMessage("spacing.space-after.ellipsis", {
+  return markSpacingRule({
+    id,
     mark,
-  });
-  return catalogueRule(id, (run) => {
-    const scan = new PunctuationScan(run);
-    for (const { index, stretch } of scan.marks(mark)) {
-      const inspected = inspectHighPunctuation(scan, index, stretch);
-      if (excludesHighPunctuation(scan, index, mark, inspected)) continue;
-      const { next } = inspected;
-      const nextIndex = inspected.following.index;
+    side: "after",
+    expected: " ",
+    exclusions: {
+      ...sharedExclusions(mark, "after"),
       // The source does not describe a mark followed by suspension points:
       // the spacing is reported for review and left as is.
-      if (
-        next === "…" ||
-        (next === "." && nextIndex !== undefined &&
-          scan.text.startsWith("...", nextIndex))
-      ) {
-        scan.report(stretch, {
-          start: index + 1,
-          end: inspected.end,
-          ...ellipsisMessage,
-        });
-        continue;
-      }
-      // The next sign governs the space before it, which is left as is.
-      if (next !== undefined && signsGoverningSpaceBefore.has(next)) continue;
-      if (isHighPunctuationMark(inspected.next)) {
-        const next = followingPunctuationLocation(
-          scan,
-          inspected.end,
-          stretch,
-        );
-        if (
-          next !== undefined &&
-          highPunctuationRank(inspected.next) > highPunctuationRank(mark) &&
-          !punctuationLocationIsExcluded(scan, next, inspected.next)
-        ) continue;
-      }
-
-      const replacement = inspected.next === undefined ? "" : " ";
-      const { removals } = inspected.following;
-      // A correct space is left in its node, even when it lies in a node
-      // after the sign's node (issue #63).
-      const spacing = scan.text.slice(index + 1, inspected.end) +
-        scan.spacingText(removals);
-      if (spacing === replacement) continue;
-      // The space after the mark stays in the mark's node.
-      const edit: RunEdit = {
-        start: index + 1,
-        end: inspected.end,
-        replacement,
-        bias: "left",
-      };
-      scan.propose(
-        stretch,
-        {
-          ...edit,
-          ...spacingMessage("after", mark, spacing, replacement),
-          ...(removals.length === 0 ? {} : { related: removals }),
-        },
-        edit,
-        removals,
-      );
-    }
-    return scan.result();
+      "suspension-points": {
+        report: ({ scan, after }) =>
+          after.character === "…" ||
+          (after.character === "." && after.index !== undefined &&
+            scan.text.startsWith("...", after.index)),
+        messageId: "spacing.space-after.ellipsis",
+      },
+      "closing-sign": {
+        skip: ({ after }) =>
+          after.character !== undefined && closingSigns.has(after.character),
+      },
+      "comma-or-period": {
+        skip: ({ after }) => after.character === "," || after.character === ".",
+      },
+      "end-of-text": {
+        expect: ({ after }) => after.character === undefined,
+        spacing: "",
+      },
+    },
+    message: spacingMessage("after"),
   });
 }
 

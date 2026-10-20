@@ -141,6 +141,17 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+00A0" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
+      {
+        id: "adjacent-punctuation",
+        origin: "safeguard",
+        description: "adjacent punctuation",
+      },
       { id: "time", origin: "safeguard", description: "time of day" },
       { id: "ratio", origin: "safeguard", description: "ratio" },
       { id: "uri", origin: "safeguard", description: "URI" },
@@ -168,6 +179,7 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
       { id: "end-of-text", origin: "source", description: "end of text" },
       { id: "closing-sign", origin: "source", description: "closing sign" },
       {
@@ -214,6 +226,12 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+202F" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      {
+        id: "adjacent-punctuation",
+        origin: "safeguard",
+        description: "adjacent punctuation",
+      },
       {
         id: "protected-content",
         origin: "safeguard",
@@ -242,6 +260,7 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
       { id: "end-of-text", origin: "source", description: "end of text" },
       { id: "closing-sign", origin: "source", description: "closing sign" },
       {
@@ -288,6 +307,7 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+202F" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
       {
         id: "expressive-sequence",
         origin: "safeguard",
@@ -322,6 +342,7 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
       { id: "end-of-text", origin: "source", description: "end of text" },
       { id: "closing-sign", origin: "source", description: "closing sign" },
       {
@@ -368,6 +389,12 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { before: "U+202F" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
+      {
+        id: "technical-syntax",
+        origin: "safeguard",
+        description: "technical syntax",
+      },
       {
         id: "expressive-sequence",
         origin: "safeguard",
@@ -402,6 +429,7 @@ export const RULES: readonly RuleDefinition[] = [
     ],
     outcome: { after: "U+0020" },
     exceptions: [
+      { id: "start-of-text", origin: "source", description: "start of text" },
       { id: "end-of-text", origin: "source", description: "end of text" },
       { id: "closing-sign", origin: "source", description: "closing sign" },
       {
