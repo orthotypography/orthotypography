@@ -1,4 +1,12 @@
 {
+  "columns": [
+    "Prescription atomique du dépouillement",
+    "Catalogue machine",
+    "Exécution sur `main`",
+    "Tests directs",
+    "Preset IN 2002",
+    "Exclusions ou travail restant"
+  ],
   "exceptionLabels": {
     "decimal-separator": "séparateur décimal",
     "protected-content": "contenu protégé",

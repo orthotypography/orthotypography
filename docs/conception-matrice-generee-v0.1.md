@@ -140,7 +140,7 @@ tableau :
 
 - `scripts/coverage_matrix.ts` lit le catalogue, `compilePreset`, les
   déclarations `covers` des tests et le fichier de données, puis écrit le
-  tableau entre `<!-- matrice:début -->` et `<!-- matrice:fin -->`.
+  tableau entre `<!-- coverage-matrix:start -->` et `<!-- coverage-matrix:end -->`.
 - Colonnes produites pour une ligne liée à une fiche :
 
 | Colonne | Source |

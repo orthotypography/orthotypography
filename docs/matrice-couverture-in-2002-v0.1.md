@@ -54,7 +54,7 @@ compilé, des déclarations `covers` des tests et de
 échoue s’il est périmé. Le modifier à la main serait écrasé
 ([conception](conception-matrice-generee-v0.1.md)).
 
-<!-- matrice:début -->
+<!-- coverage-matrix:start -->
 | Prescription atomique du dépouillement | Catalogue machine | Exécution sur `main` | Tests directs | Preset IN 2002 | Exclusions ou travail restant |
 |---|---|---|---|---|---|
 | `space.before.comma` | `punctuation.comma.no-space-before` | `SAFE_PUNCTUATION_RULES` : `fix` | `integration_test.ts`, `punctuation_test.ts` | oui | contenu protégé ; décimales et syntaxe technique protégées par classification |
@@ -92,7 +92,7 @@ compilé, des déclarations `covers` des tests et de
 | `space.numberEuro` | `number.euro.nbsp-before` | `EURO_SPACING_RULE` : `lint` par défaut, `fix` explicite | `euro_spacing_test.ts` | oui | citation d’une autre convention (revue humaine), devise ambiguë, contenu protégé ; montant classifié et symbole `€` non ambigu |
 | classification des constructions numériques et techniques | `classify.numeric-constructs` | `NUMERIC_PROTECTION_RULE` : classification et protection | `numeric_annotations_test.ts` | oui, `manual-review` | entrée structurée par l’intégration (intégration) ; autorité documentaire sans objet direct ; statut `TO_VERIFY` maintenu |
 | classification des points de suspension | `classify.ellipsis-candidates` | `ELLIPSIS_CLASSIFICATION_RULE` : classification seule, lue par les règles du glyphe et de l’espace initiale (nº 22) | `annotations_test.ts` | oui, `manual-review` | entrée structurée par l’intégration (intégration) ; statut `TO_VERIFY` |
-<!-- matrice:fin -->
+<!-- coverage-matrix:end -->
 
 ## 3. Extensions atomiques retenues
 

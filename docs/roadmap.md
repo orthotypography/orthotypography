@@ -106,15 +106,16 @@ développement suit des commits précis de la ligne `0.2` ; le passage au cœur
    tests et tableau de la matrice généré, vérifié par `deno task check`. La
    revue d’architecture est ainsi entièrement réalisée.
 
-3. **Cohérence documentaire et linguistique.** Auditer les textes hors de
-   `docs/`, traduire leur prose en anglais et actualiser les instructions
-   devenues obsolètes. `CONTRIBUTING.md` et `RELEASING.md` sont traités dans
-   les PR [nº 15](https://github.com/orthotypography/orthotypography/pull/15) et [nº 14](https://github.com/orthotypography/orthotypography/pull/14) ; reste à décider si les
-   descriptions françaises de `src/catalogue/rules.ts` relèvent des données ou
-   de la prose à traduire. Conserver les données
-   linguistiques nécessaires aux règles et aux tests. Terminé lorsque les
-   fichiers concernés respectent `AGENTS.md` et que les commandes documentées
-   correspondent au manifeste courant.
+3. **Cohérence documentaire et linguistique.** Achevée le 20 octobre 2026.
+   `CONTRIBUTING.md` et `RELEASING.md` ont été traités dans les PR
+   [nº 15](https://github.com/orthotypography/orthotypography/pull/15) et
+   [nº 14](https://github.com/orthotypography/orthotypography/pull/14) ; les
+   descriptions et les exceptions du catalogue, prose et non données, sont
+   désormais en anglais. Restent en français, comme données : les exemples
+   linguistiques des règles et des tests, les titres des sources, les citations
+   de la source dans les commentaires et les textes destinés aux documents de
+   `docs/` (en-têtes de la matrice, rapport de mise à jour ISO 4217). Les
+   commandes documentées correspondent au manifeste courant.
 4. **Matrice de couverture.** Première version achevée dans
    [`matrice-couverture-in-2002-v0.1.md`](matrice-couverture-in-2002-v0.1.md),
    vérifiée de nouveau le 19 octobre 2026 pour la préparation de
