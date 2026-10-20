@@ -101,6 +101,10 @@ fails if the release remains incomplete.
 A JSR publication can stall in `deno publish` without failing. For
 `0.2.0-alpha.0`, cancelling the run, waiting a few minutes, and rerunning it
 published to JSR; the rerun skips any registry that already has the version.
+For `0.2.0-alpha.1`, two runs stalled in this step, and the second was
+cancelled after more than 40 minutes. The version had nevertheless reached
+JSR: the third run skipped JSR and published to npm. Check JSR before
+concluding that a stalled run published nothing.
 
 To resume a partial publication, rerun the failed workflow. If the original run
 is no longer available, dispatch `Publish` manually with the existing release
