@@ -11,6 +11,17 @@
     "reviewed": false
   },
   {
+    "file": "dialogues.txt",
+    "domain": "dialogue and quotations",
+    "title": "La Parure (complete)",
+    "author": "Guy de Maupassant (1850–1893)",
+    "url": "https://fr.wikisource.org/wiki/La_Parure",
+    "retrieved": "2026-10-22",
+    "edition": "Contes du jour et de la nuit, C. Marpon et E. Flammarion, 1885, p. 73–93, as transcribed on Wikisource (copied from the page)",
+    "license": "Public domain; Wikisource transcription under CC BY-SA 4.0",
+    "reviewed": false
+  },
+  {
     "file": "technique.txt",
     "domain": "technical text",
     "title": "Guide d’installation d’un service de synchronisation",

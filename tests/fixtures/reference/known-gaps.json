@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "Quoi\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "comment\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "madame\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "Oh\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "changée\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "de toi\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "francs\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  }
+]

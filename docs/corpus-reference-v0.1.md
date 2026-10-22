@@ -1,8 +1,8 @@
 # Corpus de référence v0.1
 
 Statut : outillage et domaine technique en place le 20 octobre 2026, prose
-narrative ajoutée le 22 octobre ; dialogues et domaine administratif en attente
-des extraits du domaine public ;
+narrative et dialogues ajoutés le 22 octobre ; domaine administratif en
+attente des actes officiels ;
 [issue nº 83](https://github.com/orthotypography/orthotypography/issues/83),
 préalable à l’extension du catalogue par lots retenue dans la
 [feuille de route](roadmap.md) (audit du cœur, constat R2).
@@ -29,7 +29,7 @@ proposition sur le texte attendu.
 | --- | --- | --- | --- |
 | `technique.txt` | texte technique : URL, chemins, versions, code, heures, unités | rédigé pour le projet | MIT |
 | `prose.txt` | prose narrative | Maupassant, *Boule de suif*, début (jusqu’au départ de la diligence), édition Project Gutenberg nº 10746 d’après Ollendorff, 1907 | domaine public ; en-tête et licence Gutenberg retirés |
-| à venir | dialogues et citations | Maupassant, *La Parure* | domaine public |
+| `dialogues.txt` | dialogues et citations | Maupassant, *La Parure*, texte complet, *Contes du jour et de la nuit*, Marpon et Flammarion, 1885, transcription Wikisource | domaine public ; transcription sous CC BY-SA 4.0 |
 | à venir | nombres et administration | actes officiels publiés sur Légifrance | actes non protégés par le droit d’auteur ; données de la DILA sous Licence Ouverte |
 
 Visé : 30 000 à 50 000 caractères au total, soit environ 10 000 par domaine.
@@ -56,6 +56,9 @@ ce que le cœur sait faire :
   « 300/kilomètres », « 11 h/30 ») ;
 - apostrophe typographique `U+2019`, ligatures (`œ`) et capitales accentuées
   (`À`) ;
+- `U+00A0` entre une abréviation de civilité et le nom qui la suit
+  (« Mme Loisel »), que le *Lexique* interdit de séparer (rubrique Coupure :
+  « M./et Mme/Durand ») ;
 - tiret d’incise et de dialogue en demi-cadratin `U+2013`, entouré d’espaces
   justifiantes (tableau Tiret) ;
 - syntaxe technique laissée telle quelle ; le code en ligne figure entre
@@ -108,10 +111,16 @@ Relevé du 22 octobre 2026 :
 | Fichier | Caractères | Sur l’attendu | Distance `spaced` | Distance `compact` | Paragraphes dégradés |
 | --- | ---: | ---: | --- | --- | ---: |
 | `prose.txt` | 12 227 | 0 | 304 → 218 | 261 → 218 | 0 |
+| `dialogues.txt` | 16 197 | 7, documentées | 586 → 412 | 499 → 412 | 0 |
 | `technique.txt` | 6 756 | 0 | 244 → 168 | 213 → 168 | 0 |
 
 Sur la prose, le reste tient entièrement à l’apostrophe, que le cœur ne
-convertit pas. Sur le texte technique, il tient aussi aux règles hors preset ou
+convertit pas. Sur les dialogues, il tient à l’apostrophe, au glyphe des points
+de suspension (règle hors preset) et à l’espace insécable après « Mme ». Les
+sept propositions sur le texte attendu sont des signalements sans correction
+de l’espace entre un point d’exclamation et des points de suspension (`!…`),
+que la source ne prescrit pas (exception `suspension-points`, garde-fou) ;
+elles figurent dans `known-gaps.json`. Sur le texte technique, il tient aussi aux règles hors preset ou
 en `lint` (groupement des chiffres, espace avant les unités, glyphe des points
 de suspension) et à l’espace insécable entre nombre et nom, non implémentée.
 
