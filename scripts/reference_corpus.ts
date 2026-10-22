@@ -26,6 +26,7 @@ export interface Source {
   readonly author: string;
   readonly url?: string;
   readonly retrieved?: string;
+  readonly edition?: string;
   readonly license: string;
   readonly reviewed: boolean;
 }
@@ -71,7 +72,8 @@ const typographicSpace = /[\u00a0\u202f]/u;
 
 /**
  * Raw text of an expected paragraph, typed on an ordinary keyboard: no-break
- * spaces become word spaces and the ellipsis glyph three periods; the compact
+ * spaces become word spaces, the ellipsis glyph three periods, and the
+ * typographic apostrophe a straight one; the compact
  * variant also omits the spaces that ordinary typing leaves out around high
  * punctuation and guillemets. Protected code is kept as is.
  */
@@ -84,7 +86,7 @@ export function rawText(paragraph: string, variant: Variant): string {
         .replace(/«[\u00a0\u202f]/gu, "«");
     }
     return text.replace(new RegExp(typographicSpace, "gu"), " ")
-      .replaceAll("…", "...");
+      .replaceAll("…", "...").replaceAll("\u2019", "'");
   }).join("");
 }
 

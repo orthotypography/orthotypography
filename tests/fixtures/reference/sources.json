@@ -1,5 +1,16 @@
 [
   {
+    "file": "prose.txt",
+    "domain": "narrative prose",
+    "title": "Boule de suif (beginning, up to the departure of the coach)",
+    "author": "Guy de Maupassant (1850–1893)",
+    "url": "https://www.gutenberg.org/ebooks/10746",
+    "retrieved": "2026-10-22",
+    "edition": "Project Gutenberg eBook #10746, from the Ollendorff edition (Paris, 1907)",
+    "license": "Public domain; Project Gutenberg header and license removed",
+    "reviewed": false
+  },
+  {
     "file": "technique.txt",
     "domain": "technical text",
     "title": "Guide d’installation d’un service de synchronisation",

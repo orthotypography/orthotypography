@@ -1,7 +1,8 @@
 # Corpus de référence v0.1
 
-Statut : outillage et domaine technique en place le 20 octobre 2026 ; domaines
-littéraire et administratif en attente des extraits du domaine public ;
+Statut : outillage et domaine technique en place le 20 octobre 2026, prose
+narrative ajoutée le 22 octobre ; dialogues et domaine administratif en attente
+des extraits du domaine public ;
 [issue nº 83](https://github.com/orthotypography/orthotypography/issues/83),
 préalable à l’extension du catalogue par lots retenue dans la
 [feuille de route](roadmap.md) (audit du cœur, constat R2).
@@ -27,8 +28,8 @@ proposition sur le texte attendu.
 | Fichier | Domaine | Source | Licence |
 | --- | --- | --- | --- |
 | `technique.txt` | texte technique : URL, chemins, versions, code, heures, unités | rédigé pour le projet | MIT |
-| à venir | prose narrative | œuvre du domaine public (auteur mort avant 1956), transcription Wikisource | œuvre libre ; transcription sous CC BY-SA |
-| à venir | dialogues et citations | idem | idem |
+| `prose.txt` | prose narrative | Maupassant, *Boule de suif*, début (jusqu’au départ de la diligence), édition Project Gutenberg nº 10746 d’après Ollendorff, 1907 | domaine public ; en-tête et licence Gutenberg retirés |
+| à venir | dialogues et citations | Maupassant, *La Parure* | domaine public |
 | à venir | nombres et administration | actes officiels publiés sur Légifrance | actes non protégés par le droit d’auteur ; données de la DILA sous Licence Ouverte |
 
 Visé : 30 000 à 50 000 caractères au total, soit environ 10 000 par domaine.
@@ -53,8 +54,18 @@ ce que le cœur sait faire :
 - `U+00A0` entre un nombre en chiffres et le nom qui le précède ou le suit,
   que le *Lexique* interdit de séparer en fin de ligne (rubrique Coupure :
   « 300/kilomètres », « 11 h/30 ») ;
+- apostrophe typographique `U+2019`, ligatures (`œ`) et capitales accentuées
+  (`À`) ;
+- tiret d’incise et de dialogue en demi-cadratin `U+2013`, entouré d’espaces
+  justifiantes (tableau Tiret) ;
 - syntaxe technique laissée telle quelle ; le code en ligne figure entre
   accents graves et forme des segments protégés.
+
+Pour les textes d’auteur, l’orthographe et la ponctuation de l’édition sont
+conservées : le *Lexique* exclut de modifier la ponctuation des œuvres
+(rubrique Ponctuation). Seule la composition est normalisée (espaces, glyphes,
+ligatures, capitales accentuées), et les fautes manifestes de transcription
+sont corrigées et signalées à la relecture.
 
 Les écarts du cœur sont de deux natures : une proposition sur le texte attendu
 (faux positif, à corriger ou à documenter) et une correction absente sur le
@@ -68,7 +79,7 @@ conventions de saisie au clavier, fixées à l’avance et indépendantes des
 règles :
 
 - variante `spaced` : les espaces insécables deviennent des espaces-mots,
-  `…` devient `...` ;
+  `…` devient `...` et l’apostrophe `’` devient `'` ;
 - variante `compact` : comme `spaced`, mais sans les espaces que la saisie
   courante omet avant `;`, `:`, `?`, `!` et `»`, et après `«`.
 
@@ -92,12 +103,17 @@ La commande échoue si une proposition sur le texte attendu n’est pas
 documentée ; `tests/reference_corpus_test.ts` vérifie la même chose, ainsi que
 l’absence de lacune périmée.
 
-Premier relevé, sur `technique.txt` (6 756 caractères, 23 paragraphes) :
-aucune proposition sur le texte attendu ; sur les textes bruts, la distance
-passe de 146 à 70 caractères (`spaced`) et de 115 à 70 (`compact`), sans
-paragraphe dégradé. Le reste tient aux règles hors preset ou en `lint`
-(groupement des chiffres, espace avant les unités, glyphe des points de
-suspension) et à l’espace insécable entre nombre et nom, non implémentée.
+Relevé du 22 octobre 2026 :
+
+| Fichier | Caractères | Sur l’attendu | Distance `spaced` | Distance `compact` | Paragraphes dégradés |
+| --- | ---: | ---: | --- | --- | ---: |
+| `prose.txt` | 12 227 | 0 | 304 → 218 | 261 → 218 | 0 |
+| `technique.txt` | 6 756 | 0 | 244 → 168 | 213 → 168 | 0 |
+
+Sur la prose, le reste tient entièrement à l’apostrophe, que le cœur ne
+convertit pas. Sur le texte technique, il tient aussi aux règles hors preset ou
+en `lint` (groupement des chiffres, espace avant les unités, glyphe des points
+de suspension) et à l’espace insécable entre nombre et nom, non implémentée.
 
 ## 6. Relecture
 

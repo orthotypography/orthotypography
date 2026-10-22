@@ -56,14 +56,14 @@ Deno.test("every reference file records its source and license", async () => {
 
 Deno.test("raw texts follow ordinary typing conventions", () => {
   const expected =
-    "Note\u00a0: oui\u202f; «\u00a0bien\u00a0» et 12\u202f345\u00a0km… `a\u00a0: b…`";
+    "Note\u00a0: l\u2019oui\u202f; «\u00a0bien\u00a0» et 12\u202f345\u00a0km… `a\u00a0: b…`";
   assert.equal(
     rawText(expected, "spaced"),
-    "Note : oui ; « bien » et 12 345 km... `a\u00a0: b…`",
+    "Note : l'oui ; « bien » et 12 345 km... `a\u00a0: b…`",
   );
   assert.equal(
     rawText(expected, "compact"),
-    "Note: oui; «bien» et 12 345 km... `a\u00a0: b…`",
+    "Note: l'oui; «bien» et 12 345 km... `a\u00a0: b…`",
   );
   assert.deepEqual(
     segments("voir `x: y` ici").map(({ value, protected: p }) => [value, !!p]),
