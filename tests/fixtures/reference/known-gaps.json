@@ -1,0 +1,51 @@
+[
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "Quoi\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "comment\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "madame\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "Oh\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "changée\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "de toi\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "dialogues.txt",
+    "ruleId": "punctuation.exclamation.space-after",
+    "excerpt": "francs\u202f!…",
+    "reason": "Reported for review, not corrected: the Lexique keeps the punctuation next to suspension points but does not prescribe the spacing between them, so the rule reports it (exception suspension-points, a safeguard)."
+  },
+  {
+    "file": "vitesses.txt",
+    "ruleId": "number.unit.nbsp-before",
+    "excerpt": "mars 2018 au 11",
+    "reason": "False positive: the numeric classifier reads the year and the French contraction “au” as a measurement in astronomical units, so the unit rule proposes a no-break space, and applies it in fix mode. The unit symbol “au” needs an exclusion for the French word.",
+    "issue": "https://github.com/orthotypography/orthotypography/issues/91"
+  }
+]

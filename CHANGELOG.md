@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Add a reference corpus measured by `deno task corpus:reference` (#83;
+  `docs/corpus-reference-v0.1.md`): expected texts typeset by hand, raw texts
+  derived by fixed typing conventions, and a test that fails on any
+  undocumented proposal on the expected text. The package is unchanged.
+
 - Declare the origin of catalogue exceptions (#82;
   `docs/conception-ecriture-regles-v0.1.md`). **Breaking for code that builds
   or reads `RuleDefinition`:** `RuleException` gains a required

@@ -42,6 +42,7 @@
     "doc": "deno doc src/mod.ts src/catalogue/mod.ts src/registry/mod.ts",
     "test": "deno test --allow-read=tests",
     "corpus:update": "deno run --allow-read=tests/fixtures --allow-write=tests/fixtures/corpus/snapshots.json tests/support/corpus.ts",
+    "corpus:reference": "deno run --allow-read=tests/fixtures scripts/reference_corpus.ts",
     "bench": "deno run --allow-read=tests/fixtures scripts/benchmark.ts",
     "publish:check": "deno publish --dry-run --check=all",
     "npm:build": "deno run -A scripts/build_npm.ts",
