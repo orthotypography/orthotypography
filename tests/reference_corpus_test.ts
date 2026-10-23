@@ -69,6 +69,7 @@ Deno.test("raw texts follow ordinary typing conventions", () => {
     segments("voir `x: y` ici").map(({ value, protected: p }) => [value, !!p]),
     [["voir ", false], ["`x: y`", true], [" ici", false]],
   );
+  assert.equal(rawText("nº\u00a012, 1º", "spaced"), "n° 12, 1°");
   assert.deepEqual(paragraphs("a\nb\n\n  \nc\n"), ["a\nb", "c"]);
 });
 

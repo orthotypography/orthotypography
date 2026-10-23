@@ -1,8 +1,8 @@
 # Corpus de référence v0.1
 
 Statut : outillage et domaine technique en place le 20 octobre 2026, prose
-narrative et dialogues ajoutés le 22 octobre ; domaine administratif en
-attente des actes officiels ;
+narrative et dialogues ajoutés le 22 octobre, actes officiels le 23 octobre ;
+textes attendus en attente de relecture ;
 [issue nº 83](https://github.com/orthotypography/orthotypography/issues/83),
 préalable à l’extension du catalogue par lots retenue dans la
 [feuille de route](roadmap.md) (audit du cœur, constat R2).
@@ -30,7 +30,9 @@ proposition sur le texte attendu.
 | `technique.txt` | texte technique : URL, chemins, versions, code, heures, unités | rédigé pour le projet | MIT |
 | `prose.txt` | prose narrative | Maupassant, *Boule de suif*, début (jusqu’au départ de la diligence), édition Project Gutenberg nº 10746 d’après Ollendorff, 1907 | domaine public ; en-tête et licence Gutenberg retirés |
 | `dialogues.txt` | dialogues et citations | Maupassant, *La Parure*, texte complet, *Contes du jour et de la nuit*, Marpon et Flammarion, 1885, transcription Wikisource | domaine public ; transcription sous CC BY-SA 4.0 |
-| à venir | nombres et administration | actes officiels publiés sur Légifrance | actes non protégés par le droit d’auteur ; données de la DILA sous Licence Ouverte |
+| `smic.txt` | nombres et administration | décret nº 2025-1228 du 17 décembre 2025 portant relèvement du SMIC, sans les signatures | acte officiel non protégé ; données de la DILA sous Licence Ouverte 2.0 |
+| `vitesses.txt` | nombres et administration | décret nº 2018-487 du 15 juin 2018 relatif aux vitesses maximales autorisées, sans les signatures | acte officiel non protégé |
+| `finances.txt` | nombres et administration | loi nº 2018-1317 de finances pour 2019, article 2, sans les e et f du 3º, signalés par `[…]` | acte officiel non protégé ; données de la DILA sous Licence Ouverte 2.0 |
 
 Visé : 30 000 à 50 000 caractères au total, soit environ 10 000 par domaine.
 Les extraits du domaine public sont fournis par le responsable du projet, faute
@@ -58,7 +60,11 @@ ce que le cœur sait faire :
   (`À`) ;
 - `U+00A0` entre une abréviation de civilité et le nom qui la suit
   (« Mme Loisel »), que le *Lexique* interdit de séparer (rubrique Coupure :
-  « M./et Mme/Durand ») ;
+  « M./et Mme/Durand »), et entre une abréviation et le nombre qui la suit
+  (« nº 2018-487 », « Art. 2 », « R. 413-2 ») ;
+- `U+00BA` pour le *o* supérieur de « nº » et de « 1º », « 2º » (*primo*,
+  *secundo*), dont le *Lexique* précise qu’il est « un *o* et non un zéro » ;
+  les actes officiels de Légifrance emploient le signe degré `U+00B0` ;
 - tiret d’incise et de dialogue en demi-cadratin `U+2013`, entouré d’espaces
   justifiantes (tableau Tiret) ;
 - syntaxe technique laissée telle quelle ; le code en ligne figure entre
@@ -82,7 +88,8 @@ conventions de saisie au clavier, fixées à l’avance et indépendantes des
 règles :
 
 - variante `spaced` : les espaces insécables deviennent des espaces-mots,
-  `…` devient `...` et l’apostrophe `’` devient `'` ;
+  `…` devient `...`, l’apostrophe `’` devient `'` et le *o* supérieur `º`
+  devient le signe degré `°` ;
 - variante `compact` : comme `spaced`, mais sans les espaces que la saisie
   courante omet avant `;`, `:`, `?`, `!` et `»`, et après `«`.
 
@@ -112,6 +119,9 @@ Relevé du 22 octobre 2026 :
 | --- | ---: | ---: | --- | --- | ---: |
 | `prose.txt` | 12 227 | 0 | 304 → 218 | 261 → 218 | 0 |
 | `dialogues.txt` | 16 197 | 7, documentées | 586 → 412 | 499 → 412 | 0 |
+| `smic.txt` | 4 235 | 0 | 246 → 204 | 227 → 204 | 0 |
+| `vitesses.txt` | 3 385 | 1, documentée | 200 → 110 | 162 → 110 | 1 |
+| `finances.txt` | 5 805 | 0 | 910 → 214 | 626 → 214 | 0 |
 | `technique.txt` | 6 756 | 0 | 244 → 168 | 213 → 168 | 0 |
 
 Sur la prose, le reste tient entièrement à l’apostrophe, que le cœur ne
@@ -120,7 +130,15 @@ de suspension (règle hors preset) et à l’espace insécable après « Mme ».
 sept propositions sur le texte attendu sont des signalements sans correction
 de l’espace entre un point d’exclamation et des points de suspension (`!…`),
 que la source ne prescrit pas (exception `suspension-points`, garde-fou) ;
-elles figurent dans `known-gaps.json`. Sur le texte technique, il tient aussi aux règles hors preset ou
+elles figurent dans `known-gaps.json`.
+
+Sur les actes officiels, le reste tient au *o* supérieur, aux espaces
+insécables après les abréviations et entre nombre et nom, et au groupement des
+chiffres hors des montants classifiés. Le corpus révèle un faux positif réel :
+dans « du 21 mars 2018 au 11 avril », la classification lit « 2018 au » comme
+une mesure en unités astronomiques, et la règle des unités propose une espace
+insécable, qu’elle applique en mode `fix` explicite ; c’est le paragraphe
+dégradé de `vitesses.txt`. La même lecture touche « de 5 au 10 mai ». Sur le texte technique, il tient aussi aux règles hors preset ou
 en `lint` (groupement des chiffres, espace avant les unités, glyphe des points
 de suspension) et à l’espace insécable entre nombre et nom, non implémentée.
 
